@@ -7,10 +7,11 @@
 //
 
 import XCTest
+@testable import AllisonsCatPalaceTDD
 
 class CatTests: XCTestCase {
 
-    let cat = Cat(name: "CatOne", id: 1)
+    let cat = Cat(name: "CatOne", identifier: 1)
 
     func testCreateCat() {
         XCTAssertEqual(cat.name, "CatOne", "Cat name was set incorrectly")

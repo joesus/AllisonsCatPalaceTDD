@@ -14,6 +14,7 @@
 		276C61B81E2C0A1900225CF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 276C61B71E2C0A1900225CF4 /* Main.storyboard */; };
 		276C61BA1E2C138E00225CF4 /* ExternalCatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276C61B91E2C138E00225CF4 /* ExternalCatTests.swift */; };
 		276C61BC1E2C183300225CF4 /* ExternalCat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276C61BB1E2C183300225CF4 /* ExternalCat.swift */; };
+		276C61C01E2C1AFF00225CF4 /* CatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276C61BF1E2C1AFF00225CF4 /* CatTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		276C61B71E2C0A1900225CF4 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		276C61B91E2C138E00225CF4 /* ExternalCatTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalCatTests.swift; sourceTree = "<group>"; };
 		276C61BB1E2C183300225CF4 /* ExternalCat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalCat.swift; sourceTree = "<group>"; };
+		276C61BF1E2C1AFF00225CF4 /* CatTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				276C61AC1E2C062200225CF4 /* Info.plist */,
 				276C61B51E2C068900225CF4 /* AppDelegateTests.swift */,
 				276C61B91E2C138E00225CF4 /* ExternalCatTests.swift */,
+				276C61BF1E2C1AFF00225CF4 /* CatTests.swift */,
 			);
 			path = AllisonsCatPalaceTDDTests;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				276C61B61E2C068900225CF4 /* AppDelegateTests.swift in Sources */,
+				276C61C01E2C1AFF00225CF4 /* CatTests.swift in Sources */,
 				276C61BA1E2C138E00225CF4 /* ExternalCatTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

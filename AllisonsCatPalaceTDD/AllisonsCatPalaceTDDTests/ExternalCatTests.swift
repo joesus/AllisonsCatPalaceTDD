@@ -18,4 +18,22 @@ class ExternalCatTests: XCTestCase {
         XCTAssertEqual(cat.name, "CatOne", "Cat name was set incorrectly")
         XCTAssertEqual(cat.identifier, 1, "Cat Id was set incorrectly")
     }
+
+    func testCreateExternalCatWithOutIdAndName() {
+        cat = ExternalCat(name: nil, identifier: nil)
+        XCTAssertNil(cat.name, "Cat name should be missing")
+        XCTAssertNil(cat.identifier, "Cat Id should be missing")
+    }
+
+    func testCreateExternalCatWithOnlyName() {
+        cat = ExternalCat(name: "CatOne", identifier: nil)
+        XCTAssertEqual(cat.name, "CatOne", "Cat name was set incorrectly")
+        XCTAssertNil(cat.identifier, "Cat Id should be missing")
+    }
+
+    func testCreateExternalCatWithOnlyId() {
+        cat = ExternalCat(name: nil, identifier: 1)
+        XCTAssertNil(cat.name, "Cat name should be missing")
+        XCTAssertEqual(cat.identifier, 1, "Cat Id was set incorrectly")
+    }
 }

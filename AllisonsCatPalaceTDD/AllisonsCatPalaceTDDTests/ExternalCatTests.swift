@@ -14,9 +14,8 @@ class ExternalCatTests: XCTestCase {
     var cat: ExternalCat!
 
     func testCreateExternalCatWithIdAndName() {
-        cat = ExternalCat(id: 1, name: "CatOne")
+        cat = ExternalCat(name: "CatOne", identifier: 1)
         XCTAssertEqual(cat.name, "CatOne", "Cat name was set incorrectly")
-        XCTAssertEqual(cat.id, 1, "Cat Id was set incorrectly")
+        XCTAssertEqual(cat.identifier, 1, "Cat Id was set incorrectly")
     }
-
 }

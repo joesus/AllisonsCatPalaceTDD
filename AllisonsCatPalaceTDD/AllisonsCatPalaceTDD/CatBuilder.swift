@@ -15,4 +15,10 @@ class CatBuilder {
                            identifier: json[ExternalCat.ServerKeys.id] as? Int
         )
     }
+
+    static func buildCatFromExternalCat(_ cat: ExternalCat) -> Cat? {
+        guard let name = cat.name, let identifier = cat.identifier else { return nil }
+
+        return Cat(name: name, identifier: identifier)
+    }
 }

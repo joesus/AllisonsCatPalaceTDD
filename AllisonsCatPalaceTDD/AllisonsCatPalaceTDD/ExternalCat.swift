@@ -12,3 +12,11 @@ struct ExternalCat {
     let name: String?
     let identifier: Int?
 }
+
+extension ExternalCat {
+
+    enum ServerKeys {
+        static let name = "name"
+        static let id = "id"
+    }
+}

@@ -17,6 +17,7 @@
 		276C61C01E2C1AFF00225CF4 /* CatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276C61BF1E2C1AFF00225CF4 /* CatTests.swift */; };
 		276C61C21E2C1C0E00225CF4 /* Cat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276C61C11E2C1C0E00225CF4 /* Cat.swift */; };
 		276C61C41E2C1D8600225CF4 /* CatBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276C61C31E2C1D8600225CF4 /* CatBuilderTests.swift */; };
+		276C61C61E2D728800225CF4 /* CatBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276C61C51E2D728800225CF4 /* CatBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		276C61BF1E2C1AFF00225CF4 /* CatTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatTests.swift; sourceTree = "<group>"; };
 		276C61C11E2C1C0E00225CF4 /* Cat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cat.swift; sourceTree = "<group>"; };
 		276C61C31E2C1D8600225CF4 /* CatBuilderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatBuilderTests.swift; sourceTree = "<group>"; };
+		276C61C51E2D728800225CF4 /* CatBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 				276C61B71E2C0A1900225CF4 /* Main.storyboard */,
 				276C61BB1E2C183300225CF4 /* ExternalCat.swift */,
 				276C61C11E2C1C0E00225CF4 /* Cat.swift */,
+				276C61C51E2D728800225CF4 /* CatBuilder.swift */,
 			);
 			path = AllisonsCatPalaceTDD;
 			sourceTree = "<group>";
@@ -215,6 +218,7 @@
 			files = (
 				276C61961E2C062200225CF4 /* AppDelegate.swift in Sources */,
 				276C61BC1E2C183300225CF4 /* ExternalCat.swift in Sources */,
+				276C61C61E2D728800225CF4 /* CatBuilder.swift in Sources */,
 				276C61C21E2C1C0E00225CF4 /* Cat.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

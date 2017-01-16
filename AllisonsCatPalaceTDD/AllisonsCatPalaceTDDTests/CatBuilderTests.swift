@@ -11,7 +11,7 @@ import XCTest
 
 class CatBuilderTests: XCTestCase {
 
-    let externalCat: ExternalCat!
+    var externalCat: ExternalCat!
 
     func testBuildingExternalCatWithEmptyDictionary() {
         externalCat = CatBuilder.buildExternalCatFromJSON(CatData.invalid)

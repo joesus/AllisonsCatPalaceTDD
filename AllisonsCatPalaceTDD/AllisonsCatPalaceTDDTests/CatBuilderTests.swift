@@ -12,6 +12,7 @@ import XCTest
 class CatBuilderTests: XCTestCase {
 
     var externalCat: ExternalCat!
+    var cat: Cat?
 
     func testBuildingExternalCatWithEmptyDictionary() {
         externalCat = CatBuilder.buildExternalCatFromJSON(CatData.invalid)
@@ -26,11 +27,20 @@ class CatBuilderTests: XCTestCase {
     }
 
     func testBuildingCatFromValidExternalCat() {
+        externalCat = CatBuilder.buildExternalCatFromJSON(CatData.valid)
+        cat = CatBuilder.buildCatFromExternalCat(externalCat)
+        guard let cat = cat else {
+            return XCTFail("Cat should exist after being build from external cat")
+        }
+
+        XCTAssertEqual(cat.name, "CatOne", "Cat name was set incorrectly")
+        XCTAssertEqual(cat.identifier, 1, "Cat Id was set incorrectly")
     }
 
-    func testBuildingCatFromInvalidExternalCat() {
+    func testBuildingCatFromExternalCatWithInvalidNameAndId() {
+        externalCat = CatBuilder.buildExternalCatFromJSON(CatData.invalid)
+        XCTAssertNil(CatBuilder.buildCatFromExternalCat(externalCat), "Cat should not be constructed if externalCat name and id are nil")
     }
-
 }
 
 struct CatData {

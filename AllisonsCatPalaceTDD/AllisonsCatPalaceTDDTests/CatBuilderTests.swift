@@ -14,20 +14,8 @@ class CatBuilderTests: XCTestCase {
     var externalCat: ExternalCat!
     var cat: Cat?
 
-    func testBuildingExternalCatWithEmptyDictionary() {
-        externalCat = CatBuilder.buildExternalCatFromJSON(CatData.invalid)
-        XCTAssertNil(externalCat.name, "Cat name should be missing")
-        XCTAssertNil(externalCat.identifier, "Cat Id should be missing")
-    }
-
-    func testBuildingExternalCatFromJSON() {
-        externalCat = CatBuilder.buildExternalCatFromJSON(CatData.valid)
-        XCTAssertEqual(externalCat.name, "CatOne", "Cat name was set incorrectly")
-        XCTAssertEqual(externalCat.identifier, 1, "Cat Id was set incorrectly")
-    }
-
     func testBuildingCatFromValidExternalCat() {
-        externalCat = CatBuilder.buildExternalCatFromJSON(CatData.valid)
+        externalCat = CatData.valid
         cat = CatBuilder.buildCatFromExternalCat(externalCat)
         guard let cat = cat else {
             return XCTFail("Cat should exist after being build from external cat")
@@ -38,7 +26,7 @@ class CatBuilderTests: XCTestCase {
     }
 
     func testBuildingCatFromExternalCatWithInvalidNameAndId() {
-        externalCat = CatBuilder.buildExternalCatFromJSON(CatData.invalid)
+        externalCat = CatData.invalid
         XCTAssertNil(CatBuilder.buildCatFromExternalCat(externalCat), "Cat should not be constructed if externalCat name and id are nil")
     }
 }

@@ -17,10 +17,12 @@ class CatNetworkerTests: XCTestCase {
         super.setUp()
 
         URLSessionTask.beginSpyingOnResume()
+        URLSessionTask.beginSpyingOnCancel()
     }
 
     override func tearDown() {
         URLSessionTask.endSpyingOnResume()
+        URLSessionTask.endSpyingOnCancel()
 
         super.tearDown()
     }

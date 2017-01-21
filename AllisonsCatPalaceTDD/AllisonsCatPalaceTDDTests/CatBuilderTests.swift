@@ -25,13 +25,24 @@ class CatBuilderTests: XCTestCase {
         XCTAssertEqual(cat.identifier, 1, "Cat Id was set incorrectly")
     }
 
-    func testBuildingCatFromExternalCatWithInvalidNameAndId() {
+    func testBuildingCatFromExternalCatWithMissingData() {
         externalCat = CatData.invalid
         XCTAssertNil(CatBuilder.buildCatFromExternalCat(externalCat), "Cat should not be constructed if externalCat name and id are nil")
+    }
+
+    func testBuildingCatFromExternalCatWithMissingName() {
+        externalCat = CatData.missingName
+        XCTAssertNil(CatBuilder.buildCatFromExternalCat(externalCat), "Cat should not be constructed if externalCat name is nil")
+    }
+    func testBuildingCatFromExternalCatWithMissingIdentifier() {
+        externalCat = CatData.missingIdentifier
+        XCTAssertNil(CatBuilder.buildCatFromExternalCat(externalCat), "Cat should not be constructed if externalCat id is nil")
     }
 }
 
 struct CatData {
     static let valid: [String: Any] = ["name": "CatOne", "id": 1]
+    static let missingIdentifier: [String: Any] = ["name": "CatOne"]
+    static let missingName: [String: Any] = ["id": 1]
     static let invalid: [String: Any] = [:]
 }

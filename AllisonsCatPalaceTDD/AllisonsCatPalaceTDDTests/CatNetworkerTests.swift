@@ -13,15 +13,27 @@ class CatNetworkerTests: XCTestCase {
 
     var taskRetrievalExpectation: XCTestExpectation!
 
+    override func setUp() {
+        super.setUp()
+
+        URLSessionTask.beginSpyingOnResume()
+    }
+
+    override func tearDown() {
+        URLSessionTask.endSpyingOnResume()
+
+        super.tearDown()
+    }
+
     func testNetworkerSessionIsSharedSession() {
         XCTAssertEqual(CatNetworker.session, URLSession.shared, "Networker should be using the shared session")
     }
 
     func testCreatingRetrieveAllCatsTask() {
-        let potentialTask = getFirstDataTask()
+        CatNetworker.retrieveAllCats(success: {_ in})
 
-        guard let task = potentialTask else {
-            return XCTFail("A task should be created for retrieving all cats")
+        guard let task = URLSession.lastResumedDataTask else {
+            return XCTFail("A task should have been started")
         }
 
         guard let request = task.currentRequest else {
@@ -31,24 +43,80 @@ class CatNetworkerTests: XCTestCase {
         XCTAssertEqual(request.httpMethod, "GET", "The request method for retrieving a cat should be get")
         XCTAssertEqual(request.url?.host, "example.com", "The domain should be firebase")
         XCTAssertEqual(request.url?.path, "/cats", "The path should be cats")
+        XCTAssert(task.resumeWasCalled, "task should be started")
+
+        task.resumeWasCalled = false
     }
 
     func testNewRetrieveAllCatsTaskCancelsExistingTask() {}
 }
 
 extension CatNetworkerTests {
-    func getFirstDataTask() -> URLSessionTask? {
-        CatNetworker.retrieveAllCats(success: {_ in})
 
-        var potentialTask: URLSessionTask?
-        taskRetrievalExpectation = expectation(description: "Got tasks")
-        CatNetworker.session.getAllTasks { [weak self] tasks in
-            self?.taskRetrievalExpectation.fulfill()
-            if !tasks.isEmpty {
-                potentialTask = tasks[0]
-            }
+    func hasDataTask() -> Bool {
+        var hasTasks = false
+
+        CatNetworker.session.getAllTasks { tasks in
+            hasTasks = !tasks.isEmpty
         }
-        waitForExpectations(timeout: 1, handler: nil)
-        return potentialTask
+        return hasTasks
     }
 }
+
+//MARK: - Keys for associated objects
+fileprivate let resumeWasCalledUniqueString = NSUUID().uuidString.cString(using: .utf8)!
+fileprivate let resumeWasCalledKey = UnsafeRawPointer(resumeWasCalledUniqueString)
+
+fileprivate let lastResumedDataTaskString = NSUUID().uuidString.cString(using: .utf8)!
+fileprivate let lastResumedDataTaskKey = UnsafeRawPointer(lastResumedDataTaskString)
+
+//MARK: - URLSession extension for associated objects
+// This is just to be able to access the task
+extension URLSession {
+    class var lastResumedDataTask: URLSessionTask? {
+        get {
+            let storedValue = objc_getAssociatedObject(self, lastResumedDataTaskKey)
+            return storedValue as? URLSessionTask
+        }
+        set {
+            objc_setAssociatedObject(self, lastResumedDataTaskKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+}
+
+//MARK: - URLSessionTask extension for spying on resume()
+extension URLSessionTask {
+    var resumeWasCalled: Bool {
+        get {
+            let storedValue = objc_getAssociatedObject(self, resumeWasCalledKey)
+            return storedValue as? Bool ?? false
+        }
+        set {
+            objc_setAssociatedObject(self, resumeWasCalledKey, true, .OBJC_ASSOCIATION_ASSIGN)
+        }
+    }
+
+    // This is the magical part, setting the associated objects to make sure everything is in the right place
+    dynamic func _spyResume() {
+        URLSession.lastResumedDataTask = self
+        resumeWasCalled = true
+    }
+
+    class func beginSpyingOnResume() {
+        swapMethods()
+    }
+
+    class func endSpyingOnResume() {
+        swapMethods()
+    }
+
+    class func swapMethods() {
+        let type: AnyClass = objc_getClass("__NSCFLocalDataTask") as! AnyClass
+        let originalMethod = class_getInstanceMethod(type, #selector(URLSessionTask.resume))
+        let alternateMethod = class_getInstanceMethod(type, #selector(URLSessionTask._spyResume))
+
+        method_exchangeImplementations(originalMethod, alternateMethod)
+    }
+}
+
+

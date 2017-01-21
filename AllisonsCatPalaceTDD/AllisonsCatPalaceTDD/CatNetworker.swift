@@ -15,7 +15,7 @@ enum CatNetworker {
     static var session = URLSession.shared
 
     static func retrieveAllCats(success: CatRetrievalSuccessHandler, failure: CatRetrievalErrorHandler? = nil) {
-        session.dataTask(with: URL(string: "http://example.com/cats")!).resume()
-
+        let task = session.dataTask(with: URL(string: "http://example.com/cats")!)
+        task.resume()
     }
 }

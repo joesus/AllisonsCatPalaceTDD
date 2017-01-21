@@ -7,8 +7,9 @@
 //
 
 import Foundation
+typealias ExternalCat = [String: Any]
 
-struct ExternalCat {
-    let name: String?
-    let identifier: Int?
+enum ExternalCatKeys {
+    static let name = "name"
+    static let id = "id"
 }

@@ -18,11 +18,13 @@ class CatNetworkerTests: XCTestCase {
 
         URLSessionTask.beginSpyingOnResume()
         URLSessionTask.beginSpyingOnCancel()
+        URLSession.beginSpyingOnDataTaskCreation()
     }
 
     override func tearDown() {
         URLSessionTask.endSpyingOnResume()
         URLSessionTask.endSpyingOnCancel()
+        URLSession.endSpyingOnDataTaskCreation()
 
         super.tearDown()
     }
@@ -32,9 +34,9 @@ class CatNetworkerTests: XCTestCase {
     }
 
     func testCreatingRetrieveAllCatsTask() {
-        CatNetworker.retrieveAllCats(success: {_ in})
+        CatNetworker.retrieveAllCats {_ in}
 
-        guard let task = URLSession.lastResumedDataTask else {
+        guard let task = CatNetworker.session.lastResumedDataTask else {
             return XCTFail("A task should have been created")
         }
 
@@ -52,14 +54,71 @@ class CatNetworkerTests: XCTestCase {
     }
 
     func testNewRetrieveAllCatsTaskCancelsExistingTask() {
-        CatNetworker.retrieveAllCats(success: {_ in})
+        CatNetworker.retrieveAllCats { _ in }
 
-        guard let firstTask = URLSession.lastResumedDataTask else {
+        guard let firstTask = CatNetworker.session.lastResumedDataTask else {
             fatalError("A task should have been created")
         }
-        CatNetworker.retrieveAllCats(success: {_ in})
+        CatNetworker.retrieveAllCats { _ in }
         XCTAssertTrue(firstTask.cancelWasCalled, "Any outstanding retrieval tasks should be cancelled when a new request is made")
     }
+
+    func testHandlingRetrieveAllCatsNetworkFailure() {
+        var receivedError: NSError?
+
+        CatNetworker.retrieveAllCats { result in
+            if case let .failure(error) = result {
+                receivedError = error as NSError
+            }
+        }
+        let unboxedHandler = CatNetworker.session.capturedCompletionHandler?.unbox()
+        unboxedHandler?(nil, nil, fakeNetworkError)
+        XCTAssertEqual(receivedError, fakeNetworkError, "the network error should be passed to the completion handler")
+    }
+
+    func testHandlingMissingCatEndpoint() {
+        var receivedError: CatNetworkError?
+
+        CatNetworker.retrieveAllCats { result in
+            if case let .failure(error) = result {
+                receivedError = error as? CatNetworkError
+            }
+        }
+        let unboxedHandler = CatNetworker.session.capturedCompletionHandler?.unbox()
+        unboxedHandler?(nil, missingCatResponse, nil)
+        XCTAssertEqual(receivedError?.message, "Cat service unavailable", "missing cat endpoint should provide a service unavailable message")
+    }
+
+    func testHandlingMissingDataWithValidResponse() {
+        var receivedError: CatNetworkError?
+
+        CatNetworker.retrieveAllCats { result in
+            if case let .failure(error) = result {
+                receivedError = error as? CatNetworkError
+            }
+        }
+        let unboxedHandler = CatNetworker.session.capturedCompletionHandler?.unbox()
+        unboxedHandler?(nil, successfulCatResponse, nil)
+        XCTAssertEqual(receivedError?.message, "Missing Data", "cat retrieval with missing data and success code should fail")
+    }
+
+    func testBadData() {
+    }
+
+    func testRetrievingAllCats() {
+//        var retrievedCats: [Cat]?
+//        let data = try! JSONSerialization.data(withJSONObject: ExternalCatData.valid)
+//
+//        CatNetworker.retrieveAllCats { result in
+//            if case let .success(cats) = result {
+//                retrievedCats = cats
+//            }
+//        }
+//        let unboxedHandler = CatNetworker.session.capturedCompletionHandler?.unbox()
+//        unboxedHandler?(data, successfulCatResponse, nil)
+//        XCTAssertEqual(retrievedCats?.first?.name, "CatOne", "cat retrieval should produce with array with correct cats")
+    }
+
 }
 
 extension CatNetworkerTests {
@@ -74,87 +133,6 @@ extension CatNetworkerTests {
     }
 }
 
-//MARK: - Keys for associated objects
-fileprivate let resumeWasCalledUniqueString = NSUUID().uuidString.cString(using: .utf8)!
-fileprivate let resumeWasCalledKey = UnsafeRawPointer(resumeWasCalledUniqueString)
-
-fileprivate let lastResumedDataTaskString = NSUUID().uuidString.cString(using: .utf8)!
-fileprivate let lastResumedDataTaskKey = UnsafeRawPointer(lastResumedDataTaskString)
-
-fileprivate let cancelWasCalledString = NSUUID().uuidString.cString(using: .utf8)!
-fileprivate let cancelWasCalledKey = UnsafeRawPointer(cancelWasCalledString)
-
-//MARK: - URLSession extension for associated objects
-// This is just to be able to access the task
-extension URLSession {
-    class var lastResumedDataTask: URLSessionTask? {
-        get {
-            let storedValue = objc_getAssociatedObject(self, lastResumedDataTaskKey)
-            return storedValue as? URLSessionTask
-        }
-        set {
-            objc_setAssociatedObject(self, lastResumedDataTaskKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
+enum TestError: Error {
+    case error
 }
-
-//MARK: - URLSessionTask extension for spying on resume()
-extension URLSessionTask {
-
-    var cancelWasCalled: Bool {
-        get {
-            let storedValue = objc_getAssociatedObject(self, cancelWasCalledKey)
-            return storedValue as? Bool ?? false
-        }
-        set {
-            objc_setAssociatedObject(self, cancelWasCalledKey, true, .OBJC_ASSOCIATION_ASSIGN)
-        }
-    }
-
-    var resumeWasCalled: Bool {
-        get {
-            let storedValue = objc_getAssociatedObject(self, resumeWasCalledKey)
-            return storedValue as? Bool ?? false
-        }
-        set {
-            objc_setAssociatedObject(self, resumeWasCalledKey, true, .OBJC_ASSOCIATION_ASSIGN)
-        }
-    }
-
-    // This is the magical part, setting the associated objects to make sure everything is in the right place
-    dynamic func _spyResume() {
-        URLSession.lastResumedDataTask = self
-        resumeWasCalled = true
-    }
-
-    class func beginSpyingOnResume() {
-        swapMethods(originalSelector: #selector(URLSessionTask.resume), alternateSelector: #selector(URLSessionTask._spyResume))
-    }
-
-    class func endSpyingOnResume() {
-        swapMethods(originalSelector: #selector(URLSessionTask.resume), alternateSelector: #selector(URLSessionTask._spyResume))
-    }
-
-    dynamic func _spyCancel() {
-        cancelWasCalled = true
-    }
-
-    class func beginSpyingOnCancel() {
-        swapMethods(originalSelector: #selector(URLSessionTask.cancel), alternateSelector: #selector(URLSessionTask._spyCancel))
-    }
-
-    class func endSpyingOnCancel() {
-        swapMethods(originalSelector: #selector(URLSessionTask.cancel), alternateSelector: #selector(URLSessionTask._spyCancel))
-    }
-
-
-    class func swapMethods(originalSelector: Selector, alternateSelector: Selector) {
-        let type: AnyClass = objc_getClass("__NSCFLocalDataTask") as! AnyClass
-        let originalMethod = class_getInstanceMethod(type, originalSelector)
-        let alternateMethod = class_getInstanceMethod(type, alternateSelector)
-
-        method_exchangeImplementations(originalMethod, alternateMethod)
-    }
-}
-
-

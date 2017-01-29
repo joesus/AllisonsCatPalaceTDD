@@ -15,7 +15,7 @@ class CatBuilderTests: XCTestCase {
     var cat: Cat?
 
     func testBuildingCatFromValidExternalCat() {
-        externalCat = CatData.valid
+        externalCat = ExternalCatData.valid
         cat = CatBuilder.buildCatFromExternalCat(externalCat)
         guard let cat = cat else {
             return XCTFail("Cat should exist after being build from external cat")
@@ -26,23 +26,16 @@ class CatBuilderTests: XCTestCase {
     }
 
     func testBuildingCatFromExternalCatWithMissingData() {
-        externalCat = CatData.invalid
+        externalCat = ExternalCatData.invalid
         XCTAssertNil(CatBuilder.buildCatFromExternalCat(externalCat), "Cat should not be constructed if externalCat name and id are nil")
     }
 
     func testBuildingCatFromExternalCatWithMissingName() {
-        externalCat = CatData.missingName
+        externalCat = ExternalCatData.missingName
         XCTAssertNil(CatBuilder.buildCatFromExternalCat(externalCat), "Cat should not be constructed if externalCat name is nil")
     }
     func testBuildingCatFromExternalCatWithMissingIdentifier() {
-        externalCat = CatData.missingIdentifier
+        externalCat = ExternalCatData.missingIdentifier
         XCTAssertNil(CatBuilder.buildCatFromExternalCat(externalCat), "Cat should not be constructed if externalCat id is nil")
     }
-}
-
-struct CatData {
-    static let valid: [String: Any] = ["name": "CatOne", "id": 1]
-    static let missingIdentifier: [String: Any] = ["name": "CatOne"]
-    static let missingName: [String: Any] = ["id": 1]
-    static let invalid: [String: Any] = [:]
 }

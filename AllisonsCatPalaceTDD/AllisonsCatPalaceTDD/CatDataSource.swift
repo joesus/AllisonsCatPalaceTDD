@@ -19,9 +19,8 @@ class CatDataSource {
                     return completion([])
                 }
                 completion(cats)
-                break
             case .failure(_):
-                return completion([])
+                completion([])
             }
         }
 

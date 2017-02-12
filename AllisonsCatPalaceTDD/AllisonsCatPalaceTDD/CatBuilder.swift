@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CatBuilder {
+final class CatBuilder {
 
     static func externalCatList(from data: Data) -> ExternalCatList? {
         guard let catList = try? JSONSerialization.jsonObject(with: data, options: []) else {

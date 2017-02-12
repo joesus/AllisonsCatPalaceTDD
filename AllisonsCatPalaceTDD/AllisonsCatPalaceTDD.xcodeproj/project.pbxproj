@@ -16,6 +16,8 @@
 		270A6AF31E3E981100B12D38 /* CatNetworkErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270A6AF21E3E981100B12D38 /* CatNetworkErrorTests.swift */; };
 		270A6AF51E3E9D3800B12D38 /* CatNetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270A6AF41E3E9D3800B12D38 /* CatNetworkError.swift */; };
 		270A6AF71E3EA9A000B12D38 /* ExternalCatData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270A6AF61E3EA9A000B12D38 /* ExternalCatData.swift */; };
+		275D260F1E5106D800FAE334 /* CatDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D260E1E5106D800FAE334 /* CatDataSourceTests.swift */; };
+		275D26131E511B3400FAE334 /* CatDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D26121E511B3400FAE334 /* CatDataSource.swift */; };
 		276C61961E2C062200225CF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276C61951E2C062200225CF4 /* AppDelegate.swift */; };
 		276C619D1E2C062200225CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 276C619C1E2C062200225CF4 /* Assets.xcassets */; };
 		276C61A01E2C062200225CF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 276C619E1E2C062200225CF4 /* LaunchScreen.storyboard */; };
@@ -50,6 +52,8 @@
 		270A6AF21E3E981100B12D38 /* CatNetworkErrorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatNetworkErrorTests.swift; sourceTree = "<group>"; };
 		270A6AF41E3E9D3800B12D38 /* CatNetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatNetworkError.swift; sourceTree = "<group>"; };
 		270A6AF61E3EA9A000B12D38 /* ExternalCatData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalCatData.swift; sourceTree = "<group>"; };
+		275D260E1E5106D800FAE334 /* CatDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatDataSourceTests.swift; sourceTree = "<group>"; };
+		275D26121E511B3400FAE334 /* CatDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatDataSource.swift; sourceTree = "<group>"; };
 		276C61921E2C062200225CF4 /* AllisonsCatPalaceTDD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AllisonsCatPalaceTDD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		276C61951E2C062200225CF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		276C619C1E2C062200225CF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -118,6 +122,7 @@
 				277199131E34002300930630 /* CatNetworker.swift */,
 				270A6AEC1E3E7F7800B12D38 /* Result.swift */,
 				270A6AF41E3E9D3800B12D38 /* CatNetworkError.swift */,
+				275D26121E511B3400FAE334 /* CatDataSource.swift */,
 			);
 			path = AllisonsCatPalaceTDD;
 			sourceTree = "<group>";
@@ -133,6 +138,7 @@
 				277199111E33F45B00930630 /* CatNetworkerTests.swift */,
 				270A6AEA1E3E7DB000B12D38 /* ResultTests.swift */,
 				270A6AF21E3E981100B12D38 /* CatNetworkErrorTests.swift */,
+				275D260E1E5106D800FAE334 /* CatDataSourceTests.swift */,
 			);
 			path = AllisonsCatPalaceTDDTests;
 			sourceTree = "<group>";
@@ -255,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				270A6AED1E3E7F7800B12D38 /* Result.swift in Sources */,
+				275D26131E511B3400FAE334 /* CatDataSource.swift in Sources */,
 				276C61961E2C062200225CF4 /* AppDelegate.swift in Sources */,
 				270A6AF51E3E9D3800B12D38 /* CatNetworkError.swift in Sources */,
 				277199141E34002300930630 /* CatNetworker.swift in Sources */,
@@ -277,6 +284,7 @@
 				270A6AEF1E3E85BE00B12D38 /* NetworkTestingConstants.swift in Sources */,
 				270A6AE51E3E70CD00B12D38 /* URLSessionDataTaskSpies.swift in Sources */,
 				270A6AEB1E3E7DB000B12D38 /* ResultTests.swift in Sources */,
+				275D260F1E5106D800FAE334 /* CatDataSourceTests.swift in Sources */,
 				276C61C41E2C1D8600225CF4 /* CatBuilderTests.swift in Sources */,
 				270A6AF71E3EA9A000B12D38 /* ExternalCatData.swift in Sources */,
 			);

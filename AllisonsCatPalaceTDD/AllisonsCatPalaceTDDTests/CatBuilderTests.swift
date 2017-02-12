@@ -14,6 +14,24 @@ class CatBuilderTests: XCTestCase {
     var externalCat: ExternalCat!
     var cat: Cat?
 
+    func testTransformingBadDataToCatList() {
+        let badData = Data(bytes: [0x1])
+        let catList = CatBuilder.externalCatList(from: badData)
+        XCTAssertNil(catList, "catList should be nil with bad data")
+    }
+
+    func testTransformingEmptyDataToCatList() {
+        let emptyData = try! JSONSerialization.data(withJSONObject: "[]", options: [])
+        let catList = CatBuilder.externalCatList(from: emptyData)
+        XCTAssertTrue(catList!.isEmpty, "Empty data should represent as an empty array")
+    }
+
+    func testTransformingValidCatDataToCatList() {
+        let catData = try! JSONSerialization.data(withJSONObject: ExternalCatData.valid, options: [])
+        let catList = CatBuilder.externalCatList(from: catData)
+        XCTAssertEqual(catList.count, 1, "catlist should have one cat")
+    }
+
     func testBuildingCatFromValidExternalCat() {
         externalCat = ExternalCatData.valid
         cat = CatBuilder.buildCatFromExternalCat(externalCat)

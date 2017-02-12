@@ -71,8 +71,8 @@ class CatNetworkerTests: XCTestCase {
                 receivedError = error as NSError
             }
         }
-        let unboxedHandler = CatNetworker.session.capturedCompletionHandler?.unbox()
-        unboxedHandler?(nil, nil, fakeNetworkError)
+        let handler = CatNetworker.session.capturedCompletionHandler
+        handler?(nil, nil, fakeNetworkError)
         XCTAssertEqual(receivedError, fakeNetworkError, "the network error should be passed to the completion handler")
     }
 
@@ -84,8 +84,8 @@ class CatNetworkerTests: XCTestCase {
                 receivedError = error as? CatNetworkError
             }
         }
-        let unboxedHandler = CatNetworker.session.capturedCompletionHandler?.unbox()
-        unboxedHandler?(nil, missingCatResponse, nil)
+        let handler = CatNetworker.session.capturedCompletionHandler
+        handler?(nil, missingCatResponse, nil)
         XCTAssertEqual(receivedError?.message, "Cat service unavailable", "missing cat endpoint should provide a service unavailable message")
     }
 
@@ -97,26 +97,23 @@ class CatNetworkerTests: XCTestCase {
                 receivedError = error as? CatNetworkError
             }
         }
-        let unboxedHandler = CatNetworker.session.capturedCompletionHandler?.unbox()
-        unboxedHandler?(nil, successfulCatResponse, nil)
+        let handler = CatNetworker.session.capturedCompletionHandler
+        handler?(nil, successfulCatResponse, nil)
         XCTAssertEqual(receivedError?.message, "Missing Data", "cat retrieval with missing data and success code should fail")
     }
 
-    func testBadData() {
-    }
-
     func testRetrievingAllCats() {
-//        var retrievedCats: [Cat]?
-//        let data = try! JSONSerialization.data(withJSONObject: ExternalCatData.valid)
-//
-//        CatNetworker.retrieveAllCats { result in
-//            if case let .success(cats) = result {
-//                retrievedCats = cats
-//            }
-//        }
-//        let unboxedHandler = CatNetworker.session.capturedCompletionHandler?.unbox()
-//        unboxedHandler?(data, successfulCatResponse, nil)
-//        XCTAssertEqual(retrievedCats?.first?.name, "CatOne", "cat retrieval should produce with array with correct cats")
+        var retrievedCatData: Data?
+        let sampleData = Data(bytes: [0x1])
+
+        CatNetworker.retrieveAllCats { result in
+            if case let .success(data) = result {
+                retrievedCatData = data
+            }
+        }
+        let handler = CatNetworker.session.capturedCompletionHandler
+        handler?(sampleData, successfulCatResponse, nil)
+        XCTAssertEqual(retrievedCatData, sampleData, "retrievedCatData should equal sample data")
     }
 
 }

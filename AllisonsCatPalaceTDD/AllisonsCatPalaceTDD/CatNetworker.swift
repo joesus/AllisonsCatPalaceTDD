@@ -8,7 +8,8 @@
 
 import Foundation
 
-typealias CatRetrievalHandler = (Result<[ExternalCat]>) -> Void
+typealias NetworkResult = Result<Data>
+typealias CatRetrievalHandler = (NetworkResult) -> Void
 
 enum CatNetworker {
     static var session = URLSession.shared
@@ -23,7 +24,7 @@ enum CatNetworker {
             if let error = potentialError {
                 return completion(.failure(error))
             } else if let response = potentialResponse as? HTTPURLResponse {
-                completion(handleCatRetrieval(data: nil, response: response))
+                completion(handleCatRetrieval(data: potentialData, response: response))
             }
 
         }
@@ -32,13 +33,12 @@ enum CatNetworker {
         task.resume()
     }
 
-    private static func handleCatRetrieval(data potentialData: Data?, response: HTTPURLResponse) -> Result<[ExternalCat]> {
+    private static func handleCatRetrieval(data potentialData: Data?, response: HTTPURLResponse) -> NetworkResult {
 
         switch response.statusCode {
         case 200:
             if let data = potentialData {
-                // turn data into useful type Returns error for now
-                fatalError()
+                return .success(data)
             } else {
                 return Result.failure(CatNetworkError.missingData)
             }

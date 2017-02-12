@@ -55,13 +55,17 @@ extension URLSession {
         }
     }
 
-    var capturedCompletionHandler: Box<NetworkTaskCompletionHandler>? {
+    var capturedCompletionHandler: NetworkTaskCompletionHandler? {
         get {
-            let storedValue = objc_getAssociatedObject(self, capturedCompletionHandlerKey)
-            return storedValue as? Box<NetworkTaskCompletionHandler>
+            let storedValue = objc_getAssociatedObject(self, capturedCompletionHandlerKey) as? Box<NetworkTaskCompletionHandler>
+            return storedValue?.unbox()
         }
         set {
-            objc_setAssociatedObject(self, capturedCompletionHandlerKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            guard let handler = newValue else {
+                return objc_setAssociatedObject(self, capturedCompletionHandlerKey, nil, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            }
+
+            objc_setAssociatedObject(self, capturedCompletionHandlerKey, Box(handler), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -69,7 +73,7 @@ extension URLSession {
 
         //TODO: Need to capture url, completionHandler
         capturedRequestURL = url
-        capturedCompletionHandler = Box(completionHandler)
+        capturedCompletionHandler = completionHandler
 
         // This is now the real method that it forwards to
         let task = _spyDataTaskCreation(with: url, completionHandler: completionHandler)

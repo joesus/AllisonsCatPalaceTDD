@@ -10,6 +10,7 @@ import Foundation
 
 struct ExternalCatData {
     static let valid: [String: Any] = ["name": "CatOne", "id": 1]
+    static let anotherValid: [String: Any] = ["name": "CatTwo", "id": 2]
     static let missingIdentifier: [String: Any] = ["name": "CatOne"]
     static let missingName: [String: Any] = ["id": 1]
     static let invalid: [String: Any] = [:]

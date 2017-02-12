@@ -24,4 +24,12 @@ class CatBuilder {
         }
         return Cat(name: name, identifier: identifier)
     }
+
+    static func buildCats(from data: Data) -> [Cat]? {
+        guard let list = externalCatList(from: data) else {
+            return nil
+        }
+
+        return list.flatMap { buildCatFromExternalCat($0) }
+    }
 }

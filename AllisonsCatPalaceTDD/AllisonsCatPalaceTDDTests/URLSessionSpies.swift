@@ -83,8 +83,6 @@ extension URLSession {
     }
 
     class func beginSpyingOnDataTaskCreation() {
-//        open func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask
-
         let originalSelector = #selector(URLSession.dataTask(with:completionHandler:) as (URLSession) -> (URL, @escaping NetworkTaskCompletionHandler) -> URLSessionDataTask)
 
         swapMethods(originalSelector: originalSelector, alternateSelector: #selector(URLSession._spyDataTaskCreation(with:completionHandler:)))

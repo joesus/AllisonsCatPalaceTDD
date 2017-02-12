@@ -32,15 +32,21 @@ class CatBuilderTests: XCTestCase {
         XCTAssertEqual(catList!.count, 1, "catlist should have one cat")
     }
 
-    func testTransformingValidCatDataToArrayOfCats() {
+    func testTransformingBadDataToArrayOfCats() {
+        let badData = Data(bytes: [0x1])
+        let cats = CatBuilder.buildCats(from: badData)
+        XCTAssertNil(cats, "cats should be nil with bad data")
+    }
+
+    func testBuildingCatsFromValidCatData() {
         let catData = try! JSONSerialization.data(withJSONObject: [ExternalCatData.valid, ExternalCatData.anotherValid], options: [])
         let cats = CatBuilder.buildCats(from: catData)!
         let catOne = cats.first
-        XCTAssertEqual(catOne.name, "CatOne", "First cat name was set incorrectly")
-        XCTAssertEqual(catOne.identifier, 1, "First cat Id was set incorrectly")
+        XCTAssertEqual(catOne!.name, "CatOne", "First cat name was set incorrectly")
+        XCTAssertEqual(catOne!.identifier, 1, "First cat Id was set incorrectly")
         let catTwo = cats.last
-        XCTAssertEqual(catTwo.name, "CatTwo", "Second cat name was set incorrectly")
-        XCTAssertEqual(catTwo.identifier, 2, "Second cat Id was set incorrectly")
+        XCTAssertEqual(catTwo!.name, "CatTwo", "Second cat name was set incorrectly")
+        XCTAssertEqual(catTwo!.identifier, 2, "Second cat Id was set incorrectly")
     }
 
     func testBuildingCatFromValidExternalCat() {

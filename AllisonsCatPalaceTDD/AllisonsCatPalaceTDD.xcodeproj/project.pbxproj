@@ -35,6 +35,8 @@
 		27E8238A1E5A273D009B202A /* UIViewControllerSpies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E823891E5A273D009B202A /* UIViewControllerSpies.swift */; };
 		27E823911E5A3D5E009B202A /* UITableViewSpies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E823901E5A3D5E009B202A /* UITableViewSpies.swift */; };
 		27E823931E5A43AB009B202A /* CatListDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E823921E5A43AB009B202A /* CatListDataSourceTests.swift */; };
+		27E823951E5A4E42009B202A /* CatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E823941E5A4E42009B202A /* CatCell.swift */; };
+		27E823971E5A5115009B202A /* MainStoryboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E823961E5A5115009B202A /* MainStoryboardTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +82,8 @@
 		27E823891E5A273D009B202A /* UIViewControllerSpies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerSpies.swift; sourceTree = "<group>"; };
 		27E823901E5A3D5E009B202A /* UITableViewSpies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewSpies.swift; sourceTree = "<group>"; };
 		27E823921E5A43AB009B202A /* CatListDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatListDataSourceTests.swift; sourceTree = "<group>"; };
+		27E823941E5A4E42009B202A /* CatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatCell.swift; sourceTree = "<group>"; };
+		27E823961E5A5115009B202A /* MainStoryboardTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainStoryboardTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +138,7 @@
 				270A6AF41E3E9D3800B12D38 /* CatNetworkError.swift */,
 				275D26121E511B3400FAE334 /* CatDataSource.swift */,
 				275D26161E512F5E00FAE334 /* CatListController.swift */,
+				27E823941E5A4E42009B202A /* CatCell.swift */,
 			);
 			path = AllisonsCatPalaceTDD;
 			sourceTree = "<group>";
@@ -152,6 +157,7 @@
 				275D260E1E5106D800FAE334 /* CatDataSourceTests.swift */,
 				275D26141E5125D100FAE334 /* CatListControllerTests.swift */,
 				27E823921E5A43AB009B202A /* CatListDataSourceTests.swift */,
+				27E823961E5A5115009B202A /* MainStoryboardTests.swift */,
 			);
 			path = AllisonsCatPalaceTDDTests;
 			sourceTree = "<group>";
@@ -281,6 +287,7 @@
 				270A6AF51E3E9D3800B12D38 /* CatNetworkError.swift in Sources */,
 				277199141E34002300930630 /* CatNetworker.swift in Sources */,
 				276C61BC1E2C183300225CF4 /* ExternalCat.swift in Sources */,
+				27E823951E5A4E42009B202A /* CatCell.swift in Sources */,
 				275D26171E512F5E00FAE334 /* CatListController.swift in Sources */,
 				276C61C61E2D728800225CF4 /* CatBuilder.swift in Sources */,
 				276C61C21E2C1C0E00225CF4 /* Cat.swift in Sources */,
@@ -299,6 +306,7 @@
 				270A6AE31E3E700C00B12D38 /* URLSessionSpies.swift in Sources */,
 				277199121E33F45B00930630 /* CatNetworkerTests.swift in Sources */,
 				270A6AEF1E3E85BE00B12D38 /* NetworkTestingConstants.swift in Sources */,
+				27E823971E5A5115009B202A /* MainStoryboardTests.swift in Sources */,
 				275D26151E5125D100FAE334 /* CatListControllerTests.swift in Sources */,
 				27E823931E5A43AB009B202A /* CatListDataSourceTests.swift in Sources */,
 				270A6AE51E3E70CD00B12D38 /* URLSessionDataTaskSpies.swift in Sources */,

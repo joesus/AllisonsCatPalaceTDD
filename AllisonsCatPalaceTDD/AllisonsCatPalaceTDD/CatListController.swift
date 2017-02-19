@@ -9,7 +9,7 @@
 import UIKit
 
 class CatListController: UITableViewController {
-    var cats: [Any] = [Any]() {
+    var cats = [Cat]() {
         didSet {
             tableView.reloadData()
         }
@@ -22,5 +22,12 @@ class CatListController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cats.count
     }
-}
 
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CatCell", for: indexPath)
+        let cat = cats[indexPath.row]
+        cell.textLabel?.text = cat.name
+        return cell
+    }
+}

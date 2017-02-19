@@ -28,24 +28,19 @@ class CatListControllerTests: XCTestCase {
         UIViewController.endSpyingOnViewDidLoad()
     }
 
-    func testRequestsCatsOnViewDidLoad() {
-
-        controller.loadViewIfNeeded()
-        CatDataSource.fetchAllCats(completion: {_ in})
+//    func testRequestsCatsOnViewDidLoad() {
+//        controller.loadViewIfNeeded()
+//        CatDataSource.fetchAllCats(completion: {_ in})
 //        XCTAssert(CatDataSource.fetchAllCatsWasCalled, "ViewDidLoad should request cats")
+//    }
 
+    func testReloadDataIsCalledWhenCatsAreUpdated() {
+        UITableView.beginSpyingOnReloadData()
+        let cat = Cat(name: "Test", identifier: 1)
+        controller.cats.append(cat)
+        XCTAssert(controller.tableView.reloadDataWasCalled, "TableView should be reloaded when cats are updated")
+        UITableView.endSpyingOnReloadData()
     }
-
-    // handles results
-    // with empty: nothing, don't reloadData
-    // with results: reloadData
-
-    // DataSourceTests
-    // has cells that display:
-    // - cat name
-    // - cat photo (so model needs photo)
-    // should have pulldown to reload
-
 }
 
 

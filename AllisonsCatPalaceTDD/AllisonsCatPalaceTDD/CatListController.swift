@@ -9,14 +9,18 @@
 import UIKit
 
 class CatListController: UITableViewController {
-    var cats = [Any]()
+    var cats: [Any] = [Any]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 0
+        return cats.isEmpty ? 0 : 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return cats.count
     }
 }
 

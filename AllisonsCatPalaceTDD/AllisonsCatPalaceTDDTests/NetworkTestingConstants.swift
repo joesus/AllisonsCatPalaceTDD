@@ -10,14 +10,14 @@ import Foundation
 
 let fakeNetworkError = NSError(domain: "CatPalaceTesting", code: 101, userInfo: nil)
 
-let missingCatResponse = HTTPURLResponse(
+let response404 = HTTPURLResponse(
         url: URL(string: "http://example.com")!,
         statusCode: 404,
         httpVersion: nil,
         headerFields: nil
 )
 
-let successfulCatResponse = HTTPURLResponse(
+let response200 = HTTPURLResponse(
     url: URL(string: "http://example.com")!,
     statusCode: 200,
     httpVersion: nil,

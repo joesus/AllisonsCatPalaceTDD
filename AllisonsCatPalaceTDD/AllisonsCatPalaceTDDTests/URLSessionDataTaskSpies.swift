@@ -41,7 +41,7 @@ extension URLSessionTask {
 
     // This is the magical part, setting the associated objects to make sure everything is in the right place
     dynamic func _spyResume() {
-        CatNetworker.session.lastResumedDataTask = self
+        URLSession.shared.lastResumedDataTask = self
         resumeWasCalled = true
     }
 

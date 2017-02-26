@@ -31,7 +31,7 @@ class CatDataSourceTests: XCTestCase {
             receivedCats = cats
         }
         let handler = CatNetworker.session.capturedCompletionHandler
-        handler?(nil, successfulCatResponse, nil)
+        handler?(nil, response200, nil)
 
         XCTAssert(receivedCats!.isEmpty, "Should not have cats without data")
     }
@@ -45,7 +45,7 @@ class CatDataSourceTests: XCTestCase {
 
         let emptyCatsData = try! JSONSerialization.data(withJSONObject: [], options: [])
 
-        handler?(emptyCatsData, successfulCatResponse, nil)
+        handler?(emptyCatsData, response200, nil)
 
         XCTAssert(receivedCats!.isEmpty, "Should not have cats with empty data")
     }
@@ -59,7 +59,7 @@ class CatDataSourceTests: XCTestCase {
 
         let catData = try! JSONSerialization.data(withJSONObject: [ExternalCatData.valid, ExternalCatData.anotherValid], options: [])
 
-        handler?(catData, successfulCatResponse, nil)
+        handler?(catData, response200, nil)
 
         XCTAssertEqual(receivedCats!.count, 2, "Should have received two cats")
     }

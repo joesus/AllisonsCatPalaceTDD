@@ -16,6 +16,8 @@ class CatNetworkerTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
+        URLSession.shared.lastResumedDataTask = nil
+        URLSession.shared.lastCreatedDataTask = nil
         URLSessionTask.beginSpyingOnResume()
         URLSessionTask.beginSpyingOnCancel()
         URLSession.beginSpyingOnDataTaskCreation()
@@ -85,7 +87,7 @@ class CatNetworkerTests: XCTestCase {
             }
         }
         let handler = CatNetworker.session.capturedCompletionHandler
-        handler?(nil, missingCatResponse, nil)
+        handler?(nil, response404, nil)
         XCTAssertEqual(receivedError?.message, "Cat service unavailable", "missing cat endpoint should provide a service unavailable message")
     }
 
@@ -98,7 +100,7 @@ class CatNetworkerTests: XCTestCase {
             }
         }
         let handler = CatNetworker.session.capturedCompletionHandler
-        handler?(nil, successfulCatResponse, nil)
+        handler?(nil, response200, nil)
         XCTAssertEqual(receivedError?.message, "Missing Data", "cat retrieval with missing data and success code should fail")
     }
 
@@ -112,7 +114,7 @@ class CatNetworkerTests: XCTestCase {
             }
         }
         let handler = CatNetworker.session.capturedCompletionHandler
-        handler?(sampleData, successfulCatResponse, nil)
+        handler?(sampleData, response200, nil)
         XCTAssertEqual(retrievedCatData, sampleData, "retrievedCatData should equal sample data")
     }
 

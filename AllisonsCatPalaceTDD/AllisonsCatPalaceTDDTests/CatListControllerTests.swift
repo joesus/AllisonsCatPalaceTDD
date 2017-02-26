@@ -41,6 +41,13 @@ class CatListControllerTests: XCTestCase {
         XCTAssert(controller.tableView.reloadDataWasCalled, "TableView should be reloaded when cats are updated")
         UITableView.endSpyingOnReloadData()
     }
+
+    func testReloadDataIsCalledWhenCatsAreCleared() {
+        UITableView.beginSpyingOnReloadData()
+        controller.cats = []
+        XCTAssert(controller.tableView.reloadDataWasCalled, "TableView should be reloaded when cats are updated")
+        UITableView.endSpyingOnReloadData()
+    }
 }
 
 

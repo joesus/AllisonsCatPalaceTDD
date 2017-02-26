@@ -17,6 +17,9 @@ fileprivate let lastResumedDataTaskKey = UnsafeRawPointer(lastResumedDataTaskStr
 fileprivate let capturedRequestURLString = NSUUID().uuidString.cString(using: .utf8)!
 fileprivate let capturedRequestURLKey = UnsafeRawPointer(capturedRequestURLString)
 
+fileprivate let capturedRequestString = NSUUID().uuidString.cString(using: .utf8)!
+fileprivate let capturedRequestKey = UnsafeRawPointer(capturedRequestString)
+
 fileprivate let capturedCompletionHandlerString = NSUUID().uuidString.cString(using: .utf8)!
 fileprivate let capturedCompletionHandlerKey = UnsafeRawPointer(capturedCompletionHandlerString)
 
@@ -55,6 +58,17 @@ extension URLSession {
         }
     }
 
+
+    var capturedRequest: URLRequest? {
+        get {
+            let storedValue = objc_getAssociatedObject(self, capturedRequestKey)
+            return storedValue as? URLRequest
+        }
+        set {
+            objc_setAssociatedObject(self, capturedRequestKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
     var capturedCompletionHandler: NetworkTaskCompletionHandler? {
         get {
             let storedValue = objc_getAssociatedObject(self, capturedCompletionHandlerKey) as? Box<NetworkTaskCompletionHandler>
@@ -69,17 +83,41 @@ extension URLSession {
         }
     }
 
+    dynamic func _spyDataTaskCreationRequest(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
+
+        capturedRequest = request
+        capturedCompletionHandler = completionHandler
+
+        // This is now the real method that it forwards to
+        let task = _spyDataTaskCreationRequest(with: request, completionHandler: completionHandler)
+        URLSession.shared.lastCreatedDataTask = task
+
+        return task
+
+    }
+
     dynamic func _spyDataTaskCreation(with url: URL, completionHandler: @escaping NetworkTaskCompletionHandler) -> URLSessionDataTask {
 
-        //TODO: Need to capture url, completionHandler
         capturedRequestURL = url
         capturedCompletionHandler = completionHandler
 
         // This is now the real method that it forwards to
         let task = _spyDataTaskCreation(with: url, completionHandler: completionHandler)
-        CatNetworker.session.lastCreatedDataTask = task
+        URLSession.shared.lastCreatedDataTask = task
 
         return task
+    }
+
+    class func beginSpyingOnDataTaskWithRequestCreation() {
+        let originalSelector = #selector(URLSession.dataTask(with:completionHandler:) as (URLSession) -> (URLRequest, @escaping NetworkTaskCompletionHandler) -> URLSessionDataTask)
+
+        swapMethods(originalSelector: originalSelector, alternateSelector: #selector(URLSession._spyDataTaskCreationRequest(with:completionHandler:)))
+    }
+
+    class func endSpyingOnDataTaskWithRequestCreation() {
+        let originalSelector = #selector(URLSession.dataTask(with:completionHandler:) as (URLSession) -> (URLRequest, @escaping NetworkTaskCompletionHandler) -> URLSessionDataTask)
+
+        swapMethods(originalSelector: originalSelector, alternateSelector: #selector(URLSession._spyDataTaskCreationRequest(with:completionHandler:)))
     }
 
     class func beginSpyingOnDataTaskCreation() {

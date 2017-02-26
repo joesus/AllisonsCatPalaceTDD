@@ -20,6 +20,7 @@
 		275D26131E511B3400FAE334 /* CatDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D26121E511B3400FAE334 /* CatDataSource.swift */; };
 		275D26151E5125D100FAE334 /* CatListControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D26141E5125D100FAE334 /* CatListControllerTests.swift */; };
 		275D26171E512F5E00FAE334 /* CatListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D26161E512F5E00FAE334 /* CatListController.swift */; };
+		2767E37D1E62679600A7C5F9 /* ImageProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2767E37C1E62679600A7C5F9 /* ImageProviderTests.swift */; };
 		276C61961E2C062200225CF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276C61951E2C062200225CF4 /* AppDelegate.swift */; };
 		276C619D1E2C062200225CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 276C619C1E2C062200225CF4 /* Assets.xcassets */; };
 		276C61A01E2C062200225CF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 276C619E1E2C062200225CF4 /* LaunchScreen.storyboard */; };
@@ -63,6 +64,7 @@
 		275D26121E511B3400FAE334 /* CatDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatDataSource.swift; sourceTree = "<group>"; };
 		275D26141E5125D100FAE334 /* CatListControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatListControllerTests.swift; sourceTree = "<group>"; };
 		275D26161E512F5E00FAE334 /* CatListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatListController.swift; sourceTree = "<group>"; };
+		2767E37C1E62679600A7C5F9 /* ImageProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageProviderTests.swift; sourceTree = "<group>"; };
 		276C61921E2C062200225CF4 /* AllisonsCatPalaceTDD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AllisonsCatPalaceTDD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		276C61951E2C062200225CF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		276C619C1E2C062200225CF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				275D26141E5125D100FAE334 /* CatListControllerTests.swift */,
 				27E823921E5A43AB009B202A /* CatListDataSourceTests.swift */,
 				27E823961E5A5115009B202A /* MainStoryboardTests.swift */,
+				2767E37C1E62679600A7C5F9 /* ImageProviderTests.swift */,
 			);
 			path = AllisonsCatPalaceTDDTests;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				270A6AE31E3E700C00B12D38 /* URLSessionSpies.swift in Sources */,
 				277199121E33F45B00930630 /* CatNetworkerTests.swift in Sources */,
 				270A6AEF1E3E85BE00B12D38 /* NetworkTestingConstants.swift in Sources */,
+				2767E37D1E62679600A7C5F9 /* ImageProviderTests.swift in Sources */,
 				27E823971E5A5115009B202A /* MainStoryboardTests.swift in Sources */,
 				275D26151E5125D100FAE334 /* CatListControllerTests.swift in Sources */,
 				27E823931E5A43AB009B202A /* CatListDataSourceTests.swift in Sources */,

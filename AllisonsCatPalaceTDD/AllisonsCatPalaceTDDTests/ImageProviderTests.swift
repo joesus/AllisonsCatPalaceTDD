@@ -113,9 +113,7 @@ class ImageProviderTests: XCTestCase {
 
     func testFetchedImagesAreStoredToCache() {
         var receivedImage: UIImage?
-
         let url = URL(string: "https://example.com/foo.jpg")!
-
         let image = #imageLiteral(resourceName: "catOutline")
         let imageData = UIImagePNGRepresentation(image)
 
@@ -123,11 +121,24 @@ class ImageProviderTests: XCTestCase {
             receivedImage = potentialImage
         }
 
+        let request = URLSession.shared.capturedRequest!
+        let predicate = NSPredicate { _ in
+            let stored = ImageProvider.cache.cachedResponse(for: request) != nil
+            print("\(stored) \(Date().timeIntervalSince1970)")
+            return stored
+        }
+        _ = expectation(for: predicate, evaluatedWith: [:], handler: nil)
+
         let handler = URLSession.shared.capturedCompletionHandler
         handler?(imageData, response200, nil)
 
+        waitForExpectations(timeout: 3, handler: nil)
+
         XCTAssertEqual(UIImagePNGRepresentation(receivedImage!), imageData, "Received image should be equal to the image")
-        XCTAssertEqual(ImageProvider.cache.cachedResponse(for: URLSession.shared.capturedRequest!)!.data, imageData, "Cached request data should equal the image data")
+
+        let response = ImageProvider.cache.cachedResponse(for: request)!
+
+        XCTAssertEqual(response.data, imageData, "Cached request data should equal the image data")
     }
 
     func testCachedImagesDoNotFetchImages() {

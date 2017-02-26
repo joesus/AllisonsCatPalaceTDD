@@ -12,7 +12,7 @@ import XCTest
 class CatTests: XCTestCase {
 
     let cat = Cat(name: "CatOne", identifier: 1)
-    let catWithURLString = Cat(name: "CatURL", identifier: 1, urlString: "http://example.com/foo.png")
+    let catWithURL = Cat(name: "CatURL", identifier: 1, url: URL(string: "https://example.com/foo.gif"))
 
     func testCreateCat() {
         XCTAssertEqual(cat.name, "CatOne", "Cat name was set incorrectly")
@@ -20,7 +20,7 @@ class CatTests: XCTestCase {
     }
 
     func testCanCreateCatWithURLString() {
-        XCTAssertNotNil(catWithURLString.urlString)
-        XCTAssertEqual(catWithURLString.urlString, "http://example.com/foo.png", "Cat urlString was set incorrectly")
+        XCTAssertNotNil(catWithURL.url)
+        XCTAssertEqual(catWithURL.url?.absoluteString, "https://example.com/foo.gif", "Cat url was set incorrectly")
     }
 }

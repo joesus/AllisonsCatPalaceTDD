@@ -148,11 +148,16 @@ class ImageProviderTests: XCTestCase {
 
         let response = URLResponse(url: url, mimeType: nil, expectedContentLength: 1, textEncodingName: nil)
 
+        let imageReceivedExpectation = expectation(description: "image received")
+
         ImageProvider.cache.storeCachedResponse(CachedURLResponse(response: response, data: imageData!), for: URLRequest(url: url))
 
         ImageProvider.getImages(for: url) { potentialImage in
             receivedImage = potentialImage
+            imageReceivedExpectation.fulfill()
         }
+
+        waitForExpectations(timeout: 0.2, handler: nil)
 
         XCTAssertNil(URLSession.shared.lastCreatedDataTask,
                      "No data task should be created for a cached request")

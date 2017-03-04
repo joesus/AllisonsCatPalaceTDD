@@ -28,6 +28,20 @@ class CatListController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CatCell", for: indexPath)
         let cat = cats[indexPath.row]
         cell.textLabel?.text = cat.name
+
+        if let imageURL = cat.imageUrl {
+
+            ImageProvider.getImages(for: imageURL) { potentialImage in
+                guard let image = potentialImage else { return }
+
+                if let indexPaths = tableView.indexPathsForVisibleRows,
+                    indexPaths.contains(indexPath),
+                    let cell = tableView.cellForRow(at: indexPath) {
+                        cell.imageView?.image = image
+                }
+            }
+        }
+
         return cell
     }
 }

@@ -9,10 +9,13 @@
 import Foundation
 import UIKit
 
+// TODO: Retry image fetch for missing images on network availability changes
+
 enum ImageProvider {
     static let cache = URLCache.shared
 
     static func getImages(for url: URL, completion: @escaping (UIImage?) -> Void) {
+        
         let request = URLRequest(url: url)
 
         if let cachedResponse = cache.cachedResponse(for: request) {

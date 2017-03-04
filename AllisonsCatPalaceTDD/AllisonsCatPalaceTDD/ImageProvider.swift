@@ -14,6 +14,13 @@ enum ImageProvider {
 
     static func getImages(for url: URL, completion: @escaping (UIImage?) -> Void) {
         let request = URLRequest(url: url)
+
+        if let cachedResponse = cache.cachedResponse(for: request) {
+            let imageData = cachedResponse.data
+            completion(UIImage(data: imageData))
+            return
+        }
+
         let task = URLSession.shared.dataTask(with: request) { potentialData, potentialResponse, _ in
             guard let response = potentialResponse as? HTTPURLResponse,
                 response.statusCode == 200,

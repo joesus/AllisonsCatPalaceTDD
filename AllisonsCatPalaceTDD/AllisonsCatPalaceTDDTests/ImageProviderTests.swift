@@ -23,6 +23,7 @@ class ImageProviderTests: XCTestCase {
     override func tearDown() {
         URLSessionDataTask.endSpyingOnResume()
         URLSession.endSpyingOnDataTaskWithRequestCreation()
+        ImageProvider.cache.removeAllCachedResponses()
 
         super.tearDown()
     }
@@ -140,6 +141,22 @@ class ImageProviderTests: XCTestCase {
     }
 
     func testCachedImagesDoNotFetchImages() {
+        var receivedImage: UIImage?
+        let url = URL(string: "https://example.com/foo.gif")!
+        let image = #imageLiteral(resourceName: "catOutline")
+        let imageData = UIImagePNGRepresentation(image)
 
+        let response = URLResponse(url: url, mimeType: nil, expectedContentLength: 1, textEncodingName: nil)
+
+        ImageProvider.cache.storeCachedResponse(CachedURLResponse(response: response, data: imageData!), for: URLRequest(url: url))
+
+        ImageProvider.getImages(for: url) { potentialImage in
+            receivedImage = potentialImage
+        }
+
+        XCTAssertNil(URLSession.shared.lastCreatedDataTask,
+                     "No data task should be created for a cached request")
+        XCTAssertEqual(UIImagePNGRepresentation(receivedImage!), imageData,
+                       "Received image should be from the cache")
     }
 }

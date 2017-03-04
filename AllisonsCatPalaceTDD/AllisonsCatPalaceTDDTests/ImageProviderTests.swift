@@ -119,12 +119,19 @@ class ImageProviderTests: XCTestCase {
         let image = #imageLiteral(resourceName: "catOutline")
         let imageData = UIImagePNGRepresentation(image)
 
+        let predicate = NSPredicate { _,_ in
+            ImageProvider.cache.cachedResponse(for: URLSession.shared.capturedRequest!) != nil
+        }
+
         ImageProvider.getImages(for: url) { potentialImage in
             receivedImage = potentialImage
         }
 
         let handler = URLSession.shared.capturedCompletionHandler
         handler?(imageData, response200, nil)
+
+        expectation(for: predicate, evaluatedWith: [:], handler: nil)
+        waitForExpectations(timeout: 2, handler: nil)
 
         XCTAssertEqual(UIImagePNGRepresentation(receivedImage!), imageData, "Received image should be equal to the image")
         XCTAssertEqual(ImageProvider.cache.cachedResponse(for: URLSession.shared.capturedRequest!)!.data, imageData, "Cached request data should equal the image data")

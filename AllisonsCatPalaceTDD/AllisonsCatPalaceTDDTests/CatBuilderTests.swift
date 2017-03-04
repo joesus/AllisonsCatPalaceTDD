@@ -77,12 +77,12 @@ class CatBuilderTests: XCTestCase {
     func testBuildingCatFromExternalCatWithBadUrlString() {
         externalCat = ExternalCatData.withBadURLString
         cat = CatBuilder.buildCatFromExternalCat(externalCat)
-        XCTAssertNil(cat?.url, "Cat should not create url from bad url string")
+        XCTAssertNil(cat?.imageUrl, "Cat should not create url from bad url string")
     }
 
     func testBuildingCatFromExternalCatWithValidUrlString() {
         externalCat = ExternalCatData.withURLString
         cat = CatBuilder.buildCatFromExternalCat(externalCat)
-        XCTAssertEqual(cat?.url?.absoluteString, "https://example.com/foo.gif", "Cat should have valid url")
+        XCTAssertEqual(cat?.imageUrl?.absoluteString, "https://example.com/foo.gif", "Cat should have valid url")
     }
 }

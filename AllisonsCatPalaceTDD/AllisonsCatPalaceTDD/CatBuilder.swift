@@ -24,7 +24,7 @@ final class CatBuilder {
         }
         if let urlString = json[ExternalCatKeys.pictureURL] as? String,
             let url = URL(string: urlString) {
-            return Cat(name: name, identifier: identifier, url: url)
+            return Cat(name: name, identifier: identifier, imageUrl: url)
         }
         return Cat(name: name, identifier: identifier)
     }

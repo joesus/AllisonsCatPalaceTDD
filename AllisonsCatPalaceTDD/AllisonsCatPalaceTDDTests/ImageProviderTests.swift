@@ -123,11 +123,9 @@ class ImageProviderTests: XCTestCase {
 
         let request = URLSession.shared.capturedRequest!
         let predicate = NSPredicate { _ in
-            let stored = ImageProvider.cache.cachedResponse(for: request) != nil
-            print("\(stored) \(Date().timeIntervalSince1970)")
-            return stored
+            ImageProvider.cache.cachedResponse(for: request) != nil
         }
-        _ = expectation(for: predicate, evaluatedWith: [:], handler: nil)
+        expectation(for: predicate, evaluatedWith: [:], handler: nil)
 
         let handler = URLSession.shared.capturedCompletionHandler
         handler?(imageData, response200, nil)

@@ -12,10 +12,12 @@ class Cat {
 
     var name: String
     let identifier: Int
+    let imageUrl: URL?
 
-    init(name: String, identifier: Int) {
+    init(name: String, identifier: Int, imageUrl: URL? = nil) {
         self.name = name
         self.identifier = identifier
+        self.imageUrl = imageUrl
     }
 
 }

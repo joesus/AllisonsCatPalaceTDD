@@ -9,7 +9,7 @@
 import XCTest
 @testable import AllisonsCatPalaceTDD
 
-class CatDataSourceTests: XCTestCase {
+class CatRegistryTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
@@ -27,39 +27,39 @@ class CatDataSourceTests: XCTestCase {
 
     func testGettingAllCatsFailure() {
         var receivedCats: [Cat]?
-        CatDataSource.fetchAllCats() { cats in
+        CatRegistry.fetchAllCats() { cats in
             receivedCats = cats
         }
         let handler = CatNetworker.session.capturedCompletionHandler
-        handler?(nil, response200, nil)
+        handler?(nil, response200(), nil)
 
         XCTAssert(receivedCats!.isEmpty, "Should not have cats without data")
     }
 
     func testGettingAllCatsWithEmptyResult() {
         var receivedCats: [Cat]?
-        CatDataSource.fetchAllCats() { cats in
+        CatRegistry.fetchAllCats() { cats in
             receivedCats = cats
         }
         let handler = CatNetworker.session.capturedCompletionHandler
 
         let emptyCatsData = try! JSONSerialization.data(withJSONObject: [], options: [])
 
-        handler?(emptyCatsData, response200, nil)
+        handler?(emptyCatsData, response200(), nil)
 
         XCTAssert(receivedCats!.isEmpty, "Should not have cats with empty data")
     }
 
     func testGettingAllCatsSuccess() {
         var receivedCats: [Cat]?
-        CatDataSource.fetchAllCats() { cats in
+        CatRegistry.fetchAllCats() { cats in
             receivedCats = cats
         }
         let handler = CatNetworker.session.capturedCompletionHandler
 
         let catData = try! JSONSerialization.data(withJSONObject: [ExternalCatData.valid, ExternalCatData.anotherValid], options: [])
 
-        handler?(catData, response200, nil)
+        handler?(catData, response200(), nil)
 
         XCTAssertEqual(receivedCats!.count, 2, "Should have received two cats")
     }

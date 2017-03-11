@@ -1,5 +1,5 @@
 //
-//  CatDataSource.swift
+//  CatRegistry.swift
 //  AllisonsCatPalaceTDD
 //
 //  Created by Joesus on 2/12/17.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CatDataSource {
+class CatRegistry {
 
     @discardableResult
     static func fetchAllCats(completion: @escaping ([Cat]) -> Void) {

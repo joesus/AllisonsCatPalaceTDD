@@ -17,9 +17,11 @@ let response404 = HTTPURLResponse(
         headerFields: nil
 )
 
-let response200 = HTTPURLResponse(
-    url: URL(string: "http://example.com")!,
-    statusCode: 200,
-    httpVersion: nil,
-    headerFields: nil
-)
+func response200(url: URL = URL(string: "http://example.com")!) -> HTTPURLResponse {
+    return HTTPURLResponse(
+        url: url,
+        statusCode: 200,
+        httpVersion: nil,
+        headerFields: nil
+    )!
+}

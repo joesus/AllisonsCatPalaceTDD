@@ -25,11 +25,11 @@ class CatListDataSourceTests: XCTestCase {
         cat = Cat(name: "test", identifier: 1, imageUrl: url)
         dataSource = controller as UITableViewDataSource
         tableView = controller.tableView
-        ImageProvider.cache.removeAllCachedResponses()
+        ImageProvider.reset()
     }
 
     override func tearDown() {
-        ImageProvider.cache.removeAllCachedResponses()
+        ImageProvider.reset()
 
         super.tearDown()
     }
@@ -112,6 +112,12 @@ class CatListDataSourceTests: XCTestCase {
     }
 
     func testCatCellDoesNotReloadIfNotVisible() {
+
+        // get an image for a cell
+
+        // scroll to a row at index path
+
+        // check that the cell isn't reloaded
     }
 
     func testCatCellReloadsIfVisible() {

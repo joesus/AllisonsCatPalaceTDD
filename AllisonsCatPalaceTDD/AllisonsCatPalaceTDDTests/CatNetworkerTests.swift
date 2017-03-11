@@ -100,7 +100,7 @@ class CatNetworkerTests: XCTestCase {
             }
         }
         let handler = CatNetworker.session.capturedCompletionHandler
-        handler?(nil, response200, nil)
+        handler?(nil, response200(), nil)
         XCTAssertEqual(receivedError?.message, "Missing Data", "cat retrieval with missing data and success code should fail")
     }
 
@@ -114,7 +114,7 @@ class CatNetworkerTests: XCTestCase {
             }
         }
         let handler = CatNetworker.session.capturedCompletionHandler
-        handler?(sampleData, response200, nil)
+        handler?(sampleData, response200(), nil)
         XCTAssertEqual(retrievedCatData, sampleData, "retrievedCatData should equal sample data")
     }
 

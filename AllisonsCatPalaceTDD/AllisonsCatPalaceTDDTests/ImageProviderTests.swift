@@ -11,19 +11,23 @@ import XCTest
 
 class ImageProviderTests: XCTestCase {
 
+    var receivedImage: UIImage?
+    let url = URL(string: "https://example.com/foo.jpg")!
+    let imageData = UIImagePNGRepresentation(#imageLiteral(resourceName: "catOutline"))
+
     override func setUp() {
         super.setUp()
 
         URLSession.shared.lastCreatedDataTask = nil
         URLSessionDataTask.beginSpyingOnResume()
         URLSession.beginSpyingOnDataTaskWithRequestCreation()
-        ImageProvider.cache.removeAllCachedResponses()
+        ImageProvider.reset()
     }
 
     override func tearDown() {
         URLSessionDataTask.endSpyingOnResume()
         URLSession.endSpyingOnDataTaskWithRequestCreation()
-        ImageProvider.cache.removeAllCachedResponses()
+        ImageProvider.reset()
 
         super.tearDown()
     }
@@ -33,8 +37,6 @@ class ImageProviderTests: XCTestCase {
     }
 
     func testUncachedImagesAreFetched() {
-        let url = URL(string: "https://example.com/foo.jpg")!
-
         ImageProvider.getImage(for: url) { _ in }
 
         // tests task is created
@@ -54,11 +56,8 @@ class ImageProviderTests: XCTestCase {
     }
 
     func testHandlesNetworkFailure() {
-        var receivedImage: UIImage?
-        let url = URL(string: "https://example.com/foo.jpg")!
-
         ImageProvider.getImage(for: url) { potentialImage in
-            receivedImage = potentialImage
+            self.receivedImage = potentialImage
         }
 
         let handler = URLSession.shared.capturedCompletionHandler
@@ -68,11 +67,8 @@ class ImageProviderTests: XCTestCase {
     }
 
     func testHandlesServerFailure() {
-        var receivedImage: UIImage?
-        let url = URL(string: "https://example.com/foo.jpg")!
-
         ImageProvider.getImage(for: url) { potentialImage in
-            receivedImage = potentialImage
+            self.receivedImage = potentialImage
         }
 
         let handler = URLSession.shared.capturedCompletionHandler
@@ -83,75 +79,59 @@ class ImageProviderTests: XCTestCase {
 
     // nil data
     func testHandlesMissingDataWithValidResponse() {
-        var receivedImage: UIImage?
-        let url = URL(string: "https://example.com/foo.jpg")!
-
         ImageProvider.getImage(for: url) { potentialImage in
-            receivedImage = potentialImage
+            self.receivedImage = potentialImage
         }
 
         let handler = URLSession.shared.capturedCompletionHandler
-        handler?(nil, response200, nil)
+        handler?(nil, response200(url: url), nil)
         XCTAssertNil(receivedImage,
                      "No image should be created when data is missing")
     }
 
     func testHandlesBadDataWithValidResponse() {
-        var receivedImage: UIImage?
-        let url = URL(string: "https://example.com/foo.jpg")!
-
         let badImageData = Data(bytes: [0x1])
 
         ImageProvider.getImage(for: url) { potentialImage in
-            receivedImage = potentialImage
+            self.receivedImage = potentialImage
         }
 
         let handler = URLSession.shared.capturedCompletionHandler
-        handler?(badImageData, response200, nil)
+        handler?(badImageData, response200(url: url), nil)
         XCTAssertNil(receivedImage,
                      "Bad data should not create an image")
     }
 
     func testFetchedImagesAreStoredToCache() {
-        var receivedImage: UIImage?
-        let url = URL(string: "https://example.com/foo.jpg")!
-        let image = #imageLiteral(resourceName: "catOutline")
-        let imageData = UIImagePNGRepresentation(image)
-
         ImageProvider.getImage(for: url) { potentialImage in
-            receivedImage = potentialImage
+            self.receivedImage = potentialImage
         }
 
-        var response: CachedURLResponse?
         let predicate = NSPredicate { _ in
-            guard let request = URLSession.shared.capturedRequest else {
+            guard let request = URLSession.shared.capturedRequest,
+                ImageProvider.cache.cachedResponse(for: request) != nil else {
                 return false
             }
-            response = ImageProvider.cache.cachedResponse(for: request)
-            guard response != nil else {
-                return false
-            }
+
             return true
         }
 
         expectation(for: predicate, evaluatedWith: [:], handler: nil)
 
         let handler = URLSession.shared.capturedCompletionHandler
-        handler?(imageData, response200, nil)
+        handler?(imageData, response200(url: url), nil)
 
         waitForExpectations(timeout: 3, handler: nil)
 
-        XCTAssertEqual(UIImagePNGRepresentation(receivedImage!), imageData, "Received image should be equal to the image")
+        let response = ImageProvider.cache.cachedResponse(for: URLSession.shared.capturedRequest!)
 
-        XCTAssertEqual(response?.data, imageData, "Cached request data should equal the image data")
+        XCTAssertEqual(UIImagePNGRepresentation(receivedImage!), imageData,
+                       "Received image should be equal to the image")
+        XCTAssertEqual(response?.data, imageData,
+                       "Cached request data should equal the image data")
     }
 
     func testCachedImagesDoNotFetchImages() {
-        var receivedImage: UIImage?
-        let url = URL(string: "https://example.com/foo.gif")!
-        let image = #imageLiteral(resourceName: "catOutline")
-        let imageData = UIImagePNGRepresentation(image)
-
         let response = URLResponse(url: url, mimeType: nil, expectedContentLength: 1, textEncodingName: nil)
 
         let imageReceivedExpectation = expectation(description: "image received")
@@ -159,7 +139,7 @@ class ImageProviderTests: XCTestCase {
         ImageProvider.cache.storeCachedResponse(CachedURLResponse(response: response, data: imageData!), for: URLRequest(url: url))
 
         ImageProvider.getImage(for: url) { potentialImage in
-            receivedImage = potentialImage
+            self.receivedImage = potentialImage
             imageReceivedExpectation.fulfill()
         }
 
@@ -169,5 +149,62 @@ class ImageProviderTests: XCTestCase {
                      "No data task should be created for a cached request")
         XCTAssertEqual(UIImagePNGRepresentation(receivedImage!), imageData,
                        "Received image should be from the cache")
+    }
+
+    func test404DoesNotRetry() {
+        // makes sure completion handler is called even if task is not started
+        var firstCompletionHandlerCalled = false
+        ImageProvider.getImage(for: url) { _ in
+            firstCompletionHandlerCalled = true
+        }
+
+        let handler = URLSession.shared.capturedCompletionHandler
+        handler?(nil, response404, nil)
+
+        XCTAssertTrue(firstCompletionHandlerCalled,
+                      "Should call completion handler with 404")
+
+        URLSession.shared.lastCreatedDataTask = nil
+
+        var secondCompletionHandlerCalled = false
+        ImageProvider.getImage(for: url) { _ in
+            secondCompletionHandlerCalled = true
+        }
+
+        XCTAssertNil(URLSession.shared.lastCreatedDataTask,
+                     "Should not retry request for a known missing image aka: 404")
+        XCTAssertTrue(secondCompletionHandlerCalled,
+                      "Should call completion handler even when new task is not started")
+    }
+
+    func testDuplicateRequestsAreIgnored() {
+        ImageProvider.getImage(for: url) { _ in }
+
+        // capture first request's handler
+        let handler = URLSession.shared.capturedCompletionHandler
+
+        // nil out the task
+        URLSession.shared.lastCreatedDataTask = nil
+
+        // start an identical request
+        ImageProvider.getImage(for: url) { _ in }
+
+        // make sure another request was not started
+        XCTAssertNil(URLSession.shared.lastCreatedDataTask,
+                     "Should not duplicate an in-flight image request")
+
+        // calls the first request's handler
+        handler?(nil, nil, nil)
+
+        // now calling a third time can start a new request
+        ImageProvider.getImage(for: url) { _ in }
+
+        // the new request starts a task
+        XCTAssertNotNil(URLSession.shared.lastCreatedDataTask,
+                        "Should start a new task if no image request is in-flight")
+    }
+
+    func testRetriesOnNetworkFailure() {
+
     }
 }

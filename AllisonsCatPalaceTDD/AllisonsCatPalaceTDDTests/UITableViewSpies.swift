@@ -69,6 +69,8 @@ extension UITableView {
 
     dynamic func _spyReloadRows(at indexPaths: [IndexPath], with animation: UITableViewRowAnimation) {
         reloadRowsWasCalled = true
+        reloadRowsIndexPaths = indexPaths
+        reloadRowsAnimation = animation
 
         _spyReloadRows(at: indexPaths, with: animation)
     }

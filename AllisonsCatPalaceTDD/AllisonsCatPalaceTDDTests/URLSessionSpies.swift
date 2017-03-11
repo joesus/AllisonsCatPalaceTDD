@@ -108,28 +108,26 @@ extension URLSession {
         return task
     }
 
-    class func beginSpyingOnDataTaskWithRequestCreation() {
-        let originalSelector = #selector(URLSession.dataTask(with:completionHandler:) as (URLSession) -> (URLRequest, @escaping NetworkTaskCompletionHandler) -> URLSessionDataTask)
-
-        swapMethods(originalSelector: originalSelector, alternateSelector: #selector(URLSession._spyDataTaskCreationRequest(with:completionHandler:)))
-    }
-
-    class func endSpyingOnDataTaskWithRequestCreation() {
-        let originalSelector = #selector(URLSession.dataTask(with:completionHandler:) as (URLSession) -> (URLRequest, @escaping NetworkTaskCompletionHandler) -> URLSessionDataTask)
-
-        swapMethods(originalSelector: originalSelector, alternateSelector: #selector(URLSession._spyDataTaskCreationRequest(with:completionHandler:)))
-    }
-
     class func beginSpyingOnDataTaskCreation() {
         let originalSelector = #selector(URLSession.dataTask(with:completionHandler:) as (URLSession) -> (URL, @escaping NetworkTaskCompletionHandler) -> URLSessionDataTask)
 
         swapMethods(originalSelector: originalSelector, alternateSelector: #selector(URLSession._spyDataTaskCreation(with:completionHandler:)))
+
+        // The Request Version
+        let originalWithRequestSelector = #selector(URLSession.dataTask(with:completionHandler:) as (URLSession) -> (URLRequest, @escaping NetworkTaskCompletionHandler) -> URLSessionDataTask)
+
+        swapMethods(originalSelector: originalWithRequestSelector, alternateSelector: #selector(URLSession._spyDataTaskCreationRequest(with:completionHandler:)))
     }
 
     class func endSpyingOnDataTaskCreation() {
         let originalSelector = #selector(URLSession.dataTask(with:completionHandler:) as (URLSession) -> (URL, @escaping NetworkTaskCompletionHandler) -> URLSessionDataTask)
 
         swapMethods(originalSelector: originalSelector, alternateSelector: #selector(URLSession._spyDataTaskCreation(with:completionHandler:)))
+
+        // The Request Version
+        let originalWithRequestSelector = #selector(URLSession.dataTask(with:completionHandler:) as (URLSession) -> (URLRequest, @escaping NetworkTaskCompletionHandler) -> URLSessionDataTask)
+
+        swapMethods(originalSelector: originalWithRequestSelector, alternateSelector: #selector(URLSession._spyDataTaskCreationRequest(with:completionHandler:)))
     }
 
     class func swapMethods(originalSelector: Selector, alternateSelector: Selector) {

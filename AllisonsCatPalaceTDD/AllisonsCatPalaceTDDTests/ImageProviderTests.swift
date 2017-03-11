@@ -20,13 +20,13 @@ class ImageProviderTests: XCTestCase {
 
         URLSession.shared.lastCreatedDataTask = nil
         URLSessionDataTask.beginSpyingOnResume()
-        URLSession.beginSpyingOnDataTaskWithRequestCreation()
+        URLSession.beginSpyingOnDataTaskCreation()
         ImageProvider.reset()
     }
 
     override func tearDown() {
         URLSessionDataTask.endSpyingOnResume()
-        URLSession.endSpyingOnDataTaskWithRequestCreation()
+        URLSession.endSpyingOnDataTaskCreation()
         ImageProvider.reset()
 
         super.tearDown()
@@ -51,8 +51,6 @@ class ImageProviderTests: XCTestCase {
         // and gets started
         XCTAssert(task.resumeWasCalled,
                   "Data task should be started when uncached images are fetched")
-
-        URLSession.endSpyingOnDataTaskWithRequestCreation()
     }
 
     func testHandlesNetworkFailure() {
@@ -100,6 +98,19 @@ class ImageProviderTests: XCTestCase {
         handler?(badImageData, response200(url: url), nil)
         XCTAssertNil(receivedImage,
                      "Bad data should not create an image")
+    }
+
+    func testImageForUrlReturnsCachedImage() {
+        let response = URLResponse(url: url, mimeType: nil, expectedContentLength: 1, textEncodingName: nil)
+        ImageProvider.cache.storeCachedResponse(CachedURLResponse(response: response, data: imageData!), for: URLRequest(url: url))
+
+        XCTAssertEqual(UIImagePNGRepresentation(ImageProvider.imageForUrl(url)!), imageData,
+                       "imageForUrl should return an image if there is a cached image")
+    }
+
+    func testImageForUrlReturnsNoImageIfNoCachedImage() {
+        XCTAssertNil(ImageProvider.imageForUrl(url),
+                     "imageForUrl should return nil when no cached images")
     }
 
     func testFetchedImagesAreStoredToCache() {

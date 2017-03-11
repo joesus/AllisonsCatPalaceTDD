@@ -13,7 +13,6 @@ class CatListDataSourceTests: XCTestCase {
 
     let cat = cats.first!
     let imageData = UIImagePNGRepresentation(#imageLiteral(resourceName: "testCat"))
-    let url = URL(string: "https://example.com/testCat.png")!
     let controller = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! CatListController
     var dataSource: UITableViewDataSource!
     var tableView: UITableView!
@@ -26,10 +25,16 @@ class CatListDataSourceTests: XCTestCase {
         dataSource = controller as UITableViewDataSource
         tableView = controller.tableView
         ImageProvider.reset()
+        UITableView.beginSpyingOnReloadRows()
+        URLSession.beginSpyingOnDataTaskCreation()
+        URLSessionDataTask.beginSpyingOnResume()
     }
 
     override func tearDown() {
         ImageProvider.reset()
+        UITableView.endSpyingOnReloadRows()
+        URLSession.endSpyingOnDataTaskCreation()
+        URLSessionDataTask.endSpyingOnResume()
 
         super.tearDown()
     }
@@ -97,26 +102,23 @@ class CatListDataSourceTests: XCTestCase {
 
     func testCatCellUsesCachedImageIfAvailable() {
         controller.cats.append(cat)
-        let response = URLResponse(url: url, mimeType: nil, expectedContentLength: 1, textEncodingName: nil)
-        ImageProvider.cache.storeCachedResponse(CachedURLResponse(response: response, data: imageData!), for: URLRequest(url: url))
+        let response = URLResponse(url: cat.imageUrl!, mimeType: nil, expectedContentLength: 1, textEncodingName: nil)
+        ImageProvider.cache.storeCachedResponse(CachedURLResponse(response: response, data: imageData!), for: URLRequest(url: cat.imageUrl!))
 
         // Need to force it to load the cell at that IndexPath
         let _ = tableView.dataSource?.tableView(tableView, cellForRowAt: firstCatIndexPath)
 
         let cell = tableView.cellForRow(at: firstCatIndexPath)
-        XCTAssertEqual(UIImagePNGRepresentation((cell?.imageView?.image)!), imageData,
+        XCTAssertEqual(UIImagePNGRepresentation((cell!.imageView!.image)!), imageData,
                        "When available the image should populate from the cache")
     }
 
     func testCatCellDoesNotReloadIfNotVisible() {
-        UITableView.beginSpyingOnReloadRows()
-        URLSession.beginSpyingOnDataTaskCreation()
-
         // adds all the cats
         controller.cats.append(contentsOf: cats)
 
         // triggers the fetch by getting a cell from the dataSource
-        let cell = tableView.dataSource?.tableView(tableView, cellForRowAt: firstCatIndexPath)
+        _ = tableView.dataSource?.tableView(tableView, cellForRowAt: firstCatIndexPath)
 
         // scrolls the cell out of view
         tableView.scrollToRow(at: IndexPath(row: 75, section: 0), at: .bottom, animated: false)
@@ -128,15 +130,9 @@ class CatListDataSourceTests: XCTestCase {
         // check that the cell isn't reloaded
         XCTAssertFalse(tableView.reloadRowsWasCalled,
                        "Should not call reloadRows(at: with:) if the cell is off-screen")
-
-        UITableView.endSpyingOnReloadRows()
-        URLSession.endSpyingOnDataTaskCreation()
     }
 
     func testCatCellReloadsIfVisible() {
-        UITableView.beginSpyingOnReloadRows()
-        URLSession.beginSpyingOnDataTaskCreation()
-
         // adds all the cats
         controller.cats.append(contentsOf: cats)
 
@@ -145,20 +141,17 @@ class CatListDataSourceTests: XCTestCase {
 
         // call the completion handler
         let handler = URLSession.shared.capturedCompletionHandler
-        handler?(imageData, response200(), nil)
+        handler!(imageData, response200(url: cats.first!.imageUrl!), nil)
 
         // check that the cell is reloaded
         XCTAssertTrue(tableView.reloadRowsWasCalled,
-                       "Should not call reloadRows(at: with:) if the cell is off-screen")
+                      "Should not call reloadRows(at: with:) if the cell is off-screen")
         // with the correct indexPath
         XCTAssertEqual(tableView.reloadRowsIndexPaths!, [firstCatIndexPath],
                        "Should try to reload the correct indexPath when cell is visible")
         // and correct animation
-        XCTAssertEqual(tableView.reloadRowsAnimation, .bottom,
+        XCTAssertEqual(tableView.reloadRowsAnimation, .automatic,
                        "Should try to reload with the correct animation when cell is visible")
-
-        UITableView.endSpyingOnReloadRows()
-        URLSession.endSpyingOnDataTaskCreation()
     }
 
     func testUnsuccessfulImageFetchDoesNotReloadCell() {

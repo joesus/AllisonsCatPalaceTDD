@@ -17,20 +17,26 @@ enum ImageProvider {
     static var knownMissingImageUrls = Set<URL>()
     static var currentRequestUrls = Set<URL>()
 
+    static func imageForUrl(_ url: URL) -> UIImage? {
+        guard let response = cache.cachedResponse(for: URLRequest(url: url)) else {
+            return nil
+        }
+
+        return UIImage(data: response.data)
+    }
+
     static func getImage(for url: URL, completion: @escaping (UIImage?) -> Void) {
         guard !knownMissingImageUrls.contains(url),
             !currentRequestUrls.contains(url) else {
                 return completion(nil)
         }
 
-        let request = URLRequest(url: url)
-
-        if let cachedResponse = cache.cachedResponse(for: request) {
-            let imageData = cachedResponse.data
-            completion(UIImage(data: imageData))
+        if let image = imageForUrl(url) {
+            completion(image)
             return
         }
 
+        let request = URLRequest(url: url)
         let task = URLSession.shared.dataTask(with: request) { potentialData, potentialResponse, _ in
 
             guard let response = potentialResponse as? HTTPURLResponse else {

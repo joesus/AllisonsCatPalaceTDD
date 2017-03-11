@@ -31,13 +31,16 @@ class CatListController: UITableViewController {
 
         if let imageURL = cat.imageUrl {
 
-            ImageProvider.getImage(for: imageURL) { potentialImage in
-                guard let image = potentialImage else { return }
+            if let image = ImageProvider.imageForUrl(imageURL) {
+                cell.imageView?.image = image
+            } else {
+                ImageProvider.getImage(for: imageURL) { potentialImage in
+                    guard potentialImage != nil else { return }
 
-                if let indexPaths = tableView.indexPathsForVisibleRows,
-                    indexPaths.contains(indexPath),
-                    let cell = tableView.cellForRow(at: indexPath) {
-                        cell.imageView?.image = image
+                    if let indexPaths = tableView.indexPathsForVisibleRows,
+                        indexPaths.contains(indexPath) {
+                        tableView.reloadRows(at: [indexPath], with: .automatic)
+                    }
                 }
             }
         }

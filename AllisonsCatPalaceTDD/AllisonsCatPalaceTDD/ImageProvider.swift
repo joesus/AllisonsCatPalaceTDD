@@ -14,8 +14,7 @@ import UIKit
 enum ImageProvider {
     static let cache = URLCache.shared
 
-    static func getImages(for url: URL, completion: @escaping (UIImage?) -> Void) {
-        
+    static func getImage(for url: URL, completion: @escaping (UIImage?) -> Void) {
         let request = URLRequest(url: url)
 
         if let cachedResponse = cache.cachedResponse(for: request) {
@@ -28,7 +27,7 @@ enum ImageProvider {
             guard let response = potentialResponse as? HTTPURLResponse,
                 response.statusCode == 200,
                 let data = potentialData else {
-                return completion(nil)
+                    return completion(nil)
             }
 
             if let image = UIImage(data: data) {

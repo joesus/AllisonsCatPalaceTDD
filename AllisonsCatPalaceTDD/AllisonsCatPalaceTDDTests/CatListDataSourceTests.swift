@@ -103,7 +103,8 @@ class CatListDataSourceTests: XCTestCase {
         let response = URLResponse(url: url, mimeType: nil, expectedContentLength: 1, textEncodingName: nil)
         ImageProvider.cache.storeCachedResponse(CachedURLResponse(response: response, data: imageData!), for: URLRequest(url: url))
 
-        Thread.sleep(forTimeInterval: 2)
+        // Need to force it to load the cell at that IndexPath
+        let _ = tableView.dataSource?.tableView(tableView, cellForRowAt: firstCatIndexPath)
 
         let cell = tableView.cellForRow(at: firstCatIndexPath)
         XCTAssertEqual(UIImagePNGRepresentation((cell?.imageView?.image)!), imageData,

@@ -31,7 +31,7 @@ class CatListController: UITableViewController {
 
         if let imageURL = cat.imageUrl {
 
-            ImageProvider.getImages(for: imageURL) { potentialImage in
+            ImageProvider.getImage(for: imageURL) { potentialImage in
                 guard let image = potentialImage else { return }
 
                 if let indexPaths = tableView.indexPathsForVisibleRows,

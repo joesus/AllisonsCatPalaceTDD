@@ -35,7 +35,7 @@ class ImageProviderTests: XCTestCase {
     func testUncachedImagesAreFetched() {
         let url = URL(string: "https://example.com/foo.jpg")!
 
-        ImageProvider.getImages(for: url) { _ in }
+        ImageProvider.getImage(for: url) { _ in }
 
         // tests task is created
         guard let task = URLSession.shared.lastCreatedDataTask else {
@@ -57,7 +57,7 @@ class ImageProviderTests: XCTestCase {
         var receivedImage: UIImage?
         let url = URL(string: "https://example.com/foo.jpg")!
 
-        ImageProvider.getImages(for: url) { potentialImage in
+        ImageProvider.getImage(for: url) { potentialImage in
             receivedImage = potentialImage
         }
 
@@ -71,7 +71,7 @@ class ImageProviderTests: XCTestCase {
         var receivedImage: UIImage?
         let url = URL(string: "https://example.com/foo.jpg")!
 
-        ImageProvider.getImages(for: url) { potentialImage in
+        ImageProvider.getImage(for: url) { potentialImage in
             receivedImage = potentialImage
         }
 
@@ -86,7 +86,7 @@ class ImageProviderTests: XCTestCase {
         var receivedImage: UIImage?
         let url = URL(string: "https://example.com/foo.jpg")!
 
-        ImageProvider.getImages(for: url) { potentialImage in
+        ImageProvider.getImage(for: url) { potentialImage in
             receivedImage = potentialImage
         }
 
@@ -102,7 +102,7 @@ class ImageProviderTests: XCTestCase {
 
         let badImageData = Data(bytes: [0x1])
 
-        ImageProvider.getImages(for: url) { potentialImage in
+        ImageProvider.getImage(for: url) { potentialImage in
             receivedImage = potentialImage
         }
 
@@ -118,14 +118,22 @@ class ImageProviderTests: XCTestCase {
         let image = #imageLiteral(resourceName: "catOutline")
         let imageData = UIImagePNGRepresentation(image)
 
-        ImageProvider.getImages(for: url) { potentialImage in
+        ImageProvider.getImage(for: url) { potentialImage in
             receivedImage = potentialImage
         }
 
-        let request = URLSession.shared.capturedRequest!
+        var response: CachedURLResponse?
         let predicate = NSPredicate { _ in
-            ImageProvider.cache.cachedResponse(for: request) != nil
+            guard let request = URLSession.shared.capturedRequest else {
+                return false
+            }
+            response = ImageProvider.cache.cachedResponse(for: request)
+            guard response != nil else {
+                return false
+            }
+            return true
         }
+
         expectation(for: predicate, evaluatedWith: [:], handler: nil)
 
         let handler = URLSession.shared.capturedCompletionHandler
@@ -135,9 +143,7 @@ class ImageProviderTests: XCTestCase {
 
         XCTAssertEqual(UIImagePNGRepresentation(receivedImage!), imageData, "Received image should be equal to the image")
 
-        let response = ImageProvider.cache.cachedResponse(for: request)!
-
-        XCTAssertEqual(response.data, imageData, "Cached request data should equal the image data")
+        XCTAssertEqual(response?.data, imageData, "Cached request data should equal the image data")
     }
 
     func testCachedImagesDoNotFetchImages() {
@@ -152,7 +158,7 @@ class ImageProviderTests: XCTestCase {
 
         ImageProvider.cache.storeCachedResponse(CachedURLResponse(response: response, data: imageData!), for: URLRequest(url: url))
 
-        ImageProvider.getImages(for: url) { potentialImage in
+        ImageProvider.getImage(for: url) { potentialImage in
             receivedImage = potentialImage
             imageReceivedExpectation.fulfill()
         }

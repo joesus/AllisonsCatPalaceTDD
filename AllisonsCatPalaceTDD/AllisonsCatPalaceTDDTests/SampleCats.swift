@@ -7,3 +7,9 @@
 //
 
 import Foundation
+@testable import AllisonsCatPalaceTDD
+
+let cats: [Cat] = (1...100).map { integer in
+    let url = URL(string: "http://example.com/image\(integer).jpg")!
+    return Cat(name: "test", identifier: integer, imageUrl: url)
+}

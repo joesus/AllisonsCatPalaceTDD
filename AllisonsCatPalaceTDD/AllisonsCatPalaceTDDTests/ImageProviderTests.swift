@@ -203,8 +203,4 @@ class ImageProviderTests: XCTestCase {
         XCTAssertNotNil(URLSession.shared.lastCreatedDataTask,
                         "Should start a new task if no image request is in-flight")
     }
-
-    func testRetriesOnNetworkFailure() {
-
-    }
 }

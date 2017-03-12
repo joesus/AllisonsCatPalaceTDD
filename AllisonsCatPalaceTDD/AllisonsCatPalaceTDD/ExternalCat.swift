@@ -14,5 +14,5 @@ typealias ExternalCatList = [ExternalCat]
 enum ExternalCatKeys {
     static let name = "name"
     static let id = "id"
-    static let pictureURL = "pictureURL"
+    static let pictureURL = "pictureurl"
 }

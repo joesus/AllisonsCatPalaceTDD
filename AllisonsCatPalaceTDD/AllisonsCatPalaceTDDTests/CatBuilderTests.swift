@@ -74,6 +74,11 @@ class CatBuilderTests: XCTestCase {
         XCTAssertNil(CatBuilder.buildCatFromExternalCat(externalCat), "Cat should not be constructed if externalCat id is nil")
     }
 
+    // Makes sure to test the three possible states for each non-required property
+    // Existing
+    // Missing
+    // Invalid
+
     func testBuildingCatFromExternalCatWithBadUrlString() {
         externalCat = ExternalCatData.withBadURLString
         cat = CatBuilder.buildCatFromExternalCat(externalCat)

@@ -160,7 +160,7 @@ class CatListDataSourceTests: XCTestCase {
             handler!(self.imageData, response200(url: cats.first!.imageUrl!), nil)
         }
 
-        waitForExpectations(timeout: 1, handler: nil)
+        waitForExpectations(timeout: 2, handler: nil)
 
         // check that the cell is reloaded
         XCTAssertTrue(tableView.reloadRowsWasCalled,

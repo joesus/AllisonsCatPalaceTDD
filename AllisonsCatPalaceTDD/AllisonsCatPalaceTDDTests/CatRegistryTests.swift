@@ -19,8 +19,8 @@ class CatRegistryTests: XCTestCase {
     }
 
     override func tearDown() {
-        URLSessionDataTask.endSpyingOnResume()
         URLSession.endSpyingOnDataTaskCreation()
+        URLSessionDataTask.endSpyingOnResume()
 
         super.tearDown()
     }

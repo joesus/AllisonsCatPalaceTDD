@@ -114,6 +114,8 @@ class CatListDataSourceTests: XCTestCase {
     }
 
     func testCatCellDoesNotReloadIfNotVisible() {
+        let didNotReloadExpectation = expectation(description: "testCatCellDoesNotReloadIfNotVisible")
+
         // adds all the cats
         controller.cats.append(contentsOf: cats)
 
@@ -125,7 +127,14 @@ class CatListDataSourceTests: XCTestCase {
 
         // call the completion handler
         let handler = URLSession.shared.capturedCompletionHandler
-        handler?(imageData, response200(), nil)
+
+        DispatchQueue.global(qos: .background).async {
+            handler?(self.imageData, response200(), nil)
+            Thread.sleep(forTimeInterval: 0.1)
+            didNotReloadExpectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 0.3, handler: nil)
 
         // check that the cell isn't reloaded
         XCTAssertFalse(tableView.reloadRowsWasCalled,
@@ -133,6 +142,11 @@ class CatListDataSourceTests: XCTestCase {
     }
 
     func testCatCellReloadsIfVisible() {
+        let reloadedPredicate = NSPredicate { [tableView] _,_ in
+            tableView!.reloadRowsWasCalled
+        }
+        expectation(for: reloadedPredicate, evaluatedWith: [:], handler: nil)
+
         // adds all the cats
         controller.cats.append(contentsOf: cats)
 
@@ -141,19 +155,50 @@ class CatListDataSourceTests: XCTestCase {
 
         // call the completion handler
         let handler = URLSession.shared.capturedCompletionHandler
-        handler!(imageData, response200(url: cats.first!.imageUrl!), nil)
+
+        DispatchQueue.global(qos: .background).async {
+            handler!(self.imageData, response200(url: cats.first!.imageUrl!), nil)
+        }
+
+        waitForExpectations(timeout: 1, handler: nil)
 
         // check that the cell is reloaded
         XCTAssertTrue(tableView.reloadRowsWasCalled,
-                      "Should not call reloadRows(at: with:) if the cell is off-screen")
+                      "Should call reloadRows(at: with:) if the cell is on-screen")
         // with the correct indexPath
         XCTAssertEqual(tableView.reloadRowsIndexPaths!, [firstCatIndexPath],
                        "Should try to reload the correct indexPath when cell is visible")
         // and correct animation
         XCTAssertEqual(tableView.reloadRowsAnimation, .automatic,
                        "Should try to reload with the correct animation when cell is visible")
+        // and on the right thread
+        XCTAssertTrue(tableView.reloadRowsCalledOnMainThread!,
+                      "Should call reloadRows on the main thread regardless of the thread the handler is called on")
     }
 
     func testUnsuccessfulImageFetchDoesNotReloadCell() {
+        let didNotReloadExpectation = expectation(description: "testUnsuccessfulImageFetchDoesNotReloadCell")
+
+        // adds all the cats
+        controller.cats.append(contentsOf: cats)
+
+        // triggers the fetch by getting a cell from the dataSource
+        _ = tableView.dataSource?.tableView(tableView, cellForRowAt: firstCatIndexPath)
+
+        // call the completion handler on the background thread
+        let handler = URLSession.shared.capturedCompletionHandler
+        DispatchQueue.global(qos: .background).async {
+            handler!(nil, response200(url: cats.first!.imageUrl!), nil)
+            // sleep on background thread
+            Thread.sleep(forTimeInterval: 0.2)
+            didNotReloadExpectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 0.3, handler: nil)
+
+        // check that the cell is reloaded
+        XCTAssertFalse(tableView.reloadRowsWasCalled,
+                      "Should not call reloadRows(at: with:) if unsuccessful image fetch")
+
     }
 }

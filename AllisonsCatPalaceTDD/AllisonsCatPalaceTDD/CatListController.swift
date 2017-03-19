@@ -11,7 +11,9 @@ import UIKit
 class CatListController: UITableViewController {
     var cats = [Cat]() {
         didSet {
-            tableView.reloadData()
+            DispatchQueue.main.async { [weak tableView] in
+                tableView?.reloadData()
+            }
         }
     }
 
@@ -39,7 +41,9 @@ class CatListController: UITableViewController {
 
                     if let indexPaths = tableView.indexPathsForVisibleRows,
                         indexPaths.contains(indexPath) {
-                        tableView.reloadRows(at: [indexPath], with: .automatic)
+                        DispatchQueue.main.async {
+                            tableView.reloadRows(at: [indexPath], with: .automatic)
+                        }
                     }
                 }
             }

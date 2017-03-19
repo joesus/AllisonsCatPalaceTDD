@@ -11,8 +11,14 @@ import UIKit
 fileprivate let reloadDataString = NSUUID().uuidString.cString(using: .utf8)!
 fileprivate let reloadDataKey = UnsafeRawPointer(reloadDataString)
 
+fileprivate let reloadDataCalledOnMainThreadString = NSUUID().uuidString.cString(using: .utf8)!
+fileprivate let reloadDataCalledOnMainThreadKey = UnsafeRawPointer(reloadDataCalledOnMainThreadString)
+
 fileprivate let reloadRowsCalledString = NSUUID().uuidString.cString(using: .utf8)!
 fileprivate let reloadRowsCalledKey = UnsafeRawPointer(reloadRowsCalledString)
+
+fileprivate let reloadRowsCalledOnMainThreadString = NSUUID().uuidString.cString(using: .utf8)!
+fileprivate let reloadRowsCalledOnMainThreadKey = UnsafeRawPointer(reloadRowsCalledOnMainThreadString)
 
 fileprivate let reloadRowsIndexPathsString = NSUUID().uuidString.cString(using: .utf8)!
 fileprivate let reloadRowsIndexPathsKey = UnsafeRawPointer(reloadRowsIndexPathsString)
@@ -31,6 +37,16 @@ extension UITableView {
         }
     }
 
+    var reloadDataCalledOnMainThread: Bool? {
+        get {
+            let storedValue = objc_getAssociatedObject(self, reloadDataCalledOnMainThreadKey)
+            return storedValue as? Bool
+        }
+        set {
+            objc_setAssociatedObject(self, reloadDataCalledOnMainThreadKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
     var reloadRowsWasCalled: Bool {
         get {
             let storedValue = objc_getAssociatedObject(self, reloadRowsCalledKey)
@@ -38,6 +54,16 @@ extension UITableView {
         }
         set {
             objc_setAssociatedObject(self, reloadRowsCalledKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+
+    var reloadRowsCalledOnMainThread: Bool? {
+        get {
+            let storedValue = objc_getAssociatedObject(self, reloadRowsCalledOnMainThreadString)
+            return storedValue as? Bool
+        }
+        set {
+            objc_setAssociatedObject(self, reloadRowsCalledOnMainThreadString, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 
@@ -63,12 +89,14 @@ extension UITableView {
 
     dynamic func _spyReloadData() {
         reloadDataWasCalled = true
+        reloadDataCalledOnMainThread = Thread.isMainThread
 
         _spyReloadData()
     }
 
     dynamic func _spyReloadRows(at indexPaths: [IndexPath], with animation: UITableViewRowAnimation) {
         reloadRowsWasCalled = true
+        reloadRowsCalledOnMainThread = true
         reloadRowsIndexPaths = indexPaths
         reloadRowsAnimation = animation
 

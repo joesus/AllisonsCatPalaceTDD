@@ -194,7 +194,7 @@ class CatListDataSourceTests: XCTestCase {
             didNotReloadExpectation.fulfill()
         }
 
-        waitForExpectations(timeout: 0.3, handler: nil)
+        waitForExpectations(timeout: 0.5, handler: nil)
 
         // check that the cell is reloaded
         XCTAssertFalse(tableView.reloadRowsWasCalled,

@@ -20,6 +20,8 @@
 		270FE1DC1E749E0E006126B2 /* ImageProviderExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270FE1DB1E749E0E006126B2 /* ImageProviderExtensions.swift */; };
 		2719FBEC1E7F117600D3D79A /* FavoriteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2719FBEB1E7F117600D3D79A /* FavoriteTests.swift */; };
 		2719FBEF1E7F138500D3D79A /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2719FBEE1E7F138500D3D79A /* Favorite.swift */; };
+		2719FBF31E7F20E900D3D79A /* GenderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2719FBF21E7F20E900D3D79A /* GenderTests.swift */; };
+		2719FBF51E7F21AA00D3D79A /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2719FBF41E7F21AA00D3D79A /* Gender.swift */; };
 		275D260F1E5106D800FAE334 /* CatRegistryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D260E1E5106D800FAE334 /* CatRegistryTests.swift */; };
 		275D26131E511B3400FAE334 /* CatRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D26121E511B3400FAE334 /* CatRegistry.swift */; };
 		275D26151E5125D100FAE334 /* CatListControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D26141E5125D100FAE334 /* CatListControllerTests.swift */; };
@@ -69,6 +71,8 @@
 		270FE1DB1E749E0E006126B2 /* ImageProviderExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageProviderExtensions.swift; sourceTree = "<group>"; };
 		2719FBEB1E7F117600D3D79A /* FavoriteTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteTests.swift; sourceTree = "<group>"; };
 		2719FBEE1E7F138500D3D79A /* Favorite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
+		2719FBF21E7F20E900D3D79A /* GenderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenderTests.swift; sourceTree = "<group>"; };
+		2719FBF41E7F21AA00D3D79A /* Gender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
 		275D260E1E5106D800FAE334 /* CatRegistryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatRegistryTests.swift; sourceTree = "<group>"; };
 		275D26121E511B3400FAE334 /* CatRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatRegistry.swift; sourceTree = "<group>"; };
 		275D26141E5125D100FAE334 /* CatListControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatListControllerTests.swift; sourceTree = "<group>"; };
@@ -121,6 +125,7 @@
 			children = (
 				276C61C11E2C1C0E00225CF4 /* Cat.swift */,
 				2719FBEE1E7F138500D3D79A /* Favorite.swift */,
+				2719FBF41E7F21AA00D3D79A /* Gender.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -168,6 +173,7 @@
 		276C61A91E2C062200225CF4 /* AllisonsCatPalaceTDDTests */ = {
 			isa = PBXGroup;
 			children = (
+				2719FBF21E7F20E900D3D79A /* GenderTests.swift */,
 				2719FBEB1E7F117600D3D79A /* FavoriteTests.swift */,
 				277199151E35636A00930630 /* Helpers */,
 				276C61AC1E2C062200225CF4 /* Info.plist */,
@@ -315,6 +321,7 @@
 				277199141E34002300930630 /* CatNetworker.swift in Sources */,
 				276C61BC1E2C183300225CF4 /* ExternalCat.swift in Sources */,
 				27E823951E5A4E42009B202A /* CatCell.swift in Sources */,
+				2719FBF51E7F21AA00D3D79A /* Gender.swift in Sources */,
 				275D26171E512F5E00FAE334 /* CatListController.swift in Sources */,
 				2719FBEF1E7F138500D3D79A /* Favorite.swift in Sources */,
 				276C61C61E2D728800225CF4 /* CatBuilder.swift in Sources */,
@@ -326,6 +333,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2719FBF31E7F20E900D3D79A /* GenderTests.swift in Sources */,
 				276C61B61E2C068900225CF4 /* AppDelegateTests.swift in Sources */,
 				27E8238A1E5A273D009B202A /* UIViewControllerSpies.swift in Sources */,
 				270A6AF31E3E981100B12D38 /* CatNetworkErrorTests.swift in Sources */,

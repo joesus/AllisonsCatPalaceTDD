@@ -79,6 +79,37 @@ class CatBuilderTests: XCTestCase {
     // Missing
     // Invalid
 
+    func testBuildingCatFromExternalDataWithFullKeys() {
+        cat = CatBuilder.buildCatFromExternalCat(fullCatJSON)
+        guard let cat = cat else {
+            return XCTFail("Cat should exist after being build from external cat")
+        }
+        XCTAssertNotNil(cat.about)
+        XCTAssertNotNil(cat.age)
+        XCTAssertNotNil(cat.city)
+        XCTAssertNotNil(cat.stateCode)
+        XCTAssertNotNil(cat.cutenessLevel)
+        XCTAssertNotNil(cat.gender)
+        XCTAssertNotNil(cat.greeting)
+        XCTAssertNotNil(cat.weight)
+    }
+
+    func testBuilderSetsFemaleCorrectly() {
+        externalCat = ExternalCatData.female
+        cat = CatBuilder.buildCatFromExternalCat(externalCat)
+        guard let builtCat = cat else {
+            return XCTFail("Cat should exist after being build from external cat")
+        }
+        XCTAssertEqual(builtCat.gender, .female, "Cat builder should convert a string to correct weight enum value")
+
+        externalCat = ExternalCatData.male
+        cat = CatBuilder.buildCatFromExternalCat(externalCat)
+        guard let anotherCat = cat else {
+            return XCTFail("Cat should exist after being build from external cat")
+        }
+        XCTAssertEqual(anotherCat.gender, .male, "Cat builder should convert a string to correct weight enum value")
+    }
+
     func testBuildingCatFromExternalCatWithBadUrlString() {
         externalCat = ExternalCatData.withBadURLString
         cat = CatBuilder.buildCatFromExternalCat(externalCat)

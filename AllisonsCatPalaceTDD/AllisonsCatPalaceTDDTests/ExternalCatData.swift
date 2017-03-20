@@ -16,4 +16,6 @@ struct ExternalCatData {
     static let missingIdentifier: [String: Any] = ["name": "CatOne"]
     static let missingName: [String: Any] = ["id": 1]
     static let invalid: [String: Any] = [:]
+    static let female: [String: Any] = ["name": "CatTwo", "id": 2, "gender": "female"]
+    static let male: [String: Any] = ["name": "CatTwo", "id": 2, "gender": "male"]
 }

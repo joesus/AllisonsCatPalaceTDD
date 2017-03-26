@@ -20,4 +20,9 @@ class MainStoryboardTests: XCTestCase {
 
         XCTAssert(rootViewController is CatListController, "RootViewController should be a Cat List Controller")
     }
+
+    func testCatDetailViewController() {
+        let catDetailController = storyboard.instantiateViewController(withIdentifier: "CatDetail")
+        XCTAssert(catDetailController is CatDetailTableViewController, "Should be able to instantiate CatDetailTableViewController from storyboard")
+    }
 }

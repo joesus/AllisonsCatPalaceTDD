@@ -46,8 +46,8 @@ class CatNetworkerTests: XCTestCase {
             return XCTFail("A task should have a currentRequest")
         }
 
-        XCTAssertEqual(request.httpMethod, "GET", "The request method for retrieving a cat should be get")
-        XCTAssertEqual(request.url?.host, "example.com", "The domain should be firebase")
+        XCTAssertEqual(request.httpMethod, "GET", "The request method for retrieving cats should be get")
+        XCTAssertEqual(request.url?.host, "example.com", "The domain should be example.com")
         XCTAssertEqual(request.url?.path, "/cats", "The path should be cats")
         XCTAssert(task.resumeWasCalled, "task should be started")
 
@@ -78,7 +78,7 @@ class CatNetworkerTests: XCTestCase {
         XCTAssertEqual(receivedError, fakeNetworkError, "the network error should be passed to the completion handler")
     }
 
-    func testHandlingMissingCatEndpoint() {
+    func testHandlingMissingCatsEndpoint() {
         var receivedError: CatNetworkError?
 
         CatNetworker.retrieveAllCats { result in
@@ -91,7 +91,7 @@ class CatNetworkerTests: XCTestCase {
         XCTAssertEqual(receivedError?.message, "Cat service unavailable", "missing cat endpoint should provide a service unavailable message")
     }
 
-    func testHandlingMissingDataWithValidResponse() {
+    func testHandlingMissingDataWithValidResponseForAllCats() {
         var receivedError: CatNetworkError?
 
         CatNetworker.retrieveAllCats { result in
@@ -118,6 +118,78 @@ class CatNetworkerTests: XCTestCase {
         XCTAssertEqual(retrievedCatData, sampleData, "retrievedCatData should equal sample data")
     }
 
+    func testCreatingRetrieveSingleCatTask() {
+        CatNetworker.retrieveCat(withIdentifier: 2) {_ in}
+
+        guard let task = CatNetworker.session.lastResumedDataTask else {
+            return XCTFail("A task should have been created")
+        }
+
+        guard let request = task.currentRequest else {
+            return XCTFail("A task should have a currentRequest")
+        }
+
+        XCTAssertEqual(request.httpMethod, "GET", "The request method for retrieving a single cat should be get")
+        XCTAssertEqual(request.url?.host, "example.com", "The domain should be example.com")
+        XCTAssertEqual(request.url?.path, "/cats/2", "The path should be cats/{id}")
+        XCTAssert(task.resumeWasCalled, "task should be started")
+
+        // Cleanup of sorts
+        task.resumeWasCalled = false
+    }
+
+    func testHandlingRetrieveSingleCatNetworkFailure() {
+        var receivedError: NSError?
+
+        CatNetworker.retrieveCat(withIdentifier: 2) { result in
+            if case let .failure(error) = result {
+                receivedError = error as NSError
+            }
+        }
+        let handler = CatNetworker.session.capturedCompletionHandler
+        handler?(nil, nil, fakeNetworkError)
+        XCTAssertEqual(receivedError, fakeNetworkError, "the network error should be passed to the completion handler")
+    }
+
+    func testHandlingMissingCatEndpoint() {
+        var receivedError: CatNetworkError?
+
+        CatNetworker.retrieveCat(withIdentifier: 1) { result in
+            if case let .failure(error) = result {
+                receivedError = error as? CatNetworkError
+            }
+        }
+        let handler = CatNetworker.session.capturedCompletionHandler
+        handler?(nil, response404, nil)
+        XCTAssertEqual(receivedError?.message, "Cat 1 not found", "missing cat should provide a cat unavailable message")
+    }
+
+    func testHandlingMissingDataWithValidResponseForSingleCat() {
+        var receivedError: CatNetworkError?
+
+        CatNetworker.retrieveCat(withIdentifier: 1) { result in
+            if case let .failure(error) = result {
+                receivedError = error as? CatNetworkError
+            }
+        }
+        let handler = CatNetworker.session.capturedCompletionHandler
+        handler?(nil, response200(), nil)
+        XCTAssertEqual(receivedError?.message, "Missing Data", "cat retrieval with missing data and success code should fail")
+    }
+
+    func testRetrievingSingleCat() {
+        var retrievedCatData: Data?
+        let sampleData = Data(bytes: [0x1])
+
+        CatNetworker.retrieveCat(withIdentifier: 1) { result in
+            if case let .success(data) = result {
+                retrievedCatData = data
+            }
+        }
+        let handler = CatNetworker.session.capturedCompletionHandler
+        handler?(sampleData, response200(), nil)
+        XCTAssertEqual(retrievedCatData, sampleData, "retrievedCatData should equal sample data")
+    }
 }
 
 extension CatNetworkerTests {

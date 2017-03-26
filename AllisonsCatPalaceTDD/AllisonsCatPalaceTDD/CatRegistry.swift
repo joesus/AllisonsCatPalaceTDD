@@ -10,20 +10,25 @@ import Foundation
 
 class CatRegistry {
 
-    @discardableResult
     static func fetchAllCats(completion: @escaping ([Cat]) -> Void) {
         CatNetworker.retrieveAllCats { result in
             switch result {
             case .success(let data):
-                guard let cats = CatBuilder.buildCats(from: data) else {
-                    return completion([])
-                }
-                completion(cats)
+                completion(CatBuilder.buildCats(from: data))
             case .failure(_):
                 completion([])
             }
         }
-
     }
 
+    static func fetchCat(withIdentifier identifier: Int, completion: @escaping (Cat?) -> Void) {
+        CatNetworker.retrieveCat(withIdentifier: identifier) { result in
+            switch result {
+            case .success(let data):
+                completion(CatBuilder.buildCat(from: data))
+            case .failure(_):
+                completion(nil)
+            }
+        }
+    }
 }

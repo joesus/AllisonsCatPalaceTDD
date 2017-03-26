@@ -11,9 +11,12 @@ import XCTest
 
 class CatRegistryTests: XCTestCase {
 
+    var completionHandlerInvoked = false
+
     override func setUp() {
         super.setUp()
 
+        completionHandlerInvoked = false
         URLSession.beginSpyingOnDataTaskCreation()
         URLSessionDataTask.beginSpyingOnResume()
     }
@@ -28,17 +31,20 @@ class CatRegistryTests: XCTestCase {
     func testGettingAllCatsFailure() {
         var receivedCats: [Cat]?
         CatRegistry.fetchAllCats() { cats in
+            self.completionHandlerInvoked = true
             receivedCats = cats
         }
         let handler = CatNetworker.session.capturedCompletionHandler
         handler?(nil, response200(), nil)
 
+        XCTAssertTrue(completionHandlerInvoked, "Completion handler should be invoked on all calls to registry")
         XCTAssert(receivedCats!.isEmpty, "Should not have cats without data")
     }
 
     func testGettingAllCatsWithEmptyResult() {
         var receivedCats: [Cat]?
         CatRegistry.fetchAllCats() { cats in
+            self.completionHandlerInvoked = true
             receivedCats = cats
         }
         let handler = CatNetworker.session.capturedCompletionHandler
@@ -47,12 +53,14 @@ class CatRegistryTests: XCTestCase {
 
         handler?(emptyCatsData, response200(), nil)
 
+        XCTAssertTrue(completionHandlerInvoked, "Completion handler should be invoked on all calls to registry")
         XCTAssert(receivedCats!.isEmpty, "Should not have cats with empty data")
     }
 
     func testGettingAllCatsSuccess() {
         var receivedCats: [Cat]?
         CatRegistry.fetchAllCats() { cats in
+            self.completionHandlerInvoked = true
             receivedCats = cats
         }
         let handler = CatNetworker.session.capturedCompletionHandler
@@ -61,6 +69,64 @@ class CatRegistryTests: XCTestCase {
 
         handler?(catData, response200(), nil)
 
+        XCTAssertTrue(completionHandlerInvoked, "Completion handler should be invoked on all calls to registry")
         XCTAssertEqual(receivedCats!.count, 2, "Should have received two cats")
     }
+
+    func testGetSingleCatFailure() {
+        var retrievedCat: Cat?
+        CatRegistry.fetchCat(withIdentifier: 2) { cat in
+            self.completionHandlerInvoked = true
+            retrievedCat = cat
+        }
+        let handler = CatNetworker.session.capturedCompletionHandler
+        handler?(nil, response200(), nil)
+
+        XCTAssertTrue(completionHandlerInvoked, "Completion handler should be invoked on all calls to registry")
+        XCTAssertNil(retrievedCat, "Should not return a cat if there is no data")
+    }
+
+    func testGetSingleCatWithEmptyResult() {
+        var retrievedCat: Cat?
+        CatRegistry.fetchCat(withIdentifier: 1) { cat in
+            self.completionHandlerInvoked = true
+            retrievedCat = cat
+        }
+        let handler = CatNetworker.session.capturedCompletionHandler
+        let emptyData = try! JSONSerialization.data(withJSONObject: [:], options: [])
+        handler?(emptyData, response200(), nil)
+
+        XCTAssertTrue(completionHandlerInvoked, "Completion handler should be invoked on all calls to registry")
+        XCTAssertNil(retrievedCat, "Should not return a cat if the data is empty")
+    }
+
+    func testGetSingleCatSuccess() {
+        var retrievedCat: Cat?
+        CatRegistry.fetchCat(withIdentifier: 1) { cat in
+            self.completionHandlerInvoked = true
+            retrievedCat = cat
+        }
+        let handler = CatNetworker.session.capturedCompletionHandler
+        let catData = try! JSONSerialization.data(withJSONObject: ExternalCatData.valid, options: [])
+
+        handler?(catData, response200(), nil)
+
+        XCTAssertTrue(completionHandlerInvoked, "Completion handler should be invoked on all calls to registry")
+        XCTAssertNotNil(retrievedCat, "Valid cat data should return a cat")
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

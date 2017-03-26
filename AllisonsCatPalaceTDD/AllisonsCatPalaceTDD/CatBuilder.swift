@@ -10,14 +10,18 @@ import Foundation
 
 final class CatBuilder {
 
-    static func externalCatList(from data: Data) -> ExternalCatList? {
-        guard let catList = try? JSONSerialization.jsonObject(with: data, options: []) else {
-            return nil
-        }
-        return catList as? ExternalCatList
+    // TODO: - verbify, rename to decode to indicate the action being taken
+    private static func externalCatList(from data: Data) -> ExternalCatList? {
+        let json = try? JSONSerialization.jsonObject(with: data, options: [])
+        return json as? ExternalCatList
     }
 
-    static func buildCatFromExternalCat(_ json: ExternalCat) -> Cat? {
+    private static func externalCat(from data: Data) -> ExternalCat? {
+        let json = try? JSONSerialization.jsonObject(with: data, options: [])
+        return json as? ExternalCat
+    }
+
+    private static func buildCatFromExternalCat(_ json: ExternalCat) -> Cat? {
         guard let name = json[ExternalCatKeys.name] as? String,
             let identifier = json[ExternalCatKeys.id] as? Int else {
                 return nil
@@ -65,11 +69,18 @@ final class CatBuilder {
         return cat
     }
 
-    static func buildCats(from data: Data) -> [Cat]? {
+    static func buildCats(from data: Data) -> [Cat] {
         guard let list = externalCatList(from: data) else {
-            return nil
+            return []
         }
 
         return list.flatMap { buildCatFromExternalCat($0) }
+    }
+
+    static func buildCat(from data: Data) -> Cat? {
+        guard let cat = externalCat(from: data) else {
+            return nil
+        }
+        return buildCatFromExternalCat(cat)
     }
 }

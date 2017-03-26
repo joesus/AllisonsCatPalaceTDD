@@ -11,114 +11,116 @@ import XCTest
 
 class CatBuilderTests: XCTestCase {
 
-    var externalCat: ExternalCat!
-    var cat: Cat?
+    // MARK:- List tests
 
-    func testTransformingBadDataToCatList() {
-        let badData = Data(bytes: [0x1])
-        let catList = CatBuilder.externalCatList(from: badData)
-        XCTAssertNil(catList, "catList should be nil with bad data")
-    }
-
-    func testTransformingEmptyDataToCatList() {
-        let emptyData = try! JSONSerialization.data(withJSONObject: [], options: [])
-        let catList = CatBuilder.externalCatList(from: emptyData)
-        XCTAssertTrue(catList!.isEmpty, "Empty data should represent as an empty array")
-    }
-
-    func testTransformingValidCatDataToCatList() {
-        let catData = try! JSONSerialization.data(withJSONObject: [ExternalCatData.valid], options: [])
-        let catList = CatBuilder.externalCatList(from: catData)
-        XCTAssertEqual(catList!.count, 1, "catlist should have one cat")
-    }
-
+    // Bad Data
     func testTransformingBadDataToArrayOfCats() {
         let badData = Data(bytes: [0x1])
         let cats = CatBuilder.buildCats(from: badData)
-        XCTAssertNil(cats, "cats should be nil with bad data")
+        XCTAssertTrue(cats.isEmpty, "bad data should produce empty list of cats")
     }
 
-    func testBuildingCatsFromValidCatData() {
+    // Empty Data
+    func testTransformingEmptyDataToCatList() {
+        let emptyData = try! JSONSerialization.data(withJSONObject: [], options: [])
+        let cats = CatBuilder.buildCats(from: emptyData)
+        XCTAssertTrue(cats.isEmpty, "Empty data should produce empty list of cats")
+    }
+
+    // Minimal Data
+    func testBuildingCatsFromMinimalCatData() {
         let catData = try! JSONSerialization.data(withJSONObject: [ExternalCatData.valid, ExternalCatData.anotherValid], options: [])
-        let cats = CatBuilder.buildCats(from: catData)!
-        let catOne = cats.first
-        XCTAssertEqual(catOne!.name, "CatOne", "First cat name was set incorrectly")
-        XCTAssertEqual(catOne!.identifier, 1, "First cat Id was set incorrectly")
-        let catTwo = cats.last
-        XCTAssertEqual(catTwo!.name, "CatTwo", "Second cat name was set incorrectly")
-        XCTAssertEqual(catTwo!.identifier, 2, "Second cat Id was set incorrectly")
+        let cats = CatBuilder.buildCats(from: catData)
+        let catOne = cats.first!
+        XCTAssertEqual(catOne.name, "CatOne", "First cat name was set incorrectly")
+        XCTAssertEqual(catOne.identifier, 1, "First cat Id was set incorrectly")
+        let catTwo = cats.last!
+        XCTAssertEqual(catTwo.name, "CatTwo", "Second cat name was set incorrectly")
+        XCTAssertEqual(catTwo.identifier, 2, "Second cat Id was set incorrectly")
     }
 
-    func testBuildingCatFromValidExternalCat() {
-        externalCat = ExternalCatData.valid
-        cat = CatBuilder.buildCatFromExternalCat(externalCat)
-        guard let cat = cat else {
-            return XCTFail("Cat should exist after being build from external cat")
-        }
+    // MARK:- Single tests
 
-        XCTAssertEqual(cat.name, "CatOne", "Cat name was set incorrectly")
-        XCTAssertEqual(cat.identifier, 1, "Cat Id was set incorrectly")
+    // Bad Data
+    func testTransformingBadDataToCat() {
+        let badData = Data(bytes: [0x1])
+        let cat = CatBuilder.buildCat(from: badData)
+        XCTAssertNil(cat, "Should not create cat with bad data")
     }
 
-    func testBuildingCatFromExternalCatWithMissingData() {
-        externalCat = ExternalCatData.invalid
-        XCTAssertNil(CatBuilder.buildCatFromExternalCat(externalCat), "Cat should not be constructed if externalCat name and id are nil")
+    // Missing Data
+    func testTransformingEmptyDataToCat() {
+        let emptyData = try! JSONSerialization.data(withJSONObject: [:], options: [])
+        let cat = CatBuilder.buildCat(from: emptyData)
+        XCTAssertNil(cat, "Should not create cat with empty data")
     }
 
-    func testBuildingCatFromExternalCatWithMissingName() {
-        externalCat = ExternalCatData.missingName
-        XCTAssertNil(CatBuilder.buildCatFromExternalCat(externalCat), "Cat should not be constructed if externalCat name is nil")
-    }
-    func testBuildingCatFromExternalCatWithMissingIdentifier() {
-        externalCat = ExternalCatData.missingIdentifier
-        XCTAssertNil(CatBuilder.buildCatFromExternalCat(externalCat), "Cat should not be constructed if externalCat id is nil")
+    // Partial Data (with Id)
+    func testBuildingCatWithMissingName() {
+        let catData = try! JSONSerialization.data(withJSONObject: ExternalCatData.missingName, options: [])
+        let cat = CatBuilder.buildCat(from: catData)
+        XCTAssertNil(cat, "Should not create cat if name is missing")
     }
 
-    // Makes sure to test the three possible states for each non-required property
-    // Existing
-    // Missing
-    // Invalid
-
-    func testBuildingCatFromExternalDataWithFullKeys() {
-        cat = CatBuilder.buildCatFromExternalCat(fullCatJSON)
-        guard let cat = cat else {
-            return XCTFail("Cat should exist after being build from external cat")
-        }
-        XCTAssertNotNil(cat.about)
-        XCTAssertNotNil(cat.age)
-        XCTAssertNotNil(cat.city)
-        XCTAssertNotNil(cat.stateCode)
-        XCTAssertNotNil(cat.cutenessLevel)
-        XCTAssertNotNil(cat.gender)
-        XCTAssertNotNil(cat.greeting)
-        XCTAssertNotNil(cat.weight)
+    // Partial Data (with name)
+    func testBuildingCatWithMissingIdentifier() {
+        let catData = try! JSONSerialization.data(withJSONObject: ExternalCatData.missingIdentifier, options: [])
+        let cat = CatBuilder.buildCat(from: catData)
+        XCTAssertNil(cat, "Should not create cat if identifier is missing")
     }
 
-    func testBuilderSetsFemaleCorrectly() {
-        externalCat = ExternalCatData.female
-        cat = CatBuilder.buildCatFromExternalCat(externalCat)
-        guard let builtCat = cat else {
-            return XCTFail("Cat should exist after being build from external cat")
-        }
-        XCTAssertEqual(builtCat.gender, .female, "Cat builder should convert a string to correct weight enum value")
-
-        externalCat = ExternalCatData.male
-        cat = CatBuilder.buildCatFromExternalCat(externalCat)
-        guard let anotherCat = cat else {
-            return XCTFail("Cat should exist after being build from external cat")
-        }
-        XCTAssertEqual(anotherCat.gender, .male, "Cat builder should convert a string to correct weight enum value")
+    // Minimal Data
+    func testBuildingCatWithMinimalData() {
+        let catData = try! JSONSerialization.data(withJSONObject: ExternalCatData.valid, options: [])
+        let cat = CatBuilder.buildCat(from: catData)!
+        XCTAssertEqual(cat.name, "CatOne", "Builder should set name correctly from valid data")
+        XCTAssertEqual(cat.identifier, 1, "Builder should set identifier correctly from valid data")
     }
+
+    // Full Data
+    func testBuildingCatWithFullData() {
+        let catData = try! JSONSerialization.data(withJSONObject: ExternalCatData.full, options: [])
+        let cat = CatBuilder.buildCat(from: catData)!
+        XCTAssertEqual(cat.name, "testCat", "Builder should set name correctly from valid data")
+        XCTAssertEqual(cat.identifier, 2, "Builder should set identifier correctly from valid data")
+        XCTAssertEqual(cat.about, "I am a cat", "Builder should set about correctly from valid data")
+        XCTAssertEqual(cat.age, 10, "Builder should set age correctly from valid data")
+        XCTAssertEqual(cat.city, "Denver", "Builder should set city correctly from valid data")
+        XCTAssertEqual(cat.stateCode, "CO", "Builder should set state code correctly from valid data")
+        XCTAssertEqual(cat.cutenessLevel, 3, "Builder should set cuteness level correctly from valid data")
+        XCTAssertEqual(cat.greeting, "Meooooow", "Builder should set greeting correctly from valid data")
+        XCTAssertEqual(cat.weight, 10, "Builder should set weight correctly from valid data")
+    }
+
+    // MARK:- Specific Properties
+
+    // Gender Property
+    func testBuildingCatFromExternalCatWithSpecificGender() {
+
+        var data = try! JSONSerialization.data(withJSONObject: ExternalCatData.neutered, options: [])
+        var cat = CatBuilder.buildCat(from: data)!
+        XCTAssertEqual(cat.gender, .unknown, "Only 'male' and 'female' should return known genders, otherwise should return unknown")
+
+        data = try! JSONSerialization.data(withJSONObject: ExternalCatData.male, options: [])
+        cat = CatBuilder.buildCat(from: data)!
+        XCTAssertEqual(cat.gender, .male, "Gender should be parsed correctly")
+
+        data = try! JSONSerialization.data(withJSONObject: ExternalCatData.female, options: [])
+        cat = CatBuilder.buildCat(from: data)!
+        XCTAssertEqual(cat.gender, .female, "Gender should be parsed correctly")
+    }
+
+    // ImageURL property
 
     func testBuildingCatFromExternalCatWithBadUrlString() {
-        externalCat = ExternalCatData.withBadURLString
-        cat = CatBuilder.buildCatFromExternalCat(externalCat)
-        XCTAssertNil(cat?.imageUrl, "Cat should not create url from bad url string")
+        let data = try! JSONSerialization.data(withJSONObject: ExternalCatData.withBadURLString, options: [])
+        let cat = CatBuilder.buildCat(from: data)!
+        XCTAssertNil(cat.imageUrl, "Cat should not create url from bad url string")
     }
 
     func testBuildingCatFromExternalCatWithValidUrlString() {
-        externalCat = ExternalCatData.withURLString
-        cat = CatBuilder.buildCatFromExternalCat(externalCat)
-        XCTAssertEqual(cat?.imageUrl?.absoluteString, "https://example.com/foo.gif", "Cat should have valid url")
+        let data = try! JSONSerialization.data(withJSONObject: ExternalCatData.withURLString, options: [])
+        let cat = CatBuilder.buildCat(from: data)!
+        XCTAssertEqual(cat.imageUrl?.absoluteString, "https://example.com/foo.gif", "Cat should have valid url")
     }
 }

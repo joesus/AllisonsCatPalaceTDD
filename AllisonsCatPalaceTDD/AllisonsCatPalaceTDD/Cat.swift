@@ -12,7 +12,7 @@ class Cat {
 
     let name: String
     let identifier: Int
-    let imageUrl: URL?
+    var imageUrl: URL?
     var about: String? {
         didSet {
             guard let value = about,

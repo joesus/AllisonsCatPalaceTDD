@@ -10,7 +10,7 @@ import Foundation
 
 typealias NetworkResult = Result<Data>
 typealias CatRetrievalHandler = (NetworkResult) -> Void
-private let CatServiceDomain = "http://example.com/"
+private let CatServiceDomain = "http://localhost:8080/"
 private let CatServicePath = "cats"
 private let CatServiceDomainUrl = URL(string: CatServiceDomain)!
 let CatServiceEndpoint = CatServiceDomainUrl.appendingPathComponent(CatServicePath)

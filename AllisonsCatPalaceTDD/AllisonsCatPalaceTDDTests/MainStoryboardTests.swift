@@ -13,16 +13,23 @@ class MainStoryboardTests: XCTestCase {
 
     let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
 
-    func testRootViewControllerIsCatListController() {
-        guard let rootViewController = storyboard.instantiateInitialViewController() else {
-            return XCTFail("There should be an initial view controller on the storyboard")
-        }
+    func testInitialViewControllerIsNavigationController() {
+        let initialViewController = storyboard.instantiateInitialViewController() as? UINavigationController
 
-        XCTAssert(rootViewController is CatListController, "RootViewController should be a Cat List Controller")
+        XCTAssertNotNil(initialViewController, "initialViewController should be a UINavigationController")
+    }
+
+    func testTopViewControllerIsCatListController() {
+        guard let navController = storyboard.instantiateInitialViewController() as? UINavigationController else {
+            return XCTFail("Initial view controller should be a UINavigationController")
+        }
+        let topViewController = navController.topViewController as? CatListController
+
+        XCTAssertNotNil(topViewController, "Top view controller should be a CatListController")
     }
 
     func testCatDetailViewController() {
         let catDetailController = storyboard.instantiateViewController(withIdentifier: "CatDetail")
-        XCTAssert(catDetailController is CatDetailTableViewController, "Should be able to instantiate CatDetailTableViewController from storyboard")
+        XCTAssert(catDetailController is CatDetailController, "Should be able to instantiate CatDetailController from storyboard")
     }
 }

@@ -11,11 +11,15 @@ import XCTest
 
 class CatListControllerTests: XCTestCase {
 
-    let controller = CatListController()
+    var controller: CatListController!
+    var navController: UINavigationController!
 
     override func setUp() {
         super.setUp()
 
+
+        navController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
+        controller = navController.topViewController as! CatListController
         UITableView.beginSpyingOnReloadData()
     }
 
@@ -48,7 +52,7 @@ class CatListControllerTests: XCTestCase {
 
     func testReloadDataIsCalledWhenCatsAreUpdated() {
         let reloadedPredicate = NSPredicate { [controller] _,_ in
-            controller.tableView.reloadDataWasCalled
+            controller!.tableView.reloadDataWasCalled
         }
         expectation(for: reloadedPredicate, evaluatedWith: [:], handler: nil)
 
@@ -66,7 +70,7 @@ class CatListControllerTests: XCTestCase {
 
     func testReloadDataIsCalledWhenCatsAreCleared() {
         let reloadedPredicate = NSPredicate { [controller] _,_ in
-            controller.tableView.reloadDataWasCalled
+            controller!.tableView.reloadDataWasCalled
         }
         expectation(for: reloadedPredicate, evaluatedWith: [:], handler: nil)
 
@@ -78,6 +82,24 @@ class CatListControllerTests: XCTestCase {
         XCTAssert(controller.tableView.reloadDataWasCalled, "TableView should be reloaded when cats are cleared")
         XCTAssert(controller.tableView.reloadDataCalledOnMainThread!,
                   "Reload data should be called on the main thread when cats are cleared on a background thread")
+    }
+
+    // Single Delegate test - move to own class if there are many more delegate tests
+    func testSelectingCellPushesDetailController() {
+        UINavigationController.beginSpyingOnPushViewController()
+
+        controller.cats = [SampleCat]
+        controller.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .none)
+
+        XCTAssertTrue(navController.pushViewControllerWasCalled, "Selecting a cell should trigger a segue")
+        XCTAssertTrue(navController.pushedViewController! is CatDetailController, "Pushed view controller should be a CatDetailController")
+
+        UINavigationController.endSpyingOnPushViewController()
+    }
+
+    func testPrepareForSegue() {
+        // sets cat
+        // sets nav title
     }
 }
 

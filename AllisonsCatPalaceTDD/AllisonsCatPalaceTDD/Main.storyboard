@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="WVV-vz-AHA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VFa-DY-njt">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -38,6 +38,9 @@
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="fqG-GA-LVj" kind="show" id="rck-gI-7sW"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -45,15 +48,16 @@
                             <outlet property="delegate" destination="WVV-vz-AHA" id="M4q-6A-CpL"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="OO8-qC-yUR"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cIc-u8-JBa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-558" y="-917"/>
+            <point key="canvasLocation" x="380" y="-917.09145427286364"/>
         </scene>
-        <!--Cat Detail Table View Controller-->
+        <!--Cat Detail Controller-->
         <scene sceneID="X7A-LK-UmY">
             <objects>
-                <tableViewController storyboardIdentifier="CatDetail" id="fqG-GA-LVj" customClass="CatDetailTableViewController" customModule="AllisonsCatPalaceTDD" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="CatDetail" id="fqG-GA-LVj" customClass="CatDetailController" customModule="AllisonsCatPalaceTDD" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="HtL-fW-pjk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -76,7 +80,25 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oll-0a-D7Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="385" y="-916"/>
+            <point key="canvasLocation" x="1324" y="-916.1919040479761"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="X5v-Bv-9X3">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VFa-DY-njt" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5v9-zt-lCE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="WVV-vz-AHA" kind="relationship" relationship="rootViewController" id="waO-ut-VDv"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QsR-7T-g5D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-559.20000000000005" y="-917.09145427286364"/>
         </scene>
     </scenes>
     <resources>

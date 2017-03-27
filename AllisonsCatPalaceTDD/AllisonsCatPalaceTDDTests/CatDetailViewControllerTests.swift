@@ -11,7 +11,7 @@ import XCTest
 
 class CatDetailViewControllerTests: XCTestCase {
 
-    let controller = CatDetailTableViewController()
+    let controller = CatDetailController()
 
     func testIsTableViewController() {
         XCTAssert(controller as Any is UITableViewController, "CatListController should be a UITableViewController")

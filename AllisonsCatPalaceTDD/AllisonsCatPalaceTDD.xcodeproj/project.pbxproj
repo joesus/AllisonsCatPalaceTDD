@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2700D3F51E885FE7004E77A1 /* CatDetailViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2700D3F41E885FE7004E77A1 /* CatDetailViewControllerTests.swift */; };
+		2700D3F71E88642D004E77A1 /* CatDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2700D3F61E88642D004E77A1 /* CatDetailController.swift */; };
+		2700D3F91E8870DB004E77A1 /* UINavigationControllerSpies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2700D3F81E8870DB004E77A1 /* UINavigationControllerSpies.swift */; };
 		270A6AE31E3E700C00B12D38 /* URLSessionSpies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270A6AE21E3E700C00B12D38 /* URLSessionSpies.swift */; };
 		270A6AE51E3E70CD00B12D38 /* URLSessionDataTaskSpies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270A6AE41E3E70CD00B12D38 /* URLSessionDataTaskSpies.swift */; };
 		270A6AE91E3E7BAB00B12D38 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270A6AE81E3E7BAB00B12D38 /* Box.swift */; };
@@ -58,6 +61,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2700D3F41E885FE7004E77A1 /* CatDetailViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatDetailViewControllerTests.swift; sourceTree = "<group>"; };
+		2700D3F61E88642D004E77A1 /* CatDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatDetailController.swift; sourceTree = "<group>"; };
+		2700D3F81E8870DB004E77A1 /* UINavigationControllerSpies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationControllerSpies.swift; sourceTree = "<group>"; };
 		270A6AE21E3E700C00B12D38 /* URLSessionSpies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionSpies.swift; sourceTree = "<group>"; };
 		270A6AE41E3E70CD00B12D38 /* URLSessionDataTaskSpies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionDataTaskSpies.swift; sourceTree = "<group>"; };
 		270A6AE81E3E7BAB00B12D38 /* Box.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
@@ -166,6 +172,7 @@
 				275D26161E512F5E00FAE334 /* CatListController.swift */,
 				27E823941E5A4E42009B202A /* CatCell.swift */,
 				2767E37E1E6269B900A7C5F9 /* ImageProvider.swift */,
+				2700D3F61E88642D004E77A1 /* CatDetailController.swift */,
 			);
 			path = AllisonsCatPalaceTDD;
 			sourceTree = "<group>";
@@ -188,6 +195,7 @@
 				27E823921E5A43AB009B202A /* CatListDataSourceTests.swift */,
 				27E823961E5A5115009B202A /* MainStoryboardTests.swift */,
 				2767E37C1E62679600A7C5F9 /* ImageProviderTests.swift */,
+				2700D3F41E885FE7004E77A1 /* CatDetailViewControllerTests.swift */,
 			);
 			path = AllisonsCatPalaceTDDTests;
 			sourceTree = "<group>";
@@ -204,6 +212,7 @@
 				27E823901E5A3D5E009B202A /* UITableViewSpies.swift */,
 				270FE1D91E748E22006126B2 /* SampleCats.swift */,
 				270FE1DB1E749E0E006126B2 /* ImageProviderExtensions.swift */,
+				2700D3F81E8870DB004E77A1 /* UINavigationControllerSpies.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -320,6 +329,7 @@
 				270A6AF51E3E9D3800B12D38 /* CatNetworkError.swift in Sources */,
 				277199141E34002300930630 /* CatNetworker.swift in Sources */,
 				276C61BC1E2C183300225CF4 /* ExternalCat.swift in Sources */,
+				2700D3F71E88642D004E77A1 /* CatDetailController.swift in Sources */,
 				27E823951E5A4E42009B202A /* CatCell.swift in Sources */,
 				2719FBF51E7F21AA00D3D79A /* Gender.swift in Sources */,
 				275D26171E512F5E00FAE334 /* CatListController.swift in Sources */,
@@ -339,6 +349,7 @@
 				270A6AF31E3E981100B12D38 /* CatNetworkErrorTests.swift in Sources */,
 				270A6AE91E3E7BAB00B12D38 /* Box.swift in Sources */,
 				276C61C01E2C1AFF00225CF4 /* CatTests.swift in Sources */,
+				2700D3F91E8870DB004E77A1 /* UINavigationControllerSpies.swift in Sources */,
 				270A6AE31E3E700C00B12D38 /* URLSessionSpies.swift in Sources */,
 				277199121E33F45B00930630 /* CatNetworkerTests.swift in Sources */,
 				270A6AEF1E3E85BE00B12D38 /* NetworkTestingConstants.swift in Sources */,
@@ -354,6 +365,7 @@
 				27E823911E5A3D5E009B202A /* UITableViewSpies.swift in Sources */,
 				275D260F1E5106D800FAE334 /* CatRegistryTests.swift in Sources */,
 				276C61C41E2C1D8600225CF4 /* CatBuilderTests.swift in Sources */,
+				2700D3F51E885FE7004E77A1 /* CatDetailViewControllerTests.swift in Sources */,
 				270A6AF71E3EA9A000B12D38 /* ExternalCatData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

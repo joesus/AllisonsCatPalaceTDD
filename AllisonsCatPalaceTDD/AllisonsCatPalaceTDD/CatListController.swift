@@ -17,6 +17,14 @@ class CatListController: UITableViewController {
         }
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        CatRegistry.fetchAllCats { fetchedCats in
+            self.cats = fetchedCats
+        }
+    }
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return cats.isEmpty ? 0 : 1
     }
@@ -50,5 +58,9 @@ class CatListController: UITableViewController {
         }
 
         return cell
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
 }

@@ -13,7 +13,8 @@ class CatListDataSourceTests: XCTestCase {
 
     let cat = cats.first!
     let imageData = UIImagePNGRepresentation(#imageLiteral(resourceName: "testCat"))
-    let controller = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! CatListController
+    let navController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
+    var controller: CatListController!
     var dataSource: UITableViewDataSource!
     var tableView: UITableView!
     let firstCatIndexPath = IndexPath(row: 0, section: 0)
@@ -21,6 +22,7 @@ class CatListDataSourceTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
+        controller = navController.topViewController as! CatListController
         controller.loadViewIfNeeded()
         dataSource = controller as UITableViewDataSource
         tableView = controller.tableView

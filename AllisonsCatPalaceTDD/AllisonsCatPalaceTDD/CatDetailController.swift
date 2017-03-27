@@ -1,5 +1,5 @@
 //
-//  CatDetailTableViewController.swift
+//  CatDetailController.swift
 //  AllisonsCatPalaceTDD
 //
 //  Created by Joesus on 3/26/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CatDetailTableViewController: UITableViewController {
+class CatDetailController: UITableViewController {
 
     var cat: Cat?
 

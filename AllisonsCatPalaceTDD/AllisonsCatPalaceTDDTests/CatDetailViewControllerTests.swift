@@ -7,11 +7,20 @@
 //
 
 import XCTest
+import TestableUIKit
 @testable import AllisonsCatPalaceTDD
 
 class CatDetailViewControllerTests: XCTestCase {
 
-    let controller = CatDetailController()
+    var controller: CatDetailController!
+    var header: CatDetailHeaderView!
+
+    override func setUp() {
+        super.setUp()
+
+        controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CatDetail") as! CatDetailController
+        header = controller.tableView.tableHeaderView as? CatDetailHeaderView
+    }
 
     func testIsTableViewController() {
         XCTAssert(controller as Any is UITableViewController, "CatListController should be a UITableViewController")
@@ -23,23 +32,91 @@ class CatDetailViewControllerTests: XCTestCase {
 
     // TODO:- Make sure the other view lifecycle methods are protected
     func testViewDidLoadCallsSuperViewDidLoad() {
-        UIViewController.beginSpyingOnViewDidLoad()
-        controller.loadViewIfNeeded()
-        XCTAssert(controller.viewDidLoadWasCalled, "ViewDidLoad should call viewDidLoad on UIViewController")
-        UIViewController.endSpyingOnViewDidLoad()
+        UIViewController.ViewDidLoadSpyController.createSpy(on: controller)!.spy {
+            controller.viewDidLoad()
+            XCTAssert(controller.superclassViewDidLoadCalled, "ViewDidLoad should call viewDidLoad on UIViewController")
+        }
     }
 
-    func testReloadDataIsCalledWhenCatIsUpdated() {}
+    func testReloadDataIsNotCalledWhenCatChangeNotAllowed() {
+        controller.cat = cats[0]
+        UITableView.ReloadDataSpyController.createSpy(on: controller.tableView)!.spy {
+            controller.cat = nil
+            XCTAssertFalse(controller.tableView.reloadDataCalled, "Reload data should not be called when change to cat is blocked")
+            controller.cat = cats[1]
+            XCTAssertFalse(controller.tableView.reloadDataCalled, "Reload data should not be called when change to cat is blocked")
+        }
+    }
+
+    func testReloadDataIsCalledWhenCatIsUpdated() {
+        UITableView.ReloadDataSpyController.createSpy(on: controller.tableView)!.spy {
+            controller.cat = SampleCat
+            XCTAssertTrue(controller.tableView.reloadDataCalled, "Tableview should reload data when cat is updated")
+        }
+    }
 
     func testAlwaysHasOneSection() {
-        // assert equals one
-        // add cat
-        // assert equals one
+        XCTAssertEqual(controller.tableView.numberOfSections, 1, "Detail view tableview should always have one section")
+        controller.cat = SampleCat
+        XCTAssertEqual(controller.tableView.numberOfSections, 1, "Detail view tableview should always have one section")
     }
 
-    func testFirstSectionHasCustomSectionHeaderView() {
-        // 
+    func testCatCanOnlyBeSetOnce() {
+        controller.cat = cats[0]
+        controller.cat = nil
+        XCTAssertEqual(controller.cat?.identifier, 1, "Cat should not be resettable")
+        controller.cat = cats[1]
+        XCTAssertEqual(controller.cat?.identifier, 1, "Should not be able to change cat once it is set")
     }
 
+    func testFirstSectionHasCustomTableHeaderView() {
+        XCTAssertNotNil(header, "Tableview should have a custom tableHeaderView")
+    }
+
+    func testHeaderHasImageViewWithDefaultImage() {
+        guard let imageView = header.imageView else {
+            return XCTFail("Header should have an image view")
+        }
+
+        XCTAssertEqual(imageView.superview, header, "Imageview should be a subview of the header")
+        XCTAssertEqual(imageView.image, #imageLiteral(resourceName: "catOutline"), "Imageview should have a default image")
+
+        // TESTING CONSTRAINTS
+        let constraints = header.constraints.filter { constraint in
+            constraint.firstItem === imageView && constraint.secondItem === header ||
+            constraint.firstItem === header && constraint.secondItem === imageView
+        }
+
+        XCTAssertEqual(constraints.count, 4, "Imageview should be constrained to header on four sides")
+        constraints.forEach { constraint in
+            XCTAssertEqual(constraint.constant, 0, "All sides should be constrained with a constant of zero")
+            XCTAssertEqual(constraint.multiplier, 1, "All multipliers should be 1")
+        }
+
+        guard let leading = constraints.first(where: { constraint in
+            constraint.firstAttribute == .leading }),
+            leading.secondAttribute == .leading else {
+            return XCTFail("Imageview should be pinned to leading edge of header")
+        }
+        guard let trailing = constraints.first(where: { constraint in
+            constraint.firstAttribute == .trailing }),
+            trailing.secondAttribute == .trailing else {
+                return XCTFail("Imageview should be pinned to trailing edge of header")
+        }
+        guard let top = constraints.first(where: { constraint in
+            constraint.firstAttribute == .top }),
+            top.secondAttribute == .top else {
+                return XCTFail("Imageview should be pinned to top edge of header")
+        }
+        guard let bottom = constraints.first(where: { constraint in
+            constraint.firstAttribute == .bottom }),
+            bottom.secondAttribute == .bottom else {
+                return XCTFail("Imageview should be pinned to bottom edge of header")
+        }
+
+    }
 
 }
+
+
+

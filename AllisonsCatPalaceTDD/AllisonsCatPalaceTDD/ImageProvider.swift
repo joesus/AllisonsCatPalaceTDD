@@ -25,7 +25,7 @@ enum ImageProvider {
         return UIImage(data: response.data)
     }
 
-    static func getImage(for url: URL, completion: @escaping (UIImage?) -> Void) {
+    static func getImage(for url: URL, completion: @escaping ImageCompletion) {
         guard !knownMissingImageUrls.contains(url),
             !currentRequestUrls.contains(url) else {
                 return completion(nil)

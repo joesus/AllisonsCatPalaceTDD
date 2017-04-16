@@ -10,6 +10,15 @@ import UIKit
 
 class CatDetailController: UITableViewController {
 
-    var cat: Cat?
+    var cat: Cat? {
+        didSet {
+            guard oldValue == nil, cat != nil else {
+                cat = oldValue
+                return
+            }
+            
+            tableView.reloadData()
+        }
+    }
 
 }

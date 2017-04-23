@@ -14,13 +14,15 @@ class CatListControllerTests: XCTestCase {
 
     var controller: CatListController!
     var navController: UINavigationController!
+    var tableView: UITableView!
+    let firstCatIndexPath = IndexPath(row: 0, section: 0)
 
     override func setUp() {
         super.setUp()
 
-
         navController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
         controller = navController.topViewController as! CatListController
+        tableView = controller.tableView
         UITableView.beginSpyingOnReloadData()
     }
 
@@ -39,17 +41,14 @@ class CatListControllerTests: XCTestCase {
     }
 
     func testViewDidLoadCallsSuperViewDidLoad() {
-        UIViewController.beginSpyingOnViewDidLoad()
-        controller.loadViewIfNeeded()
-        XCTAssert(controller.viewDidLoadWasCalled, "ViewDidLoad should call viewDidLoad on UIViewController")
-        UIViewController.endSpyingOnViewDidLoad()
+        UITableViewController.ViewDidLoadSpyController.createSpy(on: controller)!.spy {
+            controller.viewDidLoad()
+            XCTAssert(controller.superclassViewDidLoadCalled, "ViewDidLoad should call viewDidLoad on UIViewController")
+        }
     }
 
-    //    func testRequestsCatsOnViewDidLoad() {
-    //        controller.loadViewIfNeeded()
-    //        CatDataSource.fetchAllCats(completion: {_ in})
-    //        XCTAssert(CatDataSource.fetchAllCatsWasCalled, "ViewDidLoad should request cats")
-    //    }
+    // TODO: - figure out how to test that the registry was called.
+    //    func testRequestsCatsOnViewDidLoad() { }
 
     func testReloadDataIsCalledWhenCatsAreUpdated() {
         let reloadedPredicate = NSPredicate { [controller] _,_ in
@@ -63,9 +62,9 @@ class CatListControllerTests: XCTestCase {
         }
 
         waitForExpectations(timeout: 2, handler: nil)
-        XCTAssert(controller.tableView.reloadDataWasCalled,
+        XCTAssert(tableView.reloadDataWasCalled,
                   "TableView should be reloaded when cats are updated")
-        XCTAssert(controller.tableView.reloadDataCalledOnMainThread!,
+        XCTAssert(tableView.reloadDataCalledOnMainThread!,
                   "Reload data should be called on the main thread when cats are updated on a background thread")
     }
 
@@ -93,7 +92,7 @@ class CatListControllerTests: XCTestCase {
             //controller.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .none)
             //controller.tableView.delegate?.tableView!(controller.tableView, didSelectRowAt: IndexPath(row:0, section:0))
 
-            let cell = controller.tableView.cellForRow(at: IndexPath(row: 0, section: 0))
+            let cell = tableView.dataSource?.tableView(tableView, cellForRowAt: firstCatIndexPath) as? CatCell
             controller.performSegue(withIdentifier: "ShowCatDetail", sender: cell)
 
             XCTAssertTrue(navController.pushViewControllerCalled, "Selecting a cell should trigger a segue")
@@ -102,8 +101,21 @@ class CatListControllerTests: XCTestCase {
     }
 
     func testPrepareForSegue() {
-        // sets cat
-        // sets nav title
+        UINavigationController.PushViewControllerSpyController.createSpy(on: navController)!.spy {
+            controller.cats = [SampleCat]
+            let cell = tableView.dataSource?.tableView(tableView, cellForRowAt: firstCatIndexPath) as? CatCell
+            tableView.selectRow(at: firstCatIndexPath, animated: false, scrollPosition: .none)
+            controller.performSegue(withIdentifier: "ShowCatDetail", sender: cell)
+
+            guard let catDetailController = navController.pushedController as? CatDetailController else {
+                return XCTFail("PerformSegue should present a CatDetailController")
+            }
+
+            XCTAssertTrue(catDetailController.cat === SampleCat,
+                          "The cat representing the selected cell should be set on the destination view controller")
+            XCTAssertEqual(catDetailController.navigationItem.title, "SampleCat",
+                           "The title of the detail page should be the name of the displayed cat")
+        }
     }
 }
 

@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import TestableUIKit
 @testable import AllisonsCatPalaceTDD
 
 class CatListControllerTests: XCTestCase {
@@ -84,17 +85,20 @@ class CatListControllerTests: XCTestCase {
                   "Reload data should be called on the main thread when cats are cleared on a background thread")
     }
 
-    // Single Delegate test - move to own class if there are many more delegate tests
+    // TODO: - not sure this is a viable way to test push segues from a tableview. Also would love to be able to test unnamed segues since there's not a good reason aside from testing that this segue needs to be named
     func testSelectingCellPushesDetailController() {
-        UINavigationController.beginSpyingOnPushViewController()
+        UINavigationController.PushViewControllerSpyController.createSpy(on: navController)!.spy {
+            controller.cats = [SampleCat]
 
-        controller.cats = [SampleCat]
-        controller.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: true, scrollPosition: .none)
+            //controller.tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .none)
+            //controller.tableView.delegate?.tableView!(controller.tableView, didSelectRowAt: IndexPath(row:0, section:0))
 
-        XCTAssertTrue(navController.pushViewControllerWasCalled, "Selecting a cell should trigger a segue")
-        XCTAssertTrue(navController.pushedViewController! is CatDetailController, "Pushed view controller should be a CatDetailController")
+            let cell = controller.tableView.cellForRow(at: IndexPath(row: 0, section: 0))
+            controller.performSegue(withIdentifier: "ShowCatDetail", sender: cell)
 
-        UINavigationController.endSpyingOnPushViewController()
+            XCTAssertTrue(navController.pushViewControllerCalled, "Selecting a cell should trigger a segue")
+            XCTAssertTrue(navController.pushedController! is CatDetailController, "Pushed view controller should be a CatDetailController")
+        }
     }
 
     func testPrepareForSegue() {

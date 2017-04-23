@@ -47,7 +47,7 @@ class CatNetworkerTests: XCTestCase {
         }
 
         XCTAssertEqual(request.httpMethod, "GET", "The request method for retrieving cats should be get")
-        XCTAssertEqual(request.url?.host, "example.com", "The domain should be example.com")
+        XCTAssertEqual(request.url?.host, "localhost", "The domain should be localhost")
         XCTAssertEqual(request.url?.path, "/cats", "The path should be cats")
         XCTAssert(task.resumeWasCalled, "task should be started")
 
@@ -130,7 +130,7 @@ class CatNetworkerTests: XCTestCase {
         }
 
         XCTAssertEqual(request.httpMethod, "GET", "The request method for retrieving a single cat should be get")
-        XCTAssertEqual(request.url?.host, "example.com", "The domain should be example.com")
+        XCTAssertEqual(request.url?.host, "localhost", "The domain should be localhost")
         XCTAssertEqual(request.url?.path, "/cats/2", "The path should be cats/{id}")
         XCTAssert(task.resumeWasCalled, "task should be started")
 

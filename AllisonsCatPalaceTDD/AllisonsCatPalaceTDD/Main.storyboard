@@ -39,7 +39,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="fqG-GA-LVj" kind="show" id="rck-gI-7sW"/>
+                                    <segue destination="fqG-GA-LVj" kind="show" identifier="ShowCatDetail" id="rck-gI-7sW"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -66,12 +66,17 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EWa-Sb-0gP">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="catOutline" translatesAutoresizingMaskIntoConstraints="NO" id="EWa-Sb-0gP">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="EWa-Sb-0gP" firstAttribute="leading" secondItem="low-IG-UcT" secondAttribute="leading" id="Pyk-BE-gaU"/>
+                                <constraint firstItem="EWa-Sb-0gP" firstAttribute="top" secondItem="low-IG-UcT" secondAttribute="top" id="Qy0-kM-HeC"/>
+                                <constraint firstAttribute="bottom" secondItem="EWa-Sb-0gP" secondAttribute="bottom" id="d28-Xk-SeY"/>
+                                <constraint firstAttribute="trailing" secondItem="EWa-Sb-0gP" secondAttribute="trailing" id="uD0-YP-Dhj"/>
+                            </constraints>
                             <connections>
                                 <outlet property="imageView" destination="EWa-Sb-0gP" id="L9d-7C-7xO"/>
                             </connections>
@@ -81,7 +86,7 @@
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4PO-vt-Kv9" id="6FR-WD-3Wo">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>

@@ -6,40 +6,51 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
+@testable import AllisonsCatPalaceTDD
 import Foundation
 
-// TODO:- Add another enum for key constants that matches prod
-
 struct ExternalCatData {
-    static let valid: [String: Any] = ["name": "CatOne", "id": 1]
-    static let anotherValid: [String: Any] = ["name": "CatTwo", "id": 2]
-    static let withURLString: [String: Any] = ["name": "Cat", "id": 3, "pictureurl": "https://example.com/foo.gif"]
-    static let withBadURLString: [String: Any] = ["name": "Cat", "id": 4, "pictureurl": "blah blah"]
-    static let missingIdentifier: [String: Any] = ["name": "CatOne"]
-    static let missingName: [String: Any] = ["id": 1]
-    static let invalid: [String: Any] = [:]
-    static let female: [String: Any] = ["name": "CatTwo", "id": 2, "gender": "female"]
-    static let male: [String: Any] = ["name": "CatTwo", "id": 2, "gender": "male"]
-    static let neutered: [String: Any] = ["name": "CatTwo", "id": 2, "gender": 1800]
+    typealias JSON = [String: Any]
+    static let valid: JSON = [ExternalCatKeys.name: "CatOne",
+                                       ExternalCatKeys.id: 1]
+    static let anotherValid: JSON = [ExternalCatKeys.name: "CatTwo",
+                                              ExternalCatKeys.id: 2]
+    static let withURLString: JSON = [ExternalCatKeys.name: "Cat",
+                                               ExternalCatKeys.id: 3,
+                                               ExternalCatKeys.pictureURL: "https://example.com/foo.gif"]
+    static let withBadURLString: JSON = [ExternalCatKeys.name: "Cat",
+                                                  ExternalCatKeys.id: 4,
+                                                  ExternalCatKeys.pictureURL: "blah blah"]
+    static let missingIdentifier: JSON = [ExternalCatKeys.name: "CatOne"]
+    static let missingName: JSON = [ExternalCatKeys.id: 1]
+    static let invalid: JSON = [:]
+    static let female: JSON = [ExternalCatKeys.name: "CatTwo",
+                                        ExternalCatKeys.id: 2,
+                                        ExternalCatKeys.gender: "female"]
+    static let male: JSON = [ExternalCatKeys.name: "CatTwo",
+                                      ExternalCatKeys.id: 2,
+                                      ExternalCatKeys.gender: "male"]
+    static let neutered: JSON = [ExternalCatKeys.name: "CatTwo",
+                                          ExternalCatKeys.id: 2,
+                                          ExternalCatKeys.gender: 1800]
     static let full = [
-        "about": "I am a cat",
-        "adoptable": true,
-        "age": 10,
-        "city": "Denver",
-        "cutenesslevel": 3,
-        "favorites": [
+        ExternalCatKeys.about: "I am a cat",
+        ExternalCatKeys.adoptable: true,
+        ExternalCatKeys.age: 10,
+        ExternalCatKeys.city: "Denver",
+        ExternalCatKeys.cutenessLevel: 3,
+        ExternalCatKeys.favorites: [
             [
                 "category": "hat",
                 "value": "cowboy baby"
             ]
         ],
-        "gender": "male",
-        "greeting": "Meooooow",
-        "id": 2,
-        "name": "testCat",
-        "pictureurl": "https://placebear.com/200/300",
-        "state": "CO",
-        "weight": 10
-        ] as [String : Any]
-
+        ExternalCatKeys.gender: "male",
+        ExternalCatKeys.greeting: "Meooooow",
+        ExternalCatKeys.id: 2,
+        ExternalCatKeys.name: "testCat",
+        ExternalCatKeys.pictureURL: "https://placebear.com/200/300",
+        ExternalCatKeys.state: "CO",
+        ExternalCatKeys.weight: 10
+        ] as JSON
 }

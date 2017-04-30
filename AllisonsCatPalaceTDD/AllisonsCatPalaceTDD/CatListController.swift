@@ -35,8 +35,13 @@ class CatListController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CatCell", for: indexPath)
+        guard cats.indices.contains(indexPath.row) else {
+            fatalError("Something went horribly wrong")
+        }
+
         let cat = cats[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CatCell", for: indexPath)
+
         cell.textLabel?.text = cat.name
 
         if let imageURL = cat.imageUrl {
@@ -60,7 +65,10 @@ class CatListController: UITableViewController {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationController = segue.destination as? CatDetailController,
+            let row = tableView.indexPathForSelectedRow?.row {
+            destinationController.cat = cats[row]
+        }
     }
 }

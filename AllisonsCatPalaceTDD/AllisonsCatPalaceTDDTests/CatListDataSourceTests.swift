@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import TestableUIKit
 @testable import AllisonsCatPalaceTDD
 
 class CatListDataSourceTests: XCTestCase {
@@ -22,22 +23,21 @@ class CatListDataSourceTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        controller = navController.topViewController as! CatListController
+        controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CatListController") as! CatListController
         controller.loadViewIfNeeded()
+        
         dataSource = controller as UITableViewDataSource
         tableView = controller.tableView
         ImageProvider.reset()
-        UITableView.beginSpyingOnReloadRows()
         URLSession.beginSpyingOnDataTaskCreation()
         URLSessionDataTask.beginSpyingOnResume()
     }
 
     override func tearDown() {
         ImageProvider.reset()
-        UITableView.endSpyingOnReloadRows()
         URLSession.endSpyingOnDataTaskCreation()
         URLSessionDataTask.endSpyingOnResume()
-
+        
         super.tearDown()
     }
 
@@ -144,38 +144,49 @@ class CatListDataSourceTests: XCTestCase {
     }
 
     func testCatCellReloadsIfVisible() {
+        controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CatListController") as! CatListController
+        // adds all the cats
+        controller.cats.append(contentsOf: cats)
+        controller.loadViewIfNeeded()
+        
+        tableView = controller.tableView
+        
         let reloadedPredicate = NSPredicate { [tableView] _,_ in
-            tableView!.reloadRowsWasCalled
+            tableView!.reloadRowsCalled
         }
         expectation(for: reloadedPredicate, evaluatedWith: [:], handler: nil)
 
-        // adds all the cats
-        controller.cats.append(contentsOf: cats)
-
+        
+        
         // triggers the fetch by getting a cell from the dataSource
         _ = tableView.dataSource?.tableView(tableView, cellForRowAt: firstCatIndexPath)
 
         // call the completion handler
         let handler = URLSession.shared.capturedCompletionHandler
 
-        DispatchQueue.global(qos: .background).async {
-            handler!(self.imageData, response200(url: cats.first!.imageUrl!), nil)
+        UITableView.ReloadRowsSpyController.createSpy(on: tableView)!.spy {
+            
+            DispatchQueue.global(qos: .background).async {
+                handler!(self.imageData, response200(url: cats.first!.imageUrl!), nil)
+            }
+            
+            waitForExpectations(timeout: 2, handler: nil)
+            
+            // check that the cell is reloaded
+            guard tableView.reloadRowsCalled else {
+                return XCTFail("Should call reloadRows(at: with:) if the cell is on-screen")
+            }
+            // with the correct indexPath
+            XCTAssertEqual(tableView.reloadRowsIndexPaths!, [firstCatIndexPath],
+                           "Should try to reload the correct indexPath when cell is visible")
+            // and correct animation
+            XCTAssertEqual(tableView.reloadRowsAnimation, .automatic,
+                           "Should try to reload with the correct animation when cell is visible")
+            // and on the right thread
+            XCTAssertTrue(tableView.reloadRowsCalledOnMainThread!,
+                          "Should call reloadRows on the main thread regardless of the thread the handler is called on")
+
         }
-
-        waitForExpectations(timeout: 2, handler: nil)
-
-        // check that the cell is reloaded
-        XCTAssertTrue(tableView.reloadRowsWasCalled,
-                      "Should call reloadRows(at: with:) if the cell is on-screen")
-        // with the correct indexPath
-        XCTAssertEqual(tableView.reloadRowsIndexPaths!, [firstCatIndexPath],
-                       "Should try to reload the correct indexPath when cell is visible")
-        // and correct animation
-        XCTAssertEqual(tableView.reloadRowsAnimation, .automatic,
-                       "Should try to reload with the correct animation when cell is visible")
-        // and on the right thread
-        XCTAssertTrue(tableView.reloadRowsCalledOnMainThread!,
-                      "Should call reloadRows on the main thread regardless of the thread the handler is called on")
     }
 
     func testUnsuccessfulImageFetchDoesNotReloadCell() {

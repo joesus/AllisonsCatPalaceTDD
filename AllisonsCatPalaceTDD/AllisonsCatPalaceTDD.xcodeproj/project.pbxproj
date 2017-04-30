@@ -48,8 +48,11 @@
 		27E823931E5A43AB009B202A /* CatListDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E823921E5A43AB009B202A /* CatListDataSourceTests.swift */; };
 		27E823951E5A4E42009B202A /* CatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E823941E5A4E42009B202A /* CatCell.swift */; };
 		27E823971E5A5115009B202A /* MainStoryboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E823961E5A5115009B202A /* MainStoryboardTests.swift */; };
-		7F5D305C2983BE00D503A580 /* Pods_AllisonsCatPalaceTDDTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6656FEC48C9CD96AE27340E7 /* Pods_AllisonsCatPalaceTDDTests.framework */; };
-		E54497A5E0492B4F4F1074C1 /* Pods_AllisonsCatPalaceTDD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8A7B7ACD03FABC1C667F689 /* Pods_AllisonsCatPalaceTDD.framework */; };
+		F41612581EB51EA600E3E6F6 /* CatNameCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41612571EB51EA600E3E6F6 /* CatNameCellTests.swift */; };
+		F416125A1EB5201F00E3E6F6 /* CatNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F41612591EB5201F00E3E6F6 /* CatNameCell.xib */; };
+		F416125D1EB520D300E3E6F6 /* CatNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F416125C1EB520D300E3E6F6 /* CatNameCell.swift */; };
+		F416125F1EB5481B00E3E6F6 /* PredicateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F416125E1EB5481B00E3E6F6 /* PredicateHelper.swift */; };
+		F41612611EB54DB000E3E6F6 /* UITestingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41612601EB54DB000E3E6F6 /* UITestingHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,8 +66,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0DDFD0F6C101FC57A593B011 /* Pods-AllisonsCatPalaceTDDTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AllisonsCatPalaceTDDTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AllisonsCatPalaceTDDTests/Pods-AllisonsCatPalaceTDDTests.release.xcconfig"; sourceTree = "<group>"; };
-		196A14A900C4E4EEF5298BF9 /* Pods-AllisonsCatPalaceTDDTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AllisonsCatPalaceTDDTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AllisonsCatPalaceTDDTests/Pods-AllisonsCatPalaceTDDTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2700D3F41E885FE7004E77A1 /* CatDetailViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatDetailViewControllerTests.swift; sourceTree = "<group>"; };
 		2700D3F61E88642D004E77A1 /* CatDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatDetailController.swift; sourceTree = "<group>"; };
 		270A6AE21E3E700C00B12D38 /* URLSessionSpies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionSpies.swift; sourceTree = "<group>"; };
@@ -110,10 +111,11 @@
 		27E823921E5A43AB009B202A /* CatListDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatListDataSourceTests.swift; sourceTree = "<group>"; };
 		27E823941E5A4E42009B202A /* CatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatCell.swift; sourceTree = "<group>"; };
 		27E823961E5A5115009B202A /* MainStoryboardTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainStoryboardTests.swift; sourceTree = "<group>"; };
-		6656FEC48C9CD96AE27340E7 /* Pods_AllisonsCatPalaceTDDTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AllisonsCatPalaceTDDTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B9C361C46A3A9204C9844BD1 /* Pods-AllisonsCatPalaceTDD.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AllisonsCatPalaceTDD.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AllisonsCatPalaceTDD/Pods-AllisonsCatPalaceTDD.debug.xcconfig"; sourceTree = "<group>"; };
-		C8A7B7ACD03FABC1C667F689 /* Pods_AllisonsCatPalaceTDD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AllisonsCatPalaceTDD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EFB7D5BA4E87FAD8C0368B7E /* Pods-AllisonsCatPalaceTDD.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AllisonsCatPalaceTDD.release.xcconfig"; path = "Pods/Target Support Files/Pods-AllisonsCatPalaceTDD/Pods-AllisonsCatPalaceTDD.release.xcconfig"; sourceTree = "<group>"; };
+		F41612571EB51EA600E3E6F6 /* CatNameCellTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatNameCellTests.swift; sourceTree = "<group>"; };
+		F41612591EB5201F00E3E6F6 /* CatNameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CatNameCell.xib; sourceTree = "<group>"; };
+		F416125C1EB520D300E3E6F6 /* CatNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatNameCell.swift; sourceTree = "<group>"; };
+		F416125E1EB5481B00E3E6F6 /* PredicateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredicateHelper.swift; sourceTree = "<group>"; };
+		F41612601EB54DB000E3E6F6 /* UITestingHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITestingHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,7 +123,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E54497A5E0492B4F4F1074C1 /* Pods_AllisonsCatPalaceTDD.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,7 +130,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F5D305C2983BE00D503A580 /* Pods_AllisonsCatPalaceTDDTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,8 +152,6 @@
 				276C61941E2C062200225CF4 /* AllisonsCatPalaceTDD */,
 				276C61A91E2C062200225CF4 /* AllisonsCatPalaceTDDTests */,
 				276C61931E2C062200225CF4 /* Products */,
-				8FEBB912AA55F9ADDFEAD40B /* Pods */,
-				EBD74DFB18CEED0DD02D5C2C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -186,6 +184,7 @@
 				2767E37E1E6269B900A7C5F9 /* ImageProvider.swift */,
 				2700D3F61E88642D004E77A1 /* CatDetailController.swift */,
 				27E4196C1EA40E8D00BDE46B /* CatDetailHeaderView.swift */,
+				F416125B1EB5202700E3E6F6 /* Cells */,
 			);
 			path = AllisonsCatPalaceTDD;
 			sourceTree = "<group>";
@@ -193,6 +192,7 @@
 		276C61A91E2C062200225CF4 /* AllisonsCatPalaceTDDTests */ = {
 			isa = PBXGroup;
 			children = (
+				F41612571EB51EA600E3E6F6 /* CatNameCellTests.swift */,
 				2719FBF21E7F20E900D3D79A /* GenderTests.swift */,
 				2719FBEB1E7F117600D3D79A /* FavoriteTests.swift */,
 				277199151E35636A00930630 /* Helpers */,
@@ -225,28 +225,19 @@
 				27E823901E5A3D5E009B202A /* UITableViewSpies.swift */,
 				270FE1D91E748E22006126B2 /* SampleCats.swift */,
 				270FE1DB1E749E0E006126B2 /* ImageProviderExtensions.swift */,
+				F416125E1EB5481B00E3E6F6 /* PredicateHelper.swift */,
+				F41612601EB54DB000E3E6F6 /* UITestingHelper.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
 		};
-		8FEBB912AA55F9ADDFEAD40B /* Pods */ = {
+		F416125B1EB5202700E3E6F6 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				B9C361C46A3A9204C9844BD1 /* Pods-AllisonsCatPalaceTDD.debug.xcconfig */,
-				EFB7D5BA4E87FAD8C0368B7E /* Pods-AllisonsCatPalaceTDD.release.xcconfig */,
-				196A14A900C4E4EEF5298BF9 /* Pods-AllisonsCatPalaceTDDTests.debug.xcconfig */,
-				0DDFD0F6C101FC57A593B011 /* Pods-AllisonsCatPalaceTDDTests.release.xcconfig */,
+				F41612591EB5201F00E3E6F6 /* CatNameCell.xib */,
+				F416125C1EB520D300E3E6F6 /* CatNameCell.swift */,
 			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		EBD74DFB18CEED0DD02D5C2C /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C8A7B7ACD03FABC1C667F689 /* Pods_AllisonsCatPalaceTDD.framework */,
-				6656FEC48C9CD96AE27340E7 /* Pods_AllisonsCatPalaceTDDTests.framework */,
-			);
-			name = Frameworks;
+			name = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,12 +247,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 276C61AF1E2C062200225CF4 /* Build configuration list for PBXNativeTarget "AllisonsCatPalaceTDD" */;
 			buildPhases = (
-				6ECB1540AA1DFEF6AEF7682A /* [CP] Check Pods Manifest.lock */,
 				276C618E1E2C062200225CF4 /* Sources */,
 				276C618F1E2C062200225CF4 /* Frameworks */,
 				276C61901E2C062200225CF4 /* Resources */,
-				57F72B93DC9395FC15BCF1A3 /* [CP] Embed Pods Frameworks */,
-				EFAB66018BC24827944748BA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -276,12 +264,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 276C61B21E2C062200225CF4 /* Build configuration list for PBXNativeTarget "AllisonsCatPalaceTDDTests" */;
 			buildPhases = (
-				D8035362D28101AA8210DC48 /* [CP] Check Pods Manifest.lock */,
 				276C61A21E2C062200225CF4 /* Sources */,
 				276C61A31E2C062200225CF4 /* Frameworks */,
 				276C61A41E2C062200225CF4 /* Resources */,
-				13E51FF1FFFBE6ED43A3B42F /* [CP] Embed Pods Frameworks */,
-				64352B35234DED48A87D0C59 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -341,6 +326,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				276C61B81E2C0A1900225CF4 /* Main.storyboard in Resources */,
+				F416125A1EB5201F00E3E6F6 /* CatNameCell.xib in Resources */,
 				276C61A01E2C062200225CF4 /* LaunchScreen.storyboard in Resources */,
 				276C619D1E2C062200225CF4 /* Assets.xcassets in Resources */,
 			);
@@ -355,99 +341,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		13E51FF1FFFBE6ED43A3B42F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AllisonsCatPalaceTDDTests/Pods-AllisonsCatPalaceTDDTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		57F72B93DC9395FC15BCF1A3 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AllisonsCatPalaceTDD/Pods-AllisonsCatPalaceTDD-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		64352B35234DED48A87D0C59 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AllisonsCatPalaceTDDTests/Pods-AllisonsCatPalaceTDDTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6ECB1540AA1DFEF6AEF7682A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		D8035362D28101AA8210DC48 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		EFAB66018BC24827944748BA /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AllisonsCatPalaceTDD/Pods-AllisonsCatPalaceTDD-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		276C618E1E2C062200225CF4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -458,6 +351,7 @@
 				2767E37F1E6269B900A7C5F9 /* ImageProvider.swift in Sources */,
 				275D26131E511B3400FAE334 /* CatRegistry.swift in Sources */,
 				276C61961E2C062200225CF4 /* AppDelegate.swift in Sources */,
+				F416125D1EB520D300E3E6F6 /* CatNameCell.swift in Sources */,
 				270A6AF51E3E9D3800B12D38 /* CatNetworkError.swift in Sources */,
 				277199141E34002300930630 /* CatNetworker.swift in Sources */,
 				276C61BC1E2C183300225CF4 /* ExternalCat.swift in Sources */,
@@ -483,9 +377,11 @@
 				276C61C01E2C1AFF00225CF4 /* CatTests.swift in Sources */,
 				270A6AE31E3E700C00B12D38 /* URLSessionSpies.swift in Sources */,
 				277199121E33F45B00930630 /* CatNetworkerTests.swift in Sources */,
+				F41612611EB54DB000E3E6F6 /* UITestingHelper.swift in Sources */,
 				270A6AEF1E3E85BE00B12D38 /* NetworkTestingConstants.swift in Sources */,
 				2767E37D1E62679600A7C5F9 /* ImageProviderTests.swift in Sources */,
 				2719FBEC1E7F117600D3D79A /* FavoriteTests.swift in Sources */,
+				F416125F1EB5481B00E3E6F6 /* PredicateHelper.swift in Sources */,
 				27E823971E5A5115009B202A /* MainStoryboardTests.swift in Sources */,
 				270FE1DC1E749E0E006126B2 /* ImageProviderExtensions.swift in Sources */,
 				275D26151E5125D100FAE334 /* CatListControllerTests.swift in Sources */,
@@ -496,6 +392,7 @@
 				27E823911E5A3D5E009B202A /* UITableViewSpies.swift in Sources */,
 				275D260F1E5106D800FAE334 /* CatRegistryTests.swift in Sources */,
 				276C61C41E2C1D8600225CF4 /* CatBuilderTests.swift in Sources */,
+				F41612581EB51EA600E3E6F6 /* CatNameCellTests.swift in Sources */,
 				2700D3F51E885FE7004E77A1 /* CatDetailViewControllerTests.swift in Sources */,
 				270A6AF71E3EA9A000B12D38 /* ExternalCatData.swift in Sources */,
 			);
@@ -620,7 +517,6 @@
 		};
 		276C61B01E2C062200225CF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B9C361C46A3A9204C9844BD1 /* Pods-AllisonsCatPalaceTDD.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = NEL58AT86X;
@@ -634,7 +530,6 @@
 		};
 		276C61B11E2C062200225CF4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EFB7D5BA4E87FAD8C0368B7E /* Pods-AllisonsCatPalaceTDD.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = NEL58AT86X;
@@ -648,7 +543,6 @@
 		};
 		276C61B31E2C062200225CF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 196A14A900C4E4EEF5298BF9 /* Pods-AllisonsCatPalaceTDDTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -664,7 +558,6 @@
 		};
 		276C61B41E2C062200225CF4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0DDFD0F6C101FC57A593B011 /* Pods-AllisonsCatPalaceTDDTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";

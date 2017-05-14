@@ -48,6 +48,8 @@
 		27E823931E5A43AB009B202A /* CatListDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E823921E5A43AB009B202A /* CatListDataSourceTests.swift */; };
 		27E823951E5A4E42009B202A /* CatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E823941E5A4E42009B202A /* CatCell.swift */; };
 		27E823971E5A5115009B202A /* MainStoryboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E823961E5A5115009B202A /* MainStoryboardTests.swift */; };
+		E87D9181992DAEA50CC83375 /* Pods_AllisonsCatPalaceTDDTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594F7F2BF537A93B3382F169 /* Pods_AllisonsCatPalaceTDDTests.framework */; };
+		F1F9EA499B210CE9275EF938 /* Pods_AllisonsCatPalaceTDD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7BADEA9B2CD90052691E3DC /* Pods_AllisonsCatPalaceTDD.framework */; };
 		F41612581EB51EA600E3E6F6 /* CatNameCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41612571EB51EA600E3E6F6 /* CatNameCellTests.swift */; };
 		F416125A1EB5201F00E3E6F6 /* CatNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F41612591EB5201F00E3E6F6 /* CatNameCell.xib */; };
 		F416125D1EB520D300E3E6F6 /* CatNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F416125C1EB520D300E3E6F6 /* CatNameCell.swift */; };
@@ -111,6 +113,12 @@
 		27E823921E5A43AB009B202A /* CatListDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatListDataSourceTests.swift; sourceTree = "<group>"; };
 		27E823941E5A4E42009B202A /* CatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatCell.swift; sourceTree = "<group>"; };
 		27E823961E5A5115009B202A /* MainStoryboardTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainStoryboardTests.swift; sourceTree = "<group>"; };
+		339F8D923A691D8422D19E85 /* Pods-AllisonsCatPalaceTDD.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AllisonsCatPalaceTDD.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AllisonsCatPalaceTDD/Pods-AllisonsCatPalaceTDD.debug.xcconfig"; sourceTree = "<group>"; };
+		594F7F2BF537A93B3382F169 /* Pods_AllisonsCatPalaceTDDTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AllisonsCatPalaceTDDTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		75C842F7519FA5465CF58554 /* Pods-AllisonsCatPalaceTDDTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AllisonsCatPalaceTDDTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AllisonsCatPalaceTDDTests/Pods-AllisonsCatPalaceTDDTests.release.xcconfig"; sourceTree = "<group>"; };
+		7875B590B29305AC1493953A /* Pods-AllisonsCatPalaceTDDTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AllisonsCatPalaceTDDTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AllisonsCatPalaceTDDTests/Pods-AllisonsCatPalaceTDDTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8337DA1BFB7A3226D3410B0F /* Pods-AllisonsCatPalaceTDD.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AllisonsCatPalaceTDD.release.xcconfig"; path = "Pods/Target Support Files/Pods-AllisonsCatPalaceTDD/Pods-AllisonsCatPalaceTDD.release.xcconfig"; sourceTree = "<group>"; };
+		A7BADEA9B2CD90052691E3DC /* Pods_AllisonsCatPalaceTDD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AllisonsCatPalaceTDD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F41612571EB51EA600E3E6F6 /* CatNameCellTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatNameCellTests.swift; sourceTree = "<group>"; };
 		F41612591EB5201F00E3E6F6 /* CatNameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CatNameCell.xib; sourceTree = "<group>"; };
 		F416125C1EB520D300E3E6F6 /* CatNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatNameCell.swift; sourceTree = "<group>"; };
@@ -123,6 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1F9EA499B210CE9275EF938 /* Pods_AllisonsCatPalaceTDD.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,12 +139,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E87D9181992DAEA50CC83375 /* Pods_AllisonsCatPalaceTDDTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1504518299AACDE0795BE59E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				339F8D923A691D8422D19E85 /* Pods-AllisonsCatPalaceTDD.debug.xcconfig */,
+				8337DA1BFB7A3226D3410B0F /* Pods-AllisonsCatPalaceTDD.release.xcconfig */,
+				7875B590B29305AC1493953A /* Pods-AllisonsCatPalaceTDDTests.debug.xcconfig */,
+				75C842F7519FA5465CF58554 /* Pods-AllisonsCatPalaceTDDTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		2719FBED1E7F137300D3D79A /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -152,6 +173,8 @@
 				276C61941E2C062200225CF4 /* AllisonsCatPalaceTDD */,
 				276C61A91E2C062200225CF4 /* AllisonsCatPalaceTDDTests */,
 				276C61931E2C062200225CF4 /* Products */,
+				1504518299AACDE0795BE59E /* Pods */,
+				DF6C4F3818B80176C43FE384 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -231,6 +254,15 @@
 			name = Helpers;
 			sourceTree = "<group>";
 		};
+		DF6C4F3818B80176C43FE384 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A7BADEA9B2CD90052691E3DC /* Pods_AllisonsCatPalaceTDD.framework */,
+				594F7F2BF537A93B3382F169 /* Pods_AllisonsCatPalaceTDDTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F416125B1EB5202700E3E6F6 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -247,9 +279,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 276C61AF1E2C062200225CF4 /* Build configuration list for PBXNativeTarget "AllisonsCatPalaceTDD" */;
 			buildPhases = (
+				1C82A52FDC39115F786D9FBF /* [CP] Check Pods Manifest.lock */,
 				276C618E1E2C062200225CF4 /* Sources */,
 				276C618F1E2C062200225CF4 /* Frameworks */,
 				276C61901E2C062200225CF4 /* Resources */,
+				864ABF7A7ADBD45ACA7E15F3 /* [CP] Embed Pods Frameworks */,
+				4F2DA9DB8157F35D616F85AC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -264,9 +299,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 276C61B21E2C062200225CF4 /* Build configuration list for PBXNativeTarget "AllisonsCatPalaceTDDTests" */;
 			buildPhases = (
+				6DD4DB03D52BCF41C2DC42A3 /* [CP] Check Pods Manifest.lock */,
 				276C61A21E2C062200225CF4 /* Sources */,
 				276C61A31E2C062200225CF4 /* Frameworks */,
 				276C61A41E2C062200225CF4 /* Resources */,
+				269D626E8A31B0642E6A670B /* [CP] Embed Pods Frameworks */,
+				6EA954CA3A1DCE9ACE6E7EE5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -340,6 +378,99 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1C82A52FDC39115F786D9FBF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		269D626E8A31B0642E6A670B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AllisonsCatPalaceTDDTests/Pods-AllisonsCatPalaceTDDTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4F2DA9DB8157F35D616F85AC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AllisonsCatPalaceTDD/Pods-AllisonsCatPalaceTDD-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6DD4DB03D52BCF41C2DC42A3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6EA954CA3A1DCE9ACE6E7EE5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AllisonsCatPalaceTDDTests/Pods-AllisonsCatPalaceTDDTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		864ABF7A7ADBD45ACA7E15F3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AllisonsCatPalaceTDD/Pods-AllisonsCatPalaceTDD-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		276C618E1E2C062200225CF4 /* Sources */ = {
@@ -517,6 +648,7 @@
 		};
 		276C61B01E2C062200225CF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 339F8D923A691D8422D19E85 /* Pods-AllisonsCatPalaceTDD.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = NEL58AT86X;
@@ -530,6 +662,7 @@
 		};
 		276C61B11E2C062200225CF4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8337DA1BFB7A3226D3410B0F /* Pods-AllisonsCatPalaceTDD.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = NEL58AT86X;
@@ -543,6 +676,7 @@
 		};
 		276C61B31E2C062200225CF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7875B590B29305AC1493953A /* Pods-AllisonsCatPalaceTDDTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -558,6 +692,7 @@
 		};
 		276C61B41E2C062200225CF4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75C842F7519FA5465CF58554 /* Pods-AllisonsCatPalaceTDDTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";

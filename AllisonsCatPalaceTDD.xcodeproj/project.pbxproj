@@ -44,7 +44,6 @@
 		277199141E34002300930630 /* CatNetworker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277199131E34002300930630 /* CatNetworker.swift */; };
 		27E4196D1EA40E8D00BDE46B /* CatDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E4196C1EA40E8D00BDE46B /* CatDetailHeaderView.swift */; };
 		27E8238A1E5A273D009B202A /* UIViewControllerSpies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E823891E5A273D009B202A /* UIViewControllerSpies.swift */; };
-		27E823911E5A3D5E009B202A /* UITableViewSpies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E823901E5A3D5E009B202A /* UITableViewSpies.swift */; };
 		27E823931E5A43AB009B202A /* CatListDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E823921E5A43AB009B202A /* CatListDataSourceTests.swift */; };
 		27E823951E5A4E42009B202A /* CatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E823941E5A4E42009B202A /* CatCell.swift */; };
 		27E823971E5A5115009B202A /* MainStoryboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E823961E5A5115009B202A /* MainStoryboardTests.swift */; };
@@ -109,7 +108,6 @@
 		277199131E34002300930630 /* CatNetworker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatNetworker.swift; sourceTree = "<group>"; };
 		27E4196C1EA40E8D00BDE46B /* CatDetailHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatDetailHeaderView.swift; sourceTree = "<group>"; };
 		27E823891E5A273D009B202A /* UIViewControllerSpies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerSpies.swift; sourceTree = "<group>"; };
-		27E823901E5A3D5E009B202A /* UITableViewSpies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewSpies.swift; sourceTree = "<group>"; };
 		27E823921E5A43AB009B202A /* CatListDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatListDataSourceTests.swift; sourceTree = "<group>"; };
 		27E823941E5A4E42009B202A /* CatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatCell.swift; sourceTree = "<group>"; };
 		27E823961E5A5115009B202A /* MainStoryboardTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainStoryboardTests.swift; sourceTree = "<group>"; };
@@ -245,7 +243,6 @@
 				270A6AEE1E3E85BE00B12D38 /* NetworkTestingConstants.swift */,
 				270A6AF61E3EA9A000B12D38 /* ExternalCatData.swift */,
 				27E823891E5A273D009B202A /* UIViewControllerSpies.swift */,
-				27E823901E5A3D5E009B202A /* UITableViewSpies.swift */,
 				270FE1D91E748E22006126B2 /* SampleCats.swift */,
 				270FE1DB1E749E0E006126B2 /* ImageProviderExtensions.swift */,
 				F416125E1EB5481B00E3E6F6 /* PredicateHelper.swift */,
@@ -520,7 +517,6 @@
 				27E823931E5A43AB009B202A /* CatListDataSourceTests.swift in Sources */,
 				270A6AE51E3E70CD00B12D38 /* URLSessionDataTaskSpies.swift in Sources */,
 				270A6AEB1E3E7DB000B12D38 /* ResultTests.swift in Sources */,
-				27E823911E5A3D5E009B202A /* UITableViewSpies.swift in Sources */,
 				275D260F1E5106D800FAE334 /* CatRegistryTests.swift in Sources */,
 				276C61C41E2C1D8600225CF4 /* CatBuilderTests.swift in Sources */,
 				F41612581EB51EA600E3E6F6 /* CatNameCellTests.swift in Sources */,

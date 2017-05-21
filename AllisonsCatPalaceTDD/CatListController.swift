@@ -69,6 +69,7 @@ class CatListController: UITableViewController {
         if let destinationController = segue.destination as? CatDetailController,
             let row = tableView.indexPathForSelectedRow?.row {
             destinationController.cat = cats[row]
+            destinationController.title = cats[row].name
         }
     }
 }

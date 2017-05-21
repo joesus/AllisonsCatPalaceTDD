@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import TestSwagger
 import TestableUIKit
 @testable import AllisonsCatPalaceTDD
 
@@ -19,16 +20,15 @@ class CatListDataSourceTests: XCTestCase {
     var dataSource: UITableViewDataSource!
     var tableView: UITableView!
     let firstCatIndexPath = IndexPath(row: 0, section: 0)
+    var reloadRowsSpy: Spy?
 
     override func setUp() {
         super.setUp()
 
-        controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CatListController") as! CatListController
-        controller.loadViewIfNeeded()
-        
-        dataSource = controller as UITableViewDataSource
-        tableView = controller.tableView
+        loadComponents()
         ImageProvider.reset()
+        reloadRowsSpy = UITableView.ReloadRowsSpyController.createSpy(on: tableView)
+        reloadRowsSpy?.beginSpying()
         URLSession.beginSpyingOnDataTaskCreation()
         URLSessionDataTask.beginSpyingOnResume()
     }
@@ -37,7 +37,13 @@ class CatListDataSourceTests: XCTestCase {
         ImageProvider.reset()
         URLSession.endSpyingOnDataTaskCreation()
         URLSessionDataTask.endSpyingOnResume()
-        
+        reloadRowsSpy?.endSpying()
+
+        controller = nil
+        dataSource = nil
+        tableView = nil
+        reloadRowsSpy = nil
+
         super.tearDown()
     }
 
@@ -90,7 +96,13 @@ class CatListDataSourceTests: XCTestCase {
     }
 
     func testCatCellDisplaysCatName() {
+        loadComponents()
+
         controller.cats.append(cat)
+        controller.loadViewIfNeeded()
+
+        tableView = controller.tableView
+
         let cell = dataSource.tableView(tableView, cellForRowAt: firstCatIndexPath)
         XCTAssertEqual(cell.textLabel!.text, "test", "First cell should display the name of the first cat")
     }
@@ -118,6 +130,8 @@ class CatListDataSourceTests: XCTestCase {
     func testCatCellDoesNotReloadIfNotVisible() {
         let didNotReloadExpectation = expectation(description: "testCatCellDoesNotReloadIfNotVisible")
 
+        loadComponents()
+
         // adds all the cats
         controller.cats.append(contentsOf: cats)
 
@@ -136,57 +150,50 @@ class CatListDataSourceTests: XCTestCase {
             didNotReloadExpectation.fulfill()
         }
 
-        waitForExpectations(timeout: 0.3, handler: nil)
+        waitForExpectations(timeout: 1, handler: nil)
 
         // check that the cell isn't reloaded
-        XCTAssertFalse(tableView.reloadRowsWasCalled,
+        XCTAssertFalse(tableView.reloadRowsCalled,
                        "Should not call reloadRows(at: with:) if the cell is off-screen")
     }
 
     func testCatCellReloadsIfVisible() {
-        controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CatListController") as! CatListController
+        loadComponents()
+
         // adds all the cats
         controller.cats.append(contentsOf: cats)
-        controller.loadViewIfNeeded()
-        
-        tableView = controller.tableView
-        
+
         let reloadedPredicate = NSPredicate { [tableView] _,_ in
             tableView!.reloadRowsCalled
         }
         expectation(for: reloadedPredicate, evaluatedWith: [:], handler: nil)
 
-        
-        
         // triggers the fetch by getting a cell from the dataSource
         _ = tableView.dataSource?.tableView(tableView, cellForRowAt: firstCatIndexPath)
 
         // call the completion handler
         let handler = URLSession.shared.capturedCompletionHandler
 
-        UITableView.ReloadRowsSpyController.createSpy(on: tableView)!.spy {
-            
-            DispatchQueue.global(qos: .background).async {
-                handler!(self.imageData, response200(url: cats.first!.imageUrl!), nil)
-            }
-            
-            waitForExpectations(timeout: 2, handler: nil)
-            
-            // check that the cell is reloaded
-            guard tableView.reloadRowsCalled else {
-                return XCTFail("Should call reloadRows(at: with:) if the cell is on-screen")
-            }
-            // with the correct indexPath
-            XCTAssertEqual(tableView.reloadRowsIndexPaths!, [firstCatIndexPath],
-                           "Should try to reload the correct indexPath when cell is visible")
-            // and correct animation
-            XCTAssertEqual(tableView.reloadRowsAnimation, .automatic,
-                           "Should try to reload with the correct animation when cell is visible")
-            // and on the right thread
-            XCTAssertTrue(tableView.reloadRowsCalledOnMainThread!,
-                          "Should call reloadRows on the main thread regardless of the thread the handler is called on")
 
+        DispatchQueue.global(qos: .background).async {
+            handler!(self.imageData, response200(url: cats.first!.imageUrl!), nil)
         }
+
+        waitForExpectations(timeout: 2, handler: nil)
+
+        // check that the cell is reloaded
+        guard tableView.reloadRowsCalled else {
+            return XCTFail("Should call reloadRows(at: with:) if the cell is on-screen")
+        }
+        // with the correct indexPath
+        XCTAssertEqual(tableView.reloadRowsIndexPaths!, [firstCatIndexPath],
+                       "Should try to reload the correct indexPath when cell is visible")
+        // and correct animation
+        XCTAssertEqual(tableView.reloadRowsAnimation, .automatic,
+                       "Should try to reload with the correct animation when cell is visible")
+        // and on the right thread
+        XCTAssertTrue(tableView.reloadRowsCalledOnMainThread!,
+                      "Should call reloadRows on the main thread regardless of the thread the handler is called on")
     }
 
     func testUnsuccessfulImageFetchDoesNotReloadCell() {
@@ -210,8 +217,18 @@ class CatListDataSourceTests: XCTestCase {
         waitForExpectations(timeout: 0.5, handler: nil)
 
         // check that the cell is reloaded
-        XCTAssertFalse(tableView.reloadRowsWasCalled,
+        XCTAssertFalse(tableView.reloadRowsCalled,
                       "Should not call reloadRows(at: with:) if unsuccessful image fetch")
 
+    }
+}
+
+extension CatListDataSourceTests {
+    func loadComponents() {
+        controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CatListController") as! CatListController
+        controller.loadViewIfNeeded()
+
+        dataSource = controller as UITableViewDataSource
+        tableView = controller.tableView
     }
 }

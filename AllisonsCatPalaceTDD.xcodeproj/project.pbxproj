@@ -54,6 +54,18 @@
 		F416125D1EB520D300E3E6F6 /* CatNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F416125C1EB520D300E3E6F6 /* CatNameCell.swift */; };
 		F416125F1EB5481B00E3E6F6 /* PredicateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F416125E1EB5481B00E3E6F6 /* PredicateHelper.swift */; };
 		F41612611EB54DB000E3E6F6 /* UITestingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41612601EB54DB000E3E6F6 /* UITestingHelper.swift */; };
+		F46539B91EFF0F580049E7FD /* PositiveIntegerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539B81EFF0F580049E7FD /* PositiveIntegerTests.swift */; };
+		F46539BB1EFF11430049E7FD /* PositiveInteger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539BA1EFF11430049E7FD /* PositiveInteger.swift */; };
+		F46539BD1EFF136B0049E7FD /* AnimalSizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539BC1EFF136B0049E7FD /* AnimalSizeTests.swift */; };
+		F46539BF1EFF18FB0049E7FD /* AnimalSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539BE1EFF18FB0049E7FD /* AnimalSize.swift */; };
+		F46539C11EFF1E690049E7FD /* AnimalAgeGroupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539C01EFF1E690049E7FD /* AnimalAgeGroupTests.swift */; };
+		F46539C31EFF1F2F0049E7FD /* AnimalAgeGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539C21EFF1F2F0049E7FD /* AnimalAgeGroups.swift */; };
+		F46539C51EFF24720049E7FD /* AnimalSexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539C41EFF24720049E7FD /* AnimalSexTests.swift */; };
+		F46539C71EFF25B10049E7FD /* AnimalSex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539C61EFF25B10049E7FD /* AnimalSex.swift */; };
+		F46539CB1EFF281D0049E7FD /* AnimalTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539CA1EFF281D0049E7FD /* AnimalTypeTests.swift */; };
+		F46539CD1EFF29A80049E7FD /* AnimalType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539CC1EFF29A80049E7FD /* AnimalType.swift */; };
+		F46539CF1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */; };
+		F46539D11EFF2F6D0049E7FD /* AnimalPhotoSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +134,18 @@
 		F416125C1EB520D300E3E6F6 /* CatNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatNameCell.swift; sourceTree = "<group>"; };
 		F416125E1EB5481B00E3E6F6 /* PredicateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredicateHelper.swift; sourceTree = "<group>"; };
 		F41612601EB54DB000E3E6F6 /* UITestingHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITestingHelper.swift; sourceTree = "<group>"; };
+		F46539B81EFF0F580049E7FD /* PositiveIntegerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositiveIntegerTests.swift; sourceTree = "<group>"; };
+		F46539BA1EFF11430049E7FD /* PositiveInteger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositiveInteger.swift; sourceTree = "<group>"; };
+		F46539BC1EFF136B0049E7FD /* AnimalSizeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalSizeTests.swift; sourceTree = "<group>"; };
+		F46539BE1EFF18FB0049E7FD /* AnimalSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalSize.swift; sourceTree = "<group>"; };
+		F46539C01EFF1E690049E7FD /* AnimalAgeGroupTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalAgeGroupTests.swift; sourceTree = "<group>"; };
+		F46539C21EFF1F2F0049E7FD /* AnimalAgeGroups.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalAgeGroups.swift; sourceTree = "<group>"; };
+		F46539C41EFF24720049E7FD /* AnimalSexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalSexTests.swift; sourceTree = "<group>"; };
+		F46539C61EFF25B10049E7FD /* AnimalSex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalSex.swift; sourceTree = "<group>"; };
+		F46539CA1EFF281D0049E7FD /* AnimalTypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalTypeTests.swift; sourceTree = "<group>"; };
+		F46539CC1EFF29A80049E7FD /* AnimalType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalType.swift; sourceTree = "<group>"; };
+		F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalPhotoSizeTests.swift; sourceTree = "<group>"; };
+		F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalPhotoSize.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +185,12 @@
 				276C61C11E2C1C0E00225CF4 /* Cat.swift */,
 				2719FBEE1E7F138500D3D79A /* Favorite.swift */,
 				2719FBF41E7F21AA00D3D79A /* Gender.swift */,
+				F46539BA1EFF11430049E7FD /* PositiveInteger.swift */,
+				F46539BE1EFF18FB0049E7FD /* AnimalSize.swift */,
+				F46539C21EFF1F2F0049E7FD /* AnimalAgeGroups.swift */,
+				F46539C61EFF25B10049E7FD /* AnimalSex.swift */,
+				F46539CC1EFF29A80049E7FD /* AnimalType.swift */,
+				F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -213,6 +243,12 @@
 		276C61A91E2C062200225CF4 /* AllisonsCatPalaceTDDTests */ = {
 			isa = PBXGroup;
 			children = (
+				F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */,
+				F46539CA1EFF281D0049E7FD /* AnimalTypeTests.swift */,
+				F46539C41EFF24720049E7FD /* AnimalSexTests.swift */,
+				F46539C01EFF1E690049E7FD /* AnimalAgeGroupTests.swift */,
+				F46539BC1EFF136B0049E7FD /* AnimalSizeTests.swift */,
+				F46539B81EFF0F580049E7FD /* PositiveIntegerTests.swift */,
 				F41612571EB51EA600E3E6F6 /* CatNameCellTests.swift */,
 				2719FBF21E7F20E900D3D79A /* GenderTests.swift */,
 				2719FBEB1E7F117600D3D79A /* FavoriteTests.swift */,
@@ -483,13 +519,19 @@
 				270A6AF51E3E9D3800B12D38 /* CatNetworkError.swift in Sources */,
 				277199141E34002300930630 /* CatNetworker.swift in Sources */,
 				276C61BC1E2C183300225CF4 /* ExternalCat.swift in Sources */,
+				F46539BB1EFF11430049E7FD /* PositiveInteger.swift in Sources */,
 				2700D3F71E88642D004E77A1 /* CatDetailController.swift in Sources */,
+				F46539D11EFF2F6D0049E7FD /* AnimalPhotoSize.swift in Sources */,
 				27E823951E5A4E42009B202A /* CatCell.swift in Sources */,
+				F46539C71EFF25B10049E7FD /* AnimalSex.swift in Sources */,
 				2719FBF51E7F21AA00D3D79A /* Gender.swift in Sources */,
 				275D26171E512F5E00FAE334 /* CatListController.swift in Sources */,
+				F46539C31EFF1F2F0049E7FD /* AnimalAgeGroups.swift in Sources */,
 				2719FBEF1E7F138500D3D79A /* Favorite.swift in Sources */,
 				276C61C61E2D728800225CF4 /* CatBuilder.swift in Sources */,
+				F46539BF1EFF18FB0049E7FD /* AnimalSize.swift in Sources */,
 				276C61C21E2C1C0E00225CF4 /* Cat.swift in Sources */,
+				F46539CD1EFF29A80049E7FD /* AnimalType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,11 +541,14 @@
 			files = (
 				2719FBF31E7F20E900D3D79A /* GenderTests.swift in Sources */,
 				276C61B61E2C068900225CF4 /* AppDelegateTests.swift in Sources */,
+				F46539C51EFF24720049E7FD /* AnimalSexTests.swift in Sources */,
 				27E8238A1E5A273D009B202A /* UIViewControllerSpies.swift in Sources */,
+				F46539CF1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift in Sources */,
 				270A6AF31E3E981100B12D38 /* CatNetworkErrorTests.swift in Sources */,
 				270A6AE91E3E7BAB00B12D38 /* Box.swift in Sources */,
 				276C61C01E2C1AFF00225CF4 /* CatTests.swift in Sources */,
 				270A6AE31E3E700C00B12D38 /* URLSessionSpies.swift in Sources */,
+				F46539B91EFF0F580049E7FD /* PositiveIntegerTests.swift in Sources */,
 				277199121E33F45B00930630 /* CatNetworkerTests.swift in Sources */,
 				F41612611EB54DB000E3E6F6 /* UITestingHelper.swift in Sources */,
 				270A6AEF1E3E85BE00B12D38 /* NetworkTestingConstants.swift in Sources */,
@@ -517,9 +562,12 @@
 				27E823931E5A43AB009B202A /* CatListDataSourceTests.swift in Sources */,
 				270A6AE51E3E70CD00B12D38 /* URLSessionDataTaskSpies.swift in Sources */,
 				270A6AEB1E3E7DB000B12D38 /* ResultTests.swift in Sources */,
+				F46539BD1EFF136B0049E7FD /* AnimalSizeTests.swift in Sources */,
 				275D260F1E5106D800FAE334 /* CatRegistryTests.swift in Sources */,
+				F46539C11EFF1E690049E7FD /* AnimalAgeGroupTests.swift in Sources */,
 				276C61C41E2C1D8600225CF4 /* CatBuilderTests.swift in Sources */,
 				F41612581EB51EA600E3E6F6 /* CatNameCellTests.swift in Sources */,
+				F46539CB1EFF281D0049E7FD /* AnimalTypeTests.swift in Sources */,
 				2700D3F51E885FE7004E77A1 /* CatDetailViewControllerTests.swift in Sources */,
 				270A6AF71E3EA9A000B12D38 /* ExternalCatData.swift in Sources */,
 			);

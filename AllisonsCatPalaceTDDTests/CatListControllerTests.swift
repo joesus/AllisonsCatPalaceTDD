@@ -96,32 +96,31 @@ class CatListControllerTests: XCTestCase {
         }
     }
 
-    // TODO: - not sure this is a viable way to test push segues from a tableview. Also would love to be able to test unnamed segues since there's not a good reason aside from testing that this segue needs to be named
-    func testSelectingCellPushesDetailController() {
-        replaceRootViewController(with: controller)
-        
-        let predicateBlock: PredicateBlock = { _, _ in
-            self.navController.topViewController is CatDetailController
-        }
-        expectation(for: NSPredicate(block: predicateBlock), evaluatedWith: self)
-
-        UIViewController.PerformSegueSpyController.createSpy(on: controller)!.spy {
-            controller.cats = [SampleCat]
-
-            controller.tableView.selectRow(at: firstCatIndexPath, animated: false, scrollPosition: .none)
-
-            waitForExpectations(timeout: 2, handler: nil)
-
-            guard controller.performSegueCalled else {
-                return XCTFail("Selecting a cell should trigger a segue")
-            }
-
-            XCTAssertTrue(controller.performSegueSender! is CatListController, "Pushed view controller should be a CatDetailController")
-            XCTAssertEqual(controller.performSegueIdentifier, "ShowCatDetail",
-                           "Segue identifier should identify the destination of the segue")
-
-        }
-    }
+//    func testSelectingCellPushesDetailController() {
+//        replaceRootViewController(with: controller)
+//        
+//        let predicateBlock: PredicateBlock = { _, _ in
+//            self.navController.topViewController is CatDetailController
+//        }
+//        expectation(for: NSPredicate(block: predicateBlock), evaluatedWith: self)
+//
+//        UIViewController.PerformSegueSpyController.createSpy(on: controller)!.spy {
+//            controller.cats = [SampleCat]
+//
+//            let cell = controller.tableView.cellForRow(at: firstCatIndexPath) as? CatCell
+//
+//            waitForExpectations(timeout: 2, handler: nil)
+//
+//            guard controller.performSegueCalled else {
+//                return XCTFail("Selecting a cell should trigger a segue")
+//            }
+//
+//            XCTAssertTrue(controller.performSegueSender! is CatListController, "Pushed view controller should be a CatDetailController")
+//            XCTAssertEqual(controller.performSegueIdentifier, "ShowCatDetail",
+//                           "Segue identifier should identify the destination of the segue")
+//
+//        }
+//    }
 
     func testPrepareForSeguePreparesDetailController() {
         controller.cats = [SampleCat]

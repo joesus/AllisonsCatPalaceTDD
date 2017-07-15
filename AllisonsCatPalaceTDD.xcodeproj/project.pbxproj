@@ -54,6 +54,8 @@
 		F416125D1EB520D300E3E6F6 /* CatNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F416125C1EB520D300E3E6F6 /* CatNameCell.swift */; };
 		F416125F1EB5481B00E3E6F6 /* PredicateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F416125E1EB5481B00E3E6F6 /* PredicateHelper.swift */; };
 		F41612611EB54DB000E3E6F6 /* UITestingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41612601EB54DB000E3E6F6 /* UITestingHelper.swift */; };
+		F43BC6A01F1AA5AD00E025EB /* SequenceRemovingDuplicatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43BC69F1F1AA5AD00E025EB /* SequenceRemovingDuplicatesTests.swift */; };
+		F43BC6A21F1AA8A400E025EB /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43BC6A11F1AA8A400E025EB /* ArrayExtensions.swift */; };
 		F46539B91EFF0F580049E7FD /* PositiveIntegerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539B81EFF0F580049E7FD /* PositiveIntegerTests.swift */; };
 		F46539BB1EFF11430049E7FD /* PositiveInteger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539BA1EFF11430049E7FD /* PositiveInteger.swift */; };
 		F46539BD1EFF136B0049E7FD /* AnimalSizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539BC1EFF136B0049E7FD /* AnimalSizeTests.swift */; };
@@ -134,6 +136,8 @@
 		F416125C1EB520D300E3E6F6 /* CatNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatNameCell.swift; sourceTree = "<group>"; };
 		F416125E1EB5481B00E3E6F6 /* PredicateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredicateHelper.swift; sourceTree = "<group>"; };
 		F41612601EB54DB000E3E6F6 /* UITestingHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITestingHelper.swift; sourceTree = "<group>"; };
+		F43BC69F1F1AA5AD00E025EB /* SequenceRemovingDuplicatesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceRemovingDuplicatesTests.swift; sourceTree = "<group>"; };
+		F43BC6A11F1AA8A400E025EB /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		F46539B81EFF0F580049E7FD /* PositiveIntegerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositiveIntegerTests.swift; sourceTree = "<group>"; };
 		F46539BA1EFF11430049E7FD /* PositiveInteger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositiveInteger.swift; sourceTree = "<group>"; };
 		F46539BC1EFF136B0049E7FD /* AnimalSizeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalSizeTests.swift; sourceTree = "<group>"; };
@@ -236,6 +240,7 @@
 				2700D3F61E88642D004E77A1 /* CatDetailController.swift */,
 				27E4196C1EA40E8D00BDE46B /* CatDetailHeaderView.swift */,
 				F416125B1EB5202700E3E6F6 /* Cells */,
+				F43BC6A11F1AA8A400E025EB /* ArrayExtensions.swift */,
 			);
 			path = AllisonsCatPalaceTDD;
 			sourceTree = "<group>";
@@ -243,6 +248,7 @@
 		276C61A91E2C062200225CF4 /* AllisonsCatPalaceTDDTests */ = {
 			isa = PBXGroup;
 			children = (
+				F43BC69F1F1AA5AD00E025EB /* SequenceRemovingDuplicatesTests.swift */,
 				F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */,
 				F46539CA1EFF281D0049E7FD /* AnimalTypeTests.swift */,
 				F46539C41EFF24720049E7FD /* AnimalSexTests.swift */,
@@ -517,6 +523,7 @@
 				276C61961E2C062200225CF4 /* AppDelegate.swift in Sources */,
 				F416125D1EB520D300E3E6F6 /* CatNameCell.swift in Sources */,
 				270A6AF51E3E9D3800B12D38 /* CatNetworkError.swift in Sources */,
+				F43BC6A21F1AA8A400E025EB /* ArrayExtensions.swift in Sources */,
 				277199141E34002300930630 /* CatNetworker.swift in Sources */,
 				276C61BC1E2C183300225CF4 /* ExternalCat.swift in Sources */,
 				F46539BB1EFF11430049E7FD /* PositiveInteger.swift in Sources */,
@@ -554,6 +561,7 @@
 				270A6AEF1E3E85BE00B12D38 /* NetworkTestingConstants.swift in Sources */,
 				2767E37D1E62679600A7C5F9 /* ImageProviderTests.swift in Sources */,
 				2719FBEC1E7F117600D3D79A /* FavoriteTests.swift in Sources */,
+				F43BC6A01F1AA5AD00E025EB /* SequenceRemovingDuplicatesTests.swift in Sources */,
 				F416125F1EB5481B00E3E6F6 /* PredicateHelper.swift in Sources */,
 				27E823971E5A5115009B202A /* MainStoryboardTests.swift in Sources */,
 				270FE1DC1E749E0E006126B2 /* ImageProviderExtensions.swift in Sources */,

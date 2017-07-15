@@ -12,7 +12,6 @@ class Cat {
 
     let name: String
     let identifier: Int
-    var imageUrl: URL?
     var about: String? {
         didSet {
             guard let value = about,
@@ -77,10 +76,10 @@ class Cat {
             }
         }
     }
+    var imageLocations = AnimalImageLocations()
 
     init(name: String, identifier: Int, imageUrl: URL? = nil) {
         self.name = name
         self.identifier = identifier
-        self.imageUrl = imageUrl
     }
 }

@@ -19,11 +19,6 @@ class CatTests: XCTestCase {
         XCTAssertEqual(cat.identifier, 1, "Cat Id was set incorrectly")
     }
 
-    func testCanCreateCatWithURLString() {
-        XCTAssertNotNil(catWithURL.imageUrl)
-        XCTAssertEqual(catWithURL.imageUrl?.absoluteString, "https://example.com/foo.gif", "Cat url was set incorrectly")
-    }
-
     func testAbout() {
         XCTAssertNil(cat.about, "About property is nil by default")
         cat.about = "Nice cat"
@@ -140,5 +135,32 @@ class CatTests: XCTestCase {
     func testWeightCannotBeZero() {
         cat.weight = 0
         XCTAssertNil(cat.weight, "Weight should not be set to zero")
+    }
+
+    func testImageLocationsEmptyByDefault() {
+        XCTAssertEqual(cat.imageLocations.small, [],
+                       "Cat should not have any small images by default")
+        XCTAssertEqual(cat.imageLocations.medium, [],
+                       "Cat should not have any medium images by default")
+        XCTAssertEqual(cat.imageLocations.large, [],
+                       "Cat should not have any large images by default")
+    }
+
+    func testImageLocations() {
+        let sampleURLs = [URL(string: "https://www.google.com")!]
+        let imageLocations = AnimalImageLocations(
+            small: sampleURLs,
+            medium: sampleURLs,
+            large: sampleURLs
+        )
+
+        cat.imageLocations = imageLocations
+
+        XCTAssertEqual(cat.imageLocations.small, sampleURLs,
+                       "Cat should have image locations")
+        XCTAssertEqual(cat.imageLocations.medium, sampleURLs,
+                       "Cat should have image locations")
+        XCTAssertEqual(cat.imageLocations.large, sampleURLs,
+                       "Cat should have image locations")
     }
 }

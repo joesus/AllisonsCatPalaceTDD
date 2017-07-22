@@ -67,15 +67,7 @@ class Cat {
             stateCode = value.uppercased()
         }
     }
-    var weight: Int? {
-        didSet {
-            guard let value = weight,
-                value > 0 else {
-                    weight = nil
-                    return
-            }
-        }
-    }
+    var size: AnimalSize?
     var imageLocations = AnimalImageLocations()
 
     init(name: String, identifier: Int, imageUrl: URL? = nil) {

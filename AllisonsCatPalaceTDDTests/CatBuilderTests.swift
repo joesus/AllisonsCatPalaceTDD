@@ -87,7 +87,7 @@ class CatBuilderTests: XCTestCase {
         XCTAssertEqual(cat.age, 10, "Builder should set age correctly from valid data")
         XCTAssertEqual(cat.city, "Denver", "Builder should set city correctly from valid data")
         XCTAssertEqual(cat.stateCode, "CO", "Builder should set state code correctly from valid data")
-        XCTAssertEqual(cat.weight, 10, "Builder should set weight correctly from valid data")
+        XCTAssertEqual(cat.size, .large, "Builder should set size correctly from valid data")
     }
 
     // MARK:- Specific Properties

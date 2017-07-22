@@ -48,9 +48,10 @@ final class CatBuilder {
             cat.stateCode = state
         }
 
-
-        if let weight = json[ExternalCatKeys.weight] as? Int {
-            cat.weight = weight
+        if let sizeContainer = json[ExternalCatKeys.size] as? JsonObject,
+            let sizeString = sizeContainer[ExternalCatKeys.elementContentKey] as? String,
+            let size = AnimalSize(petFinderRawValue: sizeString) {
+            cat.size = size
         }
 
         if let sexContainer = json[ExternalCatKeys.sex] as? JsonObject,

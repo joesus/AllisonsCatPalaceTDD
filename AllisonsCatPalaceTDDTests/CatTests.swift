@@ -126,15 +126,10 @@ class CatTests: XCTestCase {
         XCTAssertEqual(cat.stateCode, "CO", "State code setter should capitalize state code")
     }
 
-    func testWeight() {
-        XCTAssertNil(cat.weight, "Weight should be nil by default")
-        cat.weight = 10
-        XCTAssertEqual(cat.weight, 10, "Should not mutate weight during setting")
-    }
-
-    func testWeightCannotBeZero() {
-        cat.weight = 0
-        XCTAssertNil(cat.weight, "Weight should not be set to zero")
+    func testSize() {
+        XCTAssertNil(cat.size, "Size should be nil by default")
+        cat.size = .medium
+        XCTAssertEqual(cat.size, .medium, "Should not mutate size during setting")
     }
 
     func testImageLocationsEmptyByDefault() {

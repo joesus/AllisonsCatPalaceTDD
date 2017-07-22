@@ -84,7 +84,7 @@ class CatBuilderTests: XCTestCase {
         XCTAssertEqual(cat.name, "testCat", "Builder should set name correctly from valid data")
         XCTAssertEqual(cat.identifier, 2, "Builder should set identifier correctly from valid data")
         XCTAssertEqual(cat.about, "I am a cat", "Builder should set about correctly from valid data")
-        XCTAssertEqual(cat.age, 10, "Builder should set age correctly from valid data")
+        XCTAssertEqual(cat.age, .young, "Builder should set age correctly from valid data")
         XCTAssertEqual(cat.city, "Denver", "Builder should set city correctly from valid data")
         XCTAssertEqual(cat.stateCode, "CO", "Builder should set state code correctly from valid data")
         XCTAssertEqual(cat.size, .large, "Builder should set size correctly from valid data")

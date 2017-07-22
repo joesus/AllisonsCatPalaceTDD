@@ -38,8 +38,8 @@ class CatTests: XCTestCase {
 
     func testAge() {
         XCTAssertNil(cat.age, "Age property is nil by default")
-        cat.age = 20
-        XCTAssertEqual(cat.age, 20, "Should allow setting of age")
+        cat.age = .adult
+        XCTAssertEqual(cat.age, .adult, "Should allow setting of age")
     }
 
     func testCity() {

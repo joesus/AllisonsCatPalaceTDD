@@ -22,7 +22,7 @@ class Cat {
         }
     }
     var isAdoptable = false
-    var age: Int?
+    var age: AnimalAgeGroup?
     var city: String? {
         didSet {
             guard let value = city,

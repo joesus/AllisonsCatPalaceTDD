@@ -37,7 +37,9 @@ final class CatBuilder {
             cat.about = about
         }
 
-        if let age = json[ExternalCatKeys.age] as? Int {
+        if let ageContainer = json[ExternalCatKeys.age] as? JsonObject,
+            let ageString = ageContainer[ExternalCatKeys.elementContentKey] as? String,
+            let age = AnimalAgeGroup(petFinderRawValue: ageString) {
             cat.age = age
         }
 

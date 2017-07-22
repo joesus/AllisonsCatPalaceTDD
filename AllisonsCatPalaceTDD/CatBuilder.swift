@@ -48,13 +48,6 @@ final class CatBuilder {
             cat.stateCode = state
         }
 
-        if let cutenessLevel = json[ExternalCatKeys.cutenessLevel] as? Int {
-            cat.cutenessLevel = cutenessLevel
-        }
-
-        if let greeting = json[ExternalCatKeys.greeting] as? String {
-            cat.greeting = greeting
-        }
 
         if let weight = json[ExternalCatKeys.weight] as? Int {
             cat.weight = weight

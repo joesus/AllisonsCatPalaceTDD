@@ -15,7 +15,7 @@ enum ExternalCatKeys {
     static let name = "name"
     static let id = "id"
     static let pictureURL = "pictureurl"
-    static let about = "about"
+    static let about = "description"
     static let age = "age"
     static let adoptable = "adoptable"
     static let city = "city"

@@ -32,7 +32,8 @@ final class CatBuilder {
             cat.imageUrl = url
         }
 
-        if let about = json[ExternalCatKeys.about] as? String {
+        if let aboutContainer = json[ExternalCatKeys.about] as? JsonObject,
+            let about = aboutContainer[ExternalCatKeys.elementContentKey] as? String {
             cat.about = about
         }
 

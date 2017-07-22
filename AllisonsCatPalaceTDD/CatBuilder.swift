@@ -21,8 +21,11 @@ final class CatBuilder {
     }
 
     private static func buildCatFromExternalCat(_ json: ExternalCat) -> Cat? {
-        guard let name = json[ExternalCatKeys.name] as? String,
-            let identifier = json[ExternalCatKeys.id] as? Int else {
+        guard let nameContainer = json[ExternalCatKeys.name] as? JsonObject,
+            let name = nameContainer[ExternalCatKeys.elementContentKey] as? String,
+            let identifierContainer = json[ExternalCatKeys.id] as? JsonObject,
+            let identifierString = identifierContainer[ExternalCatKeys.elementContentKey] as? String,
+            let identifier = Int(identifierString) else {
                 return nil
         }
         let cat = Cat(name: name, identifier: identifier)
@@ -45,11 +48,15 @@ final class CatBuilder {
             cat.age = age
         }
 
-        if let city = json[ExternalCatKeys.city] as? String {
+        if let contactContainer = json[ExternalCatKeys.contact] as? JsonObject,
+            let cityContainer = contactContainer[ExternalCatKeys.city] as? JsonObject,
+            let city = cityContainer[ExternalCatKeys.elementContentKey] as? String {
             cat.city = city
         }
 
-        if let state = json[ExternalCatKeys.state] as? String {
+        if let contactContainer = json[ExternalCatKeys.contact] as? JsonObject,
+            let stateContainer = contactContainer[ExternalCatKeys.state] as? JsonObject,
+            let state = stateContainer[ExternalCatKeys.elementContentKey] as? String {
             cat.stateCode = state
         }
 

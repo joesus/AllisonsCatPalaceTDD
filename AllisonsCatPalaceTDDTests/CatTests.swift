@@ -82,10 +82,10 @@ class CatTests: XCTestCase {
         XCTAssertEqual(cat.favorites.count, 2, "Should allow setting favorites")
     }
 
-    func testGender() {
-        XCTAssertEqual(cat.gender, .unknown, "Gender should be unknown by default")
-        cat.gender = .male
-        XCTAssertEqual(cat.gender, .male, "Gender should be settable")
+    func testSex() {
+        XCTAssertEqual(cat.sex, .unknown, "Sex should be unknown by default")
+        cat.sex = .male
+        XCTAssertEqual(cat.sex, .male, "Sex should be settable")
     }
 
     func testGreeting() {

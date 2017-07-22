@@ -97,17 +97,17 @@ class CatBuilderTests: XCTestCase {
     // Gender Property
     func testBuildingCatFromExternalCatWithSpecificGender() {
 
-        var data = try! JSONSerialization.data(withJSONObject: ExternalCatData.neutered, options: [])
+        var data = try! JSONSerialization.data(withJSONObject: SampleExternalCatData.neutered, options: [])
         var cat = CatBuilder.buildCat(from: data)!
-        XCTAssertEqual(cat.gender, .unknown, "Only 'male' and 'female' should return known genders, otherwise should return unknown")
+        XCTAssertEqual(cat.sex, .unknown, "Only 'male' and 'female' should return known sexes, otherwise should return unknown")
 
-        data = try! JSONSerialization.data(withJSONObject: ExternalCatData.male, options: [])
+        data = try! JSONSerialization.data(withJSONObject: SampleExternalCatData.male, options: [])
         cat = CatBuilder.buildCat(from: data)!
-        XCTAssertEqual(cat.gender, .male, "Gender should be parsed correctly")
+        XCTAssertEqual(cat.sex, .male, "Sex should be parsed correctly")
 
-        data = try! JSONSerialization.data(withJSONObject: ExternalCatData.female, options: [])
+        data = try! JSONSerialization.data(withJSONObject: SampleExternalCatData.female, options: [])
         cat = CatBuilder.buildCat(from: data)!
-        XCTAssertEqual(cat.gender, .female, "Gender should be parsed correctly")
+        XCTAssertEqual(cat.sex, .female, "Sex should be parsed correctly")
     }
 
     // ImageURL property

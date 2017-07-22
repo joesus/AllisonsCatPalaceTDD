@@ -10,7 +10,7 @@ import Foundation
 
 enum AnimalSex {
 
-    case male, female
+    case male, female, unknown
 
     static private let petFinderRawValueMapping: [String: AnimalSex] = [
         "M": .male,
@@ -19,7 +19,8 @@ enum AnimalSex {
 
     init?(petFinderRawValue: String) {
         guard let value = AnimalSex.petFinderRawValueMapping[petFinderRawValue] else {
-            return nil
+            self = .unknown
+            return
         }
         self = value
     }

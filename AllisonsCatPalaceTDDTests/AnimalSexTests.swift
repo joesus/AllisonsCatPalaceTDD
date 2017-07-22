@@ -11,8 +11,8 @@ import XCTest
 
 class AnimalSexTests: XCTestCase {
     func testCannotCreateAnimalSexFromEmptyString() {
-        XCTAssertNil(AnimalSex(petFinderRawValue: ""),
-                     "Should not create animal sex from empty string")
+        XCTAssertEqual(AnimalSex(petFinderRawValue: ""), .unknown,
+                     "Empty string should default to unknown value")
     }
 
     func testAnimalSexInitializerWithSingleCharacter() {
@@ -24,8 +24,8 @@ class AnimalSexTests: XCTestCase {
                 XCTAssertNotNil(AnimalSex(petFinderRawValue: String(character)),
                                 "\(character) should create an animal sex")
             } else {
-                XCTAssertNil(AnimalSex(petFinderRawValue: String(character)),
-                             "\(character) should not create an animal sex")
+                XCTAssertEqual(AnimalSex(petFinderRawValue: String(character)), .unknown,
+                             "\(character) should default to unknown")
             }
         }
     }
@@ -34,17 +34,17 @@ class AnimalSexTests: XCTestCase {
         let strings = ["male", "female"]
 
         strings.forEach { character in
-            XCTAssertNil(AnimalSex(petFinderRawValue: character),
-                             "\(character) should not create an animal sex")
+            XCTAssertEqual(AnimalSex(petFinderRawValue: String(character)), .unknown,
+                           "\(character) should default to unknown")
         }
     }
 
     func testAllCases() {
-        let animalSexes = [AnimalSex.male, .female]
+        let animalSexes = [AnimalSex.male, .female, .unknown]
 
         animalSexes.forEach { sex in
             switch sex {
-            case .male, .female:
+            case .male, .female, .unknown:
                 break
             }
         }

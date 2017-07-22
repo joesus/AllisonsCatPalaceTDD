@@ -60,9 +60,10 @@ final class CatBuilder {
             cat.weight = weight
         }
 
-        if let genderString = json[ExternalCatKeys.gender] as? String,
-            let gender = Gender(rawValue: genderString) {
-            cat.gender = gender
+        if let sexContainer = json[ExternalCatKeys.sex] as? JsonObject,
+            let sexString = sexContainer[ExternalCatKeys.elementContentKey] as? String,
+            let sex = AnimalSex(petFinderRawValue: sexString) {
+            cat.sex = sex
         }
 
         return cat

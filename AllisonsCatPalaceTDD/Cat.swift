@@ -42,7 +42,7 @@ class Cat {
         }
     }
     var favorites: [Favorite] = []
-    var gender = Gender.unknown
+    var sex = AnimalSex.unknown
     var greeting: String? {
         didSet {
             guard let value = greeting,

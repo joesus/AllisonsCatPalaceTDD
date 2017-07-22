@@ -21,8 +21,8 @@ enum ExternalCatKeys {
     static let city = "city"
     static let cutenessLevel = "cutenesslevel"
     static let favorites = "favorites"
-    static let gender = "gender"
     static let greeting = "greeting"
+    static let sex = "sex"
     static let state = "state"
     static let weight = "weight"
 }

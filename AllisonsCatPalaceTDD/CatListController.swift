@@ -44,19 +44,20 @@ class CatListController: UITableViewController {
 
         cell.textLabel?.text = cat.name
 
-        if let imageURL = cat.imageUrl {
+        guard let imageUrl = cat.imageLocations.small.first else {
+            return cell
+        }
 
-            if let image = ImageProvider.imageForUrl(imageURL) {
-                cell.imageView?.image = image
-            } else {
-                ImageProvider.getImage(for: imageURL) { potentialImage in
-                    guard potentialImage != nil else { return }
+        if let image = ImageProvider.imageForUrl(imageUrl) {
+            cell.imageView?.image = image
+        } else {
+            ImageProvider.getImage(for: imageUrl) { potentialImage in
+                guard potentialImage != nil else { return }
 
-                    if let indexPaths = tableView.indexPathsForVisibleRows,
-                        indexPaths.contains(indexPath) {
-                        DispatchQueue.main.async {
-                            tableView.reloadRows(at: [indexPath], with: .automatic)
-                        }
+                if let indexPaths = tableView.indexPathsForVisibleRows,
+                    indexPaths.contains(indexPath) {
+                    DispatchQueue.main.async {
+                        tableView.reloadRows(at: [indexPath], with: .automatic)
                     }
                 }
             }

@@ -29,7 +29,7 @@ class CatBuilderTests: XCTestCase {
 
     // Minimal Data
     func testBuildingCatsFromMinimalCatData() {
-        let catData = try! JSONSerialization.data(withJSONObject: [ExternalCatData.valid, ExternalCatData.anotherValid], options: [])
+        let catData = try! JSONSerialization.data(withJSONObject: [SampleExternalCatData.valid, SampleExternalCatData.anotherValid], options: [])
         let cats = CatBuilder.buildCats(from: catData)
         let catOne = cats.first!
         XCTAssertEqual(catOne.name, "CatOne", "First cat name was set incorrectly")
@@ -57,21 +57,21 @@ class CatBuilderTests: XCTestCase {
 
     // Partial Data (with Id)
     func testBuildingCatWithMissingName() {
-        let catData = try! JSONSerialization.data(withJSONObject: ExternalCatData.missingName, options: [])
+        let catData = try! JSONSerialization.data(withJSONObject: SampleExternalCatData.missingName, options: [])
         let cat = CatBuilder.buildCat(from: catData)
         XCTAssertNil(cat, "Should not create cat if name is missing")
     }
 
     // Partial Data (with name)
     func testBuildingCatWithMissingIdentifier() {
-        let catData = try! JSONSerialization.data(withJSONObject: ExternalCatData.missingIdentifier, options: [])
+        let catData = try! JSONSerialization.data(withJSONObject: SampleExternalCatData.missingIdentifier, options: [])
         let cat = CatBuilder.buildCat(from: catData)
         XCTAssertNil(cat, "Should not create cat if identifier is missing")
     }
 
     // Minimal Data
     func testBuildingCatWithMinimalData() {
-        let catData = try! JSONSerialization.data(withJSONObject: ExternalCatData.valid, options: [])
+        let catData = try! JSONSerialization.data(withJSONObject: SampleExternalCatData.valid, options: [])
         let cat = CatBuilder.buildCat(from: catData)!
         XCTAssertEqual(cat.name, "CatOne", "Builder should set name correctly from valid data")
         XCTAssertEqual(cat.identifier, 1, "Builder should set identifier correctly from valid data")
@@ -79,9 +79,9 @@ class CatBuilderTests: XCTestCase {
 
     // Full Data
     func testBuildingCatWithFullData() {
-        let catData = try! JSONSerialization.data(withJSONObject: ExternalCatData.full, options: [])
+        let catData = try! JSONSerialization.data(withJSONObject: SampleExternalCatData.full, options: [])
         let cat = CatBuilder.buildCat(from: catData)!
-        XCTAssertEqual(cat.name, "testCat", "Builder should set name correctly from valid data")
+        XCTAssertEqual(cat.name, "CatTwo", "Builder should set name correctly from valid data")
         XCTAssertEqual(cat.identifier, 2, "Builder should set identifier correctly from valid data")
         XCTAssertEqual(cat.about, "I am a cat", "Builder should set about correctly from valid data")
         XCTAssertEqual(cat.age, .young, "Builder should set age correctly from valid data")
@@ -108,17 +108,71 @@ class CatBuilderTests: XCTestCase {
         XCTAssertEqual(cat.sex, .female, "Sex should be parsed correctly")
     }
 
-    // ImageURL property
-
-    func testBuildingCatFromExternalCatWithBadUrlString() {
-        let data = try! JSONSerialization.data(withJSONObject: ExternalCatData.withBadURLString, options: [])
-        let cat = CatBuilder.buildCat(from: data)!
-        XCTAssertNil(cat.imageUrl, "Cat should not create url from bad url string")
+    // Image Locations
+    func testBuildingCatWithoutMedia() {
+        let data = try! JSONSerialization.data(withJSONObject: SampleExternalCatData.valid, options: [])
+        guard let cat = CatBuilder.buildCat(from: data) else {
+            return XCTFail("Should be able to create cat without media")
+        }
+        XCTAssertEqual(cat.imageLocations.small, [],
+                       "Cat should not create small images without media")
+        XCTAssertEqual(cat.imageLocations.medium, [],
+                       "Cat should not create medium images without media")
+        XCTAssertEqual(cat.imageLocations.large, [],
+                       "Cat should not create large images without media")
     }
 
-    func testBuildingCatFromExternalCatWithValidUrlString() {
-        let data = try! JSONSerialization.data(withJSONObject: ExternalCatData.withURLString, options: [])
-        let cat = CatBuilder.buildCat(from: data)!
-        XCTAssertEqual(cat.imageUrl?.absoluteString, "https://example.com/foo.gif", "Cat should have valid url")
+    func testBuildingCatWithEmptyMedia() {
+        var validWithEmptyMedia = SampleExternalCatData.valid
+        validWithEmptyMedia[ExternalCatKeys.media] = [String: Any]()
+        let data = try! JSONSerialization.data(withJSONObject: validWithEmptyMedia, options: [])
+        guard let cat = CatBuilder.buildCat(from: data) else {
+            return XCTFail("Should be able to create cat with empty media")
+        }
+        XCTAssertEqual(cat.imageLocations.small, [],
+                       "Cat should not create small images with empty media")
+        XCTAssertEqual(cat.imageLocations.medium, [],
+                       "Cat should not create medium images with empty media")
+        XCTAssertEqual(cat.imageLocations.large, [],
+                       "Cat should not create large images with empty media")
+    }
+
+    func testBuildingCatWithEmptyPhotoContainer() {
+        var validWithEmptyPhotoContainer = SampleExternalCatData.valid
+        validWithEmptyPhotoContainer[ExternalCatKeys.media] = [
+            ExternalCatKeys.photos: [
+                ExternalCatKeys.photo: []
+            ]
+        ]
+        let data = try! JSONSerialization.data(withJSONObject: validWithEmptyPhotoContainer, options: [])
+        guard let cat = CatBuilder.buildCat(from: data) else {
+            return XCTFail("Should be able to create cat with empty photos")
+        }
+        XCTAssertEqual(cat.imageLocations.small, [],
+                       "Cat should not create small images with empty photos")
+        XCTAssertEqual(cat.imageLocations.medium, [],
+                       "Cat should not create medium images with empty photos")
+        XCTAssertEqual(cat.imageLocations.large, [],
+                       "Cat should not create large images with empty photos")
+    }
+
+    func testBuildingCatWithPhotos() {
+        let expectedUrls = [URL(string: SampleExternalCatData.validImageUrlString)!]
+        var validWithPhotos = SampleExternalCatData.valid
+        validWithPhotos[ExternalCatKeys.media] = [
+            ExternalCatKeys.photos: [
+                ExternalCatKeys.photo: SampleExternalCatData.photos
+            ]
+        ]
+        let data = try! JSONSerialization.data(withJSONObject: validWithPhotos, options: [])
+        guard let cat = CatBuilder.buildCat(from: data) else {
+            return XCTFail("Should be able to create cat with empty photos")
+        }
+        XCTAssertEqual(cat.imageLocations.small, expectedUrls,
+                       "Cat should create small images with valid photo strings")
+        XCTAssertEqual(cat.imageLocations.medium, expectedUrls,
+                       "Cat should create medium images with valid photo strings")
+        XCTAssertEqual(cat.imageLocations.large, expectedUrls,
+                       "Cat should create large images with valid photo strings")
     }
 }

@@ -12,6 +12,13 @@ import Foundation
 let SampleCat = Cat(name: "SampleCat", identifier: 1)
 
 let cats: [Cat] = (1...100).map { integer in
-    let url = URL(string: "http://example.com/image\(integer).jpg")!
-    return Cat(name: "test", identifier: integer, imageUrl: url)
+    let cat = Cat(name: "test", identifier: integer)
+    cat.imageLocations = sampleImageLocations
+    return cat
 }
+
+let sampleImageLocations = AnimalImageLocations(
+    small: [URL(string: "https://www.google.com/cat.png")!],
+    medium: [URL(string: "https://www.google.com/cat.png")!],
+    large: [URL(string: "https://www.google.com/cat.png")!]
+)

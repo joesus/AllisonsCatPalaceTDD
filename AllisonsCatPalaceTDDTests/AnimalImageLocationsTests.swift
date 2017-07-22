@@ -11,7 +11,7 @@ import XCTest
 
 class AnimalImageLocationsTests: XCTestCase {
 
-    func testHasNoSizesByDefault() {
+    func testHasNoImageLocationsByDefault() {
         let locations = AnimalImageLocations()
         XCTAssertTrue(locations.small.isEmpty,
                       "Animal image locations should have no small images by default")
@@ -19,16 +19,15 @@ class AnimalImageLocationsTests: XCTestCase {
                       "Animal image locations should have no medium images by default")
         XCTAssertTrue(locations.large.isEmpty,
                       "Animal image locations should have no large images by default")
-
     }
 
-    func testCreatingWithSizes() {
-        let small = [URL(string: "https://www.google.com")!,
-                     URL(string: "https://www.google.com")!]
-        let medium = [URL(string: "https://www.google.com")!,
-                      URL(string: "https://www.google.com")!]
-        let large = [URL(string: "https://www.google.com")!,
-                     URL(string: "https://www.google.com")!,
+    func testCreatingWithImageLocations() {
+        let small = [URL(string: "https://www.google.com/")!,
+                     URL(string: "https://www.google.com/./")!]
+        let medium = [URL(string: "https://www.google.com/")!,
+                      URL(string: "https://www.google.com/./")!]
+        let large = [URL(string: "https://www.google.com/")!,
+                     URL(string: "https://www.google.com/./")!,
                      URL(string: "https://www.apple.com")!]
 
         let locations = AnimalImageLocations(

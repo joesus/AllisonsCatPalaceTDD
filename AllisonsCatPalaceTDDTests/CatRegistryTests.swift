@@ -65,7 +65,7 @@ class CatRegistryTests: XCTestCase {
         }
         let handler = CatNetworker.session.capturedCompletionHandler
 
-        let catData = try! JSONSerialization.data(withJSONObject: [ExternalCatData.valid, ExternalCatData.anotherValid], options: [])
+        let catData = try! JSONSerialization.data(withJSONObject: [SampleExternalCatData.valid, SampleExternalCatData.anotherValid], options: [])
 
         handler?(catData, response200(), nil)
 
@@ -107,7 +107,7 @@ class CatRegistryTests: XCTestCase {
             retrievedCat = cat
         }
         let handler = CatNetworker.session.capturedCompletionHandler
-        let catData = try! JSONSerialization.data(withJSONObject: ExternalCatData.valid, options: [])
+        let catData = try! JSONSerialization.data(withJSONObject: SampleExternalCatData.valid, options: [])
 
         handler?(catData, response200(), nil)
 

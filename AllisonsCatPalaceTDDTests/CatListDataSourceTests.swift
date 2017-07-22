@@ -176,7 +176,7 @@ class CatListDataSourceTests: XCTestCase {
 
 
         DispatchQueue.global(qos: .background).async {
-            handler!(self.imageData, response200(url: cats.first!.imageUrl!), nil)
+            handler!(self.imageData, response200(url: cats.first!.imageLocations.small.first!), nil)
         }
 
         waitForExpectations(timeout: 2, handler: nil)

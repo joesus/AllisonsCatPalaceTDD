@@ -27,9 +27,11 @@ final class CatBuilder {
         }
         let cat = Cat(name: name, identifier: identifier)
 
-        if let urlString = json[ExternalCatKeys.pictureURL] as? String,
-            let url = URL(string: urlString) {
-            cat.imageUrl = url
+        if let media = json[ExternalCatKeys.media] as? JsonObject,
+            let photoContainer = media[ExternalCatKeys.photos] as? JsonObject,
+            let photos = photoContainer[ExternalCatKeys.photo] as? JsonArray {
+
+            cat.imageLocations = buildImageLocations(from: photos)
         }
 
         if let aboutContainer = json[ExternalCatKeys.about] as? JsonObject,
@@ -79,5 +81,31 @@ final class CatBuilder {
             return nil
         }
         return buildCatFromExternalCat(cat)
+    }
+
+    private static func buildImageLocations(from photoArray: PhotoArray) -> AnimalImageLocations {
+        var small = [URL]()
+        var medium = [URL]()
+        var large = [URL]()
+
+        photoArray.forEach { photoData in
+            guard let urlString = photoData[ExternalCatKeys.elementContentKey] as? String,
+                let url = URL(string: urlString),
+                let sizeString = photoData[ExternalCatKeys.photoSize] as? String,
+                let size = AnimalPhotoSize(petFinderRawValue: sizeString) else {
+                    return
+            }
+
+            switch size {
+            case .small:
+                small.append(url)
+            case .medium:
+                medium.append(url)
+            case .large:
+                large.append(url)
+            }
+        }
+
+        return AnimalImageLocations(small: small, medium: medium, large: large)
     }
 }

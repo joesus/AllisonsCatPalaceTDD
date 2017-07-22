@@ -21,3 +21,18 @@ extension Array where Element: Equatable {
         return withoutDuplicates
     }
 }
+
+extension Array where Element == URL {
+    func removingDuplicates() -> Array<Element> {
+        var withoutDuplicates = [Element]()
+
+        forEach { item in
+            let standardized = item.standardized
+            if !withoutDuplicates.contains(standardized) {
+                withoutDuplicates.append(standardized)
+            }
+        }
+
+        return withoutDuplicates
+    }
+}

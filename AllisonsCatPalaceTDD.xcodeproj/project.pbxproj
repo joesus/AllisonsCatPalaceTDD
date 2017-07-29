@@ -73,8 +73,10 @@
 		F46539D11EFF2F6D0049E7FD /* AnimalPhotoSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */; };
 		F4AB68921F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */; };
 		F4AB68941F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68931F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift */; };
+		F4AB68961F2D352700CC4CC2 /* AnimalGenotypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68951F2D352700CC4CC2 /* AnimalGenotypeTests.swift */; };
 		F4AB68981F2D37FE00CC4CC2 /* GeneticPurityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68971F2D37FE00CC4CC2 /* GeneticPurityTests.swift */; };
 		F4AB689A1F2D39F300CC4CC2 /* GeneticPurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68991F2D39F300CC4CC2 /* GeneticPurity.swift */; };
+		F4AB689C1F2D405400CC4CC2 /* AnimalGenotype.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB689B1F2D405400CC4CC2 /* AnimalGenotype.swift */; };
 		F4E8BE851F2407CC00F680E2 /* DataTaskResumeStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E8BE841F2407CC00F680E2 /* DataTaskResumeStub.swift */; };
 /* End PBXBuildFile section */
 
@@ -163,8 +165,10 @@
 		F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalPhotoSize.swift; sourceTree = "<group>"; };
 		F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalAdoptionStatusTests.swift; sourceTree = "<group>"; };
 		F4AB68931F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalAdoptionStatus.swift; sourceTree = "<group>"; };
+		F4AB68951F2D352700CC4CC2 /* AnimalGenotypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalGenotypeTests.swift; sourceTree = "<group>"; };
 		F4AB68971F2D37FE00CC4CC2 /* GeneticPurityTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneticPurityTests.swift; sourceTree = "<group>"; };
 		F4AB68991F2D39F300CC4CC2 /* GeneticPurity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneticPurity.swift; sourceTree = "<group>"; };
+		F4AB689B1F2D405400CC4CC2 /* AnimalGenotype.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalGenotype.swift; sourceTree = "<group>"; };
 		F4E8BE841F2407CC00F680E2 /* DataTaskResumeStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTaskResumeStub.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -216,6 +220,7 @@
 				2719FBF41E7F21AA00D3D79A /* Gender.swift */,
 				F46539BA1EFF11430049E7FD /* PositiveInteger.swift */,
 				F4AB68991F2D39F300CC4CC2 /* GeneticPurity.swift */,
+				F4AB689B1F2D405400CC4CC2 /* AnimalGenotype.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -270,6 +275,7 @@
 			children = (
 				F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */,
 				F46539C01EFF1E690049E7FD /* AnimalAgeGroupTests.swift */,
+				F4AB68951F2D352700CC4CC2 /* AnimalGenotypeTests.swift */,
 				F43BC69B1F1A9CF700E025EB /* AnimalImageLocationsTests.swift */,
 				F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */,
 				F46539C41EFF24720049E7FD /* AnimalSexTests.swift */,
@@ -564,6 +570,7 @@
 				2719FBEF1E7F138500D3D79A /* Favorite.swift in Sources */,
 				276C61C61E2D728800225CF4 /* CatBuilder.swift in Sources */,
 				F4AB689A1F2D39F300CC4CC2 /* GeneticPurity.swift in Sources */,
+				F4AB689C1F2D405400CC4CC2 /* AnimalGenotype.swift in Sources */,
 				F46539BF1EFF18FB0049E7FD /* AnimalSize.swift in Sources */,
 				276C61C21E2C1C0E00225CF4 /* Cat.swift in Sources */,
 				F46539CD1EFF29A80049E7FD /* AnimalSpecies.swift in Sources */,
@@ -582,6 +589,7 @@
 				27E8238A1E5A273D009B202A /* UIViewControllerSpies.swift in Sources */,
 				F46539CF1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift in Sources */,
 				270A6AF31E3E981100B12D38 /* CatNetworkErrorTests.swift in Sources */,
+				F4AB68961F2D352700CC4CC2 /* AnimalGenotypeTests.swift in Sources */,
 				270A6AE91E3E7BAB00B12D38 /* Box.swift in Sources */,
 				276C61C01E2C1AFF00225CF4 /* CatTests.swift in Sources */,
 				270A6AE31E3E700C00B12D38 /* URLSessionSpies.swift in Sources */,

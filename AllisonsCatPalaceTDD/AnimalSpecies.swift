@@ -1,5 +1,5 @@
 //
-//  AnimalType.swift
+//  AnimalSpecies.swift
 //  AllisonsCatPalaceTDD
 //
 //  Created by Joe Susnick on 6/24/17.
@@ -8,16 +8,16 @@
 
 import Foundation
 
-enum AnimalType {
+enum AnimalSpecies {
     case cat, dog
 
-    private static let petFinderRawValueMappable: [String: AnimalType] = [
+    private static let petFinderRawValueMappable: [String: AnimalSpecies] = [
         "Cat": .cat,
         "Dog": .dog
     ]
 
     init?(petFinderRawValue: String) {
-        guard let value = AnimalType.petFinderRawValueMappable[petFinderRawValue] else {
+        guard let value = AnimalSpecies.petFinderRawValueMappable[petFinderRawValue] else {
             return nil
         }
         self = value

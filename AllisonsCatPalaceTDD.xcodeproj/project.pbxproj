@@ -71,6 +71,9 @@
 		F46539CD1EFF29A80049E7FD /* AnimalType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539CC1EFF29A80049E7FD /* AnimalType.swift */; };
 		F46539CF1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */; };
 		F46539D11EFF2F6D0049E7FD /* AnimalPhotoSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */; };
+		F4AB68921F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */; };
+		F4AB68941F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68931F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift */; };
+		F4E8BE851F2407CC00F680E2 /* DataTaskResumeStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E8BE841F2407CC00F680E2 /* DataTaskResumeStub.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -156,6 +159,9 @@
 		F46539CC1EFF29A80049E7FD /* AnimalType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalType.swift; sourceTree = "<group>"; };
 		F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalPhotoSizeTests.swift; sourceTree = "<group>"; };
 		F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalPhotoSize.swift; sourceTree = "<group>"; };
+		F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalAdoptionStatusTests.swift; sourceTree = "<group>"; };
+		F4AB68931F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalAdoptionStatus.swift; sourceTree = "<group>"; };
+		F4E8BE841F2407CC00F680E2 /* DataTaskResumeStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTaskResumeStub.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,18 +198,19 @@
 		2719FBED1E7F137300D3D79A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F4AB68931F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift */,
+				F46539C21EFF1F2F0049E7FD /* AnimalAgeGroups.swift */,
+				F43BC69D1F1AA26300E025EB /* AnimalImageLocations.swift */,
+				F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */,
+				F46539C61EFF25B10049E7FD /* AnimalSex.swift */,
+				F46539BE1EFF18FB0049E7FD /* AnimalSize.swift */,
+				F46539CC1EFF29A80049E7FD /* AnimalType.swift */,
 				276C61C11E2C1C0E00225CF4 /* Cat.swift */,
+				276C61BB1E2C183300225CF4 /* ExternalCat.swift */,
+				F43BC6A31F1AC9E400E025EB /* ExternalData.swift */,
 				2719FBEE1E7F138500D3D79A /* Favorite.swift */,
 				2719FBF41E7F21AA00D3D79A /* Gender.swift */,
 				F46539BA1EFF11430049E7FD /* PositiveInteger.swift */,
-				F46539BE1EFF18FB0049E7FD /* AnimalSize.swift */,
-				F46539C21EFF1F2F0049E7FD /* AnimalAgeGroups.swift */,
-				F46539C61EFF25B10049E7FD /* AnimalSex.swift */,
-				F46539CC1EFF29A80049E7FD /* AnimalType.swift */,
-				F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */,
-				F43BC69D1F1AA26300E025EB /* AnimalImageLocations.swift */,
-				276C61BB1E2C183300225CF4 /* ExternalCat.swift */,
-				F43BC6A31F1AC9E400E025EB /* ExternalData.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -256,31 +263,32 @@
 		276C61A91E2C062200225CF4 /* AllisonsCatPalaceTDDTests */ = {
 			isa = PBXGroup;
 			children = (
-				F43BC69F1F1AA5AD00E025EB /* SequenceRemovingDuplicatesTests.swift */,
+				F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */,
+				F46539C01EFF1E690049E7FD /* AnimalAgeGroupTests.swift */,
 				F43BC69B1F1A9CF700E025EB /* AnimalImageLocationsTests.swift */,
 				F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */,
-				F46539CA1EFF281D0049E7FD /* AnimalTypeTests.swift */,
 				F46539C41EFF24720049E7FD /* AnimalSexTests.swift */,
-				F46539C01EFF1E690049E7FD /* AnimalAgeGroupTests.swift */,
 				F46539BC1EFF136B0049E7FD /* AnimalSizeTests.swift */,
-				F46539B81EFF0F580049E7FD /* PositiveIntegerTests.swift */,
-				F41612571EB51EA600E3E6F6 /* CatNameCellTests.swift */,
-				2719FBF21E7F20E900D3D79A /* GenderTests.swift */,
-				2719FBEB1E7F117600D3D79A /* FavoriteTests.swift */,
-				277199151E35636A00930630 /* Helpers */,
-				276C61AC1E2C062200225CF4 /* Info.plist */,
+				F46539CA1EFF281D0049E7FD /* AnimalTypeTests.swift */,
 				276C61B51E2C068900225CF4 /* AppDelegateTests.swift */,
-				276C61BF1E2C1AFF00225CF4 /* CatTests.swift */,
 				276C61C31E2C1D8600225CF4 /* CatBuilderTests.swift */,
-				277199111E33F45B00930630 /* CatNetworkerTests.swift */,
-				270A6AEA1E3E7DB000B12D38 /* ResultTests.swift */,
-				270A6AF21E3E981100B12D38 /* CatNetworkErrorTests.swift */,
-				275D260E1E5106D800FAE334 /* CatRegistryTests.swift */,
+				2700D3F41E885FE7004E77A1 /* CatDetailViewControllerTests.swift */,
 				275D26141E5125D100FAE334 /* CatListControllerTests.swift */,
 				27E823921E5A43AB009B202A /* CatListDataSourceTests.swift */,
-				27E823961E5A5115009B202A /* MainStoryboardTests.swift */,
+				F41612571EB51EA600E3E6F6 /* CatNameCellTests.swift */,
+				270A6AF21E3E981100B12D38 /* CatNetworkErrorTests.swift */,
+				277199111E33F45B00930630 /* CatNetworkerTests.swift */,
+				275D260E1E5106D800FAE334 /* CatRegistryTests.swift */,
+				276C61BF1E2C1AFF00225CF4 /* CatTests.swift */,
+				2719FBEB1E7F117600D3D79A /* FavoriteTests.swift */,
+				2719FBF21E7F20E900D3D79A /* GenderTests.swift */,
+				277199151E35636A00930630 /* Helpers */,
 				2767E37C1E62679600A7C5F9 /* ImageProviderTests.swift */,
-				2700D3F41E885FE7004E77A1 /* CatDetailViewControllerTests.swift */,
+				276C61AC1E2C062200225CF4 /* Info.plist */,
+				27E823961E5A5115009B202A /* MainStoryboardTests.swift */,
+				F46539B81EFF0F580049E7FD /* PositiveIntegerTests.swift */,
+				270A6AEA1E3E7DB000B12D38 /* ResultTests.swift */,
+				F43BC69F1F1AA5AD00E025EB /* SequenceRemovingDuplicatesTests.swift */,
 			);
 			path = AllisonsCatPalaceTDDTests;
 			sourceTree = "<group>";
@@ -298,6 +306,7 @@
 				270FE1DB1E749E0E006126B2 /* ImageProviderExtensions.swift */,
 				F416125E1EB5481B00E3E6F6 /* PredicateHelper.swift */,
 				F41612601EB54DB000E3E6F6 /* UITestingHelper.swift */,
+				F4E8BE841F2407CC00F680E2 /* DataTaskResumeStub.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -538,6 +547,7 @@
 				F43BC6A41F1AC9E400E025EB /* ExternalData.swift in Sources */,
 				F46539BB1EFF11430049E7FD /* PositiveInteger.swift in Sources */,
 				2700D3F71E88642D004E77A1 /* CatDetailController.swift in Sources */,
+				F4AB68941F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift in Sources */,
 				F46539D11EFF2F6D0049E7FD /* AnimalPhotoSize.swift in Sources */,
 				27E823951E5A4E42009B202A /* CatCell.swift in Sources */,
 				F46539C71EFF25B10049E7FD /* AnimalSex.swift in Sources */,
@@ -557,9 +567,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4AB68921F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift in Sources */,
 				2719FBF31E7F20E900D3D79A /* GenderTests.swift in Sources */,
 				276C61B61E2C068900225CF4 /* AppDelegateTests.swift in Sources */,
 				F46539C51EFF24720049E7FD /* AnimalSexTests.swift in Sources */,
+				F4E8BE851F2407CC00F680E2 /* DataTaskResumeStub.swift in Sources */,
 				27E8238A1E5A273D009B202A /* UIViewControllerSpies.swift in Sources */,
 				F46539CF1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift in Sources */,
 				270A6AF31E3E981100B12D38 /* CatNetworkErrorTests.swift in Sources */,

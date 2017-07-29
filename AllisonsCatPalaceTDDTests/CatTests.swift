@@ -30,10 +30,21 @@ class CatTests: XCTestCase {
         XCTAssertNil(cat.about, "Should not set about to empty string")
     }
 
-    func testAdoptableIsFalseByDefault() {
-        XCTAssertFalse(cat.isAdoptable, "Adoptable should be false by default")
-        cat.isAdoptable = true
-        XCTAssertTrue(cat.isAdoptable, "Should allow setting of adoptable")
+    func testAdoptionStatus() {
+        XCTAssertNil(cat.adoptionStatus, "Should not have adoption status by default")
+        cat.adoptionStatus = .onHold
+        XCTAssertEqual(cat.adoptionStatus, .onHold,
+                       "Should allow setting of adoption status")
+    }
+
+    func testAdoptableIsBasedOnAdoptionStatus() {
+        XCTAssertFalse(cat.isAdoptable, "Adoptable should be false when adoption status is unknown")
+        cat.adoptionStatus = .adoptable
+        XCTAssertTrue(cat.isAdoptable, "Should be adoptable when adoption status is adoptable")
+        cat.adoptionStatus = .onHold
+        XCTAssertFalse(cat.isAdoptable, "Adoptable should be false when adoption status is on hold")
+        cat.adoptionStatus = .pending
+        XCTAssertFalse(cat.isAdoptable, "Adoptable should be false when adoption status is on pending")
     }
 
     func testAge() {

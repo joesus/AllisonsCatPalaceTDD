@@ -10,7 +10,6 @@
 import Foundation
 
 struct SampleExternalCatData {
-
     static let valid: ExternalCat = [
         ExternalCatKeys.name: [
             "$t": "CatOne"
@@ -19,7 +18,6 @@ struct SampleExternalCatData {
             "$t": "1"
         ]
     ]
-
     static let anotherValid: ExternalCat = [
         ExternalCatKeys.name: [
             "$t": "CatTwo"
@@ -28,11 +26,9 @@ struct SampleExternalCatData {
             "$t": "2"
         ]
     ]
-
     static let validImageUrlString =      "http://photos.petfinder.com/photos/pets/1/2?bust=1416765384&width=500&-x.jpg"
     static let equivalentImageUrlString = "http://photos.petfinder.com/photos/pets/1/../1/2?bust=1416765384&width=500&-x.jpg"
     static let invalidImageUrlString = "blah blah blah"
-
     static let photos: PhotoArray = [
         [
             ExternalCatKeys.photoSize: "pnt",
@@ -79,7 +75,6 @@ struct SampleExternalCatData {
             "$t": invalidImageUrlString
         ]
     ]
-
     static let withBadImageLocationStrings: ExternalCat = [
         ExternalCatKeys.name: [
             "$t": "Cat"
@@ -150,11 +145,18 @@ struct SampleExternalCatData {
             "$t": "asdfasdf"
         ]
     ]
+    static let emptyStatus: ExternalCat = {
+        var status = male
+        status["status"] = JsonObject()
+        return status
+    }()
     static let full = [
         "description": [
             "$t": "I am a cat"
         ],
-        ExternalCatKeys.adoptable: true,
+        "status": [
+            "$t": "A"
+        ],
         ExternalCatKeys.age: [
             "$t": "Young"
         ],

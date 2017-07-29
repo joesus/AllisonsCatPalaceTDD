@@ -77,19 +77,6 @@ class CatBuilderTests: XCTestCase {
         XCTAssertEqual(cat.identifier, 1, "Builder should set identifier correctly from valid data")
     }
 
-    // Full Data
-    func testBuildingCatWithFullData() {
-        let catData = try! JSONSerialization.data(withJSONObject: SampleExternalCatData.full, options: [])
-        let cat = CatBuilder.buildCat(from: catData)!
-        XCTAssertEqual(cat.name, "CatTwo", "Builder should set name correctly from valid data")
-        XCTAssertEqual(cat.identifier, 2, "Builder should set identifier correctly from valid data")
-        XCTAssertEqual(cat.about, "I am a cat", "Builder should set about correctly from valid data")
-        XCTAssertEqual(cat.age, .young, "Builder should set age correctly from valid data")
-        XCTAssertEqual(cat.city, "Denver", "Builder should set city correctly from valid data")
-        XCTAssertEqual(cat.stateCode, "CO", "Builder should set state code correctly from valid data")
-        XCTAssertEqual(cat.size, .large, "Builder should set size correctly from valid data")
-    }
-
     // MARK:- Specific Properties
 
     // Gender Property
@@ -175,4 +162,35 @@ class CatBuilderTests: XCTestCase {
         XCTAssertEqual(cat.imageLocations.large, expectedUrls,
                        "Cat should create large images with valid photo strings")
     }
+
+    func testBuildingCatWithoutAdoptionStatus() {
+        let catData = try! JSONSerialization.data(withJSONObject: SampleExternalCatData.valid, options: [])
+        guard let cat = CatBuilder.buildCat(from: catData) else {
+            return XCTFail("Should be able to create cat without adoption status")
+        }
+        XCTAssertNil(cat.adoptionStatus, "Adoption status should be nil when status is missing")
+    }
+
+    func testBuildingCatWithEmptyAdoptionStatus() {
+        let catData = try! JSONSerialization.data(withJSONObject: SampleExternalCatData.emptyStatus, options: [])
+        guard let cat = CatBuilder.buildCat(from: catData) else {
+            return XCTFail("Should be able to create cat without adoption status")
+        }
+        XCTAssertNil(cat.adoptionStatus, "Adoption status should be nil when status is missing")
+    }
+
+    // Full Data
+    func testBuildingCatWithFullData() {
+        let catData = try! JSONSerialization.data(withJSONObject: SampleExternalCatData.full, options: [])
+        let cat = CatBuilder.buildCat(from: catData)!
+        XCTAssertEqual(cat.name, "CatTwo", "Builder should set name correctly from valid data")
+        XCTAssertEqual(cat.identifier, 2, "Builder should set identifier correctly from valid data")
+        XCTAssertEqual(cat.about, "I am a cat", "Builder should set about correctly from valid data")
+        XCTAssertEqual(cat.age, .young, "Builder should set age correctly from valid data")
+        XCTAssertEqual(cat.city, "Denver", "Builder should set city correctly from valid data")
+        XCTAssertEqual(cat.stateCode, "CO", "Builder should set state code correctly from valid data")
+        XCTAssertEqual(cat.size, .large, "Builder should set size correctly from valid data")
+        XCTAssertEqual(cat.adoptionStatus, .adoptable, "Builder should set adoptability from valid data")
+    }
+
 }

@@ -21,7 +21,10 @@ class Cat {
             }
         }
     }
-    var isAdoptable = false
+    var adoptionStatus: AnimalAdoptionStatus?
+    var isAdoptable: Bool {
+        return adoptionStatus?.isAdoptable ?? false
+    }
     var age: AnimalAgeGroup?
     var city: String? {
         didSet {

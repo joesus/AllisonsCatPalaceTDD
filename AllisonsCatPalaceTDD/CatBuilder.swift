@@ -72,6 +72,11 @@ final class CatBuilder {
             cat.sex = sex
         }
 
+        if let adoptionStatusContainer = json[ExternalCatKeys.adoptionStatus] as? JsonObject,
+            let adoptionStatusString = adoptionStatusContainer[ExternalCatKeys.elementContentKey] as? String {
+            cat.adoptionStatus = AnimalAdoptionStatus(petFinderRawValue: adoptionStatusString)
+        }
+
         return cat
     }
 

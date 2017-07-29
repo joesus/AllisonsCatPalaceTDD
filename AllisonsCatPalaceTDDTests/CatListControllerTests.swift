@@ -23,6 +23,8 @@ class CatListControllerTests: XCTestCase {
         navController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
         
         replaceRootViewController(with: navController) // the main controller for the window is now the navController
+
+        URLSessionTask.beginStubbingResume()
         
         controller = navController.topViewController as! CatListController
         tableView = controller.tableView
@@ -31,6 +33,7 @@ class CatListControllerTests: XCTestCase {
 
     override func tearDown() {
         restoreRootViewController()
+        URLSessionTask.endStubbingResume()
 
         super.tearDown()
     }

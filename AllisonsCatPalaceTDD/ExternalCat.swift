@@ -28,4 +28,11 @@ enum ExternalCatKeys {
     static let sex = "sex"
     static let size = "size"
     static let state = "state"
+
+    enum GenotypeKeys {
+        static let animal = "animal"
+        static let mix = "mix"
+        static let breeds = "breeds"
+        static let breed = "breed"
+    }
 }

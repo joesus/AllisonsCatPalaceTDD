@@ -11,18 +11,18 @@ import Foundation
 
 struct SampleExternalCatData {
     static let valid: ExternalCat = [
-        ExternalCatKeys.name: [
+        "name": [
             "$t": "CatOne"
         ],
-        ExternalCatKeys.id: [
+        "id": [
             "$t": "1"
         ]
     ]
     static let anotherValid: ExternalCat = [
-        ExternalCatKeys.name: [
+        "name": [
             "$t": "CatTwo"
         ],
-        ExternalCatKeys.id: [
+        "id": [
             "$t": "2"
         ]
     ]
@@ -31,70 +31,70 @@ struct SampleExternalCatData {
     static let invalidImageUrlString = "blah blah blah"
     static let photos: PhotoArray = [
         [
-            ExternalCatKeys.photoSize: "pnt",
+            "@size": "pnt",
             "$t": validImageUrlString
         ],
         [
-            ExternalCatKeys.photoSize: "fpm",
+            "@size": "fpm",
             "$t": validImageUrlString
         ],
         [
-            ExternalCatKeys.photoSize: "x",
+            "@size": "x",
             "$t": validImageUrlString
         ],
         [
-            ExternalCatKeys.photoSize: "x",
+            "@size": "x",
             "$t": equivalentImageUrlString
         ],
         [
-            ExternalCatKeys.photoSize: "x",
+            "@size": "x",
             "$t": invalidImageUrlString
         ],
         [
-            ExternalCatKeys.photoSize: "t",
+            "@size": "t",
             "$t": validImageUrlString
         ],
         [
-            ExternalCatKeys.photoSize: "t",
+            "@size": "t",
             "$t": equivalentImageUrlString
         ],
         [
-            ExternalCatKeys.photoSize: "t",
+            "@size": "t",
             "$t": invalidImageUrlString
         ],
         [
-            ExternalCatKeys.photoSize: "pn",
+            "@size": "pn",
             "$t": validImageUrlString
         ],
         [
-            ExternalCatKeys.photoSize: "pn",
+            "@size": "pn",
             "$t": equivalentImageUrlString
         ],
         [
-            ExternalCatKeys.photoSize: "pn",
+            "@size": "pn",
             "$t": invalidImageUrlString
         ]
     ]
     static let withBadImageLocationStrings: ExternalCat = [
-        ExternalCatKeys.name: [
+        "name": [
             "$t": "Cat"
         ],
-        ExternalCatKeys.id:  [
+        "id":  [
             "$t": "4"
         ],
-        ExternalCatKeys.media: [
-            ExternalCatKeys.photos: [
-                ExternalCatKeys.photo: [
+        "media": [
+            "photos": [
+                "photo": [
                     [
-                        ExternalCatKeys.photoSize: "x",
+                        "@size": "x",
                         "$t": "blah blah blah"
                     ],
                     [
-                        ExternalCatKeys.photoSize: "t",
+                        "@size": "t",
                         "$t": "blah blah blah"
                     ],
                     [
-                        ExternalCatKeys.photoSize: "pn",
+                        "@size": "pn",
                         "$t": "blah blah blah"
                     ]
                 ] as PhotoArray
@@ -102,46 +102,46 @@ struct SampleExternalCatData {
         ] as JsonObject
     ]
     static let missingIdentifier: ExternalCat = [
-        ExternalCatKeys.name: [
+        "name": [
             "$t": "CatOne"
         ]
     ]
     static let missingName: ExternalCat = [
-        ExternalCatKeys.id: [
+        "id": [
             "$t": "1"
         ]
     ]
     static let invalid: ExternalCat = [:]
     static let female: ExternalCat = [
-        ExternalCatKeys.name: [
+        "name": [
             "$t": "CatTwo"
         ],
-        ExternalCatKeys.id: [
+        "id": [
             "$t": "2"
         ],
-        ExternalCatKeys.sex: [
+        "sex": [
             "$t": "F"
         ]
     ]
     static let male: ExternalCat = [
-        ExternalCatKeys.name: [
+        "name": [
             "$t": "CatTwo"
         ],
-        ExternalCatKeys.id: [
+        "id": [
             "$t": "2"
         ],
-        ExternalCatKeys.sex: [
+        "sex": [
             "$t": "M"
         ]
     ]
     static let neutered: ExternalCat = [
-        ExternalCatKeys.name: [
+        "name": [
             "$t": "CatTwo"
         ],
-        ExternalCatKeys.id: [
+        "id": [
             "$t": "2"
         ],
-        ExternalCatKeys.sex: [
+        "sex": [
             "$t": "asdfasdf"
         ]
     ]
@@ -157,7 +157,7 @@ struct SampleExternalCatData {
         "status": [
             "$t": "A"
         ],
-        ExternalCatKeys.age: [
+        "age": [
             "$t": "Young"
         ],
         "contact": [
@@ -168,19 +168,19 @@ struct SampleExternalCatData {
                 "$t": "CO"
             ]
         ],
-        ExternalCatKeys.favorites: [
+        "favorites": [
             [
                 "category": "hat",
                 "value": "cowboy baby"
             ]
         ],
-        ExternalCatKeys.sex: [
+        "sex": [
             "$t": "M"
         ],
-        ExternalCatKeys.name: [
+        "name": [
             "$t": "CatTwo"
         ],
-        ExternalCatKeys.id: [
+        "id": [
             "$t": "2"
         ],
         "size": [

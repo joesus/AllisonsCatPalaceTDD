@@ -77,6 +77,7 @@
 		F4AB68981F2D37FE00CC4CC2 /* GeneticPurityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68971F2D37FE00CC4CC2 /* GeneticPurityTests.swift */; };
 		F4AB689A1F2D39F300CC4CC2 /* GeneticPurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68991F2D39F300CC4CC2 /* GeneticPurity.swift */; };
 		F4AB689C1F2D405400CC4CC2 /* AnimalGenotype.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB689B1F2D405400CC4CC2 /* AnimalGenotype.swift */; };
+		F4AB68A01F2D4E0400CC4CC2 /* SampleExternalGenotypeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB689F1F2D4E0400CC4CC2 /* SampleExternalGenotypeData.swift */; };
 		F4E8BE851F2407CC00F680E2 /* DataTaskResumeStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E8BE841F2407CC00F680E2 /* DataTaskResumeStub.swift */; };
 /* End PBXBuildFile section */
 
@@ -169,6 +170,7 @@
 		F4AB68971F2D37FE00CC4CC2 /* GeneticPurityTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneticPurityTests.swift; sourceTree = "<group>"; };
 		F4AB68991F2D39F300CC4CC2 /* GeneticPurity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneticPurity.swift; sourceTree = "<group>"; };
 		F4AB689B1F2D405400CC4CC2 /* AnimalGenotype.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalGenotype.swift; sourceTree = "<group>"; };
+		F4AB689F1F2D4E0400CC4CC2 /* SampleExternalGenotypeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleExternalGenotypeData.swift; sourceTree = "<group>"; };
 		F4E8BE841F2407CC00F680E2 /* DataTaskResumeStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTaskResumeStub.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -319,6 +321,7 @@
 				F416125E1EB5481B00E3E6F6 /* PredicateHelper.swift */,
 				F41612601EB54DB000E3E6F6 /* UITestingHelper.swift */,
 				F4E8BE841F2407CC00F680E2 /* DataTaskResumeStub.swift */,
+				F4AB689F1F2D4E0400CC4CC2 /* SampleExternalGenotypeData.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -606,6 +609,7 @@
 				270FE1DC1E749E0E006126B2 /* ImageProviderExtensions.swift in Sources */,
 				275D26151E5125D100FAE334 /* CatListControllerTests.swift in Sources */,
 				270FE1DA1E748E22006126B2 /* SampleCats.swift in Sources */,
+				F4AB68A01F2D4E0400CC4CC2 /* SampleExternalGenotypeData.swift in Sources */,
 				27E823931E5A43AB009B202A /* CatListDataSourceTests.swift in Sources */,
 				270A6AE51E3E70CD00B12D38 /* URLSessionDataTaskSpies.swift in Sources */,
 				270A6AEB1E3E7DB000B12D38 /* ResultTests.swift in Sources */,

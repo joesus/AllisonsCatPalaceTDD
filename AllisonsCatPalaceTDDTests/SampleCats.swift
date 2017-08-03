@@ -22,3 +22,9 @@ let sampleImageLocations = AnimalImageLocations(
     medium: [URL(string: "https://www.google.com/cat.png")!],
     large: [URL(string: "https://www.google.com/cat.png")!]
 )
+
+let sampleGenotype = AnimalGenotype(
+    species: .cat,
+    purity: .mixed,
+    breeds: []
+)

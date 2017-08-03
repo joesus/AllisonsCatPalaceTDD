@@ -46,6 +46,7 @@ class Cat {
     }
     var favorites: [Favorite] = []
     var sex = AnimalSex.unknown
+    var genotype: AnimalGenotype?
     var greeting: String? {
         didSet {
             guard let value = greeting,

@@ -93,6 +93,12 @@ class CatTests: XCTestCase {
         XCTAssertEqual(cat.favorites.count, 2, "Should allow setting favorites")
     }
 
+    func testGenotype() {
+        XCTAssertNil(cat.genotype, "Should not have a genotype by default")
+        cat.genotype = sampleGenotype
+        XCTAssertNotNil(cat.genotype, "Should allow setting genotype")
+    }
+
     func testSex() {
         XCTAssertEqual(cat.sex, .unknown, "Sex should be unknown by default")
         cat.sex = .male

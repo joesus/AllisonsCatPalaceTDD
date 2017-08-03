@@ -11,6 +11,17 @@ import Foundation
 enum GeneticPurity {
     case purebred, mixed
 
+    init?(petFinderRawValue: String) {
+        switch petFinderRawValue {
+        case "yes":
+            self = .mixed
+        case "no":
+            self = .purebred
+        default:
+            return nil
+        }
+    }
+
     var isPurebred: Bool {
         return self == .purebred
     }

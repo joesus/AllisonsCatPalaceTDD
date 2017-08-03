@@ -20,6 +20,20 @@ class GeneticPurityTests: XCTestCase {
         }
     }
 
+    func testInitializerWithinValidStrings() {
+        ["YES", "NO", "Yes", "No", "", "Blah"].forEach { invalidString in
+            XCTAssertNil(GeneticPurity(petFinderRawValue: invalidString),
+                            "Should not create genetic purity from invalid strings")
+        }
+    }
+
+    func testInitializeWithValidStrings() {
+        ["yes", "no"].forEach { validString in
+            XCTAssertNotNil(GeneticPurity(petFinderRawValue: validString),
+                            "Should create genetic purity from valid strings")
+        }
+    }
+
     func testIsPurebredFlag() {
         XCTAssertTrue(GeneticPurity.purebred.isPurebred,
                       "Purebred should be purebred")

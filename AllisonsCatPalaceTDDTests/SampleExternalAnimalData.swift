@@ -1,5 +1,5 @@
 //
-//  SampleExternalCatData.swift
+//  SampleExternalAnimalData.swift
 //  AllisonsCatPalaceTDD
 //
 //  Created by Joesus on 1/29/17.
@@ -9,8 +9,8 @@
 @testable import AllisonsCatPalaceTDD
 import Foundation
 
-struct SampleExternalCatData {
-    static let valid: ExternalCat = [
+struct SampleExternalAnimalData {
+    static let valid: ExternalAnimal = [
         "name": [
             "$t": "CatOne"
         ],
@@ -18,7 +18,7 @@ struct SampleExternalCatData {
             "$t": "1"
         ]
     ]
-    static let anotherValid: ExternalCat = [
+    static let anotherValid: ExternalAnimal = [
         "name": [
             "$t": "CatTwo"
         ],
@@ -75,7 +75,7 @@ struct SampleExternalCatData {
             "$t": invalidImageUrlString
         ]
     ]
-    static let withBadImageLocationStrings: ExternalCat = [
+    static let withBadImageLocationStrings: ExternalAnimal = [
         "name": [
             "$t": "Cat"
         ],
@@ -101,18 +101,18 @@ struct SampleExternalCatData {
             ]
         ] as JsonObject
     ]
-    static let missingIdentifier: ExternalCat = [
+    static let missingIdentifier: ExternalAnimal = [
         "name": [
             "$t": "CatOne"
         ]
     ]
-    static let missingName: ExternalCat = [
+    static let missingName: ExternalAnimal = [
         "id": [
             "$t": "1"
         ]
     ]
-    static let invalid: ExternalCat = [:]
-    static let female: ExternalCat = [
+    static let invalid: ExternalAnimal = [:]
+    static let female: ExternalAnimal = [
         "name": [
             "$t": "CatTwo"
         ],
@@ -123,7 +123,7 @@ struct SampleExternalCatData {
             "$t": "F"
         ]
     ]
-    static let male: ExternalCat = [
+    static let male: ExternalAnimal = [
         "name": [
             "$t": "CatTwo"
         ],
@@ -134,7 +134,7 @@ struct SampleExternalCatData {
             "$t": "M"
         ]
     ]
-    static let neutered: ExternalCat = [
+    static let neutered: ExternalAnimal = [
         "name": [
             "$t": "CatTwo"
         ],
@@ -145,7 +145,7 @@ struct SampleExternalCatData {
             "$t": "asdfasdf"
         ]
     ]
-    static let emptyStatus: ExternalCat = {
+    static let emptyStatus: ExternalAnimal = {
         var status = male
         status["status"] = JsonObject()
         return status
@@ -186,5 +186,5 @@ struct SampleExternalCatData {
         "size": [
             "$t": "L"
         ]
-        ] as ExternalCat
+        ] as ExternalAnimal
 }

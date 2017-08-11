@@ -10,7 +10,7 @@ import UIKit
 
 class CatDetailController: UITableViewController {
 
-    var cat: Cat? {
+    var cat: Animal? {
         didSet {
             guard oldValue == nil, cat != nil else {
                 cat = oldValue

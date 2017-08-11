@@ -1,5 +1,5 @@
 //
-//  CatNetworker.swift
+//  AnimalNetworker.swift
 //  AllisonsCatPalaceTDD
 //
 //  Created by Joesus on 1/21/17.
@@ -9,17 +9,27 @@
 import Foundation
 
 typealias NetworkResult = Result<Data>
-typealias CatRetrievalHandler = (NetworkResult) -> Void
-private let CatServiceDomain = "http://localhost:8080/"
-private let CatServicePath = "cats"
-private let CatServiceDomainUrl = URL(string: CatServiceDomain)!
-let CatServiceEndpoint = CatServiceDomainUrl.appendingPathComponent(CatServicePath)
+typealias AnimalRetrievalHandler = (NetworkResult) -> Void
+private let CatServiceEndpoint: URL = {
+    var url = URLComponents()
+    url.scheme = "https"
+    url.host = "api.petfinder.com"
+    url.path = "/shelter.getPets"
+    url.queryItems = [
+        URLQueryItem(name: "id", value: "CO316"),
+        URLQueryItem(name: "key", value: "APIKEY"),
+        URLQueryItem(name: "format", value: "json"),
+        URLQueryItem(name: "output", value: "full")
+    ]
 
-enum CatNetworker {
+    return url.url!
+}()
+
+enum AnimalNetworker {
     static var session = URLSession.shared
     static weak var retrieveAllCatsTask: URLSessionTask?
 
-    static func retrieveAllCats(completion: @escaping CatRetrievalHandler) {
+    static func retrieveAllAnimals(completion: @escaping AnimalRetrievalHandler) {
         retrieveAllCatsTask?.cancel()
 
         let task = session.dataTask(with: CatServiceEndpoint) {
@@ -44,16 +54,16 @@ enum CatNetworker {
             if let data = potentialData {
                 return .success(data)
             } else {
-                return Result.failure(CatNetworkError.missingData)
+                return Result.failure(AnimalNetworkError.missingData)
             }
         case 404:
-            return Result.failure(CatNetworkError.missingCatService)
+            return Result.failure(AnimalNetworkError.missingAnimalService)
         default:
             fatalError()
         }
     }
 
-    static func retrieveCat(withIdentifier id: Int, completion: @escaping CatRetrievalHandler) {
+    static func retrieveAnimal(withIdentifier id: Int, completion: @escaping AnimalRetrievalHandler) {
 
         let url = CatServiceEndpoint.appendingPathComponent(String(id))
 
@@ -76,10 +86,10 @@ enum CatNetworker {
             if let data = potentialData {
                 return .success(data)
             } else {
-                return Result.failure(CatNetworkError.missingData)
+                return Result.failure(AnimalNetworkError.missingData)
             }
         case 404:
-            return Result.failure(CatNetworkError.missingCat(identifier: identifier))
+            return Result.failure(AnimalNetworkError.missingAnimal(identifier: identifier))
         default:
             fatalError()
         }

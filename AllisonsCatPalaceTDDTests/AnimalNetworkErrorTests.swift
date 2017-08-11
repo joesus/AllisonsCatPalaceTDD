@@ -9,39 +9,39 @@
 import XCTest
 @testable import AllisonsCatPalaceTDD
 
-class CatNetworkErrorTests: XCTestCase {
+class AnimalNetworkErrorTests: XCTestCase {
 
-    var error: CatNetworkError!
+    var error: AnimalNetworkError!
 
-    func testCatNetworkErrorCases() {
-        error = .missingCatService
+    func testAnimalNetworkErrorCases() {
+        error = .missingAnimalService
         switch error! {
-            case .missingCatService,
-                 .missingCat(_),
+            case .missingAnimalService,
+                 .missingAnimal(_),
                  .missingData:
                 return
         }
     }
 
-    func testMissingCatService() {
-        error = .missingCatService
+    func testMissingAnimalService() {
+        error = .missingAnimalService
         switch error! {
-        case .missingCatService:
-            XCTAssertEqual(error.message, "Cat service unavailable")
+        case .missingAnimalService:
+            XCTAssertEqual(error.message, "Animal service unavailable")
             return
         default:
             XCTFail("error should be a missingCat error")
         }
     }
 
-    func testMissingCat() {
-        error = .missingCat(identifier: 15)
+    func testMissingAnimal() {
+        error = .missingAnimal(identifier: 15)
         switch error! {
-        case .missingCat:
-            XCTAssertEqual(error.message, "Cat 15 not found", "message for missingCat error should include correct identifier")
+        case .missingAnimal:
+            XCTAssertEqual(error.message, "Animal 15 not found", "message for missingAnimal error should include correct identifier")
             return
         default:
-            XCTFail("error should be a missingCat error")
+            XCTFail("error should be a missingAnimal error")
         }
     }
 

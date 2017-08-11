@@ -1,5 +1,5 @@
 //
-//  Cat.swift
+//  Animal.swift
 //  AllisonsCatPalaceTDD
 //
 //  Created by Joesus on 1/15/17.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Cat {
+class Animal {
 
     let name: String
     let identifier: Int

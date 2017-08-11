@@ -1,5 +1,5 @@
 //
-//  CatTests.swift
+//  AnimalTests.swift
 //  AllisonsCatPalaceTDD
 //
 //  Created by Joesus on 1/15/17.
@@ -9,12 +9,12 @@
 import XCTest
 @testable import AllisonsCatPalaceTDD
 
-class CatTests: XCTestCase {
+class AnimalTests: XCTestCase {
 
-    let cat = Cat(name: "CatOne", identifier: 1)
-    let catWithURL = Cat(name: "CatURL", identifier: 1, imageUrl: URL(string: "https://example.com/foo.gif"))
+    let cat = Animal(name: "CatOne", identifier: 1)
+    let catWithURL = Animal(name: "CatURL", identifier: 1, imageUrl: URL(string: "https://example.com/foo.gif"))
 
-    func testCreateCat() {
+    func testCreateAnimal() {
         XCTAssertEqual(cat.name, "CatOne", "Cat name was set incorrectly")
         XCTAssertEqual(cat.identifier, 1, "Cat Id was set incorrectly")
     }

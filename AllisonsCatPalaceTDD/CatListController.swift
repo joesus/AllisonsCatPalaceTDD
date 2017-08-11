@@ -9,7 +9,7 @@
 import UIKit
 
 class CatListController: UITableViewController {
-    var cats = [Cat]() {
+    var cats = [Animal]() {
         didSet {
             DispatchQueue.main.async { [weak tableView] in
                 tableView?.reloadData()
@@ -20,7 +20,7 @@ class CatListController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        CatRegistry.fetchAllCats { fetchedCats in
+        AnimalRegistry.fetchAllAnimals { fetchedCats in
             self.cats = fetchedCats
         }
     }

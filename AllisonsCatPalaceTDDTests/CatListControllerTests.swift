@@ -64,7 +64,7 @@ class CatListControllerTests: XCTestCase {
 
         UITableView.ReloadDataSpyController.createSpy(on: tableView)!.spy {
             DispatchQueue.global(qos: .background).async { [weak controller] in
-                let cat = Cat(name: "Test", identifier: 1)
+                let cat = Animal(name: "Test", identifier: 1)
                 controller?.cats.append(cat)
             }
 

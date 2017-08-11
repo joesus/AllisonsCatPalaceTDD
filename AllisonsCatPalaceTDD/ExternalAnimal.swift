@@ -1,5 +1,5 @@
 //
-//  ExternalCat.swift
+//  ExternalAnimal.swift
 //  AllisonsCatPalaceTDD
 //
 //  Created by Joesus on 1/15/17.
@@ -8,10 +8,10 @@
 
 import Foundation
 
-typealias ExternalCat = [String: Any]
-typealias ExternalCatList = [ExternalCat]
+typealias ExternalAnimal = [String: Any]
+typealias ExternalAnimalList = [ExternalAnimal]
 
-enum ExternalCatKeys {
+enum ExternalAnimalKeys {
     static let name = "name"
     static let contact = "contact"
     static let media = "media"

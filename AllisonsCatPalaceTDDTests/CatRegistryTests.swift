@@ -1,5 +1,5 @@
 //
-//  CatDataSourceTests.swift
+//  AnimalRegistryTests.swift
 //  AllisonsCatPalaceTDD
 //
 //  Created by Joesus on 2/12/17.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import AllisonsCatPalaceTDD
 
-class CatRegistryTests: XCTestCase {
+class AnimalRegistryTests: XCTestCase {
 
     var completionHandlerInvoked = false
 
@@ -28,105 +28,90 @@ class CatRegistryTests: XCTestCase {
         super.tearDown()
     }
 
-    func testGettingAllCatsFailure() {
-        var receivedCats: [Cat]?
-        CatRegistry.fetchAllCats() { cats in
+    func testGettingAllAnimalsFailure() {
+        var receivedAnimals: [Animal]?
+        AnimalRegistry.fetchAllAnimals() { animals in
             self.completionHandlerInvoked = true
-            receivedCats = cats
+            receivedAnimals = animals
         }
-        let handler = CatNetworker.session.capturedCompletionHandler
+        let handler = AnimalNetworker.session.capturedCompletionHandler
         handler?(nil, response200(), nil)
 
         XCTAssertTrue(completionHandlerInvoked, "Completion handler should be invoked on all calls to registry")
-        XCTAssert(receivedCats!.isEmpty, "Should not have cats without data")
+        XCTAssert(receivedAnimals!.isEmpty, "Should not have animals without data")
     }
 
-    func testGettingAllCatsWithEmptyResult() {
-        var receivedCats: [Cat]?
-        CatRegistry.fetchAllCats() { cats in
+    func testGettingAllAnimalsWithEmptyResult() {
+        var receivedAnimals: [Animal]?
+        AnimalRegistry.fetchAllAnimals() { animals in
             self.completionHandlerInvoked = true
-            receivedCats = cats
+            receivedAnimals = animals
         }
-        let handler = CatNetworker.session.capturedCompletionHandler
+        let handler = AnimalNetworker.session.capturedCompletionHandler
 
-        let emptyCatsData = try! JSONSerialization.data(withJSONObject: [], options: [])
+        let emptyAnimalsData = try! JSONSerialization.data(withJSONObject: [], options: [])
 
-        handler?(emptyCatsData, response200(), nil)
+        handler?(emptyAnimalsData, response200(), nil)
 
         XCTAssertTrue(completionHandlerInvoked, "Completion handler should be invoked on all calls to registry")
-        XCTAssert(receivedCats!.isEmpty, "Should not have cats with empty data")
+        XCTAssert(receivedAnimals!.isEmpty, "Should not have animals with empty data")
     }
 
-    func testGettingAllCatsSuccess() {
-        var receivedCats: [Cat]?
-        CatRegistry.fetchAllCats() { cats in
+    func testGettingAllAnimalsSuccess() {
+        var receivedAnimals: [Animal]?
+        AnimalRegistry.fetchAllAnimals() { animals in
             self.completionHandlerInvoked = true
-            receivedCats = cats
+            receivedAnimals = animals
         }
-        let handler = CatNetworker.session.capturedCompletionHandler
+        let handler = AnimalNetworker.session.capturedCompletionHandler
 
-        let catData = try! JSONSerialization.data(withJSONObject: [SampleExternalCatData.valid, SampleExternalCatData.anotherValid], options: [])
+        let animalData = try! JSONSerialization.data(withJSONObject: [SampleExternalAnimalData.valid, SampleExternalAnimalData.anotherValid], options: [])
 
-        handler?(catData, response200(), nil)
+        handler?(animalData, response200(), nil)
 
         XCTAssertTrue(completionHandlerInvoked, "Completion handler should be invoked on all calls to registry")
-        XCTAssertEqual(receivedCats!.count, 2, "Should have received two cats")
+        XCTAssertEqual(receivedAnimals!.count, 2, "Should have received two animals")
     }
 
-    func testGetSingleCatFailure() {
-        var retrievedCat: Cat?
-        CatRegistry.fetchCat(withIdentifier: 2) { cat in
+    func testGetSingleAnimalFailure() {
+        var retrievedAnimal: Animal?
+        AnimalRegistry.fetchAnimal(withIdentifier: 2) { animal in
             self.completionHandlerInvoked = true
-            retrievedCat = cat
+            retrievedAnimal = animal
         }
-        let handler = CatNetworker.session.capturedCompletionHandler
+        let handler = AnimalNetworker.session.capturedCompletionHandler
         handler?(nil, response200(), nil)
 
         XCTAssertTrue(completionHandlerInvoked, "Completion handler should be invoked on all calls to registry")
-        XCTAssertNil(retrievedCat, "Should not return a cat if there is no data")
+        XCTAssertNil(retrievedAnimal, "Should not return an animal if there is no data")
     }
 
-    func testGetSingleCatWithEmptyResult() {
-        var retrievedCat: Cat?
-        CatRegistry.fetchCat(withIdentifier: 1) { cat in
+    func testGetSingleAnimalWithEmptyResult() {
+        var retrievedAnimal: Animal?
+        AnimalRegistry.fetchAnimal(withIdentifier: 1) { animal in
             self.completionHandlerInvoked = true
-            retrievedCat = cat
+            retrievedAnimal = animal
         }
-        let handler = CatNetworker.session.capturedCompletionHandler
+        let handler = AnimalNetworker.session.capturedCompletionHandler
         let emptyData = try! JSONSerialization.data(withJSONObject: [:], options: [])
         handler?(emptyData, response200(), nil)
 
         XCTAssertTrue(completionHandlerInvoked, "Completion handler should be invoked on all calls to registry")
-        XCTAssertNil(retrievedCat, "Should not return a cat if the data is empty")
+        XCTAssertNil(retrievedAnimal, "Should not return an animal if the data is empty")
     }
 
-    func testGetSingleCatSuccess() {
-        var retrievedCat: Cat?
-        CatRegistry.fetchCat(withIdentifier: 1) { cat in
+    func testGetSingleAnimalSuccess() {
+        var retrievedAnimal: Animal?
+        AnimalRegistry.fetchAnimal(withIdentifier: 1) { animal in
             self.completionHandlerInvoked = true
-            retrievedCat = cat
+            retrievedAnimal = animal
         }
-        let handler = CatNetworker.session.capturedCompletionHandler
-        let catData = try! JSONSerialization.data(withJSONObject: SampleExternalCatData.valid, options: [])
+        let handler = AnimalNetworker.session.capturedCompletionHandler
+        let animalData = try! JSONSerialization.data(withJSONObject: SampleExternalAnimalData.valid, options: [])
 
-        handler?(catData, response200(), nil)
+        handler?(animalData, response200(), nil)
 
         XCTAssertTrue(completionHandlerInvoked, "Completion handler should be invoked on all calls to registry")
-        XCTAssertNotNil(retrievedCat, "Valid cat data should return a cat")
+        XCTAssertNotNil(retrievedAnimal, "Valid animal data should return an animal")
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

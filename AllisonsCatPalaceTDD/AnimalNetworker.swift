@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias NetworkResult = Result<Data>
+typealias NetworkResult = Result<PetFinderResponse>
 typealias AnimalRetrievalHandler = (NetworkResult) -> Void
 private let CatServiceEndpoint: URL = {
     var url = URLComponents()
@@ -47,7 +47,7 @@ enum AnimalNetworker {
         task.resume()
     }
 
-    private static func handleAnimalsRetrieval(data potentialData: Data?, response: HTTPURLResponse) -> NetworkResult {
+    private static func handleAnimalsRetrieval(data potentialData: PetFinderResponse?, response: HTTPURLResponse) -> NetworkResult {
 
         switch response.statusCode {
         case 200:
@@ -79,7 +79,7 @@ enum AnimalNetworker {
         task.resume()
     }
 
-    private static func handleAnimalRetrieval(for identifier: Int, data potentialData: Data?, response: HTTPURLResponse) -> NetworkResult {
+    private static func handleAnimalRetrieval(for identifier: Int, data potentialData: PetFinderResponse?, response: HTTPURLResponse) -> NetworkResult {
 
         switch response.statusCode {
         case 200:

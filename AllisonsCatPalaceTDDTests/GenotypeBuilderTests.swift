@@ -10,7 +10,7 @@ import XCTest
 
 class GenotypeBuilderTests: XCTestCase {
 
-    var rawData: Data!
+    var rawData: PetFinderResponse!
 
     func testBuildingWithMissingSpecies() {
         buildDataFrom(rawData: SampleExternalGenotypeData.missingSpecies)

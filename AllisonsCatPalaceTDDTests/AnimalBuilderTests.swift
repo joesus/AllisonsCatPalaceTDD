@@ -15,7 +15,7 @@ class AnimalBuilderTests: XCTestCase {
 
     // Bad Data
     func testTransformingBadDataToArrayOfAnimals() {
-        let badData = Data(bytes: [0x1])
+        let badData = PetFinderResponse(bytes: [0x1])
         let animals = AnimalBuilder.buildAnimals(from: badData)
         XCTAssertTrue(animals.isEmpty, "bad data should produce empty list of animals")
     }

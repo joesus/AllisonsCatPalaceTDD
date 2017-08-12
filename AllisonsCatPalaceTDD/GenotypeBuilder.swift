@@ -12,7 +12,7 @@ final class GenotypeBuilder {
 
     typealias ExternalGenotype = [String: Any]
 
-    static func build(from data: Data) -> AnimalGenotype? {
+    static func build(from data: PetFinderResponse) -> AnimalGenotype? {
         guard let externalGenotype = decodeExternalGenotype(from: data) else {
             return nil
         }
@@ -42,7 +42,7 @@ final class GenotypeBuilder {
         return AnimalGenotype(species: species, purity: purity, breeds: breeds)
     }
 
-    private static func decodeExternalGenotype(from data: Data) -> ExternalGenotype? {
+    private static func decodeExternalGenotype(from data: PetFinderResponse) -> ExternalGenotype? {
         let json = try? JSONSerialization.jsonObject(with: data, options: [])
         return json as? ExternalGenotype
     }

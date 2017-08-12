@@ -106,8 +106,8 @@ class AnimalNetworkerTests: XCTestCase {
     }
 
     func testRetrievingAllAnimals() {
-        var retrievedAnimalData: Data?
-        let sampleData = Data(bytes: [0x1])
+        var retrievedAnimalData: PetFinderResponse?
+        let sampleData = PetFinderResponse(bytes: [0x1])
 
         AnimalNetworker.retrieveAllAnimals { result in
             if case let .success(data) = result {
@@ -179,8 +179,8 @@ class AnimalNetworkerTests: XCTestCase {
     }
 
     func testRetrievingSingleAnimal() {
-        var retrievedAnimalData: Data?
-        let sampleData = Data(bytes: [0x1])
+        var retrievedAnimalData: PetFinderResponse?
+        let sampleData = PetFinderResponse(bytes: [0x1])
 
         AnimalNetworker.retrieveAnimal(withIdentifier: 1) { result in
             if case let .success(data) = result {

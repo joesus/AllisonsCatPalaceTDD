@@ -34,7 +34,7 @@ class AnimalRegistryTests: XCTestCase {
             self.completionHandlerInvoked = true
             receivedAnimals = animals
         }
-        let handler = AnimalNetworker.session.capturedCompletionHandler
+        let handler = PetFinderNetworker.session.capturedCompletionHandler
         handler?(nil, response200(), nil)
 
         XCTAssertTrue(completionHandlerInvoked, "Completion handler should be invoked on all calls to registry")
@@ -47,7 +47,7 @@ class AnimalRegistryTests: XCTestCase {
             self.completionHandlerInvoked = true
             receivedAnimals = animals
         }
-        let handler = AnimalNetworker.session.capturedCompletionHandler
+        let handler = PetFinderNetworker.session.capturedCompletionHandler
 
         let emptyAnimalsData = try! JSONSerialization.data(withJSONObject: [], options: [])
 
@@ -63,7 +63,7 @@ class AnimalRegistryTests: XCTestCase {
             self.completionHandlerInvoked = true
             receivedAnimals = animals
         }
-        let handler = AnimalNetworker.session.capturedCompletionHandler
+        let handler = PetFinderNetworker.session.capturedCompletionHandler
 
         let sampleData = SampleExternalAnimalData.wrap(animals: [
             SampleExternalAnimalData.valid,
@@ -82,7 +82,7 @@ class AnimalRegistryTests: XCTestCase {
             self.completionHandlerInvoked = true
             retrievedAnimal = animal
         }
-        let handler = AnimalNetworker.session.capturedCompletionHandler
+        let handler = PetFinderNetworker.session.capturedCompletionHandler
         handler?(nil, response200(), nil)
 
         XCTAssertTrue(completionHandlerInvoked, "Completion handler should be invoked on all calls to registry")
@@ -95,7 +95,7 @@ class AnimalRegistryTests: XCTestCase {
             self.completionHandlerInvoked = true
             retrievedAnimal = animal
         }
-        let handler = AnimalNetworker.session.capturedCompletionHandler
+        let handler = PetFinderNetworker.session.capturedCompletionHandler
         let emptyData = try! JSONSerialization.data(withJSONObject: [:], options: [])
         handler?(emptyData, response200(), nil)
 
@@ -109,7 +109,7 @@ class AnimalRegistryTests: XCTestCase {
             self.completionHandlerInvoked = true
             retrievedAnimal = animal
         }
-        let handler = AnimalNetworker.session.capturedCompletionHandler
+        let handler = PetFinderNetworker.session.capturedCompletionHandler
         let sampleData = SampleExternalAnimalData.wrap(animal: SampleExternalAnimalData.valid)
         let animalData = try! JSONSerialization.data(withJSONObject: sampleData, options: [])
 

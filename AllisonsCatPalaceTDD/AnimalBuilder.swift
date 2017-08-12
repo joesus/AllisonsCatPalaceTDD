@@ -8,20 +8,25 @@
 
 import Foundation
 
-typealias PetFinderResponse = Data
+typealias PetFinderResponse = JsonObject
 
-final class AnimalBuilder {
+protocol AnimalBuilder {
+    associatedtype ExternalAnimal
+
+    static func buildAnimals(from response: ExternalAnimal) -> [Animal]
+    static func buildAnimal(from response: ExternalAnimal) -> Animal?
+}
+
+final class PetFinderAnimalBuilder: AnimalBuilder {
 
     private static func decodeExternalAnimalList(from response: PetFinderResponse) -> ExternalAnimalList? {
-        let response = try? JSONSerialization.jsonObject(with: response, options: []) as? JsonObject
-        let levelOne = response??[ExternalAnimalKeys.resultContainer] as? JsonObject
+        let levelOne = response[ExternalAnimalKeys.resultContainer] as? JsonObject
         let levelTwo = levelOne?[ExternalAnimalKeys.petListContainer] as? JsonObject
         return levelTwo?[ExternalAnimalKeys.petContainer] as? ExternalAnimalList
     }
 
     private static func decodeExternalAnimal(from response: PetFinderResponse) -> ExternalAnimal? {
-        let response = try? JSONSerialization.jsonObject(with: response, options: []) as? JsonObject
-        let levelOne = response??[ExternalAnimalKeys.resultContainer] as? JsonObject
+        let levelOne = response[ExternalAnimalKeys.resultContainer] as? JsonObject
         return levelOne?[ExternalAnimalKeys.petContainer] as? ExternalAnimal
     }
 

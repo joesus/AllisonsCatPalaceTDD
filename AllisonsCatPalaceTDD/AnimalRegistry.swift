@@ -11,24 +11,22 @@ import Foundation
 class AnimalRegistry {
 
     static func fetchAllAnimals(completion: @escaping ([Animal]) -> Void) {
-        AnimalNetworker.retrieveAllAnimals { result in
-            switch result {
-            case .success(let data):
-                completion(AnimalBuilder.buildAnimals(from: data))
-            case .failure(_):
-                completion([])
+        PetFinderNetworker.retrieveAllAnimals { result in
+            guard case .success(let response) = result else {
+                return completion([])
             }
+
+            completion(PetFinderAnimalBuilder.buildAnimals(from: response))
         }
     }
 
     static func fetchAnimal(withIdentifier identifier: Int, completion: @escaping (Animal?) -> Void) {
-        AnimalNetworker.retrieveAnimal(withIdentifier: identifier) { result in
-            switch result {
-            case .success(let data):
-                completion(AnimalBuilder.buildAnimal(from: data))
-            case .failure(_):
-                completion(nil)
+        PetFinderNetworker.retrieveAnimal(withIdentifier: identifier) { result in
+            guard case .success(let response) = result else {
+                return completion(nil)
             }
+
+            completion(PetFinderAnimalBuilder.buildAnimal(from: response))
         }
     }
 }

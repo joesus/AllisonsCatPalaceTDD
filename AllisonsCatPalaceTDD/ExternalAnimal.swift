@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias ExternalAnimal = [String: Any]
+typealias ExternalAnimal = JsonObject
 typealias ExternalAnimalList = [ExternalAnimal]
 
 enum ExternalAnimalKeys {

@@ -12,8 +12,8 @@ final class AnimalBuilder {
 
     private static func decodeExternalAnimalList(from data: Data) -> ExternalAnimalList? {
         let json = try? JSONSerialization.jsonObject(with: data, options: [])
-        return (((json as? ExternalCat)?["petfinder"] as? [String: Any])?["pets"] as? ExternalCat)?["pet"] as? ExternalCatList
         return json as? ExternalAnimalList
+//        return (((json as? ExternalAnimal)?["petfinder"] as? [String: Any])?["pets"] as? ExternalAnimal)?["pet"] as? ExternalAnimalList
     }
 
     private static func decodeExternalAnimal(from data: Data) -> ExternalAnimal? {
@@ -90,12 +90,11 @@ final class AnimalBuilder {
     }
 
     static func buildAnimal(from data: Data) -> Animal? {
-        // TODO - add genotype to guard
         guard let externalAnimal = decodeExternalAnimal(from: data) else {
             return nil
         }
         let animal = buildAnimalFromExternalAnimal(externalAnimal)
-        //animal?.genotype = genotype
+        animal?.genotype = GenotypeBuilder.build(from: data)
         return animal
     }
 

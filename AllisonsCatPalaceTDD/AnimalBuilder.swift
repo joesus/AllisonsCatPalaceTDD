@@ -8,17 +8,21 @@
 
 import Foundation
 
+typealias PetFinderResponse = Data
+
 final class AnimalBuilder {
 
-    private static func decodeExternalAnimalList(from data: Data) -> ExternalAnimalList? {
-        let json = try? JSONSerialization.jsonObject(with: data, options: [])
-        return json as? ExternalAnimalList
-//        return (((json as? ExternalAnimal)?["petfinder"] as? [String: Any])?["pets"] as? ExternalAnimal)?["pet"] as? ExternalAnimalList
+    private static func decodeExternalAnimalList(from response: PetFinderResponse) -> ExternalAnimalList? {
+        let response = try? JSONSerialization.jsonObject(with: response, options: []) as? JsonObject
+        let levelOne = response??[ExternalAnimalKeys.resultContainer] as? JsonObject
+        let levelTwo = levelOne?[ExternalAnimalKeys.petListContainer] as? JsonObject
+        return levelTwo?[ExternalAnimalKeys.petContainer] as? ExternalAnimalList
     }
 
-    private static func decodeExternalAnimal(from data: Data) -> ExternalAnimal? {
-        let json = try? JSONSerialization.jsonObject(with: data, options: [])
-        return json as? ExternalAnimal
+    private static func decodeExternalAnimal(from response: PetFinderResponse) -> ExternalAnimal? {
+        let response = try? JSONSerialization.jsonObject(with: response, options: []) as? JsonObject
+        let levelOne = response??[ExternalAnimalKeys.resultContainer] as? JsonObject
+        return levelOne?[ExternalAnimalKeys.petContainer] as? ExternalAnimal
     }
 
     private static func buildAnimalFromExternalAnimal(_ json: ExternalAnimal) -> Animal? {
@@ -81,20 +85,20 @@ final class AnimalBuilder {
         return animal
     }
 
-    static func buildAnimals(from data: Data) -> [Animal] {
-        guard let list = decodeExternalAnimalList(from: data) else {
+    static func buildAnimals(from response: PetFinderResponse) -> [Animal] {
+        guard let list = decodeExternalAnimalList(from: response) else {
             return []
         }
 
         return list.flatMap { buildAnimalFromExternalAnimal($0) }
     }
 
-    static func buildAnimal(from data: Data) -> Animal? {
-        guard let externalAnimal = decodeExternalAnimal(from: data) else {
+    static func buildAnimal(from response: PetFinderResponse) -> Animal? {
+        guard let externalAnimal = decodeExternalAnimal(from: response) else {
             return nil
         }
         let animal = buildAnimalFromExternalAnimal(externalAnimal)
-        animal?.genotype = GenotypeBuilder.build(from: data)
+        animal?.genotype = GenotypeBuilder.buildGenotypeFromExternalGenotype(externalAnimal)
         return animal
     }
 

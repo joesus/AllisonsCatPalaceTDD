@@ -29,7 +29,13 @@ class AnimalBuilderTests: XCTestCase {
 
     // Minimal Data
     func testBuildingAnimalsFromMinimalAnimalData() {
-        let animalData = try! JSONSerialization.data(withJSONObject: [SampleExternalAnimalData.valid, SampleExternalAnimalData.anotherValid], options: [])
+        let externalData = SampleExternalAnimalData.wrap(
+            animals: [
+                SampleExternalAnimalData.valid,
+                SampleExternalAnimalData.anotherValid
+            ]
+        )
+        let animalData = try! JSONSerialization.data(withJSONObject: externalData, options: [])
         let animals = AnimalBuilder.buildAnimals(from: animalData)
         let animalOne = animals.first!
         XCTAssertEqual(animalOne.name, "CatOne", "First animal name was set incorrectly")
@@ -43,7 +49,7 @@ class AnimalBuilderTests: XCTestCase {
 
     // Bad Data
     func testTransformingBadDataToAnimal() {
-        let badData = Data(bytes: [0x1])
+        let badData = PetFinderResponse(bytes: [0x1])
         let animal = AnimalBuilder.buildAnimal(from: badData)
         XCTAssertNil(animal, "Should not create animal with bad data")
     }
@@ -57,21 +63,24 @@ class AnimalBuilderTests: XCTestCase {
 
     // Partial Data (with Id)
     func testBuildingAnimalWithMissingName() {
-        let animalData = try! JSONSerialization.data(withJSONObject: SampleExternalAnimalData.missingName, options: [])
+        let externalData = SampleExternalAnimalData.wrap(animal: SampleExternalAnimalData.missingName)
+        let animalData = try! JSONSerialization.data(withJSONObject: externalData, options: [])
         let animal = AnimalBuilder.buildAnimal(from: animalData)
         XCTAssertNil(animal, "Should not create animal if name is missing")
     }
 
     // Partial Data (with name)
     func testBuildingAnimalWithMissingIdentifier() {
-        let animalData = try! JSONSerialization.data(withJSONObject: SampleExternalAnimalData.missingIdentifier, options: [])
+        let externalData = SampleExternalAnimalData.wrap(animal: SampleExternalAnimalData.missingIdentifier)
+        let animalData = try! JSONSerialization.data(withJSONObject: externalData, options: [])
         let animal = AnimalBuilder.buildAnimal(from: animalData)
         XCTAssertNil(animal, "Should not create animal if identifier is missing")
     }
 
     // Minimal Data
     func testBuildingAnimalWithMinimalData() {
-        let animalData = try! JSONSerialization.data(withJSONObject: SampleExternalAnimalData.valid, options: [])
+        let externalData = SampleExternalAnimalData.wrap(animal: SampleExternalAnimalData.valid)
+        let animalData = try! JSONSerialization.data(withJSONObject: externalData, options: [])
         let animal = AnimalBuilder.buildAnimal(from: animalData)!
         XCTAssertEqual(animal.name, "CatOne", "Builder should set name correctly from valid data")
         XCTAssertEqual(animal.identifier, 1, "Builder should set identifier correctly from valid data")
@@ -81,23 +90,26 @@ class AnimalBuilderTests: XCTestCase {
 
     // Gender Property
     func testBuildingAnimalFromExternalAnimalWithSpecificGender() {
-
-        var data = try! JSONSerialization.data(withJSONObject: SampleExternalAnimalData.neutered, options: [])
+        var externalData = SampleExternalAnimalData.wrap(animal: SampleExternalAnimalData.neutered)
+        var data = try! JSONSerialization.data(withJSONObject: externalData, options: [])
         var animal = AnimalBuilder.buildAnimal(from: data)!
         XCTAssertEqual(animal.sex, .unknown, "Only 'male' and 'female' should return known sexes, otherwise should return unknown")
 
-        data = try! JSONSerialization.data(withJSONObject: SampleExternalAnimalData.male, options: [])
+        externalData = SampleExternalAnimalData.wrap(animal: SampleExternalAnimalData.male)
+        data = try! JSONSerialization.data(withJSONObject: externalData, options: [])
         animal = AnimalBuilder.buildAnimal(from: data)!
         XCTAssertEqual(animal.sex, .male, "Sex should be parsed correctly")
 
-        data = try! JSONSerialization.data(withJSONObject: SampleExternalAnimalData.female, options: [])
+        externalData = SampleExternalAnimalData.wrap(animal: SampleExternalAnimalData.female)
+        data = try! JSONSerialization.data(withJSONObject: externalData, options: [])
         animal = AnimalBuilder.buildAnimal(from: data)!
         XCTAssertEqual(animal.sex, .female, "Sex should be parsed correctly")
     }
 
     // Image Locations
     func testBuildingAnimalWithoutMedia() {
-        let data = try! JSONSerialization.data(withJSONObject: SampleExternalAnimalData.valid, options: [])
+        let externalData = SampleExternalAnimalData.wrap(animal: SampleExternalAnimalData.valid)
+        let data = try! JSONSerialization.data(withJSONObject: externalData, options: [])
         guard let animal = AnimalBuilder.buildAnimal(from: data) else {
             return XCTFail("Should be able to create animal without media")
         }
@@ -112,7 +124,9 @@ class AnimalBuilderTests: XCTestCase {
     func testBuildingAnimalWithEmptyMedia() {
         var validWithEmptyMedia = SampleExternalAnimalData.valid
         validWithEmptyMedia[ExternalAnimalKeys.media] = [String: Any]()
-        let data = try! JSONSerialization.data(withJSONObject: validWithEmptyMedia, options: [])
+
+        let externalData = SampleExternalAnimalData.wrap(animal: validWithEmptyMedia)
+        let data = try! JSONSerialization.data(withJSONObject: externalData, options: [])
         guard let animal = AnimalBuilder.buildAnimal(from: data) else {
             return XCTFail("Should be able to create animal with empty media")
         }
@@ -131,7 +145,9 @@ class AnimalBuilderTests: XCTestCase {
                 ExternalAnimalKeys.photo: []
             ]
         ]
-        let data = try! JSONSerialization.data(withJSONObject: validWithEmptyPhotoContainer, options: [])
+
+        let externalData = SampleExternalAnimalData.wrap(animal: validWithEmptyPhotoContainer)
+        let data = try! JSONSerialization.data(withJSONObject: externalData, options: [])
         guard let animal = AnimalBuilder.buildAnimal(from: data) else {
             return XCTFail("Should be able to create animal with empty photos")
         }
@@ -151,7 +167,9 @@ class AnimalBuilderTests: XCTestCase {
                 ExternalAnimalKeys.photo: SampleExternalAnimalData.photos
             ]
         ]
-        let data = try! JSONSerialization.data(withJSONObject: validWithPhotos, options: [])
+
+        let externalData = SampleExternalAnimalData.wrap(animal: validWithPhotos)
+        let data = try! JSONSerialization.data(withJSONObject: externalData, options: [])
         guard let animal = AnimalBuilder.buildAnimal(from: data) else {
             return XCTFail("Should be able to create animal with empty photos")
         }
@@ -164,7 +182,8 @@ class AnimalBuilderTests: XCTestCase {
     }
 
     func testBuildingAnimalWithoutAdoptionStatus() {
-        let animalData = try! JSONSerialization.data(withJSONObject: SampleExternalAnimalData.valid, options: [])
+        let externalData = SampleExternalAnimalData.wrap(animal: SampleExternalAnimalData.valid)
+        let animalData = try! JSONSerialization.data(withJSONObject: externalData, options: [])
         guard let animal = AnimalBuilder.buildAnimal(from: animalData) else {
             return XCTFail("Should be able to create animal without adoption status")
         }
@@ -172,7 +191,8 @@ class AnimalBuilderTests: XCTestCase {
     }
 
     func testBuildingAnimalWithEmptyAdoptionStatus() {
-        let animalData = try! JSONSerialization.data(withJSONObject: SampleExternalAnimalData.emptyStatus, options: [])
+        let externalData = SampleExternalAnimalData.wrap(animal: SampleExternalAnimalData.emptyStatus)
+        let animalData = try! JSONSerialization.data(withJSONObject: externalData, options: [])
         guard let animal = AnimalBuilder.buildAnimal(from: animalData) else {
             return XCTFail("Should be able to create animal without adoption status")
         }
@@ -185,7 +205,8 @@ class AnimalBuilderTests: XCTestCase {
         SampleExternalGenotypeData.validMixed.keys.forEach { key in
             sampleAnimal.updateValue(SampleExternalGenotypeData.validMixed[key] as Any, forKey: key)
         }
-        let animalData = try! JSONSerialization.data(withJSONObject: sampleAnimal, options: [])
+        let externalData = SampleExternalAnimalData.wrap(animal: sampleAnimal)
+        let animalData = try! JSONSerialization.data(withJSONObject: externalData, options: [])
         let animal = AnimalBuilder.buildAnimal(from: animalData)!
         XCTAssertEqual(animal.name, "CatTwo", "Builder should set name correctly from valid data")
         XCTAssertEqual(animal.identifier, 2, "Builder should set identifier correctly from valid data")

@@ -12,6 +12,11 @@ typealias ExternalAnimal = [String: Any]
 typealias ExternalAnimalList = [ExternalAnimal]
 
 enum ExternalAnimalKeys {
+    // Wrapper keys
+    static let resultContainer = "petfinder"
+    static let petListContainer = "pets"
+    static let petContainer = "pet"
+
     static let name = "name"
     static let contact = "contact"
     static let media = "media"

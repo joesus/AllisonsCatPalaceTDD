@@ -10,6 +10,24 @@
 import Foundation
 
 struct SampleExternalAnimalData {
+    static func wrap(animal: ExternalAnimal) -> JsonObject {
+        return [
+            "petfinder": [
+                "pet": animal
+            ]
+        ]
+    }
+
+    static func wrap(animals: [ExternalAnimal]) -> JsonObject {
+        return [
+            "petfinder": [
+                "pets": [
+                    "pet": animals
+                ]
+            ]
+        ]
+    }
+
     static let valid: ExternalAnimal = [
         "name": [
             "$t": "CatOne"

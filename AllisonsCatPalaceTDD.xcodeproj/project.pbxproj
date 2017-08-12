@@ -316,18 +316,18 @@
 		277199151E35636A00930630 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				270A6AE21E3E700C00B12D38 /* URLSessionSpies.swift */,
-				270A6AE41E3E70CD00B12D38 /* URLSessionDataTaskSpies.swift */,
 				270A6AE81E3E7BAB00B12D38 /* Box.swift */,
-				270A6AEE1E3E85BE00B12D38 /* NetworkTestingConstants.swift */,
-				270A6AF61E3EA9A000B12D38 /* SampleExternalAnimalData.swift */,
-				27E823891E5A273D009B202A /* UIViewControllerSpies.swift */,
-				270FE1D91E748E22006126B2 /* SampleCats.swift */,
-				270FE1DB1E749E0E006126B2 /* ImageProviderExtensions.swift */,
-				F416125E1EB5481B00E3E6F6 /* PredicateHelper.swift */,
-				F41612601EB54DB000E3E6F6 /* UITestingHelper.swift */,
 				F4E8BE841F2407CC00F680E2 /* DataTaskResumeStub.swift */,
+				270FE1DB1E749E0E006126B2 /* ImageProviderExtensions.swift */,
+				270A6AEE1E3E85BE00B12D38 /* NetworkTestingConstants.swift */,
+				F416125E1EB5481B00E3E6F6 /* PredicateHelper.swift */,
+				270FE1D91E748E22006126B2 /* SampleCats.swift */,
+				270A6AF61E3EA9A000B12D38 /* SampleExternalAnimalData.swift */,
 				F4AB689F1F2D4E0400CC4CC2 /* SampleExternalGenotypeData.swift */,
+				F41612601EB54DB000E3E6F6 /* UITestingHelper.swift */,
+				27E823891E5A273D009B202A /* UIViewControllerSpies.swift */,
+				270A6AE41E3E70CD00B12D38 /* URLSessionDataTaskSpies.swift */,
+				270A6AE21E3E700C00B12D38 /* URLSessionSpies.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";

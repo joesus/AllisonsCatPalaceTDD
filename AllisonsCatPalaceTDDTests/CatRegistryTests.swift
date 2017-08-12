@@ -65,7 +65,10 @@ class AnimalRegistryTests: XCTestCase {
         }
         let handler = AnimalNetworker.session.capturedCompletionHandler
 
-        let animalData = try! JSONSerialization.data(withJSONObject: [SampleExternalAnimalData.valid, SampleExternalAnimalData.anotherValid], options: [])
+        let sampleData = SampleExternalAnimalData.wrap(animals: [
+            SampleExternalAnimalData.valid,
+            SampleExternalAnimalData.anotherValid])
+        let animalData = try! JSONSerialization.data(withJSONObject: sampleData, options: [])
 
         handler?(animalData, response200(), nil)
 
@@ -107,7 +110,8 @@ class AnimalRegistryTests: XCTestCase {
             retrievedAnimal = animal
         }
         let handler = AnimalNetworker.session.capturedCompletionHandler
-        let animalData = try! JSONSerialization.data(withJSONObject: SampleExternalAnimalData.valid, options: [])
+        let sampleData = SampleExternalAnimalData.wrap(animal: SampleExternalAnimalData.valid)
+        let animalData = try! JSONSerialization.data(withJSONObject: sampleData, options: [])
 
         handler?(animalData, response200(), nil)
 

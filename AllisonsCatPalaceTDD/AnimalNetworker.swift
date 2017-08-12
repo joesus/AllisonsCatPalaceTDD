@@ -27,10 +27,10 @@ private let CatServiceEndpoint: URL = {
 
 enum AnimalNetworker {
     static var session = URLSession.shared
-    static weak var retrieveAllCatsTask: URLSessionTask?
+    static weak var retrieveAllAnimalsTask: URLSessionTask?
 
     static func retrieveAllAnimals(completion: @escaping AnimalRetrievalHandler) {
-        retrieveAllCatsTask?.cancel()
+        retrieveAllAnimalsTask?.cancel()
 
         let task = session.dataTask(with: CatServiceEndpoint) {
             potentialData, potentialResponse, potentialError in
@@ -38,16 +38,16 @@ enum AnimalNetworker {
             if let error = potentialError {
                 return completion(.failure(error))
             } else if let response = potentialResponse as? HTTPURLResponse {
-                completion(handleCatsRetrieval(data: potentialData, response: response))
+                completion(handleAnimalsRetrieval(data: potentialData, response: response))
             }
 
         }
 
-        retrieveAllCatsTask = task
+        retrieveAllAnimalsTask = task
         task.resume()
     }
 
-    private static func handleCatsRetrieval(data potentialData: Data?, response: HTTPURLResponse) -> NetworkResult {
+    private static func handleAnimalsRetrieval(data potentialData: Data?, response: HTTPURLResponse) -> NetworkResult {
 
         switch response.statusCode {
         case 200:
@@ -73,13 +73,13 @@ enum AnimalNetworker {
             if let error = potentialError {
                 return completion(.failure(error))
             } else if let response = potentialResponse as? HTTPURLResponse {
-                completion(handleCatRetrieval(for: id, data: potentialData, response: response))
+                completion(handleAnimalRetrieval(for: id, data: potentialData, response: response))
             }
         }
         task.resume()
     }
 
-    private static func handleCatRetrieval(for identifier: Int, data potentialData: Data?, response: HTTPURLResponse) -> NetworkResult {
+    private static func handleAnimalRetrieval(for identifier: Int, data potentialData: Data?, response: HTTPURLResponse) -> NetworkResult {
 
         switch response.statusCode {
         case 200:

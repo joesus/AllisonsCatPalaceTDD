@@ -116,8 +116,9 @@ class CatListDataSourceTests: XCTestCase {
 
     func testCatCellUsesCachedImageIfAvailable() {
         controller.cats.append(cat)
-        let response = URLResponse(url: cat.imageUrl!, mimeType: nil, expectedContentLength: 1, textEncodingName: nil)
-        ImageProvider.cache.storeCachedResponse(CachedURLResponse(response: response, data: imageData!), for: URLRequest(url: cat.imageUrl!))
+        let thumbnailUrl = cat.imageLocations.small.first!
+        let response = URLResponse(url: thumbnailUrl, mimeType: nil, expectedContentLength: 1, textEncodingName: nil)
+        ImageProvider.cache.storeCachedResponse(CachedURLResponse(response: response, data: imageData!), for: URLRequest(url: thumbnailUrl))
 
         // Need to force it to load the cell at that IndexPath
         let _ = tableView.dataSource?.tableView(tableView, cellForRowAt: firstCatIndexPath)
@@ -202,13 +203,16 @@ class CatListDataSourceTests: XCTestCase {
         // adds all the cats
         controller.cats.append(contentsOf: cats)
 
+        // grabs the thumbnail url for the first cat
+        let thumbnailUrl = cats.first!.imageLocations.small.first!
+
         // triggers the fetch by getting a cell from the dataSource
         _ = tableView.dataSource?.tableView(tableView, cellForRowAt: firstCatIndexPath)
 
         // call the completion handler on the background thread
         let handler = URLSession.shared.capturedCompletionHandler
         DispatchQueue.global(qos: .background).async {
-            handler!(nil, response200(url: cats.first!.imageUrl!), nil)
+            handler!(nil, response200(url: thumbnailUrl), nil)
             // sleep on background thread
             Thread.sleep(forTimeInterval: 0.2)
             didNotReloadExpectation.fulfill()

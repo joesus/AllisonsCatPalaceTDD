@@ -13,13 +13,13 @@ import TestableUIKit
 class CatDetailViewControllerTests: XCTestCase {
 
     var controller: CatDetailController!
-    var header: CatDetailHeaderView!
+    var header: AnimalDetailHeaderView!
 
     override func setUp() {
         super.setUp()
 
-        controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CatDetail") as! CatDetailController
-        header = controller.tableView.tableHeaderView as? CatDetailHeaderView
+        controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CatDetailController") as! CatDetailController
+        header = controller.tableView.tableHeaderView as? AnimalDetailHeaderView
     }
 
     func testIsTableViewController() {
@@ -74,20 +74,20 @@ class CatDetailViewControllerTests: XCTestCase {
     }
 
     func testHeaderHasImageViewWithDefaultImage() {
-        guard let imageView = header.imageView else {
+        guard let headerContentView = header.subviews.first,
+            let imageView = header.imageView else {
             return XCTFail("Header should have an image view")
         }
 
-        XCTAssertEqual(imageView.superview, header, "Imageview should be a subview of the header")
         XCTAssertEqual(imageView.image, #imageLiteral(resourceName: "catOutline"), "Imageview should have a default image")
 
         // TESTING CONSTRAINTS
-        let constraints = header.constraints.filter { constraint in
-            constraint.firstItem === imageView && constraint.secondItem === header ||
-            constraint.firstItem === header && constraint.secondItem === imageView
+        let constraints = headerContentView.constraints.filter { constraint in
+            constraint.firstItem === imageView && constraint.secondItem === headerContentView ||
+            constraint.firstItem === headerContentView && constraint.secondItem === imageView
         }
 
-        XCTAssertEqual(constraints.count, 4, "Imageview should be constrained to header on four sides")
+        XCTAssertEqual(constraints.count, 4, "Imageview should be constrained to header content view on four sides")
         constraints.forEach { constraint in
             XCTAssertEqual(constraint.constant, 0, "All sides should be constrained with a constant of zero")
             XCTAssertEqual(constraint.multiplier, 1, "All multipliers should be 1")
@@ -116,6 +116,50 @@ class CatDetailViewControllerTests: XCTestCase {
 
     }
 
+    func testControllerHasOutletForHeaderView() {
+        controller.loadViewIfNeeded()
+
+        XCTAssertNotNil(controller.headerView,
+                        "Controller should have an outlet to an animal detail header view")
+    }
+
+    func testViewDidLoadCallsSuper() {
+        UIViewController.ViewDidLoadSpyController.createSpy(on: controller)?.spy {
+            controller.viewDidLoad()
+
+            XCTAssertTrue(controller.superclassViewDidLoadCalled,
+                          "controller should call superclass view did load")
+        }
+    }
+
+    func testSetsAnimalToHeaderIfHeaderHasNoAnimal() {
+        controller.loadViewIfNeeded()
+        XCTAssertNil(controller.headerView.animal,
+                     "Header view should have no animal by default")
+
+        controller.cat = cats.first!
+        XCTAssertNil(controller.headerView.animal,
+                     "setting animal on controller should not set animal on header view")
+
+        controller.viewDidLoad()
+        XCTAssertTrue(controller.headerView.animal === controller.cat,
+                      "Controller should pass animal to header view on viewDidLoad")
+    }
+
+    func testDoesNotSetAnimalOnHeaderIfHeaderHasAnimal() {
+        controller.loadViewIfNeeded()
+        XCTAssertNil(controller.headerView.animal,
+                     "Header view should have no animal by default")
+        controller.cat = cats.first!
+        XCTAssertNil(controller.headerView.animal,
+                     "setting animal on controller should not set animal on header view")
+
+        controller.headerView.animal = cats[1]
+        controller.viewDidLoad()
+
+        XCTAssertFalse(controller.headerView.animal === controller.cat,
+                      "Controller should not pass animal to header view if header view already has an animal")
+    }
 }
 
 

@@ -99,36 +99,13 @@ class CatListControllerTests: XCTestCase {
         }
     }
 
-//    func testSelectingCellPushesDetailController() {
-//        replaceRootViewController(with: controller)
-//        
-//        let predicateBlock: PredicateBlock = { _, _ in
-//            self.navController.topViewController is CatDetailController
-//        }
-//        expectation(for: NSPredicate(block: predicateBlock), evaluatedWith: self)
-//
-//        UIViewController.PerformSegueSpyController.createSpy(on: controller)!.spy {
-//            controller.cats = [SampleCat]
-//
-//            let cell = controller.tableView.cellForRow(at: firstCatIndexPath) as? CatCell
-//
-//            waitForExpectations(timeout: 2, handler: nil)
-//
-//            guard controller.performSegueCalled else {
-//                return XCTFail("Selecting a cell should trigger a segue")
-//            }
-//
-//            XCTAssertTrue(controller.performSegueSender! is CatListController, "Pushed view controller should be a CatDetailController")
-//            XCTAssertEqual(controller.performSegueIdentifier, "ShowCatDetail",
-//                           "Segue identifier should identify the destination of the segue")
-//
-//        }
-//    }
-
     func testPrepareForSeguePreparesDetailController() {
         controller.cats = [SampleCat]
 
-        let destination = CatDetailController()
+        guard let destination = UIStoryboard(name: "Main", bundle: Bundle(for: CatDetailController.self)).instantiateViewController(withIdentifier: "CatDetailController") as? CatDetailController else {
+            return XCTFail("Main storyboard should have a cat detail controller scene")
+        }
+
         let segue = UIStoryboardSegue(identifier: "ShowCatDetail", source: controller, destination: destination)
 
         controller.tableView.selectRow(at: firstCatIndexPath, animated: false, scrollPosition: .none)
@@ -140,4 +117,30 @@ class CatListControllerTests: XCTestCase {
         XCTAssertEqual(destination.navigationItem.title, "SampleCat",
                        "The title of the detail page should be the name of the displayed cat")
     }
+
+    func testPerformSeguePushesDetailController() {
+        replaceRootViewController(with: controller)
+
+        let predicateBlock: PredicateBlock = { _, _ in
+            self.navController.topViewController is CatDetailController
+        }
+        expectation(for: NSPredicate(block: predicateBlock), evaluatedWith: self)
+
+        UIViewController.PerformSegueSpyController.createSpy(on: controller)!.spy {
+            controller.cats = [SampleCat]
+
+            let cell = controller.tableView.cellForRow(at: firstCatIndexPath) as? CatCell
+            controller.performSegue(withIdentifier: "ShowCatDetail", sender: cell)
+
+            waitForExpectations(timeout: 200, handler: nil)
+
+            guard controller.performSegueCalled else {
+                return XCTFail("Selecting a cell should trigger a segue")
+            }
+            XCTAssertEqual(controller.performSegueIdentifier, "ShowCatDetail",
+                           "Segue identifier should identify the destination of the segue")
+            //XCTAssertTrue(controller.performSegueSender! is CatListController, "Pushed view controller should be a CatDetailController")
+        }
+    }
+
 }

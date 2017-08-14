@@ -29,7 +29,7 @@ class MainStoryboardTests: XCTestCase {
     }
 
     func testCatDetailViewController() {
-        let catDetailController = storyboard.instantiateViewController(withIdentifier: "CatDetail")
+        let catDetailController = storyboard.instantiateViewController(withIdentifier: "CatDetailController")
         XCTAssert(catDetailController is CatDetailController, "Should be able to instantiate CatDetailController from storyboard")
     }
 }

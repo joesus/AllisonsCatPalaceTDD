@@ -9,6 +9,7 @@
 import UIKit
 
 class CatDetailController: UITableViewController {
+    @IBOutlet weak var headerView: AnimalDetailHeaderView!
 
     var cat: Animal? {
         didSet {
@@ -21,4 +22,11 @@ class CatDetailController: UITableViewController {
         }
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        if headerView.animal == nil {
+            headerView.animal = cat
+        }
+    }
 }

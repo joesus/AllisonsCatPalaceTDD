@@ -42,7 +42,6 @@
 		276C61C61E2D728800225CF4 /* AnimalBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276C61C51E2D728800225CF4 /* AnimalBuilder.swift */; };
 		277199121E33F45B00930630 /* CatNetworkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277199111E33F45B00930630 /* CatNetworkerTests.swift */; };
 		277199141E34002300930630 /* AnimalNetworker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277199131E34002300930630 /* AnimalNetworker.swift */; };
-		27E4196D1EA40E8D00BDE46B /* CatDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E4196C1EA40E8D00BDE46B /* CatDetailHeaderView.swift */; };
 		27E8238A1E5A273D009B202A /* UIViewControllerSpies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E823891E5A273D009B202A /* UIViewControllerSpies.swift */; };
 		27E823931E5A43AB009B202A /* CatListDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E823921E5A43AB009B202A /* CatListDataSourceTests.swift */; };
 		27E823951E5A4E42009B202A /* CatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E823941E5A4E42009B202A /* CatCell.swift */; };
@@ -81,6 +80,9 @@
 		F4AB68A01F2D4E0400CC4CC2 /* SampleExternalGenotypeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB689F1F2D4E0400CC4CC2 /* SampleExternalGenotypeData.swift */; };
 		F4AB68D81F328CF300CC4CC2 /* GenotypeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68D71F328CF300CC4CC2 /* GenotypeBuilder.swift */; };
 		F4E8BE851F2407CC00F680E2 /* DataTaskResumeStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E8BE841F2407CC00F680E2 /* DataTaskResumeStub.swift */; };
+		F4FB8EE11F410E1B006767AE /* AnimalDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FB8EE01F410E1B006767AE /* AnimalDetailHeaderView.swift */; };
+		F4FB8EE31F410EAC006767AE /* AnimalDetailHeaderViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FB8EE21F410EAC006767AE /* AnimalDetailHeaderViewTests.swift */; };
+		F4FB8EE51F410FA0006767AE /* AnimalDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4FB8EE41F410FA0006767AE /* AnimalDetailHeaderView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,7 +135,6 @@
 		276C61C51E2D728800225CF4 /* AnimalBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalBuilder.swift; sourceTree = "<group>"; };
 		277199111E33F45B00930630 /* CatNetworkerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatNetworkerTests.swift; sourceTree = "<group>"; };
 		277199131E34002300930630 /* AnimalNetworker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalNetworker.swift; sourceTree = "<group>"; };
-		27E4196C1EA40E8D00BDE46B /* CatDetailHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatDetailHeaderView.swift; sourceTree = "<group>"; };
 		27E823891E5A273D009B202A /* UIViewControllerSpies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerSpies.swift; sourceTree = "<group>"; };
 		27E823921E5A43AB009B202A /* CatListDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatListDataSourceTests.swift; sourceTree = "<group>"; };
 		27E823941E5A4E42009B202A /* CatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatCell.swift; sourceTree = "<group>"; };
@@ -176,6 +177,9 @@
 		F4AB689F1F2D4E0400CC4CC2 /* SampleExternalGenotypeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleExternalGenotypeData.swift; sourceTree = "<group>"; };
 		F4AB68D71F328CF300CC4CC2 /* GenotypeBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenotypeBuilder.swift; sourceTree = "<group>"; };
 		F4E8BE841F2407CC00F680E2 /* DataTaskResumeStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTaskResumeStub.swift; sourceTree = "<group>"; };
+		F4FB8EE01F410E1B006767AE /* AnimalDetailHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalDetailHeaderView.swift; sourceTree = "<group>"; };
+		F4FB8EE21F410EAC006767AE /* AnimalDetailHeaderViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalDetailHeaderViewTests.swift; sourceTree = "<group>"; };
+		F4FB8EE41F410FA0006767AE /* AnimalDetailHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnimalDetailHeaderView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,10 +273,11 @@
 				27E823941E5A4E42009B202A /* CatCell.swift */,
 				2767E37E1E6269B900A7C5F9 /* ImageProvider.swift */,
 				2700D3F61E88642D004E77A1 /* CatDetailController.swift */,
-				27E4196C1EA40E8D00BDE46B /* CatDetailHeaderView.swift */,
 				F416125B1EB5202700E3E6F6 /* Cells */,
 				F43BC6A11F1AA8A400E025EB /* ArrayExtensions.swift */,
 				F4AB68D71F328CF300CC4CC2 /* GenotypeBuilder.swift */,
+				F4FB8EE01F410E1B006767AE /* AnimalDetailHeaderView.swift */,
+				F4FB8EE41F410FA0006767AE /* AnimalDetailHeaderView.xib */,
 			);
 			path = AllisonsCatPalaceTDD;
 			sourceTree = "<group>";
@@ -280,6 +285,7 @@
 		276C61A91E2C062200225CF4 /* AllisonsCatPalaceTDDTests */ = {
 			isa = PBXGroup;
 			children = (
+				F4FB8EE21F410EAC006767AE /* AnimalDetailHeaderViewTests.swift */,
 				F4AB689D1F2D4D4D00CC4CC2 /* GenotypeBuilderTests.swift */,
 				F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */,
 				F46539C01EFF1E690049E7FD /* AnimalAgeGroupTests.swift */,
@@ -444,6 +450,7 @@
 				276C61B81E2C0A1900225CF4 /* Main.storyboard in Resources */,
 				F416125A1EB5201F00E3E6F6 /* CatNameCell.xib in Resources */,
 				276C61A01E2C062200225CF4 /* LaunchScreen.storyboard in Resources */,
+				F4FB8EE51F410FA0006767AE /* AnimalDetailHeaderView.xib in Resources */,
 				276C619D1E2C062200225CF4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -555,12 +562,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27E4196D1EA40E8D00BDE46B /* CatDetailHeaderView.swift in Sources */,
 				270A6AED1E3E7F7800B12D38 /* Result.swift in Sources */,
 				2767E37F1E6269B900A7C5F9 /* ImageProvider.swift in Sources */,
 				275D26131E511B3400FAE334 /* AnimalRegistry.swift in Sources */,
 				276C61961E2C062200225CF4 /* AppDelegate.swift in Sources */,
 				F416125D1EB520D300E3E6F6 /* CatNameCell.swift in Sources */,
+				F4FB8EE11F410E1B006767AE /* AnimalDetailHeaderView.swift in Sources */,
 				270A6AF51E3E9D3800B12D38 /* AnimalNetworkError.swift in Sources */,
 				F43BC6A21F1AA8A400E025EB /* ArrayExtensions.swift in Sources */,
 				277199141E34002300930630 /* AnimalNetworker.swift in Sources */,
@@ -591,6 +598,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4FB8EE31F410EAC006767AE /* AnimalDetailHeaderViewTests.swift in Sources */,
 				F4AB68921F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift in Sources */,
 				2719FBF31E7F20E900D3D79A /* GenderTests.swift in Sources */,
 				276C61B61E2C068900225CF4 /* AppDelegateTests.swift in Sources */,

@@ -9,12 +9,15 @@
 @testable import AllisonsCatPalaceTDD
 import TestSwagger
 import TestableUIKit
+import TestableCoreLocation
+import CoreLocation
 import XCTest
 
 class LocationControllerTests: XCTestCase {
     var controller: LocationController!
     var textField: UITextField!
     var delegate: UITextFieldDelegate!
+    var geocoder: CLGeocoder!
     var spy: Spy?
     
     override func setUp() {
@@ -27,11 +30,7 @@ class LocationControllerTests: XCTestCase {
 
         textField = controller.zipCodeField
         delegate = controller
-    }
-    
-    override func tearDown() {
-
-        super.tearDown()
+        geocoder = controller.geocoder
     }
 
     func testZipCodeField() {
@@ -104,6 +103,47 @@ class LocationControllerTests: XCTestCase {
         // if I can't programmatically trigger this relationship
     }
 
-    
+    func testZipCodeFieldGeocodesAtFiveCharacters() {
+        CLGeocoder.ForwardGeocodeAddressSpyController.createSpy(on: geocoder)?.spy {
+            textField.text = "80220"
+            delegate.textFieldDidEndEditing!(textField)
+            XCTAssertTrue(geocoder.forwardGeocodeAddressCalled)
+        }
+    }
 
+    func testActivityIndicatorHiddenByDefault() {
+        XCTAssertTrue(controller.activityIndicator.isHidden,
+                      "Activity indicator should be hidden by default")
+        XCTAssertFalse(controller.activityIndicator.isAnimating,
+                       "Activity indicator should not be animating by default")
+    }
+
+    func testActivityIndicatorShowsWhileGeocoding() {
+        CLGeocoder.ForwardGeocodeAddressSpyController.createSpy(on: geocoder)?.spy {
+            textField.text = "80220"
+            delegate.textFieldDidEndEditing!(textField)
+
+            XCTAssertFalse(controller.activityIndicator.isHidden,
+                          "Activity indicator should not be hidden while geocoding")
+            XCTAssertTrue(controller.activityIndicator.isAnimating,
+                          "Activity indicator should animate while geocoding")
+        }
+    }
+
+    func testActivityIndicatorHidesWhenGeocodingCompletes() {
+        CLGeocoder.ForwardGeocodeAddressSpyController.createSpy(on: geocoder)?.spy {
+            textField.text = "80220"
+            delegate.textFieldDidEndEditing!(textField)
+
+            guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
+                return XCTFail("Geocoder should be called with a handler")
+            }
+            handler([], nil)
+
+            XCTAssertTrue(controller.activityIndicator.isHidden,
+                          "Activity indicator should be hidden by default")
+            XCTAssertFalse(controller.activityIndicator.isAnimating,
+                           "Activity indicator should not be animating by default")
+        }
+    }
 }

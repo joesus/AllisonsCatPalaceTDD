@@ -112,11 +112,16 @@
                                     <outlet property="delegate" destination="EgF-el-P0W" id="eed-Az-Fv5"/>
                                 </connections>
                             </textField>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="XP6-mm-BoX">
+                                <rect key="frame" x="177" y="386" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="XV3-9V-BnV"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="XP6-mm-BoX" id="9wQ-FK-TGs"/>
                         <outlet property="zipCodeField" destination="o6O-tz-5HC" id="aWX-tc-dhb"/>
                     </connections>
                 </viewController>

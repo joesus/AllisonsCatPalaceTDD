@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import CoreLocation
 
 class LocationController: UIViewController {
     @IBOutlet weak var zipCodeField: UITextField!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+
+    var geocoder = CLGeocoder()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +55,14 @@ extension LocationController: UITextFieldDelegate {
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
+
+        activityIndicator.startAnimating()
+
+        geocoder.geocodeAddressString(zipCodeText) { [weak self] (placemarks, error) in
+            // geocode
+
+            self?.activityIndicator.stopAnimating()
+        }
     }
 
 }

@@ -54,9 +54,27 @@ class LocationControllerTests: XCTestCase {
                       "Zip code field's delegate should be the controller")
     }
 
-    // TextFieldDelegate Tests
-    func testZipCodeFieldWithInvalidInput() {
-        // add tests here for red border or however else to show bad input
+    func testZipCodeFieldNumbersOnly() {
+        XCTAssertTrue(delegate.textField!(textField, shouldChangeCharactersIn: NSRange(), replacementString: "0"),
+                      "Zip code field should accept numeric input")
+
+        XCTAssertFalse(delegate.textField!(textField, shouldChangeCharactersIn: NSRange(), replacementString: "a"),
+                       "Zip code field should not accept alphabetic input")
+
+        XCTAssertFalse(delegate.textField!(textField, shouldChangeCharactersIn: NSRange(), replacementString: "!"),
+                       "Zip code field should not accept special character input")
+
+        XCTAssertFalse(delegate.textField!(textField, shouldChangeCharactersIn: NSRange(), replacementString: "@"),
+                       "Zip code field should not accept special character input")
+
+        XCTAssertFalse(delegate.textField!(textField, shouldChangeCharactersIn: NSRange(), replacementString: "."),
+                       "Zip code field should not accept special character input")
+
+        XCTAssertFalse(delegate.textField!(textField, shouldChangeCharactersIn: NSRange(), replacementString: " "),
+                       "Zip code field should not accept white space input")
+
+        XCTAssertFalse(delegate.textField!(textField, shouldChangeCharactersIn: NSRange(), replacementString: "\n"),
+                       "Zip code field should not accept newline input")
     }
 
     func testZipCodeFieldCharacterLimit() {

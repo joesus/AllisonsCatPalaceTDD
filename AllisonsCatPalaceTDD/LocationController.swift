@@ -44,6 +44,11 @@ extension LocationController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let originalString = textField.text ?? ""
         let newString = (originalString as NSString).replacingCharacters(in: range, with: string)
+        let newStringOnlyContainsDecimals = CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: newString))
+
+        guard newStringOnlyContainsDecimals else {
+            return false
+        }
 
         if newString.characters.count > 5 {
             textField.endEditing(true)
@@ -64,5 +69,4 @@ extension LocationController: UITextFieldDelegate {
             self?.activityIndicator.stopAnimating()
         }
     }
-
 }

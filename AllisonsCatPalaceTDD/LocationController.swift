@@ -82,6 +82,8 @@ extension LocationController: UITextFieldDelegate {
                 textField.layer.borderColor = UIColor.red.cgColor
                 return
             }
+
+            self?.performSegue(withIdentifier: "ShowCatListController", sender: nil)
         }
     }
 }

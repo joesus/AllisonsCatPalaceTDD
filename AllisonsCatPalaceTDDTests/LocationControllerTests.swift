@@ -19,8 +19,8 @@ class LocationControllerTests: XCTestCase {
     var textField: UITextField!
     var delegate: UITextFieldDelegate!
     var geocoder: CLGeocoder!
-    var spy: Spy?
-    
+    var geocoderSpy: Spy?
+
     override func setUp() {
         super.setUp()
 
@@ -32,6 +32,15 @@ class LocationControllerTests: XCTestCase {
         textField = controller.zipCodeField
         delegate = controller
         geocoder = controller.geocoder
+
+        geocoderSpy = CLGeocoder.ForwardGeocodeAddressSpyController.createSpy(on: geocoder)
+        geocoderSpy?.beginSpying()
+    }
+
+    override func tearDown() {
+        geocoderSpy?.endSpying()
+
+        super.tearDown()
     }
 
     func testZipCodeField() {
@@ -124,15 +133,13 @@ class LocationControllerTests: XCTestCase {
     }
 
     func testZipCodeFieldResignsFirstResponderWhenDoneEditing() {
-        spy = UITextField.ResignFirstResponderSpyController.createSpy(on: textField)
-        spy?.beginSpying()
+        UITextField.ResignFirstResponderSpyController.createSpy(on: textField)?.spy {
+            textField.text = "80220"
+            delegate.textFieldDidEndEditing!(textField)
 
-        textField.text = "80220"
-        delegate.textFieldDidEndEditing!(textField)
-
-        XCTAssertTrue(textField.resignFirstResponderCalled,
-                      "Textfield should resign first responder when done editing")
-        spy?.endSpying()
+            XCTAssertTrue(textField.resignFirstResponderCalled,
+                          "Textfield should resign first responder when done editing")
+        }
     }
 
     func testZipCodeFieldEndsEditingIfChangesCharactersWhenAlreadyAtCharacterLimit() {
@@ -142,11 +149,9 @@ class LocationControllerTests: XCTestCase {
     }
 
     func testZipCodeFieldGeocodesAtFiveCharacters() {
-        CLGeocoder.ForwardGeocodeAddressSpyController.createSpy(on: geocoder)?.spy {
-            textField.text = "80220"
-            delegate.textFieldDidEndEditing!(textField)
-            XCTAssertTrue(geocoder.forwardGeocodeAddressCalled)
-        }
+        textField.text = "80220"
+        delegate.textFieldDidEndEditing!(textField)
+        XCTAssertTrue(geocoder.forwardGeocodeAddressCalled)
     }
 
     func testActivityIndicatorHiddenByDefault() {
@@ -157,97 +162,116 @@ class LocationControllerTests: XCTestCase {
     }
 
     func testGeocodingInProgress() {
-        CLGeocoder.ForwardGeocodeAddressSpyController.createSpy(on: geocoder)?.spy {
-            textField.text = "80220"
-            delegate.textFieldDidEndEditing!(textField)
+        textField.text = "80220"
+        delegate.textFieldDidEndEditing!(textField)
 
-            XCTAssertFalse(controller.activityIndicator.isHidden,
-                          "Activity indicator should not be hidden while geocoding")
-            XCTAssertTrue(controller.activityIndicator.isAnimating,
-                          "Activity indicator should animate while geocoding")
+        XCTAssertFalse(controller.activityIndicator.isHidden,
+                       "Activity indicator should not be hidden while geocoding")
+        XCTAssertTrue(controller.activityIndicator.isAnimating,
+                      "Activity indicator should animate while geocoding")
 
-            XCTAssertFalse(textField.isUserInteractionEnabled,
-                          "User interaction should be disabled when geocoding is in progress")
-        }
+        XCTAssertFalse(textField.isUserInteractionEnabled,
+                       "User interaction should be disabled when geocoding is in progress")
     }
 
     func testGeocodingCompleted() {
-        CLGeocoder.ForwardGeocodeAddressSpyController.createSpy(on: geocoder)?.spy {
-            textField.text = "80220"
-            delegate.textFieldDidEndEditing!(textField)
+        textField.text = "80220"
+        delegate.textFieldDidEndEditing!(textField)
 
-            guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
-                return XCTFail("Geocoder should be called with a handler")
-            }
-            handler([], nil)
-
-            XCTAssertTrue(controller.activityIndicator.isHidden,
-                          "Activity indicator should be hidden when geocoding is not in progress")
-            XCTAssertFalse(controller.activityIndicator.isAnimating,
-                           "Activity indicator should not be animating when geocoding is not in progress")
-            XCTAssertTrue(textField.isUserInteractionEnabled,
-                           "User interaction should be enabled when geocoding is not in progress")
+        guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
+            return XCTFail("Geocoder should be called with a handler")
         }
+        handler([], nil)
+
+        XCTAssertTrue(controller.activityIndicator.isHidden,
+                      "Activity indicator should be hidden when geocoding is not in progress")
+        XCTAssertFalse(controller.activityIndicator.isAnimating,
+                       "Activity indicator should not be animating when geocoding is not in progress")
+        XCTAssertTrue(textField.isUserInteractionEnabled,
+                      "User interaction should be enabled when geocoding is not in progress")
     }
 
 
     func testGeocodingWithEmptyResultsAndError() {
-        CLGeocoder.ForwardGeocodeAddressSpyController.createSpy(on: geocoder)!.spy {
-            delegate.textFieldDidEndEditing!(textField)
+        delegate.textFieldDidEndEditing!(textField)
 
-            guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
-                return XCTFail("Geocoder should be called with a handler")
-            }
-            handler([], GeocodingError.noLocationsFound)
-
-            XCTAssertEqual(textField.layer.borderColor, UIColor.red.cgColor,
-                           "Zip code field should have red border on error")
-            // TODO: maybe show an error message depending on the type of error that comes back?
+        guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
+            return XCTFail("Geocoder should be called with a handler")
         }
+        handler([], GeocodingError.noLocationsFound)
+
+        XCTAssertEqual(textField.layer.borderColor, UIColor.red.cgColor,
+                       "Zip code field should have red border on error")
+        // TODO: maybe show an error message depending on the type of error that comes back?
     }
 
     func testGeocodingWithEmptyResultsAndNoError() {
-        CLGeocoder.ForwardGeocodeAddressSpyController.createSpy(on: geocoder)!.spy {
-            delegate.textFieldDidEndEditing!(textField)
+        delegate.textFieldDidEndEditing!(textField)
 
-            guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
-                return XCTFail("Geocoder should be called with a handler")
-            }
-            handler([], nil)
-
-            XCTAssertEqual(textField.layer.borderColor, UIColor.red.cgColor,
-                           "Zip code field should have red border when there are no results")
-            // TODO: use custom error for empty results to show the message
+        guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
+            return XCTFail("Geocoder should be called with a handler")
         }
+        handler([], nil)
+
+        XCTAssertEqual(textField.layer.borderColor, UIColor.red.cgColor,
+                       "Zip code field should have red border when there are no results")
+        // TODO: use custom error for empty results to show the message
     }
 
     func testGeocodingWithNonEmptyResultsAndError() {
-        CLGeocoder.ForwardGeocodeAddressSpyController.createSpy(on: geocoder)!.spy {
-            delegate.textFieldDidEndEditing!(textField)
+        delegate.textFieldDidEndEditing!(textField)
 
-            guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
-                return XCTFail("Geocoder should be called with a handler")
-            }
-            handler([placemark], GeocodingError.noLocationsFound)
-
-            XCTAssertEqual(textField.layer.borderColor, UIColor.red.cgColor,
-                           "Zip code field should have red border when there is an error regardless of results")
-            // TODO: show the error? Ignore the error if you have the info you want already?
+        guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
+            return XCTFail("Geocoder should be called with a handler")
         }
+        handler([placemark], GeocodingError.noLocationsFound)
+
+        XCTAssertEqual(textField.layer.borderColor, UIColor.red.cgColor,
+                       "Zip code field should have red border when there is an error regardless of results")
+        // TODO: show the error? Ignore the error if you have the info you want already?
     }
 
     func testGeocodingWithNonEmptyResultsAndNoError() {
-        CLGeocoder.ForwardGeocodeAddressSpyController.createSpy(on: geocoder)!.spy {
-            delegate.textFieldDidEndEditing!(textField)
+        delegate.textFieldDidEndEditing!(textField)
 
-            guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
-                return XCTFail("Geocoder should be called with a handler")
-            }
-            handler([placemark], nil)
-
-            XCTAssertEqual(textField.layer.borderColor, UIColor.lightGray.cgColor,
-                           "Zip code field should have non-error color border when there are results and no error")
+        guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
+            return XCTFail("Geocoder should be called with a handler")
         }
+        handler([placemark], nil)
+
+        XCTAssertEqual(textField.layer.borderColor, UIColor.lightGray.cgColor,
+                       "Zip code field should have non-error color border when there are results and no error")
+    }
+
+    func testSuccessfulGeocodingShowsList() {
+        let navController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
+        navController.addChildViewController(controller)
+
+        let performSegueSpy = UIViewController.PerformSegueSpyController.createSpy(on: controller)
+        let showSpy = UIViewController.ShowSpyController.createSpy(on: navController)
+
+        performSegueSpy?.beginSpying()
+        showSpy?.beginSpying()
+
+        delegate.textFieldDidEndEditing!(textField)
+
+        guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
+            return XCTFail("Geocoder should be called with a handler")
+        }
+        handler([placemark], nil)
+
+        XCTAssertTrue(navController.showCalled,
+                      "Navigation controller should call show when geocoding is successful")
+        XCTAssertTrue(navController.showController is CatListController,
+                      "Navigation controller should show cat list controller when geocoding is successful")
+
+        XCTAssertTrue(controller.performSegueCalled,
+                      "Controller should perform segue when geocoding is successful")
+        XCTAssertEqual(controller.performSegueIdentifier, "ShowCatListController",
+                       "Controller should use correct segue identifier to show cat list controller")
+
+        performSegueSpy?.endSpying()
+        showSpy?.endSpying()
     }
 }
 

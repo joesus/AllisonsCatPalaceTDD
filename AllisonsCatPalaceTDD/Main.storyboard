@@ -123,7 +123,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="XP6-mm-BoX" id="9wQ-FK-TGs"/>
                         <outlet property="zipCodeField" destination="o6O-tz-5HC" id="aWX-tc-dhb"/>
-                        <segue destination="WVV-vz-AHA" kind="show" id="V0e-Ug-Gej"/>
+                        <segue destination="WVV-vz-AHA" kind="show" identifier="ShowCatListController" id="V0e-Ug-Gej"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RO9-7k-uqA" userLabel="First Responder" sceneMemberID="firstResponder"/>

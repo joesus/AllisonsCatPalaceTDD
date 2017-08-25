@@ -123,11 +123,12 @@
                     <connections>
                         <outlet property="activityIndicator" destination="XP6-mm-BoX" id="9wQ-FK-TGs"/>
                         <outlet property="zipCodeField" destination="o6O-tz-5HC" id="aWX-tc-dhb"/>
+                        <segue destination="WVV-vz-AHA" kind="show" id="V0e-Ug-Gej"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RO9-7k-uqA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1410" y="-922"/>
+            <point key="canvasLocation" x="-350" y="-916"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="X5v-Bv-9X3">
@@ -140,12 +141,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="WVV-vz-AHA" kind="relationship" relationship="rootViewController" id="waO-ut-VDv"/>
+                        <segue destination="EgF-el-P0W" kind="relationship" relationship="rootViewController" id="bd1-LD-lSr"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QsR-7T-g5D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-559.20000000000005" y="-917.09145427286364"/>
+            <point key="canvasLocation" x="-1089" y="-916"/>
         </scene>
     </scenes>
     <resources>

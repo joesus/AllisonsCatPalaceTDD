@@ -41,6 +41,12 @@ class LocationController: UIViewController {
 
 extension LocationController: UITextFieldDelegate {
 
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.layer.borderColor = UIColor.lightGray.cgColor
+
+        activityIndicator.stopAnimating() // find out if it's bad to stop if already stopped
+    }
+
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let originalString = textField.text ?? ""
         let newString = (originalString as NSString).replacingCharacters(in: range, with: string)
@@ -62,11 +68,20 @@ extension LocationController: UITextFieldDelegate {
         textField.resignFirstResponder()
 
         activityIndicator.startAnimating()
+        textField.isUserInteractionEnabled = false
 
         geocoder.geocodeAddressString(zipCodeText) { [weak self] (placemarks, error) in
             // geocode
-
             self?.activityIndicator.stopAnimating()
+            textField.isUserInteractionEnabled = true
+
+            guard error == nil,
+                let locations = placemarks,
+                locations.isEmpty == false else {
+
+                textField.layer.borderColor = UIColor.red.cgColor
+                return
+            }
         }
     }
 }

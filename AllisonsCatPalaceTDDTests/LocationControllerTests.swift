@@ -10,6 +10,7 @@
 import TestSwagger
 import TestableUIKit
 import TestableCoreLocation
+import MapKit
 import CoreLocation
 import XCTest
 
@@ -97,6 +98,25 @@ class LocationControllerTests: XCTestCase {
         XCTAssertFalse(delegate.textField!(textField, shouldChangeCharactersIn: NSRange(location: 5, length: 0), replacementString: "8"))
     }
 
+    func testZipCodeFieldBeginsEditing() {
+        // resets borderColor
+        textField.layer.borderColor = UIColor.green.cgColor
+        XCTAssertEqual(textField.layer.borderColor, UIColor.green.cgColor,
+                       "Zip code field's border color should be green")
+
+        delegate.textFieldDidBeginEditing?(textField)
+        XCTAssertEqual(textField.layer.borderColor, UIColor.lightGray.cgColor,
+                       "Zip code field's border color should be reset to light gray on beginning text editing")
+
+        // stops spinner
+        controller.activityIndicator.startAnimating()
+        XCTAssertTrue(controller.activityIndicator.isAnimating,
+                      "Activity indicator should be animating")
+        delegate.textFieldDidBeginEditing?(textField)
+        XCTAssertFalse(controller.activityIndicator.isAnimating,
+                       "Activity indicator should stop animating on beginning text editing")
+    }
+
     func testZipCodeFieldEndsEditingAtFiveCharacters() {
         // textField.endEditing(_ force:) doesn't trigger the delegate method
         // not sure how to test that the code in didEndEditing is being called
@@ -136,7 +156,7 @@ class LocationControllerTests: XCTestCase {
                        "Activity indicator should not be animating by default")
     }
 
-    func testActivityIndicatorShowsWhileGeocoding() {
+    func testGeocodingInProgress() {
         CLGeocoder.ForwardGeocodeAddressSpyController.createSpy(on: geocoder)?.spy {
             textField.text = "80220"
             delegate.textFieldDidEndEditing!(textField)
@@ -145,10 +165,13 @@ class LocationControllerTests: XCTestCase {
                           "Activity indicator should not be hidden while geocoding")
             XCTAssertTrue(controller.activityIndicator.isAnimating,
                           "Activity indicator should animate while geocoding")
+
+            XCTAssertFalse(textField.isUserInteractionEnabled,
+                          "User interaction should be disabled when geocoding is in progress")
         }
     }
 
-    func testActivityIndicatorHidesWhenGeocodingCompletes() {
+    func testGeocodingCompleted() {
         CLGeocoder.ForwardGeocodeAddressSpyController.createSpy(on: geocoder)?.spy {
             textField.text = "80220"
             delegate.textFieldDidEndEditing!(textField)
@@ -159,9 +182,78 @@ class LocationControllerTests: XCTestCase {
             handler([], nil)
 
             XCTAssertTrue(controller.activityIndicator.isHidden,
-                          "Activity indicator should be hidden by default")
+                          "Activity indicator should be hidden when geocoding is not in progress")
             XCTAssertFalse(controller.activityIndicator.isAnimating,
-                           "Activity indicator should not be animating by default")
+                           "Activity indicator should not be animating when geocoding is not in progress")
+            XCTAssertTrue(textField.isUserInteractionEnabled,
+                           "User interaction should be enabled when geocoding is not in progress")
         }
+    }
+
+
+    func testGeocodingWithEmptyResultsAndError() {
+        CLGeocoder.ForwardGeocodeAddressSpyController.createSpy(on: geocoder)!.spy {
+            delegate.textFieldDidEndEditing!(textField)
+
+            guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
+                return XCTFail("Geocoder should be called with a handler")
+            }
+            handler([], GeocodingError.noLocationsFound)
+
+            XCTAssertEqual(textField.layer.borderColor, UIColor.red.cgColor,
+                           "Zip code field should have red border on error")
+            // TODO: maybe show an error message depending on the type of error that comes back?
+        }
+    }
+
+    func testGeocodingWithEmptyResultsAndNoError() {
+        CLGeocoder.ForwardGeocodeAddressSpyController.createSpy(on: geocoder)!.spy {
+            delegate.textFieldDidEndEditing!(textField)
+
+            guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
+                return XCTFail("Geocoder should be called with a handler")
+            }
+            handler([], nil)
+
+            XCTAssertEqual(textField.layer.borderColor, UIColor.red.cgColor,
+                           "Zip code field should have red border when there are no results")
+            // TODO: use custom error for empty results to show the message
+        }
+    }
+
+    func testGeocodingWithNonEmptyResultsAndError() {
+        CLGeocoder.ForwardGeocodeAddressSpyController.createSpy(on: geocoder)!.spy {
+            delegate.textFieldDidEndEditing!(textField)
+
+            guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
+                return XCTFail("Geocoder should be called with a handler")
+            }
+            handler([placemark], GeocodingError.noLocationsFound)
+
+            XCTAssertEqual(textField.layer.borderColor, UIColor.red.cgColor,
+                           "Zip code field should have red border when there is an error regardless of results")
+            // TODO: show the error? Ignore the error if you have the info you want already?
+        }
+    }
+
+    func testGeocodingWithNonEmptyResultsAndNoError() {
+        CLGeocoder.ForwardGeocodeAddressSpyController.createSpy(on: geocoder)!.spy {
+            delegate.textFieldDidEndEditing!(textField)
+
+            guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
+                return XCTFail("Geocoder should be called with a handler")
+            }
+            handler([placemark], nil)
+
+            XCTAssertEqual(textField.layer.borderColor, UIColor.lightGray.cgColor,
+                           "Zip code field should have non-error color border when there are results and no error")
+        }
+    }
+}
+
+// Workaround for getting a placemark instance to use in the Geocoder handler
+extension LocationControllerTests {
+    var placemark: CLPlacemark {
+        return MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: 10, longitude: 20), addressDictionary: ["City": "Palo Alto", "State": "CA"])
     }
 }

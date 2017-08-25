@@ -25,7 +25,12 @@ class CatListControllerTests: XCTestCase {
         replaceRootViewController(with: navController) // the main controller for the window is now the navController
 
         URLSessionTask.beginStubbingResume()
-        
+
+        guard let catListController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CatListController") as? CatListController else {
+            return XCTFail("Could not instantiate cat list controller from main storyboard")
+        }
+
+        navController.addChildViewController(catListController)
         controller = navController.topViewController as! CatListController
         tableView = controller.tableView
 

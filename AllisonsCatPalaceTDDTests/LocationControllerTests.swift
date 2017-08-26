@@ -10,7 +10,6 @@
 import TestSwagger
 import TestableUIKit
 import TestableCoreLocation
-import MapKit
 import CoreLocation
 import XCTest
 
@@ -20,18 +19,18 @@ class LocationControllerTests: XCTestCase {
     var delegate: UITextFieldDelegate!
     var geocoder: CLGeocoder!
     var geocoderSpy: Spy?
+    var placemark: MutablePlacemark = {
+        let mark = MutablePlacemark()
+        mark.postalCode = "80220"
+        return mark
+    }()
 
     override func setUp() {
         super.setUp()
 
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle(for: LocationController.self))
-        controller = storyboard.instantiateViewController(withIdentifier: "LocationController") as? LocationController
+        SettingsManager.shared.clear() // Clears persisted zip code
 
-        controller.loadViewIfNeeded()
-
-        textField = controller.zipCodeField
-        delegate = controller
-        geocoder = controller.geocoder
+        loadComponents()
 
         geocoderSpy = CLGeocoder.ForwardGeocodeAddressSpyController.createSpy(on: geocoder)
         geocoderSpy?.beginSpying()
@@ -41,6 +40,25 @@ class LocationControllerTests: XCTestCase {
         geocoderSpy?.endSpying()
 
         super.tearDown()
+    }
+
+    func testViewDidLoad() {
+        UIViewController.ViewDidLoadSpyController.createSpy(on: controller)!.spy {
+            controller.viewDidLoad()
+            XCTAssert(controller.superclassViewDidLoadCalled, "ViewDidLoad should call viewDidLoad on UIViewController")
+        }
+    }
+
+    func testViewDidAppear() {
+        UIViewController.ViewDidAppearSpyController.createSpy(on: controller)!.spy {
+            replaceRootViewController(with: controller)
+            controller.viewDidAppear(false)
+            XCTAssert(controller.superclassViewDidAppearCalled,
+                      "ViewDidAppear should call viewDidAppear on controller")
+
+            XCTAssertTrue(textField.isFirstResponder,
+                          "Textfield should be first responder on view did appear")
+        }
     }
 
     func testZipCodeField() {
@@ -127,9 +145,21 @@ class LocationControllerTests: XCTestCase {
     }
 
     func testZipCodeFieldEndsEditingAtFiveCharacters() {
-        // textField.endEditing(_ force:) doesn't trigger the delegate method
-        // not sure how to test that the code in didEndEditing is being called
-        // if I can't programmatically trigger this relationship
+        UITextField.ResignFirstResponderSpyController.createSpy(on: textField)?.spy {
+            // Need to be in the window to becomeFirstResponder
+            replaceRootViewController(with: controller)
+            textField.becomeFirstResponder()
+            XCTAssertTrue(textField.isEditing,
+                          "Textfield should be editing when it's the first responder")
+
+            textField.text = "80220"
+            controller.textFieldDidChange(textField)
+
+            XCTAssertFalse(textField.isEditing,
+                           "Textfield should not be editing when it is not the first responder")
+            XCTAssertTrue(textField.resignFirstResponderCalled,
+                          "Textfield should resign first responder at five characters")
+        }
     }
 
     func testZipCodeFieldResignsFirstResponderWhenDoneEditing() {
@@ -140,12 +170,6 @@ class LocationControllerTests: XCTestCase {
             XCTAssertTrue(textField.resignFirstResponderCalled,
                           "Textfield should resign first responder when done editing")
         }
-    }
-
-    func testZipCodeFieldEndsEditingIfChangesCharactersWhenAlreadyAtCharacterLimit() {
-        // textField.endEditing(_ force:) doesn't trigger the delegate method
-        // not sure how to test that the code in didEndEditing is being called
-        // if I can't programmatically trigger this relationship
     }
 
     func testZipCodeFieldGeocodesAtFiveCharacters() {
@@ -273,11 +297,36 @@ class LocationControllerTests: XCTestCase {
         performSegueSpy?.endSpying()
         showSpy?.endSpying()
     }
+
+    func testSavingToUserDefaults() {
+        delegate.textFieldDidEndEditing!(textField)
+
+        guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
+            return XCTFail("Geocoder should be called with a handler")
+        }
+        handler([placemark], nil)
+
+        XCTAssertEqual(SettingsManager.shared.value(forKey: SettingsManager.Key.zipCode) as? String, "80220",
+                       "Geocoding should save zip code to settings")
+    }
+
+    func testTextFieldPrepopulatesWithStoredZipCodeIfAvailable() {
+        SettingsManager.shared.set(value: "12345", forKey: .zipCode)
+
+        controller.viewDidLoad()
+        XCTAssertEqual(textField.text, "12345",
+                       "Textfield should prepopulate from stored zip code")
+    }
 }
 
-// Workaround for getting a placemark instance to use in the Geocoder handler
 extension LocationControllerTests {
-    var placemark: CLPlacemark {
-        return MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: 10, longitude: 20), addressDictionary: ["City": "Palo Alto", "State": "CA"])
+    func loadComponents() {
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle(for: LocationController.self))
+        controller = storyboard.instantiateViewController(withIdentifier: "LocationController") as? LocationController
+        controller.loadViewIfNeeded()
+
+        textField = controller.zipCodeField
+        delegate = controller
+        geocoder = controller.geocoder
     }
 }

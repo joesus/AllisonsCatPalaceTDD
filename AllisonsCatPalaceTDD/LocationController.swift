@@ -19,13 +19,25 @@ class LocationController: UIViewController {
         super.viewDidLoad()
 
         decorateZipCodeField()
+        populateZipCodeField()
         zipCodeField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
 
-    func decorateZipCodeField() {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        zipCodeField.becomeFirstResponder()
+    }
+
+    fileprivate func decorateZipCodeField() {
         zipCodeField.layer.cornerRadius = 4
         zipCodeField.layer.borderWidth = 1
         zipCodeField.layer.borderColor = UIColor.lightGray.cgColor
+    }
+
+    fileprivate func populateZipCodeField() {
+        let storedZipCode = SettingsManager.shared.value(forKey: .zipCode) as? String
+        zipCodeField.text = storedZipCode ?? ""
     }
 
     fileprivate var zipCodeText: String {
@@ -77,11 +89,14 @@ extension LocationController: UITextFieldDelegate {
 
             guard error == nil,
                 let locations = placemarks,
-                locations.isEmpty == false else {
+                locations.isEmpty == false,
+                let zipCode = locations.first?.postalCode else {
 
                 textField.layer.borderColor = UIColor.red.cgColor
                 return
             }
+
+            SettingsManager.shared.set(value: zipCode, forKey: .zipCode)
 
             self?.performSegue(withIdentifier: "ShowCatListController", sender: nil)
         }

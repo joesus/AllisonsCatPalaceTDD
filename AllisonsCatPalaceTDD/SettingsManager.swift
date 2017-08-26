@@ -12,11 +12,23 @@ class SettingsManager {
 
     static let shared = SettingsManager()
 
-    func set(value: Any?, forKey key: String) {
-        UserDefaults.standard.set(value, forKey: key)
+    func set(value: Any?, forKey key: Key) {
+        UserDefaults.standard.set(value, forKey: key.rawValue)
     }
 
-    func value(forKey key: String) -> Any? {
-        return UserDefaults.standard.object(forKey: key)
+    func value(forKey key: Key) -> Any? {
+        return UserDefaults.standard.object(forKey: key.rawValue)
+    }
+
+    func clear() {
+        guard let bundleId = Bundle.main.bundleIdentifier else { return }
+
+        UserDefaults.standard.removePersistentDomain(forName: bundleId)
+    }
+
+    struct Key {
+        var rawValue: String
+
+        static let zipCode = Key(rawValue: "zipCode")
     }
 }

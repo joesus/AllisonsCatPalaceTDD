@@ -84,6 +84,8 @@
 		F4AB68D81F328CF300CC4CC2 /* GenotypeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68D71F328CF300CC4CC2 /* GenotypeBuilder.swift */; };
 		F4E82A3F1F507C470019F1AE /* GeocodingErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E82A3E1F507C470019F1AE /* GeocodingErrorTests.swift */; };
 		F4E82A411F507DEA0019F1AE /* GeocodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E82A401F507DEA0019F1AE /* GeocodingError.swift */; };
+		F4E82A431F509F4A0019F1AE /* SettingsManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E82A421F509F4A0019F1AE /* SettingsManagerTests.swift */; };
+		F4E82A451F50AC490019F1AE /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E82A441F50AC490019F1AE /* SettingsManager.swift */; };
 		F4E8BE851F2407CC00F680E2 /* DataTaskResumeStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E8BE841F2407CC00F680E2 /* DataTaskResumeStub.swift */; };
 		F4FB8EE11F410E1B006767AE /* AnimalDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FB8EE01F410E1B006767AE /* AnimalDetailHeaderView.swift */; };
 		F4FB8EE31F410EAC006767AE /* AnimalDetailHeaderViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FB8EE21F410EAC006767AE /* AnimalDetailHeaderViewTests.swift */; };
@@ -186,6 +188,8 @@
 		F4AB68D71F328CF300CC4CC2 /* GenotypeBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenotypeBuilder.swift; sourceTree = "<group>"; };
 		F4E82A3E1F507C470019F1AE /* GeocodingErrorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeocodingErrorTests.swift; sourceTree = "<group>"; };
 		F4E82A401F507DEA0019F1AE /* GeocodingError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeocodingError.swift; sourceTree = "<group>"; };
+		F4E82A421F509F4A0019F1AE /* SettingsManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsManagerTests.swift; sourceTree = "<group>"; };
+		F4E82A441F50AC490019F1AE /* SettingsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		F4E8BE841F2407CC00F680E2 /* DataTaskResumeStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTaskResumeStub.swift; sourceTree = "<group>"; };
 		F4FB8EE01F410E1B006767AE /* AnimalDetailHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalDetailHeaderView.swift; sourceTree = "<group>"; };
 		F4FB8EE21F410EAC006767AE /* AnimalDetailHeaderViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalDetailHeaderViewTests.swift; sourceTree = "<group>"; };
@@ -290,6 +294,7 @@
 				2719FBED1E7F137300D3D79A /* Models */,
 				270A6AEC1E3E7F7800B12D38 /* Result.swift */,
 				F4E82A401F507DEA0019F1AE /* GeocodingError.swift */,
+				F4E82A441F50AC490019F1AE /* SettingsManager.swift */,
 			);
 			path = AllisonsCatPalaceTDD;
 			sourceTree = "<group>";
@@ -329,6 +334,7 @@
 				F46539B81EFF0F580049E7FD /* PositiveIntegerTests.swift */,
 				270A6AEA1E3E7DB000B12D38 /* ResultTests.swift */,
 				F43BC69F1F1AA5AD00E025EB /* SequenceRemovingDuplicatesTests.swift */,
+				F4E82A421F509F4A0019F1AE /* SettingsManagerTests.swift */,
 			);
 			path = AllisonsCatPalaceTDDTests;
 			sourceTree = "<group>";
@@ -605,6 +611,7 @@
 				F4E82A411F507DEA0019F1AE /* GeocodingError.swift in Sources */,
 				F4AB689C1F2D405400CC4CC2 /* AnimalGenotype.swift in Sources */,
 				F46539BF1EFF18FB0049E7FD /* AnimalSize.swift in Sources */,
+				F4E82A451F50AC490019F1AE /* SettingsManager.swift in Sources */,
 				276C61C21E2C1C0E00225CF4 /* Animal.swift in Sources */,
 				F4543D9E1F43C28300F9CDE3 /* LocationController.swift in Sources */,
 				F46539CD1EFF29A80049E7FD /* AnimalSpecies.swift in Sources */,
@@ -643,6 +650,7 @@
 				27E823971E5A5115009B202A /* MainStoryboardTests.swift in Sources */,
 				270FE1DC1E749E0E006126B2 /* ImageProviderExtensions.swift in Sources */,
 				275D26151E5125D100FAE334 /* CatListControllerTests.swift in Sources */,
+				F4E82A431F509F4A0019F1AE /* SettingsManagerTests.swift in Sources */,
 				270FE1DA1E748E22006126B2 /* SampleCats.swift in Sources */,
 				F4AB68A01F2D4E0400CC4CC2 /* SampleExternalGenotypeData.swift in Sources */,
 				27E823931E5A43AB009B202A /* CatListDataSourceTests.swift in Sources */,

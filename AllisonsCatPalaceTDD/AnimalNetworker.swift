@@ -34,7 +34,9 @@ enum PetFinderNetworker {
     static var session = URLSession.shared
     static weak var retrieveAllAnimalsTask: URLSessionTask?
 
-    static func retrieveAllAnimals(for location: String = "80220", completion: @escaping ResponseHandler)  {
+    static func retrieveAllAnimals(completion: @escaping ResponseHandler)  {
+        let location = SettingsManager.shared.value(forKey: .zipCode) as? String ?? ""
+
         retrieveAllAnimalsTask?.cancel()
 
         CatServiceComponents.path = "/pet.find"

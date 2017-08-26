@@ -41,9 +41,14 @@ enum PetFinderNetworker {
 
         CatServiceComponents.path = "/pet.find"
         let locationQuery = URLQueryItem(name: "location", value: location)
-        if CatServiceComponents.queryItems?.contains(locationQuery) == false {
-            CatServiceComponents.queryItems?.append(locationQuery)
+
+        if let oldLocationQuery = CatServiceComponents.queryItems?.first(where: { $0.name == "location" }),
+            let index = CatServiceComponents.queryItems?.index(of: oldLocationQuery) {
+
+            CatServiceComponents.queryItems?.remove(at: index)
         }
+
+        CatServiceComponents.queryItems?.append(locationQuery)
 
         guard let url = CatServiceComponents.url else { return }
 

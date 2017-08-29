@@ -286,7 +286,7 @@ class LocationControllerTests: XCTestCase {
 
         XCTAssertTrue(navController.showCalled,
                       "Navigation controller should call show when geocoding is successful")
-        XCTAssertTrue(navController.showController is CatListController,
+        XCTAssertTrue(navController.showController is AnimalCardsViewController,
                       "Navigation controller should show cat list controller when geocoding is successful")
 
         XCTAssertTrue(controller.performSegueCalled,

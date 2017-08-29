@@ -13,9 +13,10 @@ private var CatServiceComponents: URLComponents = {
     components.scheme = "https"
     components.host = "api.petfinder.com"
     components.queryItems = [
-        URLQueryItem(name: "key", value: "APIKEY"),
+        URLQueryItem(name: "key", value: "62ec521f97d864a2a8d44833a8b08afb"),
         URLQueryItem(name: "format", value: "json"),
-        URLQueryItem(name: "output", value: "full")
+        URLQueryItem(name: "output", value: "full"),
+        URLQueryItem(name: "count", value: PetFinderNetworker.desiredNumberOfResults)
     ]
 
     return components
@@ -33,8 +34,9 @@ enum PetFinderNetworker {
     typealias ResponseHandler = (Result<PetFinderResponse>) -> Void
     static var session = URLSession.shared
     static weak var retrieveAllAnimalsTask: URLSessionTask?
+    static let desiredNumberOfResults = "100"
 
-    static func retrieveAllAnimals(completion: @escaping ResponseHandler)  {
+    static func retrieveAllAnimals(offset: Int = 0, completion: @escaping ResponseHandler)  {
         let location = SettingsManager.shared.value(forKey: .zipCode) as? String ?? ""
 
         retrieveAllAnimalsTask?.cancel()
@@ -49,6 +51,8 @@ enum PetFinderNetworker {
         }
 
         CatServiceComponents.queryItems?.append(locationQuery)
+        let offsetQuery = URLQueryItem(name: "offset", value: "\(offset)")
+        CatServiceComponents.queryItems?.append(offsetQuery)
 
         guard let url = CatServiceComponents.url else { return }
 

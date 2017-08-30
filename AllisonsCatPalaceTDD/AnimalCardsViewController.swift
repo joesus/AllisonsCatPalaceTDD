@@ -37,6 +37,7 @@ class AnimalCardsViewController: UIViewController {
         super.viewDidLoad()
 
         activityIndicator.startAnimating()
+        registry.offset = 0
         registry.fetchAllAnimals { [weak self] fetchedAnimals in
 
             // Delay accounts for the built in animation time for loading the kolodaView

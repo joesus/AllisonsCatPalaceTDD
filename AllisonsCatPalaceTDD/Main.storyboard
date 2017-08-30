@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Cat List Controller-->
+        <!--Favorites List Controller-->
         <scene sceneID="jSa-6M-l0w">
             <objects>
-                <tableViewController storyboardIdentifier="CatListController" id="WVV-vz-AHA" customClass="CatListController" customModule="AllisonsCatPalaceTDD" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="FavoritesListController" id="WVV-vz-AHA" customClass="FavoritesListController" customModule="AllisonsCatPalaceTDD" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="01f-Aw-hRT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -54,9 +54,9 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cIc-u8-JBa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="380" y="-917.09145427286364"/>
+            <point key="canvasLocation" x="542" y="-99"/>
         </scene>
-        <!--Animal Cards View Controller-->
+        <!--Title-->
         <scene sceneID="6d2-ga-kKw">
             <objects>
                 <viewController storyboardIdentifier="AnimalCardsViewController" id="ZMo-cE-XsX" customClass="AnimalCardsViewController" customModule="AllisonsCatPalaceTDD" customModuleProvider="target" sceneMemberID="viewController">
@@ -96,6 +96,15 @@
                             </mask>
                         </variation>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Title" id="Ndp-sc-csm">
+                        <barButtonItem key="rightBarButtonItem" title="Favorites" id="4ws-Cy-w8S">
+                            <connections>
+                                <segue destination="WVV-vz-AHA" kind="show" identifier="showFavoritesListController" id="F89-TC-tTJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="activityIndicator" destination="Fyf-Ri-qq9" id="I9Z-2k-kCS"/>
                         <outlet property="kolodaView" destination="S6d-Ci-Se9" id="RLP-ZE-o1p"/>
@@ -174,7 +183,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="XP6-mm-BoX" id="9wQ-FK-TGs"/>
                         <outlet property="zipCodeField" destination="o6O-tz-5HC" id="aWX-tc-dhb"/>
-                        <segue destination="ZMo-cE-XsX" kind="show" identifier="ShowCatListController" id="e4f-1Z-EQU"/>
+                        <segue destination="ZMo-cE-XsX" kind="show" identifier="ShowAnimalCardsViewController" id="e4f-1Z-EQU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RO9-7k-uqA" userLabel="First Responder" sceneMemberID="firstResponder"/>

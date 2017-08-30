@@ -50,6 +50,15 @@ class AnimalCardsViewControllerTests: XCTestCase {
                        "Registry should be called when view loads")
     }
 
+    func testResetsRegistryOffsetOnViewDidLoad() {
+        controller.registry = MockRegistry.self
+        MockRegistry.offset = 20
+
+        controller.viewDidLoad()
+        XCTAssertEqual(MockRegistry.offset, 0,
+                       "Controller should reset registry offset on viewDidLoad")
+    }
+
     func testHasKolodaView() {
         XCTAssertNotNil(controller.kolodaView,
                         "Controller should have a koloda view to display cards")

@@ -287,12 +287,12 @@ class LocationControllerTests: XCTestCase {
         XCTAssertTrue(navController.showCalled,
                       "Navigation controller should call show when geocoding is successful")
         XCTAssertTrue(navController.showController is AnimalCardsViewController,
-                      "Navigation controller should show cat list controller when geocoding is successful")
+                      "Navigation controller should show animal cards controller when geocoding is successful")
 
         XCTAssertTrue(controller.performSegueCalled,
                       "Controller should perform segue when geocoding is successful")
-        XCTAssertEqual(controller.performSegueIdentifier, "ShowCatListController",
-                       "Controller should use correct segue identifier to show cat list controller")
+        XCTAssertEqual(controller.performSegueIdentifier, "ShowAnimalCardsViewController",
+                       "Controller should use correct segue identifier to show animal cards controller")
 
         performSegueSpy?.endSpying()
         showSpy?.endSpying()

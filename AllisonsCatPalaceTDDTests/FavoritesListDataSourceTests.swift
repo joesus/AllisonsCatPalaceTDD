@@ -1,5 +1,5 @@
 //
-//  CatListDataSourceTests.swift
+//  FavoritesListDataSourceTests.swift
 //  AllisonsCatPalaceTDD
 //
 //  Created by Joesus on 2/19/17.
@@ -11,12 +11,12 @@ import TestSwagger
 import TestableUIKit
 @testable import AllisonsCatPalaceTDD
 
-class CatListDataSourceTests: XCTestCase {
+class FavoritesListDataSourceTests: XCTestCase {
 
     let cat = cats.first!
     let imageData = UIImagePNGRepresentation(#imageLiteral(resourceName: "testCat"))
     let navController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
-    var controller: CatListController!
+    var controller: FavoritesListController!
     var dataSource: UITableViewDataSource!
     var tableView: UITableView!
     let firstCatIndexPath = IndexPath(row: 0, section: 0)
@@ -47,30 +47,30 @@ class CatListDataSourceTests: XCTestCase {
         super.tearDown()
     }
 
-    func testHasZeroSectionsWhenNoCats() {
+    func testHasZeroSectionsWhenNoAnimals() {
         XCTAssertEqual(dataSource.numberOfSections!(in: tableView), 0,
-                       "Number of sections should be zero when no cats are presents")
+                       "Number of sections should be zero when no animals are presents")
     }
 
-    func testHasOneSectionWhenCatsPresent() {
-        controller.cats.append(cat)
+    func testHasOneSectionWhenAnimalsPresent() {
+        controller.animals.append(cat)
         XCTAssertEqual(dataSource.numberOfSections!(in: tableView), 1,
-                       "Number of sections should be one if there are cats")
+                       "Number of sections should be one if there are animals")
     }
 
-    func testHasZeroRowsWhenNoCats() {
+    func testHasZeroRowsWhenNoAnimals() {
         XCTAssertEqual(dataSource.tableView(tableView, numberOfRowsInSection: 0), 0,
-                       "TableView should have zero rows when no cats are present")
+                       "TableView should have zero rows when no animals are present")
     }
 
     func testDataSourceHasCorrectNumberOfRows() {
-        controller.cats.append(cat)
+        controller.animals.append(cat)
         XCTAssertEqual(dataSource.tableView(tableView, numberOfRowsInSection: 0), 1,
                        "TableView should have one row when there is one cat")
     }
 
     func testCatCellIsRegisteredWithTableView() {
-        controller.cats.append(cat)
+        controller.animals.append(cat)
         controller.loadViewIfNeeded()
         let cell = tableView.dequeueReusableCell(withIdentifier: "CatCell", for: firstCatIndexPath)
         XCTAssert(cell is CatCell, "CatCells should be registered with the tableView")
@@ -89,7 +89,7 @@ class CatListDataSourceTests: XCTestCase {
     }
 
     func testDataSourceReturnsCatCells() {
-        controller.cats.append(cat)
+        controller.animals.append(cat)
         guard let _ = dataSource.tableView(tableView, cellForRowAt: firstCatIndexPath) as? CatCell else {
             return XCTFail("DataSource should return Cat Cells")
         }
@@ -98,7 +98,7 @@ class CatListDataSourceTests: XCTestCase {
     func testCatCellDisplaysCatName() {
         loadComponents()
 
-        controller.cats.append(cat)
+        controller.animals.append(cat)
         controller.loadViewIfNeeded()
 
         tableView = controller.tableView
@@ -108,14 +108,14 @@ class CatListDataSourceTests: XCTestCase {
     }
 
     func testCatCellImageViewHasDefaultImage() {
-        controller.cats.append(cat)
+        controller.animals.append(cat)
         let cell = dataSource.tableView(tableView, cellForRowAt: firstCatIndexPath)
         XCTAssertEqual(cell.imageView?.image, #imageLiteral(resourceName: "catOutline"),
                        "The default image for a cat cell should be the cat outline")
     }
 
     func testCatCellUsesCachedImageIfAvailable() {
-        controller.cats.append(cat)
+        controller.animals.append(cat)
         let thumbnailUrl = cat.imageLocations.small.first!
         let response = URLResponse(url: thumbnailUrl, mimeType: nil, expectedContentLength: 1, textEncodingName: nil)
         ImageProvider.cache.storeCachedResponse(CachedURLResponse(response: response, data: imageData!), for: URLRequest(url: thumbnailUrl))
@@ -133,8 +133,8 @@ class CatListDataSourceTests: XCTestCase {
 
         loadComponents()
 
-        // adds all the cats
-        controller.cats.append(contentsOf: cats)
+        // adds all the animals
+        controller.animals.append(contentsOf: cats)
 
         // triggers the fetch by getting a cell from the dataSource
         _ = tableView.dataSource?.tableView(tableView, cellForRowAt: firstCatIndexPath)
@@ -161,8 +161,8 @@ class CatListDataSourceTests: XCTestCase {
     func testCatCellReloadsIfVisible() {
         loadComponents()
 
-        // adds all the cats
-        controller.cats.append(contentsOf: cats)
+        // adds all the animals
+        controller.animals.append(contentsOf: cats)
 
         let reloadedPredicate = NSPredicate { [tableView] _,_ in
             tableView!.reloadRowsCalled
@@ -200,8 +200,8 @@ class CatListDataSourceTests: XCTestCase {
     func testUnsuccessfulImageFetchDoesNotReloadCell() {
         let didNotReloadExpectation = expectation(description: "testUnsuccessfulImageFetchDoesNotReloadCell")
 
-        // adds all the cats
-        controller.cats.append(contentsOf: cats)
+        // adds all the animals
+        controller.animals.append(contentsOf: cats)
 
         // grabs the thumbnail url for the first cat
         let thumbnailUrl = cats.first!.imageLocations.small.first!
@@ -227,9 +227,9 @@ class CatListDataSourceTests: XCTestCase {
     }
 }
 
-extension CatListDataSourceTests {
+extension FavoritesListDataSourceTests {
     func loadComponents() {
-        controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CatListController") as! CatListController
+        controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FavoritesListController") as! FavoritesListController
         controller.loadViewIfNeeded()
 
         dataSource = controller as UITableViewDataSource

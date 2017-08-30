@@ -98,7 +98,7 @@ extension LocationController: UITextFieldDelegate {
 
             SettingsManager.shared.set(value: zipCode, forKey: .zipCode)
 
-            self?.performSegue(withIdentifier: "ShowCatListController", sender: nil)
+            self?.performSegue(withIdentifier: "ShowAnimalCardsViewController", sender: nil)
         }
     }
 }

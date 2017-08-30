@@ -11,6 +11,7 @@ import Koloda
 
 class AnimalCardsViewController: UIViewController {
     @IBOutlet weak var kolodaView: KolodaView!
+    var registry: AnimalFetching.Type = AnimalRegistry.self
 
     var animals = [Animal]() {
         didSet {
@@ -23,8 +24,8 @@ class AnimalCardsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        AnimalRegistry.fetchAllAnimals { fetchedCats in
-            self.animals = fetchedCats
+        registry.fetchAllAnimals { fetchedAnimals in
+            self.animals = fetchedAnimals
         }
 
         kolodaView.dataSource = self
@@ -33,18 +34,11 @@ class AnimalCardsViewController: UIViewController {
 }
 
 extension AnimalCardsViewController: KolodaViewDelegate {
-    func kolodaDidRunOutOfCards(koloda: KolodaView) {
-//        Make another call to get more cats from the registry here
-        print("Get more cards")
-
-        
-    }
-//
 //    func koloda(koloda: KolodaView, didSelectCardAt index: Int) {
-//        UIApplication.shared.openURL(URL(string: "https://yalantis.com/")!)
+//        transition to detail view
 //    }
 }
-//
+
 extension AnimalCardsViewController: KolodaViewDataSource {
     func kolodaSpeedThatCardShouldDrag(_ koloda: Koloda.KolodaView) -> Koloda.DragSpeed {
         return .default
@@ -59,8 +53,13 @@ extension AnimalCardsViewController: KolodaViewDataSource {
             return UIView()
         }
 
-        // if the card is the 10th to last card, kick off a new fetch
-        
+        // if the card is the 10th to last card, kick off a new fetch, add the new results to the existing. As long as the offset matches the number being fetched we don't get duplicates.
+        if index == animals.count - 10 {
+            registry.offset += 50
+            registry.fetchAllAnimals { fetchedAnimals in
+                self.animals += fetchedAnimals
+            }
+        }
 
         animalCardView.configure(with: animals[index])
         animalCardView.layer.masksToBounds = true
@@ -85,4 +84,3 @@ extension AnimalCardsViewController: KolodaViewDataSource {
         return CGFloat(0.35)
     }
 }
-

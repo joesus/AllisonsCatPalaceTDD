@@ -107,6 +107,20 @@ class PetFinderNetworkerTests: XCTestCase {
         XCTAssertTrue(request.url!.query!.contains("offset=25"), "Query: \(request.url!.query!) should use the given offset")
     }
 
+    func testCreatingRetrieveAllAnimalsTaskWithOffsetDoesNotDuplicateOffsetParam() {
+        PetFinderNetworker.retrieveAllAnimals {_ in}
+        PetFinderNetworker.retrieveAllAnimals(offset: 50) {_ in}
+
+        guard let task = PetFinderNetworker.session.lastResumedDataTask,
+            let request = task.currentRequest else {
+
+                return XCTFail("A task should have a currentRequest")
+        }
+
+        XCTAssertEqual(request.url!.query!.components(separatedBy: "offset=").count - 1, 1,
+                       "Creating a new task with a different offset should not add duplicate offset to query")
+    }
+
     func testNewRetrieveAllAnimalsTaskCancelsExistingTask() {
         PetFinderNetworker.retrieveAllAnimals { _ in }
 

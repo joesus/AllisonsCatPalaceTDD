@@ -26,15 +26,16 @@ protocol AnimalNetworker {
     associatedtype Response
     associatedtype ResponseHandler = (Result<Response>) -> Void
 
-    static func retrieveAllAnimals(for location: String, completion: ResponseHandler) // TODO - make location a dependent type
+    static func retrieveAllAnimals(offset: Int, completion: ResponseHandler)
     static func retrieveAnimal(withIdentifier id: Int, completion: ResponseHandler)
 }
 
-enum PetFinderNetworker {
+enum PetFinderNetworker: AnimalNetworker {
+    typealias Response = PetFinderResponse
     typealias ResponseHandler = (Result<PetFinderResponse>) -> Void
     static var session = URLSession.shared
     static weak var retrieveAllAnimalsTask: URLSessionTask?
-    static let desiredNumberOfResults = "100"
+    static let desiredNumberOfResults = "50"
 
     static func retrieveAllAnimals(offset: Int = 0, completion: @escaping ResponseHandler)  {
         let location = SettingsManager.shared.value(forKey: .zipCode) as? String ?? ""
@@ -44,11 +45,8 @@ enum PetFinderNetworker {
         CatServiceComponents.path = "/pet.find"
         let locationQuery = URLQueryItem(name: "location", value: location)
 
-        if let oldLocationQuery = CatServiceComponents.queryItems?.first(where: { $0.name == "location" }),
-            let index = CatServiceComponents.queryItems?.index(of: oldLocationQuery) {
-
-            CatServiceComponents.queryItems?.remove(at: index)
-        }
+        removeQueryItem(named: "location")
+        removeQueryItem(named: "offset")
 
         CatServiceComponents.queryItems?.append(locationQuery)
         let offsetQuery = URLQueryItem(name: "offset", value: "\(offset)")
@@ -126,6 +124,14 @@ enum PetFinderNetworker {
             return Result.failure(AnimalNetworkError.missingAnimal(identifier: identifier))
         default:
             fatalError()
+        }
+    }
+
+    private static func removeQueryItem(named queryName: String) {
+        if let oldQuery = CatServiceComponents.queryItems?.first(where: { $0.name == queryName }),
+            let index = CatServiceComponents.queryItems?.index(of: oldQuery) {
+
+            CatServiceComponents.queryItems?.remove(at: index)
         }
     }
 }

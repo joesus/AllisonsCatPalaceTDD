@@ -74,11 +74,17 @@
                                     <constraint firstAttribute="width" secondItem="S6d-Ci-Se9" secondAttribute="height" multiplier="311:353" id="Ztt-hM-V0o"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Fyf-Ri-qq9">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                                <color key="color" red="0.3382484019" green="0.24732157590000001" blue="0.50051718950000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Fyf-Ri-qq9" firstAttribute="centerX" secondItem="yZl-99-H0Z" secondAttribute="centerX" id="6Al-rY-mcE"/>
                             <constraint firstItem="S6d-Ci-Se9" firstAttribute="top" secondItem="hlW-Zc-w99" secondAttribute="bottom" constant="50" id="9Jf-r0-FIe"/>
                             <constraint firstItem="S6d-Ci-Se9" firstAttribute="centerX" secondItem="yZl-99-H0Z" secondAttribute="centerX" id="Ifj-IV-XP5"/>
+                            <constraint firstItem="Fyf-Ri-qq9" firstAttribute="centerY" secondItem="yZl-99-H0Z" secondAttribute="centerY" id="Lty-a0-EAk"/>
                             <constraint firstItem="S6d-Ci-Se9" firstAttribute="leading" secondItem="yZl-99-H0Z" secondAttribute="leadingMargin" constant="16" id="Wci-WU-Anj"/>
                             <constraint firstAttribute="trailingMargin" secondItem="S6d-Ci-Se9" secondAttribute="trailing" constant="16" id="bu7-uf-JTg"/>
                             <constraint firstItem="S6d-Ci-Se9" firstAttribute="centerY" secondItem="yZl-99-H0Z" secondAttribute="centerY" id="x4B-hJ-Q8v"/>
@@ -91,6 +97,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="Fyf-Ri-qq9" id="I9Z-2k-kCS"/>
                         <outlet property="kolodaView" destination="S6d-Ci-Se9" id="RLP-ZE-o1p"/>
                     </connections>
                 </viewController>

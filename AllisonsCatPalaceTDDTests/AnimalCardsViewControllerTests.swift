@@ -141,6 +141,21 @@ class AnimalCardsViewControllerTests: XCTestCase {
         XCTAssertEqual(controller.animals.count, 150,
                        "Retrieving additional animals should add new animals to the existing animals")
     }
+
+    func testLoadingIndicatorWithNoCats() {
+        controller.registry = MockRegistry.self
+        MockRegistry.animals = Array(repeating: SampleCat, count: 50)
+        XCTAssertTrue(controller.activityIndicator.isAnimating,
+                      "Activity indicator should be animating when there are no animal cards to display")
+
+        let predicate = NSPredicate { _,_ in
+            !self.controller.activityIndicator.isAnimating
+        }
+        expectation(for: predicate, evaluatedWith: self, handler: nil)
+        waitForExpectations(timeout: 1, handler: nil)
+
+        controller.viewDidLoad()
+    }
 }
 
 fileprivate class MockRegistry: AnimalFetching {

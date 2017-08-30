@@ -10,7 +10,8 @@ import UIKit
 import Koloda
 
 class AnimalCardsViewController: UIViewController {
-    @IBOutlet weak var kolodaView: KolodaView!
+    @IBOutlet fileprivate(set) weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet fileprivate(set) weak var kolodaView: KolodaView!
     var registry: AnimalFetching.Type = AnimalRegistry.self
 
     var animals = [Animal]() {
@@ -24,8 +25,14 @@ class AnimalCardsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        registry.fetchAllAnimals { fetchedAnimals in
-            self.animals = fetchedAnimals
+        activityIndicator.startAnimating()
+        registry.fetchAllAnimals { [weak self] fetchedAnimals in
+
+            // Delay accounts for the built in animation time for loading the kolodaView
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                self?.activityIndicator.stopAnimating()
+            }
+            self?.animals = fetchedAnimals
         }
 
         kolodaView.dataSource = self

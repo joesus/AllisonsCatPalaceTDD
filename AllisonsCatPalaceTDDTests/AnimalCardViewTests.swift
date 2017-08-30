@@ -93,6 +93,28 @@ class AnimalCardViewTests: XCTestCase {
         XCTAssertEqual(task?.currentRequest?.url?.absoluteString, "https://www.google.com/catMedium.png")
     }
 
+    func testConfiguringFetchesFirstSmallImageIfNoMediumImageAvailable() {
+        let imageLocations = AnimalImageLocations(small: [URL(string: "https://www.google.com/catSmall.png")!, URL(string: "https://www.google.com/catSmall2.png")!], medium: [], large: [URL(string: "https://www.google.com/catLarge.png")!])
+        let cat = SampleCat
+        cat.imageLocations = imageLocations
+
+        animalCardView.configure(with: cat)
+
+        let task = URLSession.shared.lastCreatedDataTask
+        XCTAssertEqual(task?.currentRequest?.url?.absoluteString, "https://www.google.com/catSmall.png")
+    }
+
+    func testCOnfiguringFetchesFirstLargeImageIfNoMediumOrSmallAvailable() {
+        let imageLocations = AnimalImageLocations(small: [], medium: [], large: [URL(string: "https://www.google.com/catLarge.png")!, URL(string: "https://www.google.com/catLarge2.png")!])
+        let cat = SampleCat
+        cat.imageLocations = imageLocations
+
+        animalCardView.configure(with: cat)
+
+        let task = URLSession.shared.lastCreatedDataTask
+        XCTAssertEqual(task?.currentRequest?.url?.absoluteString, "https://www.google.com/catLarge.png")
+    }
+
     func testConfiguringUsesFetchedImageIfNoImage() {
         let url = cats[0].imageLocations.medium.first!
         let imageData = UIImagePNGRepresentation(#imageLiteral(resourceName: "testCat"))

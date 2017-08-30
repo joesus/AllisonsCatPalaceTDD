@@ -20,20 +20,27 @@ class AnimalCardView: UIView {
 
     func configure(with animal: Animal) {
         if let imageUrl = animal.imageLocations.medium.first {
-
-            if let image = ImageProvider.imageForUrl(imageUrl) {
-                DispatchQueue.main.async { [weak self] in
-                    self?.animalImage = image
-                }
-            } else {
-                ImageProvider.getImage(for: imageUrl) { potentialImage in
-                    DispatchQueue.main.async { [weak self] in
-                        self?.animalImage = potentialImage ?? #imageLiteral(resourceName: "catOutline")
-                    }
-                }
-            }
+            load(imageUrl)
+        } else if let imageUrl = animal.imageLocations.small.first {
+            load(imageUrl)
+        } else if let imageUrl = animal.imageLocations.large.first {
+            load(imageUrl)
         }
 
         nameLabel.text = animal.name
+    }
+
+    private func load(_ imageUrl: URL) {
+        if let image = ImageProvider.imageForUrl(imageUrl) {
+            DispatchQueue.main.async { [weak self] in
+                self?.animalImage = image
+            }
+        } else {
+            ImageProvider.getImage(for: imageUrl) { potentialImage in
+                DispatchQueue.main.async { [weak self] in
+                    self?.animalImage = potentialImage ?? #imageLiteral(resourceName: "catOutline")
+                }
+            }
+        }
     }
 }

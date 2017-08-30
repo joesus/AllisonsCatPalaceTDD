@@ -35,27 +35,8 @@ class Animal {
             }
         }
     }
-    var cutenessLevel: Int? {
-        didSet {
-            guard let level = cutenessLevel,
-                (1...11).contains(level) else {
-                cutenessLevel = nil
-                return
-            }
-        }
-    }
-    var favorites: [Favorite] = []
     var sex = AnimalSex.unknown
     var genotype: AnimalGenotype?
-    var greeting: String? {
-        didSet {
-            guard let value = greeting,
-                !value.isEmpty else {
-                greeting = nil
-                return
-            }
-        }
-    }
     var stateCode: String? {
         didSet {
             guard let value = stateCode else { return }

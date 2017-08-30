@@ -17,14 +17,6 @@ class FavoritesListController: UITableViewController {
         }
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        AnimalRegistry.fetchAllAnimals { fetchedCats in
-            self.animals = fetchedCats
-        }
-    }
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return animals.isEmpty ? 0 : 1
     }

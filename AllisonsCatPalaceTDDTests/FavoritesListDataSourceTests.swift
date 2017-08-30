@@ -96,8 +96,6 @@ class FavoritesListDataSourceTests: XCTestCase {
     }
 
     func testCatCellDisplaysCatName() {
-        loadComponents()
-
         controller.animals.append(cat)
         controller.loadViewIfNeeded()
 
@@ -130,8 +128,6 @@ class FavoritesListDataSourceTests: XCTestCase {
 
     func testCatCellDoesNotReloadIfNotVisible() {
         let didNotReloadExpectation = expectation(description: "testCatCellDoesNotReloadIfNotVisible")
-
-        loadComponents()
 
         // adds all the animals
         controller.animals.append(contentsOf: cats)

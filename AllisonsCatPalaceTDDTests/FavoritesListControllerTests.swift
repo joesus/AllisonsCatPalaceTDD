@@ -51,16 +51,6 @@ class FavoritesListControllerTests: XCTestCase {
         XCTAssert(controller.animals.isEmpty, "FavoritesListController should have no animals by default")
     }
 
-    func testViewDidLoadCallsSuperViewDidLoad() {
-        UITableViewController.ViewDidLoadSpyController.createSpy(on: controller)!.spy {
-            controller.viewDidLoad()
-            XCTAssert(controller.superclassViewDidLoadCalled, "ViewDidLoad should call viewDidLoad on UIViewController")
-        }
-    }
-
-    // TODO: - figure out how to test that the registry was called.
-    //    func testRequestsAnimalsOnViewDidLoad() { }
-
     func testReloadDataIsCalledWhenAnimalsAreUpdated() {
         let reloadedPredicate = NSPredicate { [controller] _,_ in
             controller!.tableView.reloadDataCalled
@@ -100,7 +90,6 @@ class FavoritesListControllerTests: XCTestCase {
 
             XCTAssert(controller.tableView.reloadDataCalledOnMainThread!,
                       "Reload data should be called on the main thread when animals are cleared on a background thread")
-
         }
     }
 

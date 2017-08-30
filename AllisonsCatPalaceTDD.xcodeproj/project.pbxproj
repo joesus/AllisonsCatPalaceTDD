@@ -20,8 +20,6 @@
 		270A6AF71E3EA9A000B12D38 /* SampleExternalAnimalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270A6AF61E3EA9A000B12D38 /* SampleExternalAnimalData.swift */; };
 		270FE1DA1E748E22006126B2 /* SampleCats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270FE1D91E748E22006126B2 /* SampleCats.swift */; };
 		270FE1DC1E749E0E006126B2 /* ImageProviderExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270FE1DB1E749E0E006126B2 /* ImageProviderExtensions.swift */; };
-		2719FBEC1E7F117600D3D79A /* FavoriteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2719FBEB1E7F117600D3D79A /* FavoriteTests.swift */; };
-		2719FBEF1E7F138500D3D79A /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2719FBEE1E7F138500D3D79A /* Favorite.swift */; };
 		2719FBF31E7F20E900D3D79A /* GenderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2719FBF21E7F20E900D3D79A /* GenderTests.swift */; };
 		2719FBF51E7F21AA00D3D79A /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2719FBF41E7F21AA00D3D79A /* Gender.swift */; };
 		275D260F1E5106D800FAE334 /* CatRegistryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D260E1E5106D800FAE334 /* CatRegistryTests.swift */; };
@@ -124,8 +122,6 @@
 		270A6AF61E3EA9A000B12D38 /* SampleExternalAnimalData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleExternalAnimalData.swift; sourceTree = "<group>"; };
 		270FE1D91E748E22006126B2 /* SampleCats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleCats.swift; sourceTree = "<group>"; };
 		270FE1DB1E749E0E006126B2 /* ImageProviderExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageProviderExtensions.swift; sourceTree = "<group>"; };
-		2719FBEB1E7F117600D3D79A /* FavoriteTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteTests.swift; sourceTree = "<group>"; };
-		2719FBEE1E7F138500D3D79A /* Favorite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
 		2719FBF21E7F20E900D3D79A /* GenderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenderTests.swift; sourceTree = "<group>"; };
 		2719FBF41E7F21AA00D3D79A /* Gender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
 		275D260E1E5106D800FAE334 /* CatRegistryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatRegistryTests.swift; sourceTree = "<group>"; };
@@ -256,7 +252,6 @@
 				276C61C11E2C1C0E00225CF4 /* Animal.swift */,
 				276C61BB1E2C183300225CF4 /* ExternalAnimal.swift */,
 				F43BC6A31F1AC9E400E025EB /* ExternalData.swift */,
-				2719FBEE1E7F138500D3D79A /* Favorite.swift */,
 				2719FBF41E7F21AA00D3D79A /* Gender.swift */,
 				F46539BA1EFF11430049E7FD /* PositiveInteger.swift */,
 				F4AB68991F2D39F300CC4CC2 /* GeneticPurity.swift */,
@@ -344,7 +339,6 @@
 				277199111E33F45B00930630 /* PetFinderNetworkerTests.swift */,
 				275D260E1E5106D800FAE334 /* CatRegistryTests.swift */,
 				276C61BF1E2C1AFF00225CF4 /* CatTests.swift */,
-				2719FBEB1E7F117600D3D79A /* FavoriteTests.swift */,
 				2719FBF21E7F20E900D3D79A /* GenderTests.swift */,
 				F4AB68971F2D37FE00CC4CC2 /* GeneticPurityTests.swift */,
 				F4AB689D1F2D4D4D00CC4CC2 /* GenotypeBuilderTests.swift */,
@@ -634,7 +628,6 @@
 				275D26171E512F5E00FAE334 /* FavoritesListController.swift in Sources */,
 				F43BC69E1F1AA26300E025EB /* AnimalImageLocations.swift in Sources */,
 				F46539C31EFF1F2F0049E7FD /* AnimalAgeGroups.swift in Sources */,
-				2719FBEF1E7F138500D3D79A /* Favorite.swift in Sources */,
 				276C61C61E2D728800225CF4 /* AnimalBuilder.swift in Sources */,
 				F4AB689A1F2D39F300CC4CC2 /* GeneticPurity.swift in Sources */,
 				F4E82A411F507DEA0019F1AE /* GeocodingError.swift in Sources */,
@@ -675,7 +668,6 @@
 				2767E37D1E62679600A7C5F9 /* ImageProviderTests.swift in Sources */,
 				F43BC69C1F1A9CF700E025EB /* AnimalImageLocationsTests.swift in Sources */,
 				F4543D9C1F43C19F00F9CDE3 /* LocationControllerTests.swift in Sources */,
-				2719FBEC1E7F117600D3D79A /* FavoriteTests.swift in Sources */,
 				F43BC6A01F1AA5AD00E025EB /* SequenceRemovingDuplicatesTests.swift in Sources */,
 				F416125F1EB5481B00E3E6F6 /* PredicateHelper.swift in Sources */,
 				27E823971E5A5115009B202A /* MainStoryboardTests.swift in Sources */,

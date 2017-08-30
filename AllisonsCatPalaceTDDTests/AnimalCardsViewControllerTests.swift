@@ -29,6 +29,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
         dataSource = kolodaView.dataSource
 
         MockRegistry.reset() //Clears call counts and stored animals between tests
+        ImageProvider.reset()
     }
     
     func testHasNoAnimalsByDefault() {
@@ -152,10 +153,57 @@ class AnimalCardsViewControllerTests: XCTestCase {
             !self.controller.activityIndicator.isAnimating
         }
         expectation(for: predicate, evaluatedWith: self, handler: nil)
-        waitForExpectations(timeout: 1, handler: nil)
 
         controller.viewDidLoad()
+        waitForExpectations(timeout: 1, handler: nil)
+
     }
+
+    func testLoadingCatsPrefetchesMediumSizedImages() {
+        let urlToPreload = URL(string: "https://www.example.com/preloadedMedium.png")!
+        let imageLocations = AnimalImageLocations(small: [], medium: [urlToPreload], large: [])
+        cats[10].imageLocations = imageLocations
+        
+        controller.animals = cats
+
+        let predicate = NSPredicate { _,_ in
+            ImageProvider.cache.cachedResponse(for: URLRequest(url: urlToPreload)) != nil
+        }
+        expectation(for: predicate, evaluatedWith: self, handler: nil)
+
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+
+    func testLoadingCatsPrefetchesSmallSizedImages() {
+        let urlToPreload = URL(string: "https://www.example.com/preloadedSmall.png")!
+        let imageLocations = AnimalImageLocations(small: [urlToPreload], medium: [], large: [])
+        cats[10].imageLocations = imageLocations
+
+        controller.animals = cats
+
+        let predicate = NSPredicate { _,_ in
+            ImageProvider.cache.cachedResponse(for: URLRequest(url: urlToPreload)) != nil
+        }
+        expectation(for: predicate, evaluatedWith: self, handler: nil)
+
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+
+    func testLoadingCatsPrefetchesLargeSizedImages() {
+        let urlToPreload = URL(string: "https://www.example.com/preloadedLarge.png")!
+        let imageLocations = AnimalImageLocations(small: [], medium: [], large: [urlToPreload])
+        cats[10].imageLocations = imageLocations
+
+        controller.animals = cats
+
+        let predicate = NSPredicate { _,_ in
+            ImageProvider.cache.cachedResponse(for: URLRequest(url: urlToPreload)) != nil
+        }
+        expectation(for: predicate, evaluatedWith: self, handler: nil)
+
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+
 }
 
 fileprivate class MockRegistry: AnimalFetching {

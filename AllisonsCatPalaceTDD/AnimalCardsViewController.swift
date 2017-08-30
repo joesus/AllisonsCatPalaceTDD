@@ -16,6 +16,17 @@ class AnimalCardsViewController: UIViewController {
 
     var animals = [Animal]() {
         didSet {
+            // Kick off all the requests and let the image provider handle them so they're in the cache when they're needed
+            animals.forEach { animal in
+                if let midSizeUrl = animal.imageLocations.medium.first {
+                    ImageProvider.getImage(for: midSizeUrl, completion: {_ in})
+                } else if let smallSizeUrl = animal.imageLocations.small.first {
+                    ImageProvider.getImage(for: smallSizeUrl, completion: {_ in})
+                } else if let largeSizeUrl = animal.imageLocations.large.first {
+                    ImageProvider.getImage(for: largeSizeUrl, completion: {_ in})
+                }
+            }
+
             DispatchQueue.main.async { [weak self] in
                 self?.kolodaView.reloadData()
             }

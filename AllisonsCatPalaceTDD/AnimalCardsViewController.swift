@@ -62,7 +62,7 @@ extension AnimalCardsViewController: KolodaViewDataSource {
 
         // if the card is the 10th to last card, kick off a new fetch, add the new results to the existing. As long as the offset matches the number being fetched we don't get duplicates.
         if index == animals.count - 10 {
-            registry.offset += 50
+            registry.offset += 20
             registry.fetchAllAnimals { fetchedAnimals in
                 self.animals += fetchedAnimals
             }

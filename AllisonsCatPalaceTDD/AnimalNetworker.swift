@@ -35,7 +35,7 @@ enum PetFinderNetworker: AnimalNetworker {
     typealias ResponseHandler = (Result<PetFinderResponse>) -> Void
     static var session = URLSession.shared
     static weak var retrieveAllAnimalsTask: URLSessionTask?
-    static let desiredNumberOfResults = "50"
+    static let desiredNumberOfResults = "20"
 
     static func retrieveAllAnimals(offset: Int = 0, completion: @escaping ResponseHandler)  {
         let location = SettingsManager.shared.value(forKey: .zipCode) as? String ?? ""

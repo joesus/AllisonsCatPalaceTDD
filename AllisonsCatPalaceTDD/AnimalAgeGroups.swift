@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum AnimalAgeGroup {
+enum AnimalAgeGroup: Int {
     case baby, young, adult, senior
 
     static private let petFinderRawValueMapping: [String: AnimalAgeGroup] = [
@@ -23,5 +23,21 @@ enum AnimalAgeGroup {
             return nil
         }
         self = value
+    }
+}
+
+extension AnimalAgeGroup: Persistable {
+    typealias ManagedObject = ManagedIntObject
+
+    var managedObject: ManagedIntObject {
+        let object = ManagedIntObject()
+
+        object.value = self.rawValue
+
+        return object
+    }
+
+    init?(managedObject: ManagedObject) {
+        self.init(rawValue: managedObject.value)
     }
 }

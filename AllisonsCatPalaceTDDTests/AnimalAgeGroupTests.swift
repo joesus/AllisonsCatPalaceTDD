@@ -45,4 +45,20 @@ class AnimalAgeGroupTests: XCTestCase {
         }
     }
 
+    func testManagedObject() {
+        let ageGroup = AnimalAgeGroup.adult
+        let managed = ageGroup.managedObject
+
+        XCTAssertEqual(ageGroup.rawValue, managed.value,
+                       "Managed object should store correct raw value")
+    }
+
+    func testInitializingFromManagedObject() {
+        let ageGroup = AnimalAgeGroup.baby
+        let managed = ageGroup.managedObject
+        let objectFromManaged = AnimalAgeGroup(managedObject: managed)
+
+        XCTAssertEqual(objectFromManaged?.rawValue, ageGroup.rawValue)
+    }
+
 }

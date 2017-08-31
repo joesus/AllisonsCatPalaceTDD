@@ -8,8 +8,27 @@
 
 @testable import AllisonsCatPalaceTDD
 import XCTest
+import RealmSwift
 
 class AnimalAdoptionStatusTests: XCTestCase {
+
+    var realm: Realm!
+
+    override func setUp() {
+        super.setUp()
+
+        Realm.Configuration.defaultConfiguration.inMemoryIdentifier = self.name
+
+        guard let db = try? Realm() else {
+            return XCTFail("Could not initialize realm database")
+        }
+        realm = db
+
+        try? realm.write {
+            realm.deleteAll()
+        }
+        
+    }
 
     func testAllCases() {
         let statuses = [
@@ -52,7 +71,21 @@ class AnimalAdoptionStatusTests: XCTestCase {
                        "On hold status should not be considered adoptable")
         XCTAssertFalse(AnimalAdoptionStatus.pending.isAdoptable,
                       "Pending status should not be considered adoptable")
-
     }
 
+    func testManagedObject() {
+        let status = AnimalAdoptionStatus.adoptable
+        let managed = status.managedObject
+
+        XCTAssertEqual(status.rawValue, managed.value,
+                       "Managed object should store correct raw value")
+    }
+
+    func testInitializingFromManagedObject() {
+        let status = AnimalAdoptionStatus.onHold
+        let managed = status.managedObject
+        let objectFromManaged = AnimalAdoptionStatus(managedObject: managed)
+
+        XCTAssertEqual(objectFromManaged?.rawValue, status.rawValue)
+    }
 }

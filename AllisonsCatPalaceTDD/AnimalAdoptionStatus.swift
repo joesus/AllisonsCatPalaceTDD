@@ -7,8 +7,13 @@
 //
 
 import Foundation
+import RealmSwift
 
-enum AnimalAdoptionStatus {
+class ManagedIntObject: Object {
+    dynamic var value: Int = 0 // Need to make sure this is safe to do
+}
+
+enum AnimalAdoptionStatus: Int {
     case adoptable, onHold, pending
 
     init?(petFinderRawValue value: String) {
@@ -26,5 +31,21 @@ enum AnimalAdoptionStatus {
 
     var isAdoptable: Bool {
         return self == .adoptable
+    }
+}
+
+extension AnimalAdoptionStatus: Persistable {
+    typealias ManagedObject = ManagedIntObject
+
+    var managedObject: ManagedIntObject {
+        let object = ManagedIntObject()
+
+        object.value = self.rawValue
+
+        return object
+    }
+
+    init?(managedObject: ManagedObject) {
+        self.init(rawValue: managedObject.value)
     }
 }

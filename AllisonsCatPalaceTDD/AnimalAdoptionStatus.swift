@@ -9,8 +9,8 @@
 import Foundation
 import RealmSwift
 
-class ManagedIntObject: Object {
-    dynamic var value: Int = 0 // Need to make sure this is safe to do
+class AnimalAdoptionStatusObject: Object {
+    dynamic var value: Int = 0
 }
 
 enum AnimalAdoptionStatus: Int {
@@ -35,10 +35,10 @@ enum AnimalAdoptionStatus: Int {
 }
 
 extension AnimalAdoptionStatus: Persistable {
-    typealias ManagedObject = ManagedIntObject
+    typealias ManagedObject = AnimalAdoptionStatusObject
 
-    var managedObject: ManagedIntObject {
-        let object = ManagedIntObject()
+    var managedObject: ManagedObject {
+        let object = AnimalAdoptionStatusObject()
 
         object.value = self.rawValue
 

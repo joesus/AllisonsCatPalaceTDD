@@ -88,4 +88,20 @@ class AnimalAdoptionStatusTests: XCTestCase {
 
         XCTAssertEqual(objectFromManaged?.rawValue, status.rawValue)
     }
+
+    func testSavingManagedObject() {
+        let status = AnimalAdoptionStatus.onHold
+        let managed = status.managedObject
+
+        try? realm.write {
+            realm.add(managed)
+        }
+
+        let fetchedManagedObject = realm.objects(AnimalAdoptionStatusObject.self).last!
+
+        let statusFromFetched = AnimalAdoptionStatus(managedObject: fetchedManagedObject)
+
+        XCTAssertEqual(statusFromFetched?.rawValue, status.rawValue,
+                       "Fetched adoption status should map back to original value")
+    }
 }

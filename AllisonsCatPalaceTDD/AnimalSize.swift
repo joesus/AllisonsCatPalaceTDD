@@ -7,8 +7,13 @@
 //
 
 import Foundation
+import RealmSwift
 
-enum AnimalSize {
+class AnimalSizeObject: Object {
+    var value = RealmOptional<Int>()
+}
+
+enum AnimalSize: Int {
 
     case small, medium, large, extraLarge
 
@@ -24,5 +29,27 @@ enum AnimalSize {
             return nil
         }
         self = size
+    }
+}
+
+extension AnimalSize: Persistable {
+    typealias ManagedObject = AnimalSizeObject
+
+    var managedObject: ManagedObject {
+        let object = ManagedObject()
+
+        object.value = RealmOptional<Int>(self.rawValue)
+
+        return object
+    }
+
+    init?(managedObject: ManagedObject) {
+        let value = managedObject.value
+        guard let int = value.value else {
+
+            return nil
+        }
+
+        self.init(rawValue: int)
     }
 }

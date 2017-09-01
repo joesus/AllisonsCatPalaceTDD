@@ -23,7 +23,7 @@ class AnimalImageLocationsTests: XCTestCase {
         }
         realm = db
 
-        try? realm.write {
+        try! realm.write {
             realm.deleteAll()
         }
 
@@ -93,6 +93,27 @@ class AnimalImageLocationsTests: XCTestCase {
 
         let managedLocations = locations.managedObject
         let decodedLocations = AnimalImageLocations(managedObject: managedLocations)
+
+        XCTAssertEqual(decodedLocations.small, locations.small)
+        XCTAssertEqual(decodedLocations.medium, locations.medium)
+        XCTAssertEqual(decodedLocations.large, locations.large)
+    }
+
+    func testSavingManagedObject() {
+        let locations = AnimalImageLocations(small: [URL(string: "https://www.google.com/test.png")!,
+                                                     URL(string: "https://www.google.com/test2.png")!],
+                                             medium: [],
+                                             large: [])
+
+        let managedLocations = locations.managedObject
+
+        try? realm.write {
+            realm.add(managedLocations)
+        }
+
+        let locationDataFromRealm = realm.objects(AnimalImageLocationsObject.self).last
+
+        let decodedLocations = AnimalImageLocations(managedObject: locationDataFromRealm!)
 
         XCTAssertEqual(decodedLocations.small, locations.small)
         XCTAssertEqual(decodedLocations.medium, locations.medium)

@@ -47,7 +47,7 @@ class AnimalSpeciesTests: XCTestCase {
         let species = AnimalSpecies.cat
         let managed = species.managedObject
 
-        XCTAssertEqual(species.rawValue, managed.value,
+        XCTAssertEqual(species.rawValue, managed.value.value,
                        "Managed object should store correct raw value")
     }
 

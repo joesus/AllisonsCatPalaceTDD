@@ -7,8 +7,13 @@
 //
 
 import Foundation
+import RealmSwift
 
-enum AnimalSex {
+class AnimalSexObject: Object {
+    var value = RealmOptional<Int>()
+}
+
+enum AnimalSex: Int {
 
     case male, female, unknown
 
@@ -23,5 +28,27 @@ enum AnimalSex {
             return
         }
         self = value
+    }
+}
+
+extension AnimalSex: Persistable {
+    typealias ManagedObject = AnimalSexObject
+
+    var managedObject: ManagedObject {
+        let object = ManagedObject()
+
+        object.value = RealmOptional<Int>(self.rawValue)
+
+        return object
+    }
+
+    init?(managedObject: ManagedObject) {
+        let value = managedObject.value
+        guard let int = value.value else {
+
+            return nil
+        }
+
+        self.init(rawValue: int)
     }
 }

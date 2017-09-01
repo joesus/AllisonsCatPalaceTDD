@@ -7,6 +7,11 @@
 //
 
 import Foundation
+import RealmSwift
+
+class AnimalSpeciesObject: Object {
+    var value = RealmOptional<Int>()
+}
 
 enum AnimalSpecies: Int {
     case cat, dog, other
@@ -26,17 +31,23 @@ enum AnimalSpecies: Int {
 }
 
 extension AnimalSpecies: Persistable {
-    typealias ManagedObject = ManagedIntObject
+    typealias ManagedObject = AnimalSpeciesObject
 
-    var managedObject: ManagedIntObject {
-        let object = ManagedIntObject()
+    var managedObject: ManagedObject {
+        let object = ManagedObject()
 
-        object.value = self.rawValue
+        object.value = RealmOptional<Int>(self.rawValue)
 
         return object
     }
 
     init?(managedObject: ManagedObject) {
-        self.init(rawValue: managedObject.value)
+        let value = managedObject.value
+        guard let int = value.value else {
+
+            return nil
+        }
+
+        self.init(rawValue: int)
     }
 }

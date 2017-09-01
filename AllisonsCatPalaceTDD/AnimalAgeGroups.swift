@@ -7,6 +7,11 @@
 //
 
 import Foundation
+import RealmSwift
+
+class AnimalAgeGroupObject: Object {
+    var value = RealmOptional<Int>()
+}
 
 enum AnimalAgeGroup: Int {
     case baby, young, adult, senior
@@ -27,17 +32,22 @@ enum AnimalAgeGroup: Int {
 }
 
 extension AnimalAgeGroup: Persistable {
-    typealias ManagedObject = ManagedIntObject
+    typealias ManagedObject = AnimalAgeGroupObject
 
-    var managedObject: ManagedIntObject {
-        let object = ManagedIntObject()
+    var managedObject: ManagedObject {
+        let object = AnimalAgeGroupObject()
 
-        object.value = self.rawValue
+        object.value = RealmOptional<Int>(self.rawValue)
 
         return object
     }
 
     init?(managedObject: ManagedObject) {
-        self.init(rawValue: managedObject.value)
+        let value = managedObject.value
+        guard let int = value.value else {
+            return nil
+        }
+
+        self.init(rawValue: int)
     }
 }

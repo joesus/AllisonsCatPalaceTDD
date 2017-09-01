@@ -17,17 +17,8 @@ class AnimalAdoptionStatusTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        Realm.Configuration.defaultConfiguration.inMemoryIdentifier = self.name
-
-        guard let db = try? Realm() else {
-            return XCTFail("Could not initialize realm database")
-        }
-        realm = db
-
-        try? realm.write {
-            realm.deleteAll()
-        }
-        
+        realm = realmForTest(withName: self.name!)
+        reset(realm)
     }
 
     func testAllCases() {
@@ -77,7 +68,7 @@ class AnimalAdoptionStatusTests: XCTestCase {
         let status = AnimalAdoptionStatus.adoptable
         let managed = status.managedObject
 
-        XCTAssertEqual(status.rawValue, managed.value,
+        XCTAssertEqual(status.rawValue, managed.value.value,
                        "Managed object should store correct raw value")
     }
 

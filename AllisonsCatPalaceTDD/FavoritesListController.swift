@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FavoritesListController: UITableViewController {
     var animals = [Animal]() {
@@ -15,6 +16,17 @@ class FavoritesListController: UITableViewController {
                 tableView?.reloadData()
             }
         }
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        guard let realm = try? Realm() else { return }
+
+        animals = realm.objects(AnimalObject.self).flatMap { animalObject in
+            return Animal(managedObject: animalObject)
+        }
+
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {

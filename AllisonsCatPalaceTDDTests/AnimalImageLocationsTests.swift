@@ -62,7 +62,16 @@ class AnimalImageLocationsTests: XCTestCase {
                        "Multiple locations should be created if they are not duplicates")
     }
 
-    func testRealmObjectWithEmptyLocations() {
+    func testManagedObject() {
+        XCTAssertEqual(AnimalImageLocationsObject().small, Data(),
+                       "Animal image locations for small images should have empty data object as default")
+        XCTAssertEqual(AnimalImageLocationsObject().medium, Data(),
+                       "Animal image locations for medium images should have empty data object as default")
+        XCTAssertEqual(AnimalImageLocationsObject().large, Data(),
+                       "Animal image locations for large images should have empty data object as default")
+    }
+
+    func testManagedObjectWithEmptyLocations() {
         let originalLocations = AnimalImageLocations(small: [],
                                                     medium: [],
                                                     large: [])

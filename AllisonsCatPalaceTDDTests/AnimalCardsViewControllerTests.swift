@@ -9,12 +9,14 @@
 @testable import AllisonsCatPalaceTDD
 import TestableUIKit
 import Koloda
+import RealmSwift
 import XCTest
 
 class AnimalCardsViewControllerTests: XCTestCase {
     var controller: AnimalCardsViewController!
     var kolodaView: KolodaView!
     var dataSource: KolodaViewDataSource!
+    var realm: Realm!
 
     override func setUp() {
         super.setUp()
@@ -30,8 +32,11 @@ class AnimalCardsViewControllerTests: XCTestCase {
 
         MockRegistry.reset() //Clears call counts and stored animals between tests
         ImageProvider.reset()
+
+        realm = realmForTest(withName: name!)
+        reset(realm)
     }
-    
+
     func testHasNoAnimalsByDefault() {
         XCTAssert(controller.animals.isEmpty, "AnimalCardsViewController should have no animals by default")
     }
@@ -164,7 +169,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
         expectation(for: predicate, evaluatedWith: self, handler: nil)
 
         controller.viewDidLoad()
-        waitForExpectations(timeout: 1, handler: nil)
+        waitForExpectations(timeout: 3, handler: nil)
 
     }
 
@@ -180,7 +185,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
         }
         expectation(for: predicate, evaluatedWith: self, handler: nil)
 
-        waitForExpectations(timeout: 1, handler: nil)
+        waitForExpectations(timeout: 3, handler: nil)
     }
 
     func testLoadingCatsPrefetchesSmallSizedImages() {
@@ -195,7 +200,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
         }
         expectation(for: predicate, evaluatedWith: self, handler: nil)
 
-        waitForExpectations(timeout: 1, handler: nil)
+        waitForExpectations(timeout: 3, handler: nil)
     }
 
     func testLoadingCatsPrefetchesLargeSizedImages() {
@@ -211,6 +216,72 @@ class AnimalCardsViewControllerTests: XCTestCase {
         expectation(for: predicate, evaluatedWith: self, handler: nil)
 
         waitForExpectations(timeout: 1, handler: nil)
+    }
+
+    func testSwipingRightSavesSingleAnimalToFavorites() {
+        var savedAnimals: [Animal]
+
+        controller.animals = cats
+
+        savedAnimals = realm.objects(AnimalObject.self).flatMap { animalObject in
+            return Animal(managedObject: animalObject)
+        }
+
+        XCTAssertTrue(savedAnimals.isEmpty,
+                      "There should be no saved animals without swiping")
+
+        kolodaView.delegate?.koloda(kolodaView, didSwipeCardAt: 0, in: .right)
+
+        savedAnimals = realm.objects(AnimalObject.self).flatMap { animalObject in
+            return Animal(managedObject: animalObject)
+        }
+
+        XCTAssertFalse(savedAnimals.isEmpty,
+                       "Swiping right should save an animal")
+    }
+
+    func testSwipingRightMultipleTimes() {
+        controller.animals = cats
+        
+        kolodaView.delegate?.koloda(kolodaView, didSwipeCardAt: 0, in: .right)
+        kolodaView.delegate?.koloda(kolodaView, didSwipeCardAt: 1, in: .right)
+
+        let savedAnimals: [Animal] = realm.objects(AnimalObject.self).flatMap { animalObject in
+            return Animal(managedObject: animalObject)
+        }
+
+        XCTAssertFalse(savedAnimals.isEmpty,
+                       "Swiping right should save an animal")
+        XCTAssertEqual(savedAnimals.count, 2,
+                      "Swiping right twice should save two animals")
+    }
+
+    func testSwipingRightMultipleTimesSameCard() {
+        controller.animals = cats
+
+        kolodaView.delegate?.koloda(kolodaView, didSwipeCardAt: 0, in: .right)
+        kolodaView.delegate?.koloda(kolodaView, didSwipeCardAt: 0, in: .right)
+
+        let savedAnimals: [Animal] = realm.objects(AnimalObject.self).flatMap { animalObject in
+            return Animal(managedObject: animalObject)
+        }
+
+        XCTAssertFalse(savedAnimals.isEmpty,
+                       "Swiping right should save an animal")
+        XCTAssertEqual(savedAnimals.count, 1,
+                       "Swiping right twice on the same animal should only save one animal")
+    }
+
+    func testSwipingLeftDoesNotSaveToFavorites() {
+        // TODO
+    }
+
+    func testPrepareForSegue() {
+        // TODO
+    }
+
+    func testPerformSegue() {
+        // TODO
     }
 
 }

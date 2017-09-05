@@ -65,6 +65,9 @@ class AnimalAdoptionStatusTests: XCTestCase {
     }
 
     func testManagedObject() {
+        XCTAssertNil(AnimalAdoptionStatusObject().value.value,
+                     "AnimalAdoptionStatusObject should have no value by default")
+
         let status = AnimalAdoptionStatus.adoptable
         let managed = status.managedObject
 
@@ -77,7 +80,8 @@ class AnimalAdoptionStatusTests: XCTestCase {
         let managed = status.managedObject
         let objectFromManaged = AnimalAdoptionStatus(managedObject: managed)
 
-        XCTAssertEqual(objectFromManaged?.rawValue, status.rawValue)
+        XCTAssertEqual(objectFromManaged?.rawValue, status.rawValue,
+                       "Adoption status initialized from managed object should have correct value")
     }
 
     func testSavingManagedObject() {

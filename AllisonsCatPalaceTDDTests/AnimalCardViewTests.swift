@@ -104,7 +104,7 @@ class AnimalCardViewTests: XCTestCase {
         XCTAssertEqual(task?.currentRequest?.url?.absoluteString, "https://www.google.com/catSmall.png")
     }
 
-    func testCOnfiguringFetchesFirstLargeImageIfNoMediumOrSmallAvailable() {
+    func testConfiguringFetchesFirstLargeImageIfNoMediumOrSmallAvailable() {
         let imageLocations = AnimalImageLocations(small: [], medium: [], large: [URL(string: "https://www.google.com/catLarge.png")!, URL(string: "https://www.google.com/catLarge2.png")!])
         let cat = SampleCat
         cat.imageLocations = imageLocations

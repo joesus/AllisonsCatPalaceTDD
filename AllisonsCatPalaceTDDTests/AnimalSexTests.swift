@@ -62,6 +62,9 @@ class AnimalSexTests: XCTestCase {
     }
 
     func testManagedObject() {
+        XCTAssertNil(AnimalSexObject().value.value,
+                     "AnimalSexObject should have no value by default")
+
         let sex = AnimalSex.male
         let managed = sex.managedObject
 

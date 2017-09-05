@@ -7,9 +7,19 @@
 //
 
 import XCTest
+import RealmSwift
 @testable import AllisonsCatPalaceTDD
 
 class AnimalSpeciesTests: XCTestCase {
+
+    var realm: Realm!
+
+    override func setUp() {
+        super.setUp()
+
+        realm = realmForTest(withName: name!)
+        reset(realm)
+    }
 
     func testInitializerWithEmptyString() {
         XCTAssertEqual(AnimalSpecies(petFinderRawValue: ""), .other,
@@ -44,6 +54,9 @@ class AnimalSpeciesTests: XCTestCase {
     }
 
     func testManagedObject() {
+        XCTAssertNil(AnimalSpeciesObject().value.value,
+                     "AnimalSpeciesObject should have no value by default")
+
         let species = AnimalSpecies.cat
         let managed = species.managedObject
 
@@ -57,5 +70,20 @@ class AnimalSpeciesTests: XCTestCase {
         let objectFromManaged = AnimalSpecies(managedObject: managed)
 
         XCTAssertEqual(objectFromManaged?.rawValue, species.rawValue)
+    }
+
+    func testSavingManagedObject() {
+        let original = AnimalSpecies.dog
+        let managed = original.managedObject
+
+        try! realm.write {
+            realm.add(managed)
+        }
+
+        let fetchedManagedObject = realm.objects(AnimalSpeciesObject.self).last!
+
+        let originalValueFromFetched = AnimalSpecies(managedObject: fetchedManagedObject)
+
+        XCTAssertEqual(original.rawValue, originalValueFromFetched?.rawValue)
     }
 }

@@ -52,6 +52,9 @@ class GeneticPurityTests: XCTestCase {
     }
 
     func testManagedObject() {
+        XCTAssertNil(GeneticPurityObject().value.value,
+                     "GeneticPurityObject should have no value by default")
+
         let original = GeneticPurity.mixed
         let managed = original.managedObject
 

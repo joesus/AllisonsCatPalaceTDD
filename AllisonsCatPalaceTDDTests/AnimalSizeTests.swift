@@ -74,6 +74,9 @@ class AnimalSizeTests: XCTestCase {
     }
 
     func testManagedObject() {
+        XCTAssertNil(AnimalSizeObject().value.value,
+                     "AnimalSizeObject should have no value by default")
+
         let original = AnimalSize.large
         let managed = original.managedObject
 

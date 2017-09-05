@@ -8,6 +8,7 @@
 
 import UIKit
 import Koloda
+import RealmSwift
 
 class AnimalCardsViewController: UIViewController {
     @IBOutlet fileprivate(set) weak var activityIndicator: UIActivityIndicatorView!
@@ -56,6 +57,18 @@ extension AnimalCardsViewController: KolodaViewDelegate {
 //    func koloda(koloda: KolodaView, didSelectCardAt index: Int) {
 //        transition to detail view
 //    }
+
+    func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
+        let animal = animals[index]
+
+        if direction == .right {
+            if let realm = try? Realm() {
+                try? realm.write {
+                    realm.add(animal.managedObject, update: true)
+                }
+            }
+        }
+    }
 }
 
 extension AnimalCardsViewController: KolodaViewDataSource {

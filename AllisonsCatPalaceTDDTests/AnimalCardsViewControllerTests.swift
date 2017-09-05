@@ -273,17 +273,23 @@ class AnimalCardsViewControllerTests: XCTestCase {
     }
 
     func testSwipingLeftDoesNotSaveToFavorites() {
-        // TODO
+        controller.animals = cats
+
+        kolodaView.delegate?.koloda(kolodaView, didSwipeCardAt: 0, in: .left)
+
+        let savedAnimals: [Animal] = realm.objects(AnimalObject.self).flatMap { animalObject in
+            return Animal(managedObject: animalObject)
+        }
+
+        XCTAssertTrue(savedAnimals.isEmpty,
+                      "Swiping left should not save animal")
     }
+
+    // TODO - test for clicking card to get to detail view
 
     func testPrepareForSegue() {
-        // TODO
+        // TODO - for clicking on card passing known information
     }
-
-    func testPerformSegue() {
-        // TODO
-    }
-
 }
 
 fileprivate class MockRegistry: AnimalFetching {

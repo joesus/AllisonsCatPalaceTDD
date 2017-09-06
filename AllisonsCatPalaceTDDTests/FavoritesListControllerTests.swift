@@ -22,6 +22,10 @@ class FavoritesListControllerTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
+        realm = realmForTest(withName: name!)
+        reset(realm)
+        InjectionMap.realm = realm
+
         navController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
         
         replaceRootViewController(with: navController) // the main controller for the window is now the navController
@@ -36,8 +40,6 @@ class FavoritesListControllerTests: XCTestCase {
         controller = navController.topViewController as! FavoritesListController
         tableView = controller.tableView
 
-        realm = realmForTest(withName: name!)
-        reset(realm)
     }
 
     override func tearDown() {
@@ -52,7 +54,7 @@ class FavoritesListControllerTests: XCTestCase {
     }
 
     func testHasNoAnimalsByDefault() {
-        XCTAssert(controller.animals.isEmpty, "FavoritesListController should have no animals by default")
+        XCTAssert(controller.animals.isEmpty, "FavoritesListController should have no animals by default, had: \(controller.animals.count) animals")
     }
 
     func testFetchesDataOnLoad() {

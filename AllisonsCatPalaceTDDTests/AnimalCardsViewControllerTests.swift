@@ -177,15 +177,18 @@ class AnimalCardsViewControllerTests: XCTestCase {
         let urlToPreload = URL(string: "https://www.example.com/preloadedMedium.png")!
         let imageLocations = AnimalImageLocations(small: [], medium: [urlToPreload], large: [])
         cats[10].imageLocations = imageLocations
-        
-        controller.animals = cats
+
+        // loads cats from the mock registry - waiting for the tenth card to be loaded since it will indicate that card images are being loaded before they are being displayed
+        controller.registry = MockRegistry.self
+        MockRegistry.animals = cats
+        controller.viewDidLoad()
 
         let predicate = NSPredicate { _,_ in
             ImageProvider.cache.cachedResponse(for: URLRequest(url: urlToPreload)) != nil
         }
         expectation(for: predicate, evaluatedWith: self, handler: nil)
 
-        waitForExpectations(timeout: 3, handler: nil)
+        waitForExpectations(timeout: 2, handler: nil)
     }
 
     func testLoadingCatsPrefetchesSmallSizedImages() {
@@ -193,7 +196,9 @@ class AnimalCardsViewControllerTests: XCTestCase {
         let imageLocations = AnimalImageLocations(small: [urlToPreload], medium: [], large: [])
         cats[10].imageLocations = imageLocations
 
-        controller.animals = cats
+        controller.registry = MockRegistry.self
+        MockRegistry.animals = cats
+        controller.viewDidLoad()
 
         let predicate = NSPredicate { _,_ in
             ImageProvider.cache.cachedResponse(for: URLRequest(url: urlToPreload)) != nil
@@ -208,20 +213,24 @@ class AnimalCardsViewControllerTests: XCTestCase {
         let imageLocations = AnimalImageLocations(small: [], medium: [], large: [urlToPreload])
         cats[10].imageLocations = imageLocations
 
-        controller.animals = cats
+        controller.registry = MockRegistry.self
+        MockRegistry.animals = cats
+        controller.viewDidLoad()
 
         let predicate = NSPredicate { _,_ in
             ImageProvider.cache.cachedResponse(for: URLRequest(url: urlToPreload)) != nil
         }
         expectation(for: predicate, evaluatedWith: self, handler: nil)
 
-        waitForExpectations(timeout: 1, handler: nil)
+        waitForExpectations(timeout: 2, handler: nil)
     }
 
     func testSwipingRightSavesSingleAnimalToFavorites() {
         var savedAnimals: [Animal]
 
-        controller.animals = cats
+        controller.registry = MockRegistry.self
+        MockRegistry.animals = cats
+        controller.viewDidLoad()
 
         savedAnimals = realm.objects(AnimalObject.self).flatMap { animalObject in
             return Animal(managedObject: animalObject)
@@ -241,7 +250,9 @@ class AnimalCardsViewControllerTests: XCTestCase {
     }
 
     func testSwipingRightMultipleTimes() {
-        controller.animals = cats
+        controller.registry = MockRegistry.self
+        MockRegistry.animals = cats
+        controller.viewDidLoad()
         
         kolodaView.delegate?.koloda(kolodaView, didSwipeCardAt: 0, in: .right)
         kolodaView.delegate?.koloda(kolodaView, didSwipeCardAt: 1, in: .right)
@@ -257,7 +268,9 @@ class AnimalCardsViewControllerTests: XCTestCase {
     }
 
     func testSwipingRightMultipleTimesSameCard() {
-        controller.animals = cats
+        controller.registry = MockRegistry.self
+        MockRegistry.animals = cats
+        controller.viewDidLoad()
 
         kolodaView.delegate?.koloda(kolodaView, didSwipeCardAt: 0, in: .right)
         kolodaView.delegate?.koloda(kolodaView, didSwipeCardAt: 0, in: .right)
@@ -273,7 +286,9 @@ class AnimalCardsViewControllerTests: XCTestCase {
     }
 
     func testSwipingLeftDoesNotSaveToFavorites() {
-        controller.animals = cats
+        controller.registry = MockRegistry.self
+        MockRegistry.animals = cats
+        controller.viewDidLoad()
 
         kolodaView.delegate?.koloda(kolodaView, didSwipeCardAt: 0, in: .left)
 

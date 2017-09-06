@@ -181,8 +181,12 @@ class AnimalTests: XCTestCase {
         animal.genotype = sampleGenotype
         animal.stateCode = "NY"
         animal.size = .medium
+        animal.imageLocations = sampleImageLocations
 
         let breedsData = NSKeyedArchiver.archivedData(withRootObject: animal.genotype!.breeds)
+        let imageLocationSmallData = NSKeyedArchiver.archivedData(withRootObject: animal.imageLocations.small)
+        let imageLocationMediumData = NSKeyedArchiver.archivedData(withRootObject: animal.imageLocations.medium)
+        let imageLocationLargeData = NSKeyedArchiver.archivedData(withRootObject: animal.imageLocations.large)
 
         XCTAssertEqual(animal.about, animal.managedObject.about,
                        "Managed object for animal should store correct value for about")
@@ -206,6 +210,12 @@ class AnimalTests: XCTestCase {
                        "Managed object for animal should store correct value for stateCode")
         XCTAssertEqual(animal.size?.rawValue, animal.managedObject.size?.value.value,
                        "Managed object for animal should store correct value for size")
+        XCTAssertEqual(imageLocationSmallData, animal.managedObject.imageLocations?.small,
+                       "Managed object for animal should store correct image locations - small")
+        XCTAssertEqual(imageLocationMediumData, animal.managedObject.imageLocations?.medium,
+                       "Managed object for animal should store correct image locations - medium")
+        XCTAssertEqual(imageLocationLargeData, animal.managedObject.imageLocations?.large,
+                       "Managed object for animal should store correct image locations - large")
     }
 
     func testInitializingFromManagedObject() {
@@ -218,6 +228,7 @@ class AnimalTests: XCTestCase {
         animal.genotype = sampleGenotype
         animal.stateCode = "NY"
         animal.size = .medium
+        animal.imageLocations = sampleImageLocations
 
         let objectFromManaged = Animal(managedObject: animal.managedObject)
 
@@ -241,6 +252,12 @@ class AnimalTests: XCTestCase {
                        "Managed object from animal should have correct state code")
         XCTAssertEqual(animal.size, objectFromManaged?.size,
                        "Managed object from animal should have correct size")
+        XCTAssertEqual(animal.imageLocations.small, objectFromManaged!.imageLocations.small,
+                       "Managed object from animal should have correct image locations - small")
+        XCTAssertEqual(animal.imageLocations.medium, objectFromManaged!.imageLocations.medium,
+                       "Managed object from animal should have correct image locations - medium")
+        XCTAssertEqual(animal.imageLocations.large, objectFromManaged!.imageLocations.large,
+                       "Managed object from animal should have correct image locations - large")
     }
 
     func testSavingManagedObject() {
@@ -253,6 +270,7 @@ class AnimalTests: XCTestCase {
         animal.genotype = sampleGenotype
         animal.stateCode = "NY"
         animal.size = .medium
+        animal.imageLocations = sampleImageLocations
 
         let managed = animal.managedObject
 
@@ -284,6 +302,12 @@ class AnimalTests: XCTestCase {
                        "Managed object from animal should have correct state code")
         XCTAssertEqual(animal.size, originalValueFromFetched?.size,
                        "Managed object from animal should have correct size")
+        XCTAssertEqual(animal.imageLocations.small, originalValueFromFetched!.imageLocations.small,
+                       "Managed object from animal should have correct image locations - small")
+        XCTAssertEqual(animal.imageLocations.medium, originalValueFromFetched!.imageLocations.medium,
+                       "Managed object from animal should have correct image locations - medium")
+        XCTAssertEqual(animal.imageLocations.large, originalValueFromFetched!.imageLocations.large,
+                       "Managed object from animal should have correct image locations - large")
     }
 
     func testDoesNotSaveDuplicates() {

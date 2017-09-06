@@ -133,5 +133,10 @@ extension Animal: Persistable {
         if let sizeObject = managedObject.size {
             size = AnimalSize(managedObject: sizeObject)
         }
+
+        if let imageLocationsObject = managedObject.imageLocations {
+            imageLocations = AnimalImageLocations(managedObject: imageLocationsObject)
+        }
+
     }
 }

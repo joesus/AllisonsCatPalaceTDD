@@ -30,5 +30,6 @@ class SettingsManager {
         var rawValue: String
 
         static let zipCode = Key(rawValue: "zipCode")
+        static let species = Key(rawValue: "species")
     }
 }

@@ -21,12 +21,14 @@ class PetFinderNetworkerTests: XCTestCase {
         URLSessionTask.beginSpyingOnResume()
         URLSessionTask.beginSpyingOnCancel()
         URLSession.beginSpyingOnDataTaskCreation()
+        SettingsManager.shared.clear()
     }
 
     override func tearDown() {
         URLSessionTask.endSpyingOnResume()
         URLSessionTask.endSpyingOnCancel()
         URLSession.endSpyingOnDataTaskCreation()
+        SettingsManager.shared.clear()
 
         super.tearDown()
     }
@@ -76,7 +78,6 @@ class PetFinderNetworkerTests: XCTestCase {
     }
 
     func testCreatingRetrieveAllAnimalsTaskWithPersistedLocationDoesNotDuplicateLocationParam() {
-        SettingsManager.shared.clear()
         SettingsManager.shared.set(value: "55555", forKey: .zipCode)
         PetFinderNetworker.retrieveAllAnimals {_ in}
 
@@ -119,6 +120,48 @@ class PetFinderNetworkerTests: XCTestCase {
 
         XCTAssertEqual(request.url!.query!.components(separatedBy: "offset=").count - 1, 1,
                        "Creating a new task with a different offset should not add duplicate offset to query")
+    }
+
+    func testCreatingRetrieveAllAnimalsTaskWithNoStoredSpecies() {
+        PetFinderNetworker.retrieveAllAnimals {_ in}
+
+        guard let task = PetFinderNetworker.session.lastResumedDataTask,
+            let request = task.currentRequest else {
+                return XCTFail("A task should have a currentRequest")
+        }
+
+        XCTAssertFalse(request.url!.query!.contains("animal="), "Query: \(request.url!.query!) should not include a species when there is no stored species")
+    }
+
+    func testCreatingRetrieveAllAnimalsTaskWithSpecies() {
+        SettingsManager.shared.set(value: AnimalSpecies.dog.rawValue, forKey: .species)
+        PetFinderNetworker.retrieveAllAnimals(offset: 25) {_ in}
+
+        guard let task = PetFinderNetworker.session.lastResumedDataTask else {
+            return XCTFail("A task should have been created")
+        }
+
+        guard let request = task.currentRequest else {
+            return XCTFail("A task should have a currentRequest")
+        }
+
+        XCTAssertTrue(request.url!.query!.contains("animal=dog"), "Query: \(request.url!.query!) should use the stored species")
+    }
+
+    func testCreatingRetrieveAllAnimalsTaskWithSpeciesDoesNotDuplicateSpeciesParam() {
+        SettingsManager.shared.set(value: AnimalSpecies.dog.rawValue, forKey: .species)
+
+        PetFinderNetworker.retrieveAllAnimals {_ in}
+        PetFinderNetworker.retrieveAllAnimals {_ in}
+
+        guard let task = PetFinderNetworker.session.lastResumedDataTask,
+            let request = task.currentRequest else {
+
+                return XCTFail("A task should have a currentRequest")
+        }
+
+        XCTAssertEqual(request.url!.query!.components(separatedBy: "animal=").count - 1, 1,
+                       "Creating a new task with a persisted species should not add duplicate species param to query")
     }
 
     func testNewRetrieveAllAnimalsTaskCancelsExistingTask() {

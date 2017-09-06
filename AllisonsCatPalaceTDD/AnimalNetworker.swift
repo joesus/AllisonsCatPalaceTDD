@@ -47,10 +47,24 @@ enum PetFinderNetworker: AnimalNetworker {
 
         removeQueryItem(named: "location")
         removeQueryItem(named: "offset")
+        removeQueryItem(named: "animal")
 
         CatServiceComponents.queryItems?.append(locationQuery)
         let offsetQuery = URLQueryItem(name: "offset", value: "\(offset)")
         CatServiceComponents.queryItems?.append(offsetQuery)
+
+        if let persistedSpeciesRawValue = SettingsManager.shared.value(forKey: .species) as? Int,
+            let species = AnimalSpecies(rawValue: persistedSpeciesRawValue) {
+
+            switch species {
+            case .cat:
+                CatServiceComponents.queryItems?.append(URLQueryItem(name: "animal", value: "cat"))
+            case .dog:
+                CatServiceComponents.queryItems?.append(URLQueryItem(name: "animal", value: "dog"))
+            default:
+                break
+            }
+        }
 
         guard let url = CatServiceComponents.url else { return }
 

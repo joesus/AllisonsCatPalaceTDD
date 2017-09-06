@@ -77,6 +77,8 @@
 		F46539CD1EFF29A80049E7FD /* AnimalSpecies.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539CC1EFF29A80049E7FD /* AnimalSpecies.swift */; };
 		F46539CF1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */; };
 		F46539D11EFF2F6D0049E7FD /* AnimalPhotoSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */; };
+		F4A5079A1F6043B100B8E480 /* SpeciesSelectionControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A507991F6043B100B8E480 /* SpeciesSelectionControllerTests.swift */; };
+		F4A5079C1F60459400B8E480 /* SpeciesSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A5079B1F60459400B8E480 /* SpeciesSelectionController.swift */; };
 		F48AAD591F87207B00BC8081 /* RealmProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48AAD581F87207B00BC8081 /* RealmProtocol.swift */; };
 		F4AB68921F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */; };
 		F4AB68941F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68931F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift */; };
@@ -189,6 +191,8 @@
 		F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalPhotoSizeTests.swift; sourceTree = "<group>"; };
 		F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalPhotoSize.swift; sourceTree = "<group>"; };
 		F483B6951F57536D00E57471 /* RealmTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmTests.swift; sourceTree = "<group>"; };
+		F4A507991F6043B100B8E480 /* SpeciesSelectionControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeciesSelectionControllerTests.swift; sourceTree = "<group>"; };
+		F4A5079B1F60459400B8E480 /* SpeciesSelectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeciesSelectionController.swift; sourceTree = "<group>"; };
 		F48AAD581F87207B00BC8081 /* RealmProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmProtocol.swift; sourceTree = "<group>"; };
 		F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalAdoptionStatusTests.swift; sourceTree = "<group>"; };
 		F4AB68931F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalAdoptionStatus.swift; sourceTree = "<group>"; };
@@ -314,6 +318,7 @@
 				F436324E1F5371AB004DF88A /* SwipeOverlayView.swift */,
 				F43632501F537595004DF88A /* SwipeOverlayView.xib */,
 				F4BE6C981F584CFE00480671 /* Persistable.swift */,
+				F4A5079B1F60459400B8E480 /* SpeciesSelectionController.swift */,
 				F48AAD581F87207B00BC8081 /* RealmProtocol.swift */,
 			);
 			path = AllisonsCatPalaceTDD;
@@ -322,6 +327,7 @@
 		276C61A91E2C062200225CF4 /* AllisonsCatPalaceTDDTests */ = {
 			isa = PBXGroup;
 			children = (
+				F4A507991F6043B100B8E480 /* SpeciesSelectionControllerTests.swift */,
 				F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */,
 				F46539C01EFF1E690049E7FD /* AnimalAgeGroupTests.swift */,
 				276C61C31E2C1D8600225CF4 /* AnimalBuilderTests.swift */,
@@ -619,6 +625,7 @@
 				270A6AF51E3E9D3800B12D38 /* AnimalNetworkError.swift in Sources */,
 				F4BE6C991F584CFE00480671 /* Persistable.swift in Sources */,
 				F43BC6A21F1AA8A400E025EB /* ArrayExtensions.swift in Sources */,
+				F4A5079C1F60459400B8E480 /* SpeciesSelectionController.swift in Sources */,
 				277199141E34002300930630 /* AnimalNetworker.swift in Sources */,
 				276C61BC1E2C183300225CF4 /* ExternalAnimal.swift in Sources */,
 				F4AB68D81F328CF300CC4CC2 /* GenotypeBuilder.swift in Sources */,
@@ -654,6 +661,7 @@
 				F4BE6C9B1F59C00900480671 /* RealmHelpers.swift in Sources */,
 				F4AB68921F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift in Sources */,
 				276C61B61E2C068900225CF4 /* AppDelegateTests.swift in Sources */,
+				F4A5079A1F6043B100B8E480 /* SpeciesSelectionControllerTests.swift in Sources */,
 				F46539C51EFF24720049E7FD /* AnimalSexTests.swift in Sources */,
 				F4E8BE851F2407CC00F680E2 /* DataTaskResumeStub.swift in Sources */,
 				F43632591F53B091004DF88A /* AnimalCardViewTests.swift in Sources */,

@@ -34,11 +34,11 @@ class SpeciesSelectionControllerTests: XCTestCase {
     }
 
     func testButtons() {
-        XCTAssertNotNil(controller.catsButton.imageView?.image,
+        XCTAssertNotNil(controller.catsButton.backgroundImage(for: .normal),
                         "Cats button should have an image set")
-        XCTAssertNotNil(controller.dogsButton.imageView?.image,
+        XCTAssertNotNil(controller.dogsButton.backgroundImage(for: .normal),
                         "Dogs button should have an image set")
-        XCTAssertNotNil(controller.anyButton.imageView?.image,
+        XCTAssertNotNil(controller.anyButton.backgroundImage(for: .normal),
                         "`Any` button should have an image set")
     }
 

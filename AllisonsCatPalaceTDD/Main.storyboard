@@ -225,21 +225,27 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zlU-95-7Zc">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="190.5"/>
-                                        <state key="normal" title="Button" image="catOutline"/>
+                                        <state key="normal" title="Cats Button" backgroundImage="catOutline">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="speciesTapped:" destination="vDh-La-cHV" eventType="touchUpInside" id="qNH-JK-HIY"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YWR-XY-Xmc">
                                         <rect key="frame" x="0.0" y="206.5" width="375" height="190"/>
-                                        <state key="normal" title="Button" image="catOutline"/>
+                                        <state key="normal" title="Dogs Button" backgroundImage="catOutline">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="speciesTapped:" destination="vDh-La-cHV" eventType="touchUpInside" id="aip-wm-1dE"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bjh-m8-P4m">
                                         <rect key="frame" x="0.0" y="412.5" width="375" height="190.5"/>
-                                        <state key="normal" title="Button" image="catOutline"/>
+                                        <state key="normal" title="Either Button" backgroundImage="catOutline">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="speciesTapped:" destination="vDh-La-cHV" eventType="touchUpInside" id="E5A-Dc-xq8"/>
                                         </connections>

@@ -29,6 +29,9 @@ class AnimalCardsViewController: UIViewController {
             }
 
             DispatchQueue.main.async { [weak self] in
+                // Koloda view basically highjacks whatever screen is visible when it's reloaded so important to only do it when this controller is displayed
+                guard self?.navigationController?.topViewController == self else { return }
+
                 self?.kolodaView.reloadData()
             }
         }

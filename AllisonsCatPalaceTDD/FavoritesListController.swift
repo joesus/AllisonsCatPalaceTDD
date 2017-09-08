@@ -69,6 +69,34 @@ class FavoritesListController: UITableViewController, RealmInjected {
         return cell
     }
 
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        guard let realm = realm else { return }
+
+        let animalToDelete = animals[indexPath.row]
+        let objectToDelete = realm.objects(AnimalObject.self).first { animalObject in
+            animalObject.identifier.value == animalToDelete.identifier
+        }
+
+        if let object = objectToDelete {
+            try? realm.write {
+                realm.delete(object)
+            }
+        }
+
+        animals.remove(at: indexPath.row)
+
+        if animals.count == 0 {
+            tableView.beginUpdates()
+            tableView.deleteSections([0], with: .automatic)
+            tableView.endUpdates()
+            return
+        }
+
+        tableView.beginUpdates()
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+        tableView.endUpdates()
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationController = segue.destination as? CatDetailController,
             let row = tableView.indexPathForSelectedRow?.row {

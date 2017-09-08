@@ -29,6 +29,14 @@ class LocationController: UIViewController {
         zipCodeField.becomeFirstResponder()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if geocoder.isGeocoding {
+            geocoder.cancelGeocode()
+        }
+    }
+
     fileprivate func decorateZipCodeField() {
         zipCodeField.layer.cornerRadius = 4
         zipCodeField.layer.borderWidth = 1
@@ -97,6 +105,13 @@ extension LocationController: UITextFieldDelegate {
             }
 
             SettingsManager.shared.set(value: zipCode, forKey: .zipCode)
+
+            //Do not perform a segue if it's not the top view controller - probably means the user hit the back button which would also end editing,
+            // The task should have been cancelled by this point from viewWillDisappear but just in case
+            guard let navController = self?.navigationController,
+                navController.topViewController == self else {
+                return
+            }
 
             self?.performSegue(withIdentifier: "ShowAnimalCardsViewController", sender: nil)
         }

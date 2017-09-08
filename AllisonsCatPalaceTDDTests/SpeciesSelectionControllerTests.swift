@@ -91,4 +91,34 @@ class SpeciesSelectionControllerTests: XCTestCase {
         }
     }
 
+    func testFavoritesButton() {
+        XCTAssertEqual(controller.navigationItem.rightBarButtonItem?.title, "Favorites",
+                       "Favorites button exists and has correct title")
+    }
+
+    func testFavoritesSegue() {
+        guard let navController = UIStoryboard(name: "Main", bundle: Bundle(for: AnimalCardsViewController.self)).instantiateInitialViewController() as? UINavigationController else {
+            return XCTFail("Main storyboard should have a navigation controller")
+        }
+
+        replaceRootViewController(with: navController) // add it to the window
+        navController.addChildViewController(controller) // make controller the top view controller
+
+        let predicate = NSPredicate { _, _ in
+            navController.topViewController is FavoritesListController
+        }
+        expectation(for: predicate, evaluatedWith: self, handler: nil)
+
+        UIViewController.PerformSegueSpyController.createSpy(on: controller)!.spy {
+            controller.performSegue(withIdentifier: "showFavoritesListController", sender: controller.navigationItem.rightBarButtonItem)
+
+            waitForExpectations(timeout: 2, handler: nil)
+
+            XCTAssertTrue(controller.performSegueCalled,
+                          "Perform segue should be called on controller")
+            XCTAssertEqual(controller.performSegueIdentifier, "showFavoritesListController",
+                           "Segue identifier should identify the destination of the segue")
+        }
+    }
+
 }

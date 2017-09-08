@@ -261,7 +261,13 @@
                             <constraint firstItem="hgg-ui-wbu" firstAttribute="leading" secondItem="GLb-QM-6XM" secondAttribute="leading" id="kMr-eU-thX"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Nn1-IH-5v5"/>
+                    <navigationItem key="navigationItem" id="Nn1-IH-5v5">
+                        <barButtonItem key="rightBarButtonItem" title="Favorites" id="cau-bB-qlr">
+                            <connections>
+                                <segue destination="WVV-vz-AHA" kind="show" identifier="showFavoritesListController" id="iu2-83-MtI"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="anyButton" destination="Bjh-m8-P4m" id="3EW-mw-j1r"/>
                         <outlet property="catsButton" destination="zlU-95-7Zc" id="ucd-Ua-viP"/>
@@ -277,4 +283,7 @@
     <resources>
         <image name="catOutline" width="384" height="384"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="iu2-83-MtI"/>
+    </inferredMetricsTieBreakers>
 </document>

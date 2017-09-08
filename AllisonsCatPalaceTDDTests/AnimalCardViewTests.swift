@@ -147,7 +147,7 @@ class AnimalCardViewTests: XCTestCase {
     }
 }
 
-// TODO - tests to make sure it's setting images on main thread.
+// Nice to have - tests to make sure it's setting images on main thread.
 
 extension AnimalCardViewTests {
     func setupComponents() {

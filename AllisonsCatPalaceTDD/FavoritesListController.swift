@@ -78,10 +78,9 @@ class FavoritesListController: UITableViewController, RealmInjected {
         } else {
             ImageProvider.getImage(for: imageUrl) { potentialImage in
                 guard potentialImage != nil else { return }
-
-                if let indexPaths = tableView.indexPathsForVisibleRows,
-                    indexPaths.contains(indexPath) {
-                    DispatchQueue.main.async {
+                DispatchQueue.main.async {
+                    if let indexPaths = tableView.indexPathsForVisibleRows,
+                        indexPaths.contains(indexPath) {
                         tableView.reloadRows(at: [indexPath], with: .automatic)
                     }
                 }

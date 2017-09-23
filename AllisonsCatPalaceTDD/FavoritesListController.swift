@@ -56,7 +56,6 @@ class FavoritesListController: UITableViewController, RealmInjected {
         } else {
             ImageProvider.getImage(for: imageUrl) { potentialImage in
                 guard potentialImage != nil else { return }
-
                 DispatchQueue.main.async {
                     if let indexPaths = tableView.indexPathsForVisibleRows,
                         indexPaths.contains(indexPath) {

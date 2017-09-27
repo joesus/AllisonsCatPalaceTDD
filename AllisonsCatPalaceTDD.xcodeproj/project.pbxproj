@@ -62,6 +62,8 @@
 		F43BC6A01F1AA5AD00E025EB /* SequenceRemovingDuplicatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43BC69F1F1AA5AD00E025EB /* SequenceRemovingDuplicatesTests.swift */; };
 		F43BC6A21F1AA8A400E025EB /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43BC6A11F1AA8A400E025EB /* ArrayExtensions.swift */; };
 		F43BC6A41F1AC9E400E025EB /* ExternalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43BC6A31F1AC9E400E025EB /* ExternalData.swift */; };
+		F44BC1CA1F76A05100840D3A /* AnimalBreedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44BC1C91F76A05100840D3A /* AnimalBreedTests.swift */; };
+		F44BC1CC1F76A12700840D3A /* AnimalBreed.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44BC1CB1F76A12700840D3A /* AnimalBreed.swift */; };
 		F4543D9C1F43C19F00F9CDE3 /* LocationControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4543D9B1F43C19F00F9CDE3 /* LocationControllerTests.swift */; };
 		F4543D9E1F43C28300F9CDE3 /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4543D9D1F43C28300F9CDE3 /* LocationController.swift */; };
 		F4543DA01F43C42700F9CDE3 /* TextFieldVerifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4543D9F1F43C42700F9CDE3 /* TextFieldVerifiers.swift */; };
@@ -174,6 +176,8 @@
 		F43BC69F1F1AA5AD00E025EB /* SequenceRemovingDuplicatesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceRemovingDuplicatesTests.swift; sourceTree = "<group>"; };
 		F43BC6A11F1AA8A400E025EB /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		F43BC6A31F1AC9E400E025EB /* ExternalData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalData.swift; sourceTree = "<group>"; };
+		F44BC1C91F76A05100840D3A /* AnimalBreedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalBreedTests.swift; sourceTree = "<group>"; };
+		F44BC1CB1F76A12700840D3A /* AnimalBreed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalBreed.swift; sourceTree = "<group>"; };
 		F4543D9B1F43C19F00F9CDE3 /* LocationControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationControllerTests.swift; sourceTree = "<group>"; };
 		F4543D9D1F43C28300F9CDE3 /* LocationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
 		F4543D9F1F43C42700F9CDE3 /* TextFieldVerifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldVerifiers.swift; sourceTree = "<group>"; };
@@ -189,7 +193,6 @@
 		F46539CC1EFF29A80049E7FD /* AnimalSpecies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalSpecies.swift; sourceTree = "<group>"; };
 		F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalPhotoSizeTests.swift; sourceTree = "<group>"; };
 		F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalPhotoSize.swift; sourceTree = "<group>"; };
-		F483B6951F57536D00E57471 /* RealmTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmTests.swift; sourceTree = "<group>"; };
 		F4A507991F6043B100B8E480 /* SpeciesSelectionControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeciesSelectionControllerTests.swift; sourceTree = "<group>"; };
 		F4A5079B1F60459400B8E480 /* SpeciesSelectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeciesSelectionController.swift; sourceTree = "<group>"; };
 		F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalAdoptionStatusTests.swift; sourceTree = "<group>"; };
@@ -247,6 +250,7 @@
 		2719FBED1E7F137300D3D79A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F44BC1CB1F76A12700840D3A /* AnimalBreed.swift */,
 				F4AB68931F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift */,
 				F46539C21EFF1F2F0049E7FD /* AnimalAgeGroups.swift */,
 				F43BC69D1F1AA26300E025EB /* AnimalImageLocations.swift */,
@@ -324,6 +328,7 @@
 		276C61A91E2C062200225CF4 /* AllisonsCatPalaceTDDTests */ = {
 			isa = PBXGroup;
 			children = (
+				F44BC1C91F76A05100840D3A /* AnimalBreedTests.swift */,
 				F4A507991F6043B100B8E480 /* SpeciesSelectionControllerTests.swift */,
 				F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */,
 				F46539C01EFF1E690049E7FD /* AnimalAgeGroupTests.swift */,
@@ -355,7 +360,6 @@
 				27E823961E5A5115009B202A /* MainStoryboardTests.swift */,
 				277199111E33F45B00930630 /* PetFinderNetworkerTests.swift */,
 				F46539B81EFF0F580049E7FD /* PositiveIntegerTests.swift */,
-				F483B6951F57536D00E57471 /* RealmTests.swift */,
 				270A6AEA1E3E7DB000B12D38 /* ResultTests.swift */,
 				F43BC69F1F1AA5AD00E025EB /* SequenceRemovingDuplicatesTests.swift */,
 				F4E82A421F509F4A0019F1AE /* SettingsManagerTests.swift */,
@@ -454,7 +458,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = Joesus;
 				TargetAttributes = {
 					276C61911E2C062200225CF4 = {
@@ -619,6 +623,7 @@
 				276C61961E2C062200225CF4 /* AppDelegate.swift in Sources */,
 				F416125D1EB520D300E3E6F6 /* CatNameCell.swift in Sources */,
 				F4FB8EE11F410E1B006767AE /* AnimalDetailHeaderView.swift in Sources */,
+				F44BC1CC1F76A12700840D3A /* AnimalBreed.swift in Sources */,
 				270A6AF51E3E9D3800B12D38 /* AnimalNetworkError.swift in Sources */,
 				F4BE6C991F584CFE00480671 /* Persistable.swift in Sources */,
 				F43BC6A21F1AA8A400E025EB /* ArrayExtensions.swift in Sources */,
@@ -693,6 +698,7 @@
 				F436325B1F54DF58004DF88A /* AnimalCardsViewControllerTests.swift in Sources */,
 				F4E82A3F1F507C470019F1AE /* GeocodingErrorTests.swift in Sources */,
 				275D260F1E5106D800FAE334 /* AnimalRegistryTests.swift in Sources */,
+				F44BC1CA1F76A05100840D3A /* AnimalBreedTests.swift in Sources */,
 				F46539C11EFF1E690049E7FD /* AnimalAgeGroupTests.swift in Sources */,
 				F4AB68981F2D37FE00CC4CC2 /* GeneticPurityTests.swift in Sources */,
 				276C61C41E2C1D8600225CF4 /* AnimalBuilderTests.swift in Sources */,
@@ -734,7 +740,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -742,7 +750,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -785,7 +797,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -793,7 +807,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

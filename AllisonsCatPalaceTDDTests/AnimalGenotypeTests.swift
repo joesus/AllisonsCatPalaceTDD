@@ -15,7 +15,7 @@ class AnimalGenotypeTests: XCTestCase {
     var realm: Realm!
 
     var genotype: AnimalGenotype!
-    let breeds = ["terrier", "Lab", "CALICO"]
+    let breeds = [AnimalBreed.calico, .terrier, .pitBullTerrier]
 
     override func setUp() {
         super.setUp()
@@ -49,21 +49,21 @@ class AnimalGenotypeTests: XCTestCase {
             purity: .purebred,
             breeds: breeds
         )
-        XCTAssertNil(genotype, "Should not create purebred with multiple")
+        XCTAssertNil(genotype, "Should not create purebred with multiple breeds")
     }
 
     func testCreatingPurebredWithSingleBreed() {
         genotype = AnimalGenotype(
             species: .cat,
             purity: .purebred,
-            breeds: ["Cat breed"]
+            breeds: [.calico]
         )
         guard let genotype = genotype else {
             return XCTFail("Should create a genotype with a single breed")
         }
         XCTAssertEqual(genotype.purity, .purebred,
                        "Should set purity correctly")
-        XCTAssertEqual(genotype.breeds, ["Cat breed"],
+        XCTAssertEqual(genotype.breeds, [.calico],
                        "Should set breeds correctly")
     }
 
@@ -78,14 +78,14 @@ class AnimalGenotypeTests: XCTestCase {
         genotype = AnimalGenotype(
             species: .cat,
             purity: .mixed,
-            breeds: ["Cat Breed"]
+            breeds: [.calico]
         )
         guard let genotype = genotype else {
             return XCTFail("Should create a genotype with for mixed with a single breed")
         }
         XCTAssertEqual(genotype.purity, .mixed,
                        "Should set purity correctly")
-        XCTAssertEqual(genotype.breeds, ["Cat Breed"],
+        XCTAssertEqual(genotype.breeds, [.calico],
                        "Should set breeds correctly")
     }
 
@@ -119,13 +119,14 @@ class AnimalGenotypeTests: XCTestCase {
             return XCTFail("Should create a genotype with for mixed with multiple breeds")
         }
 
-        let breedsData = NSKeyedArchiver.archivedData(withRootObject: breeds)
         XCTAssertEqual(genotype.species.rawValue, genotype.managedObject.species!.value.value,
                        "Managed object for genotype should store correct raw value for species")
         XCTAssertEqual(genotype.purity.rawValue, genotype.managedObject.purity!.value.value,
                        "Managed object for genotype should store correct raw value for genetic purity")
-        XCTAssertEqual(breedsData, genotype.managedObject.breeds,
-                       "Managed object for genotype should store correct data for breeds")
+        for (offset, breed) in genotype.managedObject.breeds.enumerated() {
+            XCTAssertEqual(genotype.breeds[offset].rawValue, breed.value,
+                           "Managed object for genotype should store the correct breeds")
+        }
     }
 
     func testInitializingFromManagedObject() {

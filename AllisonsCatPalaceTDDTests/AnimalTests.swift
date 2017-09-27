@@ -178,12 +178,11 @@ class AnimalTests: XCTestCase {
         animal.age = .young
         animal.city = "NYC"
         animal.sex = .male
-        animal.genotype = sampleGenotype
+        animal.genotype = sampleGenotypeWithBreeds
         animal.stateCode = "NY"
         animal.size = .medium
         animal.imageLocations = sampleImageLocations
 
-        let breedsData = NSKeyedArchiver.archivedData(withRootObject: animal.genotype!.breeds)
         let imageLocationSmallData = NSKeyedArchiver.archivedData(withRootObject: animal.imageLocations.small)
         let imageLocationMediumData = NSKeyedArchiver.archivedData(withRootObject: animal.imageLocations.medium)
         let imageLocationLargeData = NSKeyedArchiver.archivedData(withRootObject: animal.imageLocations.large)
@@ -204,8 +203,12 @@ class AnimalTests: XCTestCase {
                        "Managed object for animal should store correct value for genotype - species")
         XCTAssertEqual(animal.genotype?.purity.rawValue, animal.managedObject.genotype?.purity?.value.value,
                        "Managed object for animal should store correct value for genotype - purity")
-        XCTAssertEqual(breedsData, animal.managedObject.genotype?.breeds,
-                       "Managed object for animal should store correct value for genotype - breeds")
+
+        for (offset, breed) in animal.managedObject.genotype!.breeds.enumerated() {
+            XCTAssertEqual(animal.genotype?.breeds[offset].rawValue, breed.value,
+                           "Managed object for genotype should store the correct breeds")
+        }
+
         XCTAssertEqual(animal.stateCode, animal.managedObject.stateCode,
                        "Managed object for animal should store correct value for stateCode")
         XCTAssertEqual(animal.size?.rawValue, animal.managedObject.size?.value.value,

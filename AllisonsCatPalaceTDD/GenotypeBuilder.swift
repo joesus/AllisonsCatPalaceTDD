@@ -34,7 +34,8 @@ final class GenotypeBuilder {
             !breedsList.flatMap({ $0[ExternalAnimalKeys.elementContentKey] as? String}).isEmpty else {
             return nil
         }
-        let breeds = breedsList.flatMap { $0[ExternalAnimalKeys.elementContentKey] as? String }
+        let breeds = breedsList.flatMap({ $0[ExternalAnimalKeys.elementContentKey] as? String })
+            .flatMap { AnimalBreed(petFinderRawValue: $0) }
 
         return AnimalGenotype(species: species, purity: purity, breeds: breeds)
     }

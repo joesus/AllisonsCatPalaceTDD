@@ -28,3 +28,9 @@ let sampleGenotype = AnimalGenotype(
     purity: .mixed,
     breeds: []
 )
+
+let sampleGenotypeWithBreeds = AnimalGenotype(
+    species: .cat,
+    purity: .purebred,
+    breeds: [.calico]
+)

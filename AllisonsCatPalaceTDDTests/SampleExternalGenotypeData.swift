@@ -24,17 +24,17 @@ struct SampleExternalGenotypeData {
     static let validBreed: JsonObject = [
         "breed": [
             [
-                "$t": "Domestic Short Hair (Black & White)"
+                "$t": "Domestic Short Hair-black and white"
             ]
         ]
     ]
     static let validBreeds: JsonObject = [
         "breed": [
             [
-                "$t": "Domestic Short Hair (Black & White)"
+                "$t": "Domestic Short Hair-black and white"
             ],
             [
-                "$t": "Tabby (Orange)"
+                "$t": "Tabby - Orange"
             ]
         ]
     ]

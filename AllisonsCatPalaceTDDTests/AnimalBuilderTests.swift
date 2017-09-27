@@ -206,7 +206,7 @@ class AnimalBuilderTests: XCTestCase {
         XCTAssertEqual(animal.adoptionStatus, .adoptable, "Builder should set adoptability from valid data")
         XCTAssertEqual(animal.genotype?.species, .cat, "Builder should set species correctly")
         XCTAssertEqual(animal.genotype?.purity, .mixed, "Builder should set genetic purity correctly")
-        XCTAssertEqual(animal.genotype?.breeds ?? [], ["Domestic Short Hair (Black & White)", "Tabby (Orange)"], "Builder should set breeds correctly")
+        XCTAssertEqual(animal.genotype?.breeds ?? [], [.domesticShortHairBlackAndWhite, .tabbyOrange], "Builder should set breeds correctly")
     }
 
 }

@@ -39,18 +39,21 @@ enum PetFinderNetworker {
 
         retrieveAllAnimalsTask?.cancel()
 
-        CatServiceComponents.path = "/pet.find"
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.petfinder.com"
+        components.queryItems = [
+            URLQueryItem(name: "key", value: "APIKEY"),
+            URLQueryItem(name: "format", value: "json"),
+            URLQueryItem(name: "output", value: "full")
+        ]
+
+        components.path = "/pet.find"
         let locationQuery = URLQueryItem(name: "location", value: location)
 
-        if let oldLocationQuery = CatServiceComponents.queryItems?.first(where: { $0.name == "location" }),
-            let index = CatServiceComponents.queryItems?.index(of: oldLocationQuery) {
+        components.queryItems?.append(locationQuery)
 
-            CatServiceComponents.queryItems?.remove(at: index)
-        }
-
-        CatServiceComponents.queryItems?.append(locationQuery)
-
-        guard let url = CatServiceComponents.url else { return }
+        guard let url = components.url else { return }
 
         let task = session.dataTask(with: url) {
             potentialData, potentialResponse, potentialError in
@@ -87,13 +90,20 @@ enum PetFinderNetworker {
 
     static func retrieveAnimal(withIdentifier id: Int, completion: @escaping ResponseHandler) {
 
-        CatServiceComponents.path = "/pet.get"
-        let idQuery = URLQueryItem(name: "id", value: String(id))
-        if CatServiceComponents.queryItems?.contains(idQuery) == false {
-            CatServiceComponents.queryItems?.append(idQuery)
-        }
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.petfinder.com"
+        components.queryItems = [
+            URLQueryItem(name: "key", value: "APIKEY"),
+            URLQueryItem(name: "format", value: "json"),
+            URLQueryItem(name: "output", value: "full")
+        ]
 
-        guard let url = CatServiceComponents.url else { return }
+        components.path = "/pet.get"
+        let idQuery = URLQueryItem(name: "id", value: String(id))
+        components.queryItems?.append(idQuery)
+
+        guard let url = components.url else { return }
 
         let task = session.dataTask(with: url) {
             potentialData, potentialResponse, potentialError in

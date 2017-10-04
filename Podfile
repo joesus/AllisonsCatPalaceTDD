@@ -10,6 +10,7 @@ target 'AllisonsCatPalaceTDD' do
   target 'AllisonsCatPalaceTDDTests' do
     inherit! :search_paths
     pod 'TestableUIKit'
+    pod 'TestableCoreLocation'
   end
 
 end

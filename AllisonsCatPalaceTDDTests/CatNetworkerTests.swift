@@ -51,12 +51,43 @@ class PetFinderNetworkerTests: XCTestCase {
         XCTAssertEqual(request.url?.path, "/pet.find", "The path should be cats")
         XCTAssertTrue(request.url!.query!.contains("format=json"), "Query: \(request.url!.query!) should specify json format response")
         XCTAssertTrue(request.url!.query!.contains("output=full"), "Query: \(request.url!.query!) should specify output size")
-        XCTAssertTrue(request.url!.query!.contains("location=80220"), "Query: \(request.url!.query!) should specify location")
+        XCTAssertTrue(request.url!.query!.contains("location="), "Query: \(request.url!.query!) should specify location")
         XCTAssertTrue(request.url!.query!.contains("key=APIKEY"), "Query: \(request.url!.query!) should contain api key")
         XCTAssert(task.resumeWasCalled, "task should be started")
 
         // Cleanup of sorts
         task.resumeWasCalled = false
+    }
+
+    func testCreatingRetrieveAllAnimalsTaskWithPersistedLocation() {
+        SettingsManager.shared.set(value: "55555", forKey: .zipCode)
+        PetFinderNetworker.retrieveAllAnimals {_ in}
+
+        guard let task = PetFinderNetworker.session.lastResumedDataTask,
+            let request = task.currentRequest else {
+
+            return XCTFail("A task should have a currentRequest")
+        }
+
+        XCTAssertTrue(request.url!.query!.contains("55555"), "Query: \(request.url!.query!) should use the persisted location")
+    }
+
+    func testCreatingRetrieveAllAnimalsTaskWithDoesNotDuplicateLocationParam() {
+        SettingsManager.shared.clear()
+        SettingsManager.shared.set(value: "55555", forKey: .zipCode)
+        PetFinderNetworker.retrieveAllAnimals {_ in}
+
+        SettingsManager.shared.set(value: "88888", forKey: .zipCode)
+        PetFinderNetworker.retrieveAllAnimals {_ in}
+
+        guard let task = PetFinderNetworker.session.lastResumedDataTask,
+            let request = task.currentRequest else {
+
+                return XCTFail("A task should have a currentRequest")
+        }
+
+        XCTAssertEqual(request.url!.query!.components(separatedBy: "location=").count - 1, 1,
+                       "Creating a new task with a new persisted zip code should not add duplicate zip codes to query")
     }
 
     func testNewRetrieveAllAnimalsTaskCancelsExistingTask() {

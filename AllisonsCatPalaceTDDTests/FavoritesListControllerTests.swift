@@ -126,7 +126,7 @@ class FavoritesListControllerTests: XCTestCase {
             let cell = controller.tableView.cellForRow(at: firstCatIndexPath) as? CatCell
             controller.performSegue(withIdentifier: "ShowCatDetail", sender: cell)
 
-            waitForExpectations(timeout: 200, handler: nil)
+            waitForExpectations(timeout: 2, handler: nil)
 
             guard controller.performSegueCalled else {
                 return XCTFail("Selecting a cell should trigger a segue")

@@ -17,10 +17,10 @@ class AnimalDetailHeaderView: UIView {
             guard let url = animal?.imageLocations.large.first else {
                 return
             }
-            ImageProvider.getImage(for: url) { [weak self] image in
+            ImageProvider.getImage(for: url) { image in
                 DispatchQueue.main.async {
-                    self?.imageView.image = image
-                    self?.setNeedsLayout()
+                    self.imageView.image = image
+                    self.setNeedsLayout()
                 }
             }
         }

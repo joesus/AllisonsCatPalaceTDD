@@ -164,7 +164,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
         expectation(for: predicate, evaluatedWith: self, handler: nil)
 
         controller.viewDidLoad()
-        waitForExpectations(timeout: 1, handler: nil)
+        waitForExpectations(timeout: 2, handler: nil)
 
     }
 
@@ -180,7 +180,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
         }
         expectation(for: predicate, evaluatedWith: self, handler: nil)
 
-        waitForExpectations(timeout: 1, handler: nil)
+        waitForExpectations(timeout: 2, handler: nil)
     }
 
     func testLoadingCatsPrefetchesSmallSizedImages() {
@@ -195,7 +195,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
         }
         expectation(for: predicate, evaluatedWith: self, handler: nil)
 
-        waitForExpectations(timeout: 1, handler: nil)
+        waitForExpectations(timeout: 2, handler: nil)
     }
 
     func testLoadingCatsPrefetchesLargeSizedImages() {
@@ -210,7 +210,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
         }
         expectation(for: predicate, evaluatedWith: self, handler: nil)
 
-        waitForExpectations(timeout: 1, handler: nil)
+        waitForExpectations(timeout: 2, handler: nil)
     }
 
 }

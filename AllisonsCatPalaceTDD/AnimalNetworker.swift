@@ -8,19 +8,6 @@
 
 import Foundation
 
-private var CatServiceComponents: URLComponents = {
-    var components = URLComponents()
-    components.scheme = "https"
-    components.host = "api.petfinder.com"
-    components.queryItems = [
-        URLQueryItem(name: "key", value: "APIKEY"),
-        URLQueryItem(name: "format", value: "json"),
-        URLQueryItem(name: "output", value: "full")
-    ]
-
-    return components
-}()
-
 protocol AnimalNetworker {
     associatedtype Response
     associatedtype ResponseHandler = (Result<Response>) -> Void
@@ -45,13 +32,16 @@ enum PetFinderNetworker {
         components.queryItems = [
             URLQueryItem(name: "key", value: "APIKEY"),
             URLQueryItem(name: "format", value: "json"),
-            URLQueryItem(name: "output", value: "full")
+            URLQueryItem(name: "output", value: "full"),
+            URLQueryItem(name: "count", value: PetFinderNetworker.desiredNumberOfResults)
         ]
 
         components.path = "/pet.find"
         let locationQuery = URLQueryItem(name: "location", value: location)
-
         components.queryItems?.append(locationQuery)
+
+        let offsetQuery = URLQueryItem(name: "offset", value: "\(offset)")
+        components.queryItems?.append(offsetQuery)
 
         guard let url = components.url else { return }
 

@@ -8,33 +8,22 @@
 
 import Foundation
 
-private var CatServiceComponents: URLComponents = {
-    var components = URLComponents()
-    components.scheme = "https"
-    components.host = "api.petfinder.com"
-    components.queryItems = [
-        URLQueryItem(name: "key", value: "APIKEY"),
-        URLQueryItem(name: "format", value: "json"),
-        URLQueryItem(name: "output", value: "full")
-    ]
-
-    return components
-}()
-
 protocol AnimalNetworker {
     associatedtype Response
     associatedtype ResponseHandler = (Result<Response>) -> Void
 
-    static func retrieveAllAnimals(for location: String, completion: ResponseHandler) // TODO - make location a dependent type
+    static func retrieveAllAnimals(offset: Int, completion: ResponseHandler)
     static func retrieveAnimal(withIdentifier id: Int, completion: ResponseHandler)
 }
 
-enum PetFinderNetworker {
+enum PetFinderNetworker: AnimalNetworker {
+    typealias Response = PetFinderResponse
     typealias ResponseHandler = (Result<PetFinderResponse>) -> Void
     static var session = URLSession.shared
     static weak var retrieveAllAnimalsTask: URLSessionTask?
+    static let desiredNumberOfResults = "20"
 
-    static func retrieveAllAnimals(completion: @escaping ResponseHandler)  {
+    static func retrieveAllAnimals(offset: Int = 0, completion: @escaping ResponseHandler)  {
         let location = SettingsManager.shared.value(forKey: .zipCode) as? String ?? ""
 
         retrieveAllAnimalsTask?.cancel()
@@ -45,13 +34,16 @@ enum PetFinderNetworker {
         components.queryItems = [
             URLQueryItem(name: "key", value: "APIKEY"),
             URLQueryItem(name: "format", value: "json"),
-            URLQueryItem(name: "output", value: "full")
+            URLQueryItem(name: "output", value: "full"),
+            URLQueryItem(name: "count", value: PetFinderNetworker.desiredNumberOfResults)
         ]
 
         components.path = "/pet.find"
         let locationQuery = URLQueryItem(name: "location", value: location)
-
         components.queryItems?.append(locationQuery)
+
+        let offsetQuery = URLQueryItem(name: "offset", value: "\(offset)")
+        components.queryItems?.append(offsetQuery)
 
         guard let url = components.url else { return }
 

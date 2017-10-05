@@ -1,5 +1,5 @@
 //
-//  CatListController.swift
+//  FavoritesListController.swift
 //  AllisonsCatPalaceTDD
 //
 //  Created by Joesus on 2/12/17.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-class CatListController: UITableViewController {
-    var cats = [Animal]() {
+class FavoritesListController: UITableViewController {
+    var animals = [Animal]() {
         didSet {
             DispatchQueue.main.async { [weak tableView] in
                 tableView?.reloadData()
@@ -17,29 +17,21 @@ class CatListController: UITableViewController {
         }
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        AnimalRegistry.fetchAllAnimals { fetchedCats in
-            self.cats = fetchedCats
-        }
-    }
-
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return cats.isEmpty ? 0 : 1
+        return animals.isEmpty ? 0 : 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cats.count
+        return animals.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        guard cats.indices.contains(indexPath.row) else {
+        guard animals.indices.contains(indexPath.row) else {
             fatalError("Something went horribly wrong")
         }
 
-        let cat = cats[indexPath.row]
+        let cat = animals[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "CatCell", for: indexPath)
 
         cell.textLabel?.text = cat.name
@@ -69,8 +61,8 @@ class CatListController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationController = segue.destination as? CatDetailController,
             let row = tableView.indexPathForSelectedRow?.row {
-            destinationController.cat = cats[row]
-            destinationController.title = cats[row].name
+            destinationController.cat = animals[row]
+            destinationController.title = animals[row].name
         }
     }
 }

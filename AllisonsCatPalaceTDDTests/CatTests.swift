@@ -64,35 +64,6 @@ class AnimalTests: XCTestCase {
         XCTAssertNil(cat.city, "Should not set city to empty string")
     }
 
-    func testCutenessLevel() {
-        XCTAssertNil(cat.cutenessLevel, "Cutenesslevel property is nil by default")
-        cat.cutenessLevel = 10
-        XCTAssertEqual(cat.cutenessLevel, 10, "Should allow setting of cuteness level")
-        cat.cutenessLevel = nil
-        XCTAssertNil(cat.cutenessLevel, "Should allow for clearing cuteness level")
-    }
-
-    func testCutenessValueMustBeInRange() {
-        cat.cutenessLevel = 0
-        XCTAssertNil(cat.cutenessLevel, "Should not allow cuteness levels out of range")
-        cat.cutenessLevel = 12
-        XCTAssertNil(cat.cutenessLevel, "Should not allow cuteness levels out of range")
-        (1...11).forEach { level in
-            cat.cutenessLevel = level
-            XCTAssertEqual(cat.cutenessLevel, level, "Should allow valid cuteness levels")
-        }
-    }
-
-    func testFavorites() {
-        let favorite = Favorite(identifier: 1, category: "Hat", value: "Cowboy")!
-        let anotherFavorite = Favorite(identifier: 2, category: "Toy", value: "String")!
-
-        XCTAssertTrue(cat.favorites.isEmpty, "Favorites should be an empty array of favorites by default")
-
-        cat.favorites = [favorite, anotherFavorite]
-        XCTAssertEqual(cat.favorites.count, 2, "Should allow setting favorites")
-    }
-
     func testGenotype() {
         XCTAssertNil(cat.genotype, "Should not have a genotype by default")
         cat.genotype = sampleGenotype
@@ -103,17 +74,6 @@ class AnimalTests: XCTestCase {
         XCTAssertEqual(cat.sex, .unknown, "Sex should be unknown by default")
         cat.sex = .male
         XCTAssertEqual(cat.sex, .male, "Sex should be settable")
-    }
-
-    func testGreeting() {
-        XCTAssertNil(cat.greeting, "City property is nil by default")
-        cat.greeting = "Hello"
-        XCTAssertEqual(cat.greeting, "Hello", "Should not mutate data during setting")
-    }
-
-    func testGreetingShouldNotBeEmptyString() {
-        cat.greeting = ""
-        XCTAssertNil(cat.greeting, "Should not set greeting to empty string")
     }
 
     func testStateCode() {

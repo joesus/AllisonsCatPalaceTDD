@@ -13,18 +13,32 @@ let SampleCat = Animal(name: "SampleCat", identifier: 1)
 
 let cats: [Animal] = (1...100).map { integer in
     let cat = Animal(name: "test", identifier: integer)
-    cat.imageLocations = sampleImageLocations
+    cat.imageLocations = SampleImageLocations.smallMediumLarge
     return cat
 }
-
-let sampleImageLocations = AnimalImageLocations(
-    small: [URL(string: "https://www.google.com/cat.png")!],
-    medium: [URL(string: "https://www.google.com/cat.png")!],
-    large: [URL(string: "https://www.google.com/cat.png")!]
-)
 
 let sampleGenotype = AnimalGenotype(
     species: .cat,
     purity: .mixed,
     breeds: []
 )
+
+enum SampleImageLocations {
+    static let smallMediumLarge = AnimalImageLocations(
+        small: [URL(string: "https://www.google.com/small-cat.png")!],
+        medium: [URL(string: "https://www.google.com/medium-cat.png")!],
+        large: [URL(string: "https://www.google.com/large-cat.png")!]
+    )
+
+    static let smallAndLargeOnly = AnimalImageLocations(
+        small: [URL(string: "https://www.google.com/catSmall.png")!, URL(string: "https://www.google.com/catSmall2.png")!],
+        medium: [],
+        large: [URL(string: "https://www.google.com/catLarge.png")!]
+    )
+
+    static let largeOnly = AnimalImageLocations(
+        small: [],
+        medium: [],
+        large: [URL(string: "https://www.google.com/catLarge.png")!, URL(string: "https://www.google.com/catLarge2.png")!]
+    )
+}

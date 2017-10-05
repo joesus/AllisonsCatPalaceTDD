@@ -51,6 +51,13 @@ class FavoritesListControllerTests: XCTestCase {
         XCTAssert(controller.animals.isEmpty, "FavoritesListController should have no animals by default")
     }
 
+    func testViewDidLoadCallsSuperViewDidLoad() {
+        UITableViewController.ViewDidLoadSpyController.createSpy(on: controller)!.spy {
+            controller.viewDidLoad()
+            XCTAssert(controller.superclassViewDidLoadCalled, "ViewDidLoad should call viewDidLoad on UIViewController")
+        }
+    }
+
     func testReloadDataIsCalledWhenAnimalsAreUpdated() {
         let reloadedPredicate = NSPredicate { [controller] _,_ in
             controller!.tableView.reloadDataCalled

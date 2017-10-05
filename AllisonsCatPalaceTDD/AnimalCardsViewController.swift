@@ -11,7 +11,7 @@ import Koloda
 
 class AnimalCardsViewController: UIViewController {
     @IBOutlet fileprivate(set) weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet fileprivate(set) weak var kolodaView: KolodaView!
+    @IBOutlet fileprivate(set) weak var deckView: KolodaView!
     var registry: AnimalFetching.Type = AnimalRegistry.self
 
     var animals = [Animal]() {
@@ -28,7 +28,7 @@ class AnimalCardsViewController: UIViewController {
             }
 
             DispatchQueue.main.async { [weak self] in
-                self?.kolodaView.reloadData()
+                self?.deckView.reloadData()
             }
         }
     }
@@ -47,15 +47,15 @@ class AnimalCardsViewController: UIViewController {
             self?.animals = fetchedAnimals
         }
 
-        kolodaView.dataSource = self
-        kolodaView.delegate = self
+        deckView.dataSource = self
+        deckView.delegate = self
     }
 }
 
 extension AnimalCardsViewController: KolodaViewDelegate {
-//    func koloda(koloda: KolodaView, didSelectCardAt index: Int) {
-//        transition to detail view
-//    }
+    //    func koloda(koloda: KolodaView, didSelectCardAt index: Int) {
+    //        transition to detail view
+    //    }
 }
 
 extension AnimalCardsViewController: KolodaViewDataSource {
@@ -82,7 +82,7 @@ extension AnimalCardsViewController: KolodaViewDataSource {
 
         animalCardView.configure(with: animals[index])
         animalCardView.layer.masksToBounds = true
-        animalCardView.layer.cornerRadius = kolodaView.frame.width / 10
+        animalCardView.layer.cornerRadius = deckView.frame.width / 10
         animalCardView.layer.borderWidth = 1.0
         animalCardView.layer.borderColor = UIColor.black.cgColor
 
@@ -90,15 +90,14 @@ extension AnimalCardsViewController: KolodaViewDataSource {
     }
 
     func koloda(_ koloda: KolodaView, viewForCardOverlayAt index: Int) -> OverlayView? {
-        if let view = Bundle.main.loadNibNamed("SwipeOverlayView",
-                                               owner: nil, options: nil)?[0] as? OverlayView {
-            view.layer.masksToBounds = true
-            view.layer.cornerRadius = kolodaView.frame.width / 10
-            return view
+        guard let view = Bundle.main.loadNibNamed("SwipeOverlayView", owner: nil, options: nil)?[0] as? OverlayView else {
+            return nil
         }
-        return nil
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = deckView.frame.width / 10
+        return view
     }
-
+    
     func kolodaSwipeThresholdRatioMargin(_ koloda: KolodaView) -> CGFloat? {
         return CGFloat(0.35)
     }

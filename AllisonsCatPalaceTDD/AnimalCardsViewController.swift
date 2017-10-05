@@ -1,0 +1,104 @@
+//
+//  AnimalCardsViewController.swift
+//  AllisonsCatPalaceTDD
+//
+//  Created by Joe Susnick on 8/27/17.
+//  Copyright © 2017 Joesus. All rights reserved.
+//
+
+import UIKit
+import Koloda
+
+class AnimalCardsViewController: UIViewController {
+    @IBOutlet fileprivate(set) weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet fileprivate(set) weak var deckView: KolodaView!
+    var registry: AnimalFetching.Type = AnimalRegistry.self
+
+    var animals = [Animal]() {
+        didSet {
+            // Kick off all the requests and let the image provider handle them so they're in the cache when they're needed
+            animals.forEach { animal in
+                if let midSizeUrl = animal.imageLocations.medium.first {
+                    ImageProvider.getImage(for: midSizeUrl, completion: {_ in})
+                } else if let smallSizeUrl = animal.imageLocations.small.first {
+                    ImageProvider.getImage(for: smallSizeUrl, completion: {_ in})
+                } else if let largeSizeUrl = animal.imageLocations.large.first {
+                    ImageProvider.getImage(for: largeSizeUrl, completion: {_ in})
+                }
+            }
+
+            DispatchQueue.main.async { [weak self] in
+                self?.deckView.reloadData()
+            }
+        }
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        activityIndicator.startAnimating()
+        registry.offset = 0
+        registry.fetchAllAnimals { [weak self] fetchedAnimals in
+
+            // Delay accounts for the built in animation time for loading the kolodaView
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                self?.activityIndicator.stopAnimating()
+            }
+            self?.animals = fetchedAnimals
+        }
+
+        deckView.dataSource = self
+        deckView.delegate = self
+    }
+}
+
+extension AnimalCardsViewController: KolodaViewDelegate {
+    //    func koloda(koloda: KolodaView, didSelectCardAt index: Int) {
+    //        transition to detail view
+    //    }
+}
+
+extension AnimalCardsViewController: KolodaViewDataSource {
+    func kolodaSpeedThatCardShouldDrag(_ koloda: Koloda.KolodaView) -> Koloda.DragSpeed {
+        return .default
+    }
+
+    func kolodaNumberOfCards(_ koloda:KolodaView) -> Int {
+        return animals.count
+    }
+
+    func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
+        guard let animalCardView = Bundle.main.loadNibNamed("AnimalCardView", owner: self, options: nil)?.first as? AnimalCardView else {
+            return UIView()
+        }
+
+        // if the card is the 10th to last card, kick off a new fetch, add the new results to the existing. As long as the offset matches the number being fetched we don't get duplicates.
+        if index == animals.count - 10 {
+            registry.offset += 20
+            registry.fetchAllAnimals { fetchedAnimals in
+                self.animals += fetchedAnimals
+            }
+        }
+
+        animalCardView.configure(with: animals[index])
+        animalCardView.layer.masksToBounds = true
+        animalCardView.layer.cornerRadius = deckView.frame.width / 10
+        animalCardView.layer.borderWidth = 1.0
+        animalCardView.layer.borderColor = UIColor.black.cgColor
+
+        return animalCardView
+    }
+
+    func koloda(_ koloda: KolodaView, viewForCardOverlayAt index: Int) -> OverlayView? {
+        guard let view = Bundle.main.loadNibNamed("SwipeOverlayView", owner: nil, options: nil)?[0] as? OverlayView else {
+            return nil
+        }
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = deckView.frame.width / 10
+        return view
+    }
+    
+    func kolodaSwipeThresholdRatioMargin(_ koloda: KolodaView) -> CGFloat? {
+        return CGFloat(0.35)
+    }
+}

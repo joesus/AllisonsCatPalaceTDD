@@ -72,22 +72,17 @@ class PetFinderNetworkerTests: XCTestCase {
         XCTAssertTrue(request.url!.query!.contains("55555"), "Query: \(request.url!.query!) should use the persisted location")
     }
 
-    func testCreatingRetrieveAllAnimalsTaskWithDoesNotDuplicateLocationParam() {
-        SettingsManager.shared.clear()
-        SettingsManager.shared.set(value: "55555", forKey: .zipCode)
-        PetFinderNetworker.retrieveAllAnimals {_ in}
-
-        SettingsManager.shared.set(value: "88888", forKey: .zipCode)
-        PetFinderNetworker.retrieveAllAnimals {_ in}
-
-        guard let task = PetFinderNetworker.session.lastResumedDataTask,
-            let request = task.currentRequest else {
-
-                return XCTFail("A task should have a currentRequest")
+    func testCreatingRetrieveAllAnimalsTaskWithOffset() {
+        PetFinderNetworker.retrieveAllAnimals(offset: 25) {_ in}
+        guard let task = PetFinderNetworker.session.lastResumedDataTask else {
+            return XCTFail("A task should have been created")
         }
 
-        XCTAssertEqual(request.url!.query!.components(separatedBy: "location=").count - 1, 1,
-                       "Creating a new task with a new persisted zip code should not add duplicate zip codes to query")
+        guard let request = task.currentRequest else {
+            return XCTFail("A task should have a currentRequest")
+        }
+
+        XCTAssertTrue(request.url!.query!.contains("offset=25"), "Query: \(request.url!.query!) should use the given offset")
     }
 
     func testNewRetrieveAllAnimalsTaskCancelsExistingTask() {

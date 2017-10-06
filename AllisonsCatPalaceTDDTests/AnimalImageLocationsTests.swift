@@ -85,13 +85,13 @@ class AnimalImageLocationsTests: XCTestCase {
     }
 
     func testRealmObjectWithSingleNonEmptyLocations() {
-        let managedLocations = sampleImageLocations.managedObject
+        let managedLocations = SampleImageLocations.smallMediumLarge.managedObject
 
         let decodedLocations = AnimalImageLocations(managedObject: managedLocations)
 
-        XCTAssertEqual(decodedLocations.small, sampleImageLocations.small)
-        XCTAssertEqual(decodedLocations.medium, sampleImageLocations.medium)
-        XCTAssertEqual(decodedLocations.large, sampleImageLocations.large)
+        XCTAssertEqual(decodedLocations.small, SampleImageLocations.smallMediumLarge.small)
+        XCTAssertEqual(decodedLocations.medium, SampleImageLocations.smallMediumLarge.medium)
+        XCTAssertEqual(decodedLocations.large, SampleImageLocations.smallMediumLarge.large)
     }
 
     func testRealmObjectWithMultipleNonEmptyLocations() {

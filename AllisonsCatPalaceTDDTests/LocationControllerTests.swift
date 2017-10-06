@@ -55,10 +55,14 @@ class LocationControllerTests: XCTestCase {
             controller.viewDidAppear(false)
             XCTAssert(controller.superclassViewDidAppearCalled,
                       "ViewDidAppear should call viewDidAppear on controller")
-
-            XCTAssertTrue(textField.isFirstResponder,
-                          "Textfield should be first responder on view did appear")
         }
+    }
+
+    func testBecomesFirstResponderOnAppearing() {
+        replaceRootViewController(with: controller)
+        controller.viewDidAppear(false)
+        XCTAssertTrue(textField.isFirstResponder,
+                      "Textfield should be first responder on view did appear")
     }
 
     func testZipCodeField() {
@@ -137,8 +141,6 @@ class LocationControllerTests: XCTestCase {
 
         // stops spinner
         controller.activityIndicator.startAnimating()
-        XCTAssertTrue(controller.activityIndicator.isAnimating,
-                      "Activity indicator should be animating")
         delegate.textFieldDidBeginEditing?(textField)
         XCTAssertFalse(controller.activityIndicator.isAnimating,
                        "Activity indicator should stop animating on beginning text editing")
@@ -149,48 +151,33 @@ class LocationControllerTests: XCTestCase {
             // Need to be in the window to becomeFirstResponder
             replaceRootViewController(with: controller)
             textField.becomeFirstResponder()
-            XCTAssertTrue(textField.isEditing,
-                          "Textfield should be editing when it's the first responder")
 
             textField.text = "80220"
             controller.textFieldDidChange(textField)
 
-            XCTAssertFalse(textField.isEditing,
-                           "Textfield should not be editing when it is not the first responder")
             XCTAssertTrue(textField.resignFirstResponderCalled,
                           "Textfield should resign first responder at five characters")
-        }
-    }
-
-    func testZipCodeFieldResignsFirstResponderWhenDoneEditing() {
-        UITextField.ResignFirstResponderSpyController.createSpy(on: textField)?.spy {
-            textField.text = "80220"
-            delegate.textFieldDidEndEditing!(textField)
-
-            XCTAssertTrue(textField.resignFirstResponderCalled,
-                          "Textfield should resign first responder when done editing")
         }
     }
 
     func testZipCodeFieldGeocodesAtFiveCharacters() {
         textField.text = "80220"
         delegate.textFieldDidEndEditing!(textField)
-        XCTAssertTrue(geocoder.forwardGeocodeAddressCalled)
+        XCTAssertTrue(geocoder.forwardGeocodeAddressCalled,
+                      "Textfield should forward geocode when it ends editing")
     }
 
     func testActivityIndicatorHiddenByDefault() {
         XCTAssertTrue(controller.activityIndicator.isHidden,
                       "Activity indicator should be hidden by default")
-        XCTAssertFalse(controller.activityIndicator.isAnimating,
-                       "Activity indicator should not be animating by default")
+        XCTAssertTrue(controller.activityIndicator.hidesWhenStopped,
+                      "Activity indicator should hide when stopped")
     }
 
     func testGeocodingInProgress() {
         textField.text = "80220"
         delegate.textFieldDidEndEditing!(textField)
 
-        XCTAssertFalse(controller.activityIndicator.isHidden,
-                       "Activity indicator should not be hidden while geocoding")
         XCTAssertTrue(controller.activityIndicator.isAnimating,
                       "Activity indicator should animate while geocoding")
 
@@ -207,22 +194,18 @@ class LocationControllerTests: XCTestCase {
         }
         handler([], nil)
 
-        XCTAssertTrue(controller.activityIndicator.isHidden,
-                      "Activity indicator should be hidden when geocoding is not in progress")
         XCTAssertFalse(controller.activityIndicator.isAnimating,
                        "Activity indicator should not be animating when geocoding is not in progress")
         XCTAssertTrue(textField.isUserInteractionEnabled,
                       "User interaction should be enabled when geocoding is not in progress")
     }
 
-
     func testGeocodingWithEmptyResultsAndError() {
-        delegate.textFieldDidEndEditing!(textField)
+        replaceRootViewController(with: controller)
+        textField.becomeFirstResponder()
+        textField.resignFirstResponder()
 
-        guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
-            return XCTFail("Geocoder should be called with a handler")
-        }
-        handler([], GeocodingError.noLocationsFound)
+        geocoder.forwardGeocodeAddressCompletionHandler?([], GeocodingError.noLocationsFound)
 
         XCTAssertEqual(textField.layer.borderColor, UIColor.red.cgColor,
                        "Zip code field should have red border on error")
@@ -242,21 +225,10 @@ class LocationControllerTests: XCTestCase {
         // TODO: use custom error for empty results to show the message
     }
 
-    func testGeocodingWithNonEmptyResultsAndError() {
-        delegate.textFieldDidEndEditing!(textField)
-
-        guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
-            return XCTFail("Geocoder should be called with a handler")
-        }
-        handler([placemark], GeocodingError.noLocationsFound)
-
-        XCTAssertEqual(textField.layer.borderColor, UIColor.red.cgColor,
-                       "Zip code field should have red border when there is an error regardless of results")
-        // TODO: show the error? Ignore the error if you have the info you want already?
-    }
-
     func testGeocodingWithNonEmptyResultsAndNoError() {
-        delegate.textFieldDidEndEditing!(textField)
+        replaceRootViewController(with: controller)
+        textField.becomeFirstResponder()
+        textField.resignFirstResponder()
 
         guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
             return XCTFail("Geocoder should be called with a handler")
@@ -277,6 +249,7 @@ class LocationControllerTests: XCTestCase {
         performSegueSpy?.beginSpying()
         showSpy?.beginSpying()
 
+        // Find out why this one won't cooperate
         delegate.textFieldDidEndEditing!(textField)
 
         guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
@@ -299,7 +272,9 @@ class LocationControllerTests: XCTestCase {
     }
 
     func testSavingToUserDefaults() {
-        delegate.textFieldDidEndEditing!(textField)
+        replaceRootViewController(with: controller)
+        textField.becomeFirstResponder()
+        textField.resignFirstResponder()
 
         guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
             return XCTFail("Geocoder should be called with a handler")
@@ -310,10 +285,26 @@ class LocationControllerTests: XCTestCase {
                        "Geocoding should save zip code to settings")
     }
 
-    func testTextFieldPrepopulatesWithStoredZipCodeIfAvailable() {
+    func testTextFieldDoesNotPrepopulateWithStoredZipCodeIfNotAvailable() {
+        SettingsManager.shared.set(value: nil, forKey: .zipCode)
+
+        controller.viewDidLoad()
+        XCTAssertTrue(textField.text!.isEmpty,
+                      "Textfield should not prepopulate from stored zip code if no zip code is stored")
+    }
+
+    func testTextFieldPrepopulatesOnViewDidLoadWithStoredZipCodeIfAvailable() {
         SettingsManager.shared.set(value: "12345", forKey: .zipCode)
 
         controller.viewDidLoad()
+        XCTAssertEqual(textField.text, "12345",
+                       "Textfield should prepopulate from stored zip code")
+    }
+
+    func testTextFieldPrepopulatesOnViewWillAppearWithStoredZipCodeIfAvailable() {
+        SettingsManager.shared.set(value: "12345", forKey: .zipCode)
+
+        controller.viewWillAppear(false)
         XCTAssertEqual(textField.text, "12345",
                        "Textfield should prepopulate from stored zip code")
     }

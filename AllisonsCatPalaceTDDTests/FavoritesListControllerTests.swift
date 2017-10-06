@@ -75,6 +75,13 @@ class FavoritesListControllerTests: XCTestCase {
         }
     }
 
+    func testViewDidLoadCallsSuperViewDidLoad() {
+        UITableViewController.ViewDidLoadSpyController.createSpy(on: controller)!.spy {
+            controller.viewDidLoad()
+            XCTAssert(controller.superclassViewDidLoadCalled, "ViewDidLoad should call viewDidLoad on UIViewController")
+        }
+    }
+
     func testReloadDataIsCalledWhenAnimalsAreUpdated() {
         let reloadedPredicate = NSPredicate { [controller] _,_ in
             controller!.tableView.reloadDataCalled
@@ -150,7 +157,7 @@ class FavoritesListControllerTests: XCTestCase {
             let cell = controller.tableView.cellForRow(at: firstCatIndexPath) as? CatCell
             controller.performSegue(withIdentifier: "ShowCatDetail", sender: cell)
 
-            waitForExpectations(timeout: 200, handler: nil)
+            waitForExpectations(timeout: 2, handler: nil)
 
             guard controller.performSegueCalled else {
                 return XCTFail("Selecting a cell should trigger a segue")

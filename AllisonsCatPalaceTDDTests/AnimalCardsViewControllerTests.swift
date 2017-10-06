@@ -14,7 +14,7 @@ import XCTest
 
 class AnimalCardsViewControllerTests: XCTestCase {
     var controller: AnimalCardsViewController!
-    var kolodaView: KolodaView!
+    var deckView: KolodaView!
     var dataSource: KolodaViewDataSource!
     var realm: Realm!
 
@@ -27,8 +27,8 @@ class AnimalCardsViewControllerTests: XCTestCase {
         controller = vc
         controller.loadViewIfNeeded()
 
-        kolodaView = controller.kolodaView
-        dataSource = kolodaView.dataSource
+        deckView = controller.deckView
+        dataSource = deckView.dataSource
 
         MockRegistry.reset() //Clears call counts and stored animals between tests
         ImageProvider.reset()
@@ -64,26 +64,26 @@ class AnimalCardsViewControllerTests: XCTestCase {
                        "Controller should reset registry offset on viewDidLoad")
     }
 
-    func testHasKolodaView() {
-        XCTAssertNotNil(controller.kolodaView,
-                        "Controller should have a koloda view to display cards")
+    func testHasDeckView() {
+        XCTAssertNotNil(controller.deckView,
+                        "Controller should have a deck view to display cards")
     }
 
-    func testKolodaViewDragSpeed() {
-        XCTAssertEqual(dataSource.kolodaSpeedThatCardShouldDrag(kolodaView), .default,
-                       "Koloda view should use default drag speed")
+    func testDeckViewDragSpeed() {
+        XCTAssertEqual(dataSource.kolodaSpeedThatCardShouldDrag(deckView), .default,
+                       "Deck view should use default drag speed")
     }
 
-    func testKolodaViewNumberOfCards() {
+    func testDeckViewNumberOfCards() {
         controller.animals = cats
-        XCTAssertEqual(dataSource.kolodaNumberOfCards(kolodaView), cats.count,
-                       "Koloda view should have a card for each animal on the controller")
+        XCTAssertEqual(dataSource.kolodaNumberOfCards(deckView), cats.count,
+                       "Deck view should have a card for each animal on the controller")
     }
 
-    func testKolodaViewForCard() {
+    func testDeckViewForCard() {
         controller.animals = cats
-        guard let animalCardView = dataSource.koloda(kolodaView, viewForCardAt: 0) as? AnimalCardView else {
-            return XCTFail("Koloda view should provide animal card views")
+        guard let animalCardView = dataSource.koloda(deckView, viewForCardAt: 0) as? AnimalCardView else {
+            return XCTFail("Deck view should provide animal card views")
         }
 
         XCTAssertTrue(animalCardView.layer.masksToBounds,
@@ -96,60 +96,64 @@ class AnimalCardsViewControllerTests: XCTestCase {
                        "Layer should have correct border color")
     }
 
-    func testIsKolodaViewDataSourceAndDelegate() {
-        XCTAssertTrue(kolodaView.dataSource === controller,
-                      "Controller is the data source for the koloda view")
-        XCTAssertTrue(kolodaView.delegate === controller,
-                      "Controller is the delegate for the koloda view")
+    func testIsDeckViewDataSourceAndDelegate() {
+        XCTAssertTrue(deckView.dataSource === controller,
+                      "Controller is the data source for the deck view")
+        XCTAssertTrue(deckView.delegate === controller,
+                      "Controller is the delegate for the deck view")
     }
 
-    func testKolodaViewSwipeThreshold() {
-        XCTAssertEqual(kolodaView.delegate?.kolodaSwipeThresholdRatioMargin(kolodaView), CGFloat(0.35),
-                       "Koloda view should have a comfortable swipe threshold")
+    func testDeckViewSwipeThreshold() {
+        XCTAssertEqual(deckView.delegate?.kolodaSwipeThresholdRatioMargin(deckView), 0.35,
+                       "Deck view should have a comfortable swipe threshold")
     }
 
-    func testKolodaViewForOverlay() {
+    func testDeckViewForOverlay() {
         controller.animals = cats
-        guard let overlay = dataSource.koloda(kolodaView, viewForCardOverlayAt: 0) as? SwipeOverlayView else {
+
+        let frame = CGRect(x: 0, y: 0, width: 200, height: 200)
+        deckView.frame = frame
+
+        guard let overlay = dataSource.koloda(deckView, viewForCardOverlayAt: 0) as? SwipeOverlayView else {
             return XCTFail("Overlay for cards should be a swipe overlay view")
         }
 
         XCTAssertTrue(overlay.layer.masksToBounds,
                       "Overlay layer should mask to bounds")
-        XCTAssertEqual(overlay.layer.cornerRadius, kolodaView.frame.width / 10,
+        XCTAssertEqual(overlay.layer.cornerRadius, frame.width / 10,
                        "Overlay layer should have a rounded frame")
     }
 
-    func testKolodaViewDoesNotFetchMoreAnimalsWhenMoreThanTenRemaining() {
+    func testDeckViewDoesNotFetchMoreAnimalsWhenMoreThanTenRemaining() {
         controller.registry = MockRegistry.self
         controller.animals = Array(repeating: SampleCat, count: 20)
 
-        _ = dataSource.koloda(kolodaView, viewForCardAt: 0)
+        _ = dataSource.koloda(deckView, viewForCardAt: 0)
         XCTAssertEqual(MockRegistry.fetchAllAnimalsCallCount, 0,
                        "Should not call registry when more than 10 cards remaining")
     }
 
-    func testKolodaViewDoesNotFetchMoreAnimalsWhenFewerThanTenRemaining() {
+    func testDeckViewDoesNotFetchMoreAnimalsWhenFewerThanTenRemaining() {
         controller.registry = MockRegistry.self
         controller.animals = Array(repeating: SampleCat, count: 9)
 
-        _ = dataSource.koloda(kolodaView, viewForCardAt: 0)
+        _ = dataSource.koloda(deckView, viewForCardAt: 0)
         XCTAssertEqual(MockRegistry.fetchAllAnimalsCallCount, 0,
                        "Should not call registry when fewer than 10 cards remaining")
     }
 
-    func testKolodaViewFetchesMoreAnimalsWhenTenCardsRemaining() {
+    func testDeckViewFetchesMoreAnimalsWhenTenCardsRemaining() {
         controller.registry = MockRegistry.self
         MockRegistry.animals = Array(repeating: SampleCat, count: 50)
         controller.animals = Array(repeating: SampleCat, count: 50)
 
-        _ = dataSource.koloda(kolodaView, viewForCardAt: 40)
+        _ = dataSource.koloda(deckView, viewForCardAt: 40)
         XCTAssertEqual(MockRegistry.fetchAllAnimalsCallCount, 1,
                        "Should call registry when exactly 10 cards remaining")
         XCTAssertEqual(controller.animals.count, 100,
                        "Retrieving additional animals should add new animals to the remaining, existing animals")
 
-        _ = dataSource.koloda(kolodaView, viewForCardAt: 90)
+        _ = dataSource.koloda(deckView, viewForCardAt: 90)
 
         XCTAssertEqual(MockRegistry.fetchAllAnimalsCallCount, 2,
                        "Should call registry when exactly 10 cards remaining")
@@ -170,7 +174,6 @@ class AnimalCardsViewControllerTests: XCTestCase {
 
         controller.viewDidLoad()
         waitForExpectations(timeout: 3, handler: nil)
-
     }
 
     func testLoadingCatsPrefetchesMediumSizedImages() {
@@ -239,7 +242,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
         XCTAssertTrue(savedAnimals.isEmpty,
                       "There should be no saved animals without swiping")
 
-        kolodaView.delegate?.koloda(kolodaView, didSwipeCardAt: 0, in: .right)
+        deckView.delegate?.koloda(deckView, didSwipeCardAt: 0, in: .right)
 
         savedAnimals = realm.objects(AnimalObject.self).flatMap { animalObject in
             return Animal(managedObject: animalObject)
@@ -254,8 +257,8 @@ class AnimalCardsViewControllerTests: XCTestCase {
         MockRegistry.animals = cats
         controller.viewDidLoad()
         
-        kolodaView.delegate?.koloda(kolodaView, didSwipeCardAt: 0, in: .right)
-        kolodaView.delegate?.koloda(kolodaView, didSwipeCardAt: 1, in: .right)
+        deckView.delegate?.koloda(deckView, didSwipeCardAt: 0, in: .right)
+        deckView.delegate?.koloda(deckView, didSwipeCardAt: 1, in: .right)
 
         let savedAnimals: [Animal] = realm.objects(AnimalObject.self).flatMap { animalObject in
             return Animal(managedObject: animalObject)
@@ -272,8 +275,8 @@ class AnimalCardsViewControllerTests: XCTestCase {
         MockRegistry.animals = cats
         controller.viewDidLoad()
 
-        kolodaView.delegate?.koloda(kolodaView, didSwipeCardAt: 0, in: .right)
-        kolodaView.delegate?.koloda(kolodaView, didSwipeCardAt: 0, in: .right)
+        deckView.delegate?.koloda(deckView, didSwipeCardAt: 0, in: .right)
+        deckView.delegate?.koloda(deckView, didSwipeCardAt: 0, in: .right)
 
         let savedAnimals: [Animal] = realm.objects(AnimalObject.self).flatMap { animalObject in
             return Animal(managedObject: animalObject)
@@ -290,7 +293,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
         MockRegistry.animals = cats
         controller.viewDidLoad()
 
-        kolodaView.delegate?.koloda(kolodaView, didSwipeCardAt: 0, in: .left)
+        deckView.delegate?.koloda(deckView, didSwipeCardAt: 0, in: .left)
 
         let savedAnimals: [Animal] = realm.objects(AnimalObject.self).flatMap { animalObject in
             return Animal(managedObject: animalObject)

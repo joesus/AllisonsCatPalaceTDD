@@ -17,7 +17,7 @@ class SwipeOverlayViewTests: XCTestCase {
         super.setUp()
 
         let bundle = Bundle(for: SwipeOverlayView.self)
-        guard let view = bundle.loadNibNamed("SwipeOverlayView", owner: SwipeOverlayView().self)?.first as? SwipeOverlayView else {
+        guard let view = bundle.loadNibNamed("SwipeOverlayView", owner: nil)?.first as? SwipeOverlayView else {
             return XCTFail("Should be able to instantiate SwipeOverlayView from nib")
         }
 
@@ -25,8 +25,12 @@ class SwipeOverlayViewTests: XCTestCase {
     }
 
     func testHasImageView() {
-        XCTAssertNotNil(swipeOverlayView.imageView,
-                        "Swipe overlay view should have an image view to set the overlay on")
+        guard let imageView = swipeOverlayView.imageView else {
+            return XCTFail("Swipe overlay view should have an image view to set the overlay on")
+        }
+
+        XCTAssertNil(imageView.image,
+                     "Image view should be empty by default")
     }
 
     func testOverlayState() {

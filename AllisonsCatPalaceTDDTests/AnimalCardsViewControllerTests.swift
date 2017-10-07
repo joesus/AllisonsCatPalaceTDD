@@ -9,12 +9,14 @@
 @testable import AllisonsCatPalaceTDD
 import TestableUIKit
 import Koloda
+import RealmSwift
 import XCTest
 
 class AnimalCardsViewControllerTests: XCTestCase {
     var controller: AnimalCardsViewController!
     var deckView: KolodaView!
     var dataSource: KolodaViewDataSource!
+    var realm: Realm!
 
     override func setUp() {
         super.setUp()
@@ -30,8 +32,11 @@ class AnimalCardsViewControllerTests: XCTestCase {
 
         MockRegistry.reset() //Clears call counts and stored animals between tests
         ImageProvider.reset()
+
+        realm = realmForTest(withName: name!)
+        reset(realm)
     }
-    
+
     func testHasNoAnimalsByDefault() {
         XCTAssert(controller.animals.isEmpty, "AnimalCardsViewController should have no animals by default")
     }
@@ -168,16 +173,18 @@ class AnimalCardsViewControllerTests: XCTestCase {
         expectation(for: predicate, evaluatedWith: self, handler: nil)
 
         controller.viewDidLoad()
-        waitForExpectations(timeout: 2, handler: nil)
-
+        waitForExpectations(timeout: 3, handler: nil)
     }
 
     func testLoadingCatsPrefetchesMediumSizedImages() {
         let urlToPreload = URL(string: "https://www.example.com/preloadedMedium.png")!
         let imageLocations = AnimalImageLocations(small: [], medium: [urlToPreload], large: [])
         cats[10].imageLocations = imageLocations
-        
-        controller.animals = cats
+
+        // loads cats from the mock registry - waiting for the tenth card to be loaded since it will indicate that card images are being loaded before they are being displayed
+        controller.registry = MockRegistry.self
+        MockRegistry.animals = cats
+        controller.viewDidLoad()
 
         let predicate = NSPredicate { _,_ in
             ImageProvider.cache.cachedResponse(for: URLRequest(url: urlToPreload)) != nil
@@ -192,14 +199,16 @@ class AnimalCardsViewControllerTests: XCTestCase {
         let imageLocations = AnimalImageLocations(small: [urlToPreload], medium: [], large: [])
         cats[10].imageLocations = imageLocations
 
-        controller.animals = cats
+        controller.registry = MockRegistry.self
+        MockRegistry.animals = cats
+        controller.viewDidLoad()
 
         let predicate = NSPredicate { _,_ in
             ImageProvider.cache.cachedResponse(for: URLRequest(url: urlToPreload)) != nil
         }
         expectation(for: predicate, evaluatedWith: self, handler: nil)
 
-        waitForExpectations(timeout: 2, handler: nil)
+        waitForExpectations(timeout: 3, handler: nil)
     }
 
     func testLoadingCatsPrefetchesLargeSizedImages() {
@@ -207,7 +216,9 @@ class AnimalCardsViewControllerTests: XCTestCase {
         let imageLocations = AnimalImageLocations(small: [], medium: [], large: [urlToPreload])
         cats[10].imageLocations = imageLocations
 
-        controller.animals = cats
+        controller.registry = MockRegistry.self
+        MockRegistry.animals = cats
+        controller.viewDidLoad()
 
         let predicate = NSPredicate { _,_ in
             ImageProvider.cache.cachedResponse(for: URLRequest(url: urlToPreload)) != nil
@@ -217,6 +228,86 @@ class AnimalCardsViewControllerTests: XCTestCase {
         waitForExpectations(timeout: 2, handler: nil)
     }
 
+    func testSwipingRightSavesSingleAnimalToFavorites() {
+        var savedAnimals: [Animal]
+
+        controller.registry = MockRegistry.self
+        MockRegistry.animals = cats
+        controller.viewDidLoad()
+
+        savedAnimals = realm.objects(AnimalObject.self).flatMap { animalObject in
+            return Animal(managedObject: animalObject)
+        }
+
+        XCTAssertTrue(savedAnimals.isEmpty,
+                      "There should be no saved animals without swiping")
+
+        deckView.delegate?.koloda(deckView, didSwipeCardAt: 0, in: .right)
+
+        savedAnimals = realm.objects(AnimalObject.self).flatMap { animalObject in
+            return Animal(managedObject: animalObject)
+        }
+
+        XCTAssertFalse(savedAnimals.isEmpty,
+                       "Swiping right should save an animal")
+    }
+
+    func testSwipingRightMultipleTimes() {
+        controller.registry = MockRegistry.self
+        MockRegistry.animals = cats
+        controller.viewDidLoad()
+        
+        deckView.delegate?.koloda(deckView, didSwipeCardAt: 0, in: .right)
+        deckView.delegate?.koloda(deckView, didSwipeCardAt: 1, in: .right)
+
+        let savedAnimals: [Animal] = realm.objects(AnimalObject.self).flatMap { animalObject in
+            return Animal(managedObject: animalObject)
+        }
+
+        XCTAssertFalse(savedAnimals.isEmpty,
+                       "Swiping right should save an animal")
+        XCTAssertEqual(savedAnimals.count, 2,
+                      "Swiping right twice should save two animals")
+    }
+
+    func testSwipingRightMultipleTimesSameCard() {
+        controller.registry = MockRegistry.self
+        MockRegistry.animals = cats
+        controller.viewDidLoad()
+
+        deckView.delegate?.koloda(deckView, didSwipeCardAt: 0, in: .right)
+        deckView.delegate?.koloda(deckView, didSwipeCardAt: 0, in: .right)
+
+        let savedAnimals: [Animal] = realm.objects(AnimalObject.self).flatMap { animalObject in
+            return Animal(managedObject: animalObject)
+        }
+
+        XCTAssertFalse(savedAnimals.isEmpty,
+                       "Swiping right should save an animal")
+        XCTAssertEqual(savedAnimals.count, 1,
+                       "Swiping right twice on the same animal should only save one animal")
+    }
+
+    func testSwipingLeftDoesNotSaveToFavorites() {
+        controller.registry = MockRegistry.self
+        MockRegistry.animals = cats
+        controller.viewDidLoad()
+
+        deckView.delegate?.koloda(deckView, didSwipeCardAt: 0, in: .left)
+
+        let savedAnimals: [Animal] = realm.objects(AnimalObject.self).flatMap { animalObject in
+            return Animal(managedObject: animalObject)
+        }
+
+        XCTAssertTrue(savedAnimals.isEmpty,
+                      "Swiping left should not save animal")
+    }
+
+    // TODO - test for clicking card to get to detail view
+
+    func testPrepareForSegue() {
+        // TODO - for clicking on card passing known information
+    }
 }
 
 fileprivate class MockRegistry: AnimalFetching {

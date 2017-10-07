@@ -106,7 +106,7 @@ class AnimalCardViewTests: XCTestCase {
                        "Configuring should fetch the first small image if no medium image is available")
     }
 
-    func testCOnfiguringFetchesFirstLargeImageIfNoMediumOrSmallAvailable() {
+    func testConfiguringFetchesFirstLargeImageIfNoMediumOrSmallAvailable() {
         let imageLocations = SampleImageLocations.largeOnly
         let cat = SampleCat
         cat.imageLocations = imageLocations

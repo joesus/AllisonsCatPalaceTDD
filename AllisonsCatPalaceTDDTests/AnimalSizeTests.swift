@@ -7,9 +7,19 @@
 //
 
 import XCTest
+import RealmSwift
 @testable import AllisonsCatPalaceTDD
 
 class AnimalSizeTests: XCTestCase {
+
+    var realm: Realm!
+
+    override func setUp() {
+        super.setUp()
+
+        realm = realmForTest(withName: self.name!)
+        reset(realm)
+    }
 
     func testCannotCreateAnimalSizeFromEmptyString() {
         XCTAssertNil(AnimalSize(petFinderRawValue: ""),
@@ -62,4 +72,29 @@ class AnimalSizeTests: XCTestCase {
             }
         }
     }
+
+    func testManagedObject() {
+        XCTAssertNil(AnimalSizeObject().value.value,
+                     "AnimalSizeObject should have no value by default")
+
+        XCTAssertEqual(AnimalSize.large.rawValue, AnimalSize.large.managedObject.value.value,
+                       "Managed object should store correct raw value")
+    }
+
+    func testInitializingFromManagedObject() {
+        XCTAssertEqual(AnimalSize(managedObject: AnimalSize.large.managedObject)?.rawValue,
+                       AnimalSize.large.rawValue,
+                       "Should initialize from managed object with correct value")
+    }
+
+    func testSavingManagedObject() {
+        try! realm.write {
+            realm.add(AnimalSize.large.managedObject)
+        }
+
+        let fetchedManagedObject = realm.objects(AnimalSizeObject.self).last!
+
+        XCTAssertEqual(AnimalSize.large.rawValue, AnimalSize(managedObject: fetchedManagedObject)?.rawValue)
+    }
+
 }

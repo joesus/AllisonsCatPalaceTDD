@@ -107,7 +107,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="activityIndicator" destination="Fyf-Ri-qq9" id="I9Z-2k-kCS"/>
-                        <outlet property="kolodaView" destination="S6d-Ci-Se9" id="RLP-ZE-o1p"/>
+                        <outlet property="deckView" destination="S6d-Ci-Se9" id="8sJ-21-690"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fHm-TB-UfG" userLabel="First Responder" sceneMemberID="firstResponder"/>

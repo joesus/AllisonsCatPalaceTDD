@@ -7,9 +7,20 @@
 //
 
 import XCTest
+import RealmSwift
 @testable import AllisonsCatPalaceTDD
 
 class AnimalSexTests: XCTestCase {
+
+    var realm: Realm!
+
+    override func setUp() {
+        super.setUp()
+
+        realm = realmForTest(withName: self.name!)
+        reset(realm)
+    }
+
     func testCannotCreateAnimalSexFromEmptyString() {
         XCTAssertEqual(AnimalSex(petFinderRawValue: ""), .unknown,
                      "Empty string should default to unknown value")
@@ -49,4 +60,39 @@ class AnimalSexTests: XCTestCase {
             }
         }
     }
+
+    func testManagedObject() {
+        XCTAssertNil(AnimalSexObject().value.value,
+                     "AnimalSexObject should have no value by default")
+
+        let sex = AnimalSex.male
+        let managed = sex.managedObject
+
+        XCTAssertEqual(sex.rawValue, managed.value.value,
+                       "Managed object should store correct raw value")
+    }
+
+    func testInitializingFromManagedObject() {
+        let sex = AnimalSex.male
+        let managed = sex.managedObject
+        let objectFromManaged = AnimalSex(managedObject: managed)
+
+        XCTAssertEqual(objectFromManaged?.rawValue, sex.rawValue)
+    }
+
+    func testSavingManagedObject() {
+        let sex = AnimalSex.male
+        let managed = sex.managedObject
+
+        try! realm.write {
+            realm.add(managed)
+        }
+
+        let fetchedManagedObject = realm.objects(AnimalSexObject.self).last!
+
+        let originalValueFromFetched = AnimalSex(managedObject: fetchedManagedObject)
+
+        XCTAssertEqual(sex.rawValue, originalValueFromFetched?.rawValue)
+    }
+
 }

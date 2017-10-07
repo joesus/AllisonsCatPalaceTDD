@@ -9,6 +9,7 @@
 import XCTest
 import TestSwagger
 import TestableUIKit
+import RealmSwift
 @testable import AllisonsCatPalaceTDD
 
 class FavoritesListDataSourceTests: XCTestCase {
@@ -21,12 +22,16 @@ class FavoritesListDataSourceTests: XCTestCase {
     var tableView: UITableView!
     let firstCatIndexPath = IndexPath(row: 0, section: 0)
     var reloadRowsSpy: Spy?
+    var realm: Realm!
 
     override func setUp() {
         super.setUp()
 
-        loadComponents()
+        realm = realmForTest(withName: name!)
+        reset(realm)
+        InjectionMap.realm = realm
         ImageProvider.reset()
+        loadComponents()
         reloadRowsSpy = UITableView.ReloadRowsSpyController.createSpy(on: tableView)
         reloadRowsSpy?.beginSpying()
         URLSession.beginSpyingOnDataTaskCreation()
@@ -129,6 +134,9 @@ class FavoritesListDataSourceTests: XCTestCase {
     func testCatCellDoesNotReloadIfNotVisible() {
         let didNotReloadExpectation = expectation(description: "testCatCellDoesNotReloadIfNotVisible")
 
+        // sets the controller's realm to the test's blank realm
+        controller.viewDidLoad()
+
         // adds all the animals
         controller.animals.append(contentsOf: cats)
 
@@ -147,7 +155,7 @@ class FavoritesListDataSourceTests: XCTestCase {
             didNotReloadExpectation.fulfill()
         }
 
-        waitForExpectations(timeout: 1, handler: nil)
+        waitForExpectations(timeout: 3, handler: nil)
 
         // check that the cell isn't reloaded
         XCTAssertFalse(tableView.reloadRowsCalled,
@@ -214,7 +222,7 @@ class FavoritesListDataSourceTests: XCTestCase {
             didNotReloadExpectation.fulfill()
         }
 
-        waitForExpectations(timeout: 0.5, handler: nil)
+        waitForExpectations(timeout: 30, handler: nil)
 
         // check that the cell is reloaded
         XCTAssertFalse(tableView.reloadRowsCalled,

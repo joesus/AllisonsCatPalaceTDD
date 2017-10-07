@@ -7,9 +7,19 @@
 //
 
 import XCTest
+import RealmSwift
 @testable import AllisonsCatPalaceTDD
 
 class GeneticPurityTests: XCTestCase {
+
+    var realm: Realm!
+
+    override func setUp() {
+        super.setUp()
+
+        realm = realmForTest(withName: name!)
+        reset(realm)
+    }
     
     func testPurityCases() {
         [GeneticPurity.purebred, .mixed].forEach { value in
@@ -40,4 +50,39 @@ class GeneticPurityTests: XCTestCase {
         XCTAssertFalse(GeneticPurity.mixed.isPurebred,
                        "Mixed should not be purebred")
     }
+
+    func testManagedObject() {
+        XCTAssertNil(GeneticPurityObject().value.value,
+                     "GeneticPurityObject should have no value by default")
+
+        let original = GeneticPurity.mixed
+        let managed = original.managedObject
+
+        XCTAssertEqual(original.rawValue, managed.value.value,
+                       "Managed object should store correct raw value")
+    }
+
+    func testInitializingFromManagedObject() {
+        let original = GeneticPurity.mixed
+        let managed = original.managedObject
+        let objectFromManaged = GeneticPurity(managedObject: managed)
+
+        XCTAssertEqual(objectFromManaged?.rawValue, original.rawValue)
+    }
+
+    func testSavingManagedObject() {
+        let original = GeneticPurity.mixed
+        let managed = original.managedObject
+
+        try! realm.write {
+            realm.add(managed)
+        }
+
+        let fetchedManagedObject = realm.objects(GeneticPurityObject.self).last!
+
+        let originalValueFromFetched = GeneticPurity(managedObject: fetchedManagedObject)
+
+        XCTAssertEqual(original.rawValue, originalValueFromFetched?.rawValue)
+    }
+
 }

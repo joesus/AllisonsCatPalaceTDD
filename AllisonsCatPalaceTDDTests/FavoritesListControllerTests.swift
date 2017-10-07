@@ -8,10 +8,12 @@
 
 import XCTest
 import TestableUIKit
+import RealmSwift
 @testable import AllisonsCatPalaceTDD
 
 class FavoritesListControllerTests: XCTestCase {
 
+    var realm: Realm!
     var controller: FavoritesListController!
     var navController: UINavigationController!
     var tableView: UITableView!
@@ -19,6 +21,10 @@ class FavoritesListControllerTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
+
+        realm = realmForTest(withName: name!)
+        reset(realm)
+        InjectionMap.realm = realm
 
         navController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
         
@@ -48,7 +54,25 @@ class FavoritesListControllerTests: XCTestCase {
     }
 
     func testHasNoAnimalsByDefault() {
-        XCTAssert(controller.animals.isEmpty, "FavoritesListController should have no animals by default")
+        XCTAssert(controller.animals.isEmpty, "FavoritesListController should have no animals by default, had: \(controller.animals.count) animals")
+    }
+
+    func testFetchesDataOnLoad() {
+        try? realm.write {
+            cats.forEach {
+                realm.add($0.managedObject, update: true)
+            }
+        }
+
+        controller.viewDidLoad()
+
+        XCTAssertEqual(cats.count, controller.animals.count,
+                       "Controller should load correct number of animals from local storage")
+
+        controller.animals.enumerated().forEach { index, animal in
+            XCTAssertEqual(animal.identifier, cats[index].identifier,
+                           "animal with identifier: \(animal.identifier) should be loaded from local storage")
+        }
     }
 
     func testViewDidLoadCallsSuperViewDidLoad() {

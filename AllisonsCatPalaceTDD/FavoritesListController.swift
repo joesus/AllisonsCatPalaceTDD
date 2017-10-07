@@ -8,13 +8,24 @@
 
 import UIKit
 
-class FavoritesListController: UITableViewController {
+class FavoritesListController: UITableViewController, RealmInjected {
     var animals = [Animal]() {
         didSet {
             DispatchQueue.main.async { [weak tableView] in
                 tableView?.reloadData()
             }
         }
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        guard let realm = realm else { return }
+
+        animals = realm.objects(AnimalObject.self).flatMap { animalObject in
+            return Animal(managedObject: animalObject)
+        }
+
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {

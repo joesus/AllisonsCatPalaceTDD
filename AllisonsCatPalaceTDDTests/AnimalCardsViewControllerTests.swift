@@ -274,7 +274,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
         }
 
         expectation(for: predicate, evaluatedWith: self, handler: nil)
-        waitForExpectations(timeout: 20, handler: nil)
+        waitForExpectations(timeout: 2, handler: nil)
 
         deckView.delegate?.koloda(deckView, didSwipeCardAt: 0, in: .right)
         deckView.delegate?.koloda(deckView, didSwipeCardAt: 0, in: .right)
@@ -317,7 +317,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
         navController.addChildViewController(controller) // make controller the top view controller
 
         let predicate = NSPredicate { _, _ in
-            navController.topViewController is FavoritesListController
+            self.controller.performSegueCalled
         }
         expectation(for: predicate, evaluatedWith: self, handler: nil)
 
@@ -326,8 +326,6 @@ class AnimalCardsViewControllerTests: XCTestCase {
 
             waitForExpectations(timeout: 2, handler: nil)
 
-            XCTAssertTrue(controller.performSegueCalled,
-                          "Perform segue should be called on controller")
             XCTAssertEqual(controller.performSegueIdentifier, "showFavoritesListController",
                            "Segue identifier should identify the destination of the segue")
         }

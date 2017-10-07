@@ -125,7 +125,7 @@ class FavoritesListControllerTests: XCTestCase {
 
         controller.viewDidLoad() // trigger a new fetch of the animals
 
-        tableView.dataSource?.tableView?(tableView, commit: .delete, forRowAt: firstCatIndexPath)
+        tableView.dataSource!.tableView!(tableView, commit: .delete, forRowAt: firstCatIndexPath)
 
         XCTAssertEqual(realm.objects(AnimalObject.self).count, cats.count - 1,
                        "Deleting a single row should delete a single animal from local storage")

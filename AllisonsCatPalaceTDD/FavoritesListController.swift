@@ -69,7 +69,11 @@ class FavoritesListController: UITableViewController, RealmInjected {
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        guard let realm = realm else { return }
+        guard let realm = realm,
+            editingStyle == .delete else {
+
+            return
+        }
 
         let animalToDelete = animals[indexPath.row]
         let objectToDelete = realm.objects(AnimalObject.self).first { animalObject in
@@ -84,7 +88,7 @@ class FavoritesListController: UITableViewController, RealmInjected {
 
         animals.remove(at: indexPath.row)
 
-        if animals.count == 0 {
+        if animals.isEmpty {
             tableView.beginUpdates()
             tableView.deleteSections([0], with: .automatic)
             tableView.endUpdates()

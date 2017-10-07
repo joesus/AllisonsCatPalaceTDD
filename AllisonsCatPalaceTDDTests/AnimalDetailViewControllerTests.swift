@@ -30,7 +30,6 @@ class CatDetailViewControllerTests: XCTestCase {
         XCTAssertNil(controller.cat, "Should not have a cat unless specified")
     }
 
-    // TODO:- Make sure the other view lifecycle methods are protected
     func testViewDidLoadCallsSuperViewDidLoad() {
         UIViewController.ViewDidLoadSpyController.createSpy(on: controller)!.spy {
             controller.viewDidLoad()

@@ -21,20 +21,21 @@ class AnimalCardsViewControllerTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
+        MockRegistry.reset() //Clears call counts and stored animals between tests
+        ImageProvider.reset()
+        realm = realmForTest(withName: name!)
+
+        reset(realm)
+
         guard let vc = UIStoryboard(name: "Main", bundle: Bundle(for: AnimalCardsViewController.self)).instantiateViewController(withIdentifier: "AnimalCardsViewController") as? AnimalCardsViewController else {
             return XCTFail("Should be able to instantiate animal cards view controller from main storyboard")
         }
         controller = vc
+        controller.registry = MockRegistry.self
         controller.loadViewIfNeeded()
 
         deckView = controller.deckView
         dataSource = deckView.dataSource
-
-        MockRegistry.reset() //Clears call counts and stored animals between tests
-        ImageProvider.reset()
-
-        realm = realmForTest(withName: name!)
-        reset(realm)
     }
 
     func testHasNoAnimalsByDefault() {
@@ -49,17 +50,15 @@ class AnimalCardsViewControllerTests: XCTestCase {
     }
 
     func testRequestsAnimalsOnViewDidLoad() {
-        controller.registry = MockRegistry.self
-        controller.viewDidLoad()
         XCTAssertEqual(MockRegistry.fetchAllAnimalsCallCount, 1,
                        "Registry should be called when view loads")
     }
 
     func testResetsRegistryOffsetOnViewDidLoad() {
-        controller.registry = MockRegistry.self
         MockRegistry.offset = 20
 
         controller.viewDidLoad()
+
         XCTAssertEqual(MockRegistry.offset, 0,
                        "Controller should reset registry offset on viewDidLoad")
     }
@@ -126,6 +125,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
 
     func testDeckViewDoesNotFetchMoreAnimalsWhenMoreThanTenRemaining() {
         controller.registry = MockRegistry.self
+
         controller.animals = Array(repeating: SampleCat, count: 20)
 
         _ = dataSource.koloda(deckView, viewForCardAt: 0)
@@ -135,6 +135,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
 
     func testDeckViewDoesNotFetchMoreAnimalsWhenFewerThanTenRemaining() {
         controller.registry = MockRegistry.self
+
         controller.animals = Array(repeating: SampleCat, count: 9)
 
         _ = dataSource.koloda(deckView, viewForCardAt: 0)
@@ -162,7 +163,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
     }
 
     func testLoadingIndicatorWithNoCats() {
-        controller.registry = MockRegistry.self
+        // This passes because of the delay on the fetching callback, if that changes this may begin to fail
         MockRegistry.animals = Array(repeating: SampleCat, count: 50)
         XCTAssertTrue(controller.activityIndicator.isAnimating,
                       "Activity indicator should be animating when there are no animal cards to display")
@@ -172,7 +173,6 @@ class AnimalCardsViewControllerTests: XCTestCase {
         }
         expectation(for: predicate, evaluatedWith: self, handler: nil)
 
-        controller.viewDidLoad()
         waitForExpectations(timeout: 3, handler: nil)
     }
 
@@ -182,7 +182,6 @@ class AnimalCardsViewControllerTests: XCTestCase {
         cats[10].imageLocations = imageLocations
 
         // loads cats from the mock registry - waiting for the tenth card to be loaded since it will indicate that card images are being loaded before they are being displayed
-        controller.registry = MockRegistry.self
         MockRegistry.animals = cats
         controller.viewDidLoad()
 
@@ -199,7 +198,6 @@ class AnimalCardsViewControllerTests: XCTestCase {
         let imageLocations = AnimalImageLocations(small: [urlToPreload], medium: [], large: [])
         cats[10].imageLocations = imageLocations
 
-        controller.registry = MockRegistry.self
         MockRegistry.animals = cats
         controller.viewDidLoad()
 
@@ -216,7 +214,6 @@ class AnimalCardsViewControllerTests: XCTestCase {
         let imageLocations = AnimalImageLocations(small: [], medium: [], large: [urlToPreload])
         cats[10].imageLocations = imageLocations
 
-        controller.registry = MockRegistry.self
         MockRegistry.animals = cats
         controller.viewDidLoad()
 
@@ -231,7 +228,6 @@ class AnimalCardsViewControllerTests: XCTestCase {
     func testSwipingRightSavesSingleAnimalToFavorites() {
         var savedAnimals: [Animal]
 
-        controller.registry = MockRegistry.self
         MockRegistry.animals = cats
         controller.viewDidLoad()
 
@@ -253,7 +249,6 @@ class AnimalCardsViewControllerTests: XCTestCase {
     }
 
     func testSwipingRightMultipleTimes() {
-        controller.registry = MockRegistry.self
         MockRegistry.animals = cats
         controller.viewDidLoad()
         
@@ -271,9 +266,15 @@ class AnimalCardsViewControllerTests: XCTestCase {
     }
 
     func testSwipingRightMultipleTimesSameCard() {
-        controller.registry = MockRegistry.self
         MockRegistry.animals = cats
         controller.viewDidLoad()
+
+        let predicate = NSPredicate { _, _ in
+            self.controller.animals.count > 0
+        }
+
+        expectation(for: predicate, evaluatedWith: self, handler: nil)
+        waitForExpectations(timeout: 2, handler: nil)
 
         deckView.delegate?.koloda(deckView, didSwipeCardAt: 0, in: .right)
         deckView.delegate?.koloda(deckView, didSwipeCardAt: 0, in: .right)
@@ -289,7 +290,6 @@ class AnimalCardsViewControllerTests: XCTestCase {
     }
 
     func testSwipingLeftDoesNotSaveToFavorites() {
-        controller.registry = MockRegistry.self
         MockRegistry.animals = cats
         controller.viewDidLoad()
 
@@ -303,8 +303,35 @@ class AnimalCardsViewControllerTests: XCTestCase {
                       "Swiping left should not save animal")
     }
 
-    // TODO - test for clicking card to get to detail view
+    func testFavoritesButton() {
+        XCTAssertEqual(controller.navigationItem.rightBarButtonItem?.title, "Favorites",
+                       "Favorites button exists and has correct title")
+    }
 
+    func testFavoritesSegue() {
+        guard let navController = UIStoryboard(name: "Main", bundle: Bundle(for: AnimalCardsViewController.self)).instantiateInitialViewController() as? UINavigationController else {
+            return XCTFail("Main storyboard should have a navigation controller")
+        }
+
+        replaceRootViewController(with: navController) // add it to the window
+        navController.addChildViewController(controller) // make controller the top view controller
+
+        let predicate = NSPredicate { _, _ in
+            self.controller.performSegueCalled
+        }
+        expectation(for: predicate, evaluatedWith: self, handler: nil)
+
+        UIViewController.PerformSegueSpyController.createSpy(on: controller)!.spy {
+            controller.performSegue(withIdentifier: "showFavoritesListController", sender: controller.navigationItem.rightBarButtonItem)
+
+            waitForExpectations(timeout: 2, handler: nil)
+
+            XCTAssertEqual(controller.performSegueIdentifier, "showFavoritesListController",
+                           "Segue identifier should identify the destination of the segue")
+        }
+    }
+
+    // TODO - test for clicking card to get to detail view
     func testPrepareForSegue() {
         // TODO - for clicking on card passing known information
     }

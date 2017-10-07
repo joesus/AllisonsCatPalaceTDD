@@ -56,7 +56,6 @@ class FavoritesListController: UITableViewController, RealmInjected {
         } else {
             ImageProvider.getImage(for: imageUrl) { potentialImage in
                 guard potentialImage != nil else { return }
-
                 DispatchQueue.main.async {
                     if let indexPaths = tableView.indexPathsForVisibleRows,
                         indexPaths.contains(indexPath) {
@@ -69,11 +68,48 @@ class FavoritesListController: UITableViewController, RealmInjected {
         return cell
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationController = segue.destination as? CatDetailController,
-            let row = tableView.indexPathForSelectedRow?.row {
-            destinationController.cat = animals[row]
-            destinationController.title = animals[row].name
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        guard let realm = realm,
+            editingStyle == .delete else {
+
+                return
         }
+
+        let animalToDelete = animals[indexPath.row]
+        let objectToDelete = realm.objects(AnimalObject.self).first { animalObject in
+            animalObject.identifier.value == animalToDelete.identifier
+        }
+
+        if let object = objectToDelete {
+            try? realm.write {
+                realm.delete(object)
+            }
+        }
+
+        animals.remove(at: indexPath.row)
+
+        tableView.beginUpdates()
+
+        if animals.isEmpty {
+            tableView.deleteSections([0], with: .automatic)
+        }
+        else {
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+
+        tableView.endUpdates()
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destination = segue.destination as? CatDetailController,
+            let row = tableView.indexPathForSelectedRow?.row,
+            animals.indices.contains(row)
+            else {
+                return
+        }
+
+        let animal = animals[row]
+        destination.cat = animal
+        destination.title = animal.name
     }
 }

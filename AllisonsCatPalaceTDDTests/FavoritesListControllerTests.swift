@@ -58,11 +58,7 @@ class FavoritesListControllerTests: XCTestCase {
     }
 
     func testFetchesDataOnLoad() {
-        try? realm.write {
-            cats.forEach {
-                realm.add($0.managedObject, update: true)
-            }
-        }
+        addCatsToRealm()
 
         controller.viewDidLoad()
 
@@ -115,13 +111,67 @@ class FavoritesListControllerTests: XCTestCase {
 
             waitForExpectations(timeout: 2, handler: nil)
 
-            guard controller.tableView.reloadDataCalled else {
+            guard tableView.reloadDataCalled else {
                 return XCTFail("TableView should be reloaded when animals are cleared")
             }
 
-            XCTAssert(controller.tableView.reloadDataCalledOnMainThread!,
+            XCTAssert(tableView.reloadDataCalledOnMainThread!,
                       "Reload data should be called on the main thread when animals are cleared on a background thread")
         }
+    }
+
+    func testEditAction() {
+        addCatsToRealm()
+
+        controller.viewDidLoad() // trigger a new fetch of the animals
+
+        tableView.dataSource!.tableView!(tableView, commit: .delete, forRowAt: firstCatIndexPath)
+
+        XCTAssertEqual(realm.objects(AnimalObject.self).count, cats.count - 1,
+                       "Deleting a single row should delete a single animal from local storage")
+    }
+
+    func testDeletesCorrectAnimal() {
+        addCatsToRealm()
+        controller.viewDidLoad()
+
+        let randomCatIndex = Int(arc4random_uniform(UInt32(controller.animals.count)))
+        let randomCatId = controller.animals[randomCatIndex].identifier
+
+        tableView.dataSource?.tableView?(tableView, commit: .delete, forRowAt: IndexPath(row: randomCatIndex, section: 0))
+
+        XCTAssertFalse(controller.animals.contains(where: { $0.identifier == randomCatId }),
+                       "Animal at corresponding deleted index path should be removed")
+    }
+
+    func testDeleteRemovesRow() {
+        addCatsToRealm()
+        controller.viewDidLoad()
+
+        XCTAssertEqual(tableView.numberOfRows(inSection: 0), cats.count,
+                       "Number of rows in tableview should equal the number of cats")
+
+        tableView.dataSource?.tableView?(tableView, commit: .delete, forRowAt: firstCatIndexPath)
+
+        XCTAssertEqual(tableView.numberOfRows(inSection: 0), cats.count - 1,
+                       "Deleting a single row should remove a single row from the tableview")
+    }
+
+    func testDeletingFinalAnimalRemovesSection() {
+        try? realm.write {
+            realm.add(SampleCat.managedObject, update: true)
+        }
+        XCTAssertEqual(realm.objects(AnimalObject.self).count, 1,
+                       "Single animal should be persisted correctly")
+        controller.viewDidLoad()
+
+        XCTAssertEqual(tableView.numberOfSections, 1,
+                       "Tableview should have one section where there are animals to display")
+
+        tableView.dataSource?.tableView?(tableView, commit: .delete, forRowAt: firstCatIndexPath)
+
+        XCTAssertEqual(tableView.numberOfSections, 0,
+                       "Tableview should have zero sections after removing final row")
     }
 
     func testPrepareForSeguePreparesDetailController() {
@@ -133,7 +183,7 @@ class FavoritesListControllerTests: XCTestCase {
 
         let segue = UIStoryboardSegue(identifier: "ShowCatDetail", source: controller, destination: destination)
 
-        controller.tableView.selectRow(at: firstCatIndexPath, animated: false, scrollPosition: .none)
+        tableView.selectRow(at: firstCatIndexPath, animated: false, scrollPosition: .none)
 
         controller.prepare(for: segue, sender: nil)
 
@@ -154,7 +204,7 @@ class FavoritesListControllerTests: XCTestCase {
         UIViewController.PerformSegueSpyController.createSpy(on: controller)!.spy {
             controller.animals = [SampleCat]
 
-            let cell = controller.tableView.cellForRow(at: firstCatIndexPath) as? CatCell
+            let cell = tableView.cellForRow(at: firstCatIndexPath) as? CatCell
             controller.performSegue(withIdentifier: "ShowCatDetail", sender: cell)
 
             waitForExpectations(timeout: 2, handler: nil)
@@ -168,4 +218,17 @@ class FavoritesListControllerTests: XCTestCase {
         }
     }
 
+}
+
+extension FavoritesListControllerTests {
+    func addCatsToRealm(_ file: StaticString = #file, _ line: UInt = #line) {
+        try? realm.write {
+            cats.forEach {
+                realm.add($0.managedObject, update: true)
+            }
+        }
+
+        XCTAssertEqual(realm.objects(AnimalObject.self).count, cats.count,
+                       "Correct number of animals should be persisted", file: file, line: line)
+    }
 }

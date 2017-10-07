@@ -79,9 +79,9 @@
 		F46539CD1EFF29A80049E7FD /* AnimalSpecies.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539CC1EFF29A80049E7FD /* AnimalSpecies.swift */; };
 		F46539CF1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */; };
 		F46539D11EFF2F6D0049E7FD /* AnimalPhotoSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */; };
+		F48AAD591F87207B00BC8081 /* RealmProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48AAD581F87207B00BC8081 /* RealmProtocol.swift */; };
 		F4A5079A1F6043B100B8E480 /* SpeciesSelectionControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A507991F6043B100B8E480 /* SpeciesSelectionControllerTests.swift */; };
 		F4A5079C1F60459400B8E480 /* SpeciesSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A5079B1F60459400B8E480 /* SpeciesSelectionController.swift */; };
-		F48AAD591F87207B00BC8081 /* RealmProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48AAD581F87207B00BC8081 /* RealmProtocol.swift */; };
 		F4AB68921F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */; };
 		F4AB68941F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68931F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift */; };
 		F4AB68961F2D352700CC4CC2 /* AnimalGenotypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68951F2D352700CC4CC2 /* AnimalGenotypeTests.swift */; };
@@ -195,9 +195,9 @@
 		F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalPhotoSizeTests.swift; sourceTree = "<group>"; };
 		F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalPhotoSize.swift; sourceTree = "<group>"; };
 		F483B6951F57536D00E57471 /* RealmTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmTests.swift; sourceTree = "<group>"; };
+		F48AAD581F87207B00BC8081 /* RealmProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmProtocol.swift; sourceTree = "<group>"; };
 		F4A507991F6043B100B8E480 /* SpeciesSelectionControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeciesSelectionControllerTests.swift; sourceTree = "<group>"; };
 		F4A5079B1F60459400B8E480 /* SpeciesSelectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeciesSelectionController.swift; sourceTree = "<group>"; };
-		F48AAD581F87207B00BC8081 /* RealmProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmProtocol.swift; sourceTree = "<group>"; };
 		F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalAdoptionStatusTests.swift; sourceTree = "<group>"; };
 		F4AB68931F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalAdoptionStatus.swift; sourceTree = "<group>"; };
 		F4AB68951F2D352700CC4CC2 /* AnimalGenotypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalGenotypeTests.swift; sourceTree = "<group>"; };
@@ -253,19 +253,21 @@
 		2719FBED1E7F137300D3D79A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				276C61C11E2C1C0E00225CF4 /* Animal.swift */,
 				F4AB68931F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift */,
 				F46539C21EFF1F2F0049E7FD /* AnimalAgeGroups.swift */,
+				276C61C51E2D728800225CF4 /* AnimalBuilder.swift */,
+				F4AB689B1F2D405400CC4CC2 /* AnimalGenotype.swift */,
 				F43BC69D1F1AA26300E025EB /* AnimalImageLocations.swift */,
 				F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */,
 				F46539C61EFF25B10049E7FD /* AnimalSex.swift */,
 				F46539BE1EFF18FB0049E7FD /* AnimalSize.swift */,
 				F46539CC1EFF29A80049E7FD /* AnimalSpecies.swift */,
-				276C61C11E2C1C0E00225CF4 /* Animal.swift */,
 				276C61BB1E2C183300225CF4 /* ExternalAnimal.swift */,
 				F43BC6A31F1AC9E400E025EB /* ExternalData.swift */,
-				F46539BA1EFF11430049E7FD /* PositiveInteger.swift */,
 				F4AB68991F2D39F300CC4CC2 /* GeneticPurity.swift */,
-				F4AB689B1F2D405400CC4CC2 /* AnimalGenotype.swift */,
+				F4AB68D71F328CF300CC4CC2 /* GenotypeBuilder.swift */,
+				F46539BA1EFF11430049E7FD /* PositiveInteger.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -275,9 +277,9 @@
 			children = (
 				276C61941E2C062200225CF4 /* AllisonsCatPalaceTDD */,
 				276C61A91E2C062200225CF4 /* AllisonsCatPalaceTDDTests */,
-				276C61931E2C062200225CF4 /* Products */,
-				1504518299AACDE0795BE59E /* Pods */,
 				DF6C4F3818B80176C43FE384 /* Frameworks */,
+				1504518299AACDE0795BE59E /* Pods */,
+				276C61931E2C062200225CF4 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -293,38 +295,15 @@
 		276C61941E2C062200225CF4 /* AllisonsCatPalaceTDD */ = {
 			isa = PBXGroup;
 			children = (
-				276C61C51E2D728800225CF4 /* AnimalBuilder.swift */,
-				F436324C1F536A73004DF88A /* AnimalCardsViewController.swift */,
-				F43632541F5386E0004DF88A /* AnimalCardView.swift */,
-				F43632521F538695004DF88A /* AnimalCardView.xib */,
-				F4FB8EE01F410E1B006767AE /* AnimalDetailHeaderView.swift */,
-				F4FB8EE41F410FA0006767AE /* AnimalDetailHeaderView.xib */,
-				277199131E34002300930630 /* AnimalNetworker.swift */,
-				270A6AF41E3E9D3800B12D38 /* AnimalNetworkError.swift */,
-				275D26121E511B3400FAE334 /* AnimalRegistry.swift */,
 				276C61951E2C062200225CF4 /* AppDelegate.swift */,
-				F43BC6A11F1AA8A400E025EB /* ArrayExtensions.swift */,
-				276C619C1E2C062200225CF4 /* Assets.xcassets */,
-				27E823941E5A4E42009B202A /* CatCell.swift */,
-				2700D3F61E88642D004E77A1 /* CatDetailController.swift */,
-				275D26161E512F5E00FAE334 /* FavoritesListController.swift */,
 				F416125B1EB5202700E3E6F6 /* Cells */,
-				F4AB68D71F328CF300CC4CC2 /* GenotypeBuilder.swift */,
-				F4E82A401F507DEA0019F1AE /* GeocodingError.swift */,
-				2767E37E1E6269B900A7C5F9 /* ImageProvider.swift */,
 				276C61A11E2C062200225CF4 /* Info.plist */,
-				276C619E1E2C062200225CF4 /* LaunchScreen.storyboard */,
-				F4543D9D1F43C28300F9CDE3 /* LocationController.swift */,
-				276C61B71E2C0A1900225CF4 /* Main.storyboard */,
 				2719FBED1E7F137300D3D79A /* Models */,
-				270A6AEC1E3E7F7800B12D38 /* Result.swift */,
-				F4E82A441F50AC490019F1AE /* SettingsManager.swift */,
-				F436324E1F5371AB004DF88A /* SwipeOverlayView.swift */,
-				F43632501F537595004DF88A /* SwipeOverlayView.xib */,
-				F4BE6C981F584CFE00480671 /* Persistable.swift */,
-				F4A5079B1F60459400B8E480 /* SpeciesSelectionController.swift */,
-				F48AAD581F87207B00BC8081 /* RealmProtocol.swift */,
-				F41A38811F897B6A00AD2762 /* PaginationCursor.swift */,
+				F41A38861F89844300AD2762 /* Networking */,
+				F41A38851F8983F200AD2762 /* Persistence */,
+				F41A38881F89852500AD2762 /* Resources */,
+				F41A38871F89846C00AD2762 /* System */,
+				F41A38831F89838800AD2762 /* User Interface */,
 			);
 			path = AllisonsCatPalaceTDD;
 			sourceTree = "<group>";
@@ -406,10 +385,79 @@
 		F416125B1EB5202700E3E6F6 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				F41612591EB5201F00E3E6F6 /* CatNameCell.xib */,
+				27E823941E5A4E42009B202A /* CatCell.swift */,
 				F416125C1EB520D300E3E6F6 /* CatNameCell.swift */,
+				F41612591EB5201F00E3E6F6 /* CatNameCell.xib */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		F41A38831F89838800AD2762 /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				F436324C1F536A73004DF88A /* AnimalCardsViewController.swift */,
+				2700D3F61E88642D004E77A1 /* CatDetailController.swift */,
+				275D26161E512F5E00FAE334 /* FavoritesListController.swift */,
+				276C619E1E2C062200225CF4 /* LaunchScreen.storyboard */,
+				F4543D9D1F43C28300F9CDE3 /* LocationController.swift */,
+				276C61B71E2C0A1900225CF4 /* Main.storyboard */,
+				F4A5079B1F60459400B8E480 /* SpeciesSelectionController.swift */,
+				F41A38841F8983C300AD2762 /* Views */,
+			);
+			name = "User Interface";
+			sourceTree = "<group>";
+		};
+		F41A38841F8983C300AD2762 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F43632541F5386E0004DF88A /* AnimalCardView.swift */,
+				F43632521F538695004DF88A /* AnimalCardView.xib */,
+				F4FB8EE01F410E1B006767AE /* AnimalDetailHeaderView.swift */,
+				F4FB8EE41F410FA0006767AE /* AnimalDetailHeaderView.xib */,
+				F436324E1F5371AB004DF88A /* SwipeOverlayView.swift */,
+				F43632501F537595004DF88A /* SwipeOverlayView.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		F41A38851F8983F200AD2762 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				F4BE6C981F584CFE00480671 /* Persistable.swift */,
+				F48AAD581F87207B00BC8081 /* RealmProtocol.swift */,
+				F4E82A441F50AC490019F1AE /* SettingsManager.swift */,
+			);
+			name = Persistence;
+			sourceTree = "<group>";
+		};
+		F41A38861F89844300AD2762 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				277199131E34002300930630 /* AnimalNetworker.swift */,
+				270A6AF41E3E9D3800B12D38 /* AnimalNetworkError.swift */,
+				275D26121E511B3400FAE334 /* AnimalRegistry.swift */,
+				F4E82A401F507DEA0019F1AE /* GeocodingError.swift */,
+				2767E37E1E6269B900A7C5F9 /* ImageProvider.swift */,
+				F41A38811F897B6A00AD2762 /* PaginationCursor.swift */,
+				270A6AEC1E3E7F7800B12D38 /* Result.swift */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+		F41A38871F89846C00AD2762 /* System */ = {
+			isa = PBXGroup;
+			children = (
+				F43BC6A11F1AA8A400E025EB /* ArrayExtensions.swift */,
+			);
+			name = System;
+			sourceTree = "<group>";
+		};
+		F41A38881F89852500AD2762 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				276C619C1E2C062200225CF4 /* Assets.xcassets */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

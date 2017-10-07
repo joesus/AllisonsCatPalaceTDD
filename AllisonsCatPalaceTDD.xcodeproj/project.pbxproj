@@ -49,6 +49,8 @@
 		F416125D1EB520D300E3E6F6 /* CatNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F416125C1EB520D300E3E6F6 /* CatNameCell.swift */; };
 		F416125F1EB5481B00E3E6F6 /* PredicateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F416125E1EB5481B00E3E6F6 /* PredicateHelper.swift */; };
 		F41612611EB54DB000E3E6F6 /* UITestingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41612601EB54DB000E3E6F6 /* UITestingHelper.swift */; };
+		F41A38801F897A6100AD2762 /* PaginationCursorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A387F1F897A6100AD2762 /* PaginationCursorTests.swift */; };
+		F41A38821F897B6A00AD2762 /* PaginationCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A38811F897B6A00AD2762 /* PaginationCursor.swift */; };
 		F436324D1F536A73004DF88A /* AnimalCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F436324C1F536A73004DF88A /* AnimalCardsViewController.swift */; };
 		F436324F1F5371AB004DF88A /* SwipeOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F436324E1F5371AB004DF88A /* SwipeOverlayView.swift */; };
 		F43632511F537595004DF88A /* SwipeOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F43632501F537595004DF88A /* SwipeOverlayView.xib */; };
@@ -162,6 +164,8 @@
 		F416125C1EB520D300E3E6F6 /* CatNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatNameCell.swift; sourceTree = "<group>"; };
 		F416125E1EB5481B00E3E6F6 /* PredicateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredicateHelper.swift; sourceTree = "<group>"; };
 		F41612601EB54DB000E3E6F6 /* UITestingHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITestingHelper.swift; sourceTree = "<group>"; };
+		F41A387F1F897A6100AD2762 /* PaginationCursorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationCursorTests.swift; sourceTree = "<group>"; };
+		F41A38811F897B6A00AD2762 /* PaginationCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationCursor.swift; sourceTree = "<group>"; };
 		F436324C1F536A73004DF88A /* AnimalCardsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalCardsViewController.swift; sourceTree = "<group>"; };
 		F436324E1F5371AB004DF88A /* SwipeOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeOverlayView.swift; sourceTree = "<group>"; };
 		F43632501F537595004DF88A /* SwipeOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwipeOverlayView.xib; sourceTree = "<group>"; };
@@ -320,6 +324,7 @@
 				F4BE6C981F584CFE00480671 /* Persistable.swift */,
 				F4A5079B1F60459400B8E480 /* SpeciesSelectionController.swift */,
 				F48AAD581F87207B00BC8081 /* RealmProtocol.swift */,
+				F41A38811F897B6A00AD2762 /* PaginationCursor.swift */,
 			);
 			path = AllisonsCatPalaceTDD;
 			sourceTree = "<group>";
@@ -327,6 +332,7 @@
 		276C61A91E2C062200225CF4 /* AllisonsCatPalaceTDDTests */ = {
 			isa = PBXGroup;
 			children = (
+				F41A387F1F897A6100AD2762 /* PaginationCursorTests.swift */,
 				F4A507991F6043B100B8E480 /* SpeciesSelectionControllerTests.swift */,
 				F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */,
 				F46539C01EFF1E690049E7FD /* AnimalAgeGroupTests.swift */,
@@ -616,6 +622,7 @@
 			files = (
 				F436324F1F5371AB004DF88A /* SwipeOverlayView.swift in Sources */,
 				270A6AED1E3E7F7800B12D38 /* Result.swift in Sources */,
+				F41A38821F897B6A00AD2762 /* PaginationCursor.swift in Sources */,
 				2767E37F1E6269B900A7C5F9 /* ImageProvider.swift in Sources */,
 				275D26131E511B3400FAE334 /* AnimalRegistry.swift in Sources */,
 				F436324D1F536A73004DF88A /* AnimalCardsViewController.swift in Sources */,
@@ -674,6 +681,7 @@
 				F4AB689E1F2D4D4D00CC4CC2 /* GenotypeBuilderTests.swift in Sources */,
 				276C61C01E2C1AFF00225CF4 /* AnimalTests.swift in Sources */,
 				F43632571F53A4B3004DF88A /* SwipeOverlayViewTests.swift in Sources */,
+				F41A38801F897A6100AD2762 /* PaginationCursorTests.swift in Sources */,
 				270A6AE31E3E700C00B12D38 /* URLSessionSpies.swift in Sources */,
 				F46539B91EFF0F580049E7FD /* PositiveIntegerTests.swift in Sources */,
 				277199121E33F45B00930630 /* PetFinderNetworkerTests.swift in Sources */,

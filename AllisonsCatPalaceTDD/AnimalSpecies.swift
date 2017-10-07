@@ -14,17 +14,22 @@ class AnimalSpeciesObject: Object {
 }
 
 enum AnimalSpecies: Int {
-    case cat, dog, other
+    case cat, dog, smallAndFurry, barnYard, bird, horse, rabbit, reptile
 
     private static let petFinderRawValueMappable: [String: AnimalSpecies] = [
         "Cat": .cat,
-        "Dog": .dog
+        "Dog": .dog,
+        "Small&amp;Furry": .smallAndFurry,
+        "BarnYard": .barnYard,
+        "Bird": .bird,
+        "Horse": .horse,
+        "Rabbit": .rabbit,
+        "Reptile": .reptile
     ]
 
-    init(petFinderRawValue: String) {
+    init?(petFinderRawValue: String) {
         guard let value = AnimalSpecies.petFinderRawValueMappable[petFinderRawValue] else {
-            self = .other
-            return
+            return nil
         }
         self = value
     }

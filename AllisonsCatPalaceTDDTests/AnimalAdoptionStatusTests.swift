@@ -17,7 +17,7 @@ class AnimalAdoptionStatusTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        realm = realmForTest(withName: self.name!)
+        realm = realmForTest(withName: name!)
         reset(realm)
     }
 
@@ -68,35 +68,26 @@ class AnimalAdoptionStatusTests: XCTestCase {
         XCTAssertNil(AnimalAdoptionStatusObject().value.value,
                      "AnimalAdoptionStatusObject should have no value by default")
 
-        let status = AnimalAdoptionStatus.adoptable
-        let managed = status.managedObject
-
-        XCTAssertEqual(status.rawValue, managed.value.value,
+        XCTAssertEqual(AnimalAdoptionStatus.adoptable.rawValue,
+                       AnimalAdoptionStatus.adoptable.managedObject.value.value,
                        "Managed object should store correct raw value")
     }
 
     func testInitializingFromManagedObject() {
-        let status = AnimalAdoptionStatus.onHold
-        let managed = status.managedObject
-        let objectFromManaged = AnimalAdoptionStatus(managedObject: managed)
-
-        XCTAssertEqual(objectFromManaged?.rawValue, status.rawValue,
+        XCTAssertEqual(AnimalAdoptionStatus(managedObject: AnimalAdoptionStatus.onHold.managedObject)?.rawValue,
+                       AnimalAdoptionStatus.onHold.rawValue,
                        "Adoption status initialized from managed object should have correct value")
     }
 
     func testSavingManagedObject() {
-        let status = AnimalAdoptionStatus.onHold
-        let managed = status.managedObject
-
         try? realm.write {
-            realm.add(managed)
+            realm.add(AnimalAdoptionStatus.onHold.managedObject)
         }
 
         let fetchedManagedObject = realm.objects(AnimalAdoptionStatusObject.self).last!
 
-        let statusFromFetched = AnimalAdoptionStatus(managedObject: fetchedManagedObject)
-
-        XCTAssertEqual(statusFromFetched?.rawValue, status.rawValue,
+        XCTAssertEqual(AnimalAdoptionStatus(managedObject: fetchedManagedObject)?.rawValue,
+                       AnimalAdoptionStatus.onHold.rawValue,
                        "Fetched adoption status should map back to original value")
     }
 }

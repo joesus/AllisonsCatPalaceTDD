@@ -75,7 +75,7 @@ class AnimalTests: XCTestCase {
 
     func testGenotype() {
         XCTAssertNil(cat.genotype, "Should not have a genotype by default")
-        cat.genotype = sampleGenotype
+        cat.genotype = SampleGenotypes.mixedCatMultipleBreeds
         XCTAssertNotNil(cat.genotype, "Should allow setting genotype")
     }
 
@@ -178,7 +178,7 @@ class AnimalTests: XCTestCase {
         animal.age = .young
         animal.city = "NYC"
         animal.sex = .male
-        animal.genotype = sampleGenotype
+        animal.genotype = SampleGenotypes.mixedCatMultipleBreeds
         animal.stateCode = "NY"
         animal.size = .medium
         animal.imageLocations = SampleImageLocations.smallMediumLarge
@@ -225,7 +225,7 @@ class AnimalTests: XCTestCase {
         animal.age = .young
         animal.city = "NYC"
         animal.sex = .male
-        animal.genotype = sampleGenotype
+        animal.genotype = SampleGenotypes.mixedCatMultipleBreeds
         animal.stateCode = "NY"
         animal.size = .medium
         animal.imageLocations = SampleImageLocations.smallMediumLarge
@@ -267,7 +267,7 @@ class AnimalTests: XCTestCase {
         animal.age = .young
         animal.city = "NYC"
         animal.sex = .male
-        animal.genotype = sampleGenotype
+        animal.genotype = SampleGenotypes.mixedCatMultipleBreeds
         animal.stateCode = "NY"
         animal.size = .medium
         animal.imageLocations = SampleImageLocations.smallMediumLarge
@@ -317,7 +317,7 @@ class AnimalTests: XCTestCase {
         animal.age = .young
         animal.city = "NYC"
         animal.sex = .male
-        animal.genotype = sampleGenotype
+        animal.genotype = SampleGenotypes.mixedCatMultipleBreeds
         animal.stateCode = "NY"
         animal.size = .medium
 

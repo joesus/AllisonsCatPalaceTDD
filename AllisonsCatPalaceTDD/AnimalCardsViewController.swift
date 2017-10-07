@@ -59,14 +59,20 @@ extension AnimalCardsViewController: KolodaViewDelegate {
 //    }
 
     func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
+        guard animals.indices.contains(index) else {
+            fatalError()
+        }
+
         let animal = animals[index]
 
-        if direction == .right {
-            if let realm = try? Realm() {
-                try? realm.write {
-                    realm.add(animal.managedObject, update: true)
-                }
-            }
+        guard direction == .right,
+            let realm = try? Realm() else {
+
+            return
+        }
+
+        try? realm.write {
+            realm.add(animal.managedObject, update: true)
         }
     }
 }

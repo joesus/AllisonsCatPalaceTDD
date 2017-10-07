@@ -43,8 +43,7 @@ extension AnimalAgeGroup: Persistable {
     }
 
     init?(managedObject: ManagedObject) {
-        let value = managedObject.value
-        guard let int = value.value else {
+        guard let int = managedObject.value.value else {
             return nil
         }
 

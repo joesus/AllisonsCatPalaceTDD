@@ -77,34 +77,24 @@ class AnimalSizeTests: XCTestCase {
         XCTAssertNil(AnimalSizeObject().value.value,
                      "AnimalSizeObject should have no value by default")
 
-        let original = AnimalSize.large
-        let managed = original.managedObject
-
-        XCTAssertEqual(original.rawValue, managed.value.value,
+        XCTAssertEqual(AnimalSize.large.rawValue, AnimalSize.large.managedObject.value.value,
                        "Managed object should store correct raw value")
     }
 
     func testInitializingFromManagedObject() {
-        let original = AnimalSize.large
-        let managed = original.managedObject
-        let objectFromManaged = AnimalSize(managedObject: managed)
-
-        XCTAssertEqual(objectFromManaged?.rawValue, original.rawValue)
+        XCTAssertEqual(AnimalSize(managedObject: AnimalSize.large.managedObject)?.rawValue,
+                       AnimalSize.large.rawValue,
+                       "Should initialize from managed object with correct value")
     }
 
     func testSavingManagedObject() {
-        let original = AnimalSize.large
-        let managed = original.managedObject
-
         try! realm.write {
-            realm.add(managed)
+            realm.add(AnimalSize.large.managedObject)
         }
 
         let fetchedManagedObject = realm.objects(AnimalSizeObject.self).last!
 
-        let originalValueFromFetched = AnimalSize(managedObject: fetchedManagedObject)
-
-        XCTAssertEqual(original.rawValue, originalValueFromFetched?.rawValue)
+        XCTAssertEqual(AnimalSize.large.rawValue, AnimalSize(managedObject: fetchedManagedObject)?.rawValue)
     }
 
 }

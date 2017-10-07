@@ -22,32 +22,32 @@ class AnimalSpeciesTests: XCTestCase {
     }
 
     func testInitializerWithEmptyString() {
-        XCTAssertEqual(AnimalSpecies(petFinderRawValue: ""), .other,
-                     "Should create animal species other from empty string")
+        XCTAssertNil(AnimalSpecies(petFinderRawValue: ""),
+                     "Should not create animal species from empty string")
     }
 
     func testInitializerWithInvalidStrings() {
-        let strings = ["dog", "cat", "DOG", "CAT", "BarnYard", "Bird", "Horse", "Rabbit", "Reptile"]
+        let strings = ["dog", "cat", "DOG", "CAT"]
 
         strings.forEach { character in
-            XCTAssertEqual(AnimalSpecies(petFinderRawValue: ""), .other,
-                           "\(character) should create animal species other")
+            XCTAssertNil(AnimalSpecies(petFinderRawValue: ""),
+                         "\(character) should not create animal species")
         }
     }
 
     func testInitializerWithValidStrings() {
-        ["Dog", "Cat"].forEach { string in
+        ["Dog", "Cat", "BarnYard", "Bird", "Horse", "Rabbit", "Reptile", "Small&amp;Furry"].forEach { string in
             XCTAssertNotNil(AnimalSpecies(petFinderRawValue: string),
                             "\(string) should create an animal species")
         }
     }
 
     func testAllCases() {
-        let animalSpecies = [AnimalSpecies.cat, .dog]
+        let animalSpecies = [AnimalSpecies.cat, .dog, .smallAndFurry, .barnYard, .bird, .horse, .rabbit, .reptile]
 
         animalSpecies.forEach { species in
             switch species {
-            case .cat, .dog, .other:
+            case .cat, .dog, .barnYard, .bird, .horse, .rabbit, .reptile, .smallAndFurry:
                 break
             }
         }

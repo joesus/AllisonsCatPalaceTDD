@@ -16,17 +16,8 @@ class AnimalImageLocationsTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        Realm.Configuration.defaultConfiguration.inMemoryIdentifier = self.name
-
-        guard let db = try? Realm() else {
-            return XCTFail("Could not initialize realm database")
-        }
-        realm = db
-
-        try! realm.write {
-            realm.deleteAll()
-        }
-
+        realm = realmForTest(withName: name!)
+        reset(realm)
     }
 
     func testHasNoImageLocationsByDefault() {
@@ -72,9 +63,7 @@ class AnimalImageLocationsTests: XCTestCase {
     }
 
     func testManagedObjectWithEmptyLocations() {
-        let originalLocations = AnimalImageLocations(small: [],
-                                                    medium: [],
-                                                    large: [])
+        let originalLocations = SampleImageLocations.noImages
         let managedLocations = originalLocations.managedObject
 
         let decodedLocations = AnimalImageLocations(managedObject: managedLocations)
@@ -95,10 +84,7 @@ class AnimalImageLocationsTests: XCTestCase {
     }
 
     func testRealmObjectWithMultipleNonEmptyLocations() {
-        let locations = AnimalImageLocations(small: [URL(string: "https://www.google.com/test.png")!,
-                                                     URL(string: "https://www.google.com/test.png")!],
-                                             medium: [],
-                                             large: [])
+        let locations = SampleImageLocations.multipleSmall
 
         let managedLocations = locations.managedObject
         let decodedLocations = AnimalImageLocations(managedObject: managedLocations)
@@ -109,10 +95,7 @@ class AnimalImageLocationsTests: XCTestCase {
     }
 
     func testSavingManagedObject() {
-        let locations = AnimalImageLocations(small: [URL(string: "https://www.google.com/test.png")!,
-                                                     URL(string: "https://www.google.com/test2.png")!],
-                                             medium: [],
-                                             large: [])
+        let locations = SampleImageLocations.multipleSmall
 
         let managedLocations = locations.managedObject
 

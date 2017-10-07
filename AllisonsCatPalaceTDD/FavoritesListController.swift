@@ -72,7 +72,7 @@ class FavoritesListController: UITableViewController, RealmInjected {
         guard let realm = realm,
             editingStyle == .delete else {
 
-            return
+                return
         }
 
         let animalToDelete = animals[indexPath.row]
@@ -88,23 +88,28 @@ class FavoritesListController: UITableViewController, RealmInjected {
 
         animals.remove(at: indexPath.row)
 
+        tableView.beginUpdates()
+
         if animals.isEmpty {
-            tableView.beginUpdates()
             tableView.deleteSections([0], with: .automatic)
-            tableView.endUpdates()
-            return
+        }
+        else {
+            tableView.deleteRows(at: [indexPath], with: .automatic)
         }
 
-        tableView.beginUpdates()
-        tableView.deleteRows(at: [indexPath], with: .automatic)
         tableView.endUpdates()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationController = segue.destination as? CatDetailController,
-            let row = tableView.indexPathForSelectedRow?.row {
-            destinationController.cat = animals[row]
-            destinationController.title = animals[row].name
+        guard let destination = segue.destination as? CatDetailController,
+            let row = tableView.indexPathForSelectedRow?.row,
+            animals.indices.contains(row)
+            else {
+                return
         }
+
+        let animal = animals[row]
+        destination.cat = animal
+        destination.title = animal.name
     }
 }

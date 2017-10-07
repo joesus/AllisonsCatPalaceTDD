@@ -124,6 +124,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
     }
 
     func testDeckViewDoesNotFetchMoreAnimalsWhenMoreThanTenRemaining() {
+        MockRegistry.fetchAllAnimalsCallCount = 0
         controller.registry = MockRegistry.self
 
         controller.animals = Array(repeating: SampleCat, count: 20)
@@ -134,6 +135,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
     }
 
     func testDeckViewDoesNotFetchMoreAnimalsWhenFewerThanTenRemaining() {
+        MockRegistry.fetchAllAnimalsCallCount = 0
         controller.registry = MockRegistry.self
 
         controller.animals = Array(repeating: SampleCat, count: 9)
@@ -144,6 +146,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
     }
 
     func testDeckViewFetchesMoreAnimalsWhenTenCardsRemaining() {
+        MockRegistry.fetchAllAnimalsCallCount = 0
         controller.registry = MockRegistry.self
         MockRegistry.animals = Array(repeating: SampleCat, count: 50)
         controller.animals = Array(repeating: SampleCat, count: 50)

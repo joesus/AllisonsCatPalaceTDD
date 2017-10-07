@@ -12,6 +12,8 @@ import RealmSwift
 // This should be the protocol for the container
 protocol RealmProtocol {
     func objects<T>(_ type: T.Type) -> Results<T>
+    func write(_ block: (() throws -> Void)) throws
+    func delete(_ object: Object)
 }
 
 extension Realm: RealmProtocol {}

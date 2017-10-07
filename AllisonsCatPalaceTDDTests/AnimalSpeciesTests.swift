@@ -43,13 +43,9 @@ class AnimalSpeciesTests: XCTestCase {
     }
 
     func testAllCases() {
-        let animalSpecies = [AnimalSpecies.cat, .dog, .smallAndFurry, .barnYard, .bird, .horse, .rabbit, .reptile]
-
-        animalSpecies.forEach { species in
-            switch species {
-            case .cat, .dog, .barnYard, .bird, .horse, .rabbit, .reptile, .smallAndFurry:
-                break
-            }
+        switch AnimalSpecies.dog {
+        case .cat, .dog, .barnYard, .bird, .horse, .rabbit, .reptile, .smallAndFurry:
+            break
         }
     }
 

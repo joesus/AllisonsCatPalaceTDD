@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FavoritesListController: UITableViewController, RealmInjected {
     var animals = [Animal]() {
@@ -53,13 +54,15 @@ class FavoritesListController: UITableViewController, RealmInjected {
 
         if let image = ImageProvider.imageForUrl(imageUrl) {
             cell.imageView?.image = image
-        } else {
+        }
+        else {
             ImageProvider.getImage(for: imageUrl) { potentialImage in
                 guard potentialImage != nil else { return }
+
                 DispatchQueue.main.async {
                     if let indexPaths = tableView.indexPathsForVisibleRows,
                         indexPaths.contains(indexPath) {
-                            tableView.reloadRows(at: [indexPath], with: .automatic)
+                        tableView.reloadRows(at: [indexPath], with: .automatic)
                     }
                 }
             }
@@ -69,20 +72,20 @@ class FavoritesListController: UITableViewController, RealmInjected {
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        guard let realm = realm,
+        guard let validRealm = realm,
             editingStyle == .delete else {
 
                 return
         }
 
         let animalToDelete = animals[indexPath.row]
-        let objectToDelete = realm.objects(AnimalObject.self).first { animalObject in
+        let objectToDelete = validRealm.objects(AnimalObject.self).first { animalObject in
             animalObject.identifier.value == animalToDelete.identifier
         }
 
         if let object = objectToDelete {
-            try? realm.write {
-                realm.delete(object)
+            try? validRealm.write {
+                validRealm.delete(object)
             }
         }
 

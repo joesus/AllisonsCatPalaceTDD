@@ -48,14 +48,10 @@ enum PetFinderNetworker: AnimalNetworker {
         if let persistedSpeciesRawValue = SettingsManager.shared.value(forKey: .species) as? Int,
             let species = AnimalSpecies(rawValue: persistedSpeciesRawValue) {
 
-            switch species {
-            case .cat:
-                CatServiceComponents.queryItems?.append(URLQueryItem(name: "animal", value: "cat"))
-            case .dog:
-                CatServiceComponents.queryItems?.append(URLQueryItem(name: "animal", value: "dog"))
-            default:
-                break
-            }
+            let rawSpeciesName = species == .cat ? "cat" : "dog"
+            components.queryItems?.append(
+                URLQueryItem(name: "animal", value: rawSpeciesName)
+            )
         }
 
         guard let url = components.url else { return }

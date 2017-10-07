@@ -7,14 +7,47 @@
 //
 
 import UIKit
+import RealmSwift
 
-class FavoritesListController: UITableViewController {
+// This should be the protocol for the container
+protocol RealmProtocol {
+    func objects<T>(_ type: T.Type) -> Results<T>
+    func write(_ block: (() throws -> Void)) throws
+    func delete(_ object: Object)
+}
+
+extension Realm: RealmProtocol {}
+
+struct InjectionMap {
+    static var realm: RealmProtocol? = try? Realm()
+}
+
+protocol RealmInjected { }
+
+extension RealmInjected {
+    var realm: RealmProtocol? {
+        return InjectionMap.realm
+    }
+}
+
+class FavoritesListController: UITableViewController, RealmInjected {
     var animals = [Animal]() {
         didSet {
             DispatchQueue.main.async { [weak tableView] in
                 tableView?.reloadData()
             }
         }
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        guard let realm = realm else { return }
+
+        animals = realm.objects(AnimalObject.self).flatMap { animalObject in
+            return Animal(managedObject: animalObject)
+        }
+
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -45,17 +78,44 @@ class FavoritesListController: UITableViewController {
         } else {
             ImageProvider.getImage(for: imageUrl) { potentialImage in
                 guard potentialImage != nil else { return }
-
                 DispatchQueue.main.async {
                     if let indexPaths = tableView.indexPathsForVisibleRows,
                         indexPaths.contains(indexPath) {
-                            tableView.reloadRows(at: [indexPath], with: .automatic)
+                        tableView.reloadRows(at: [indexPath], with: .automatic)
                     }
                 }
             }
         }
 
         return cell
+    }
+
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        guard let realm = realm else { return }
+
+        let animalToDelete = animals[indexPath.row]
+        let objectToDelete = realm.objects(AnimalObject.self).first { animalObject in
+            animalObject.identifier.value == animalToDelete.identifier
+        }
+
+        if let object = objectToDelete {
+            try? realm.write {
+                realm.delete(object)
+            }
+        }
+
+        animals.remove(at: indexPath.row)
+
+        if animals.count == 0 {
+            tableView.beginUpdates()
+            tableView.deleteSections([0], with: .automatic)
+            tableView.endUpdates()
+            return
+        }
+
+        tableView.beginUpdates()
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+        tableView.endUpdates()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

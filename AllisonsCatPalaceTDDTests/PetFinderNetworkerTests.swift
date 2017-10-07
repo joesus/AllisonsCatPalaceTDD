@@ -21,12 +21,14 @@ class PetFinderNetworkerTests: XCTestCase {
         URLSessionTask.beginSpyingOnResume()
         URLSessionTask.beginSpyingOnCancel()
         URLSession.beginSpyingOnDataTaskCreation()
+        SettingsManager.shared.clear()
     }
 
     override func tearDown() {
         URLSessionTask.endSpyingOnResume()
         URLSessionTask.endSpyingOnCancel()
         URLSession.endSpyingOnDataTaskCreation()
+        SettingsManager.shared.clear()
 
         super.tearDown()
     }
@@ -87,6 +89,32 @@ class PetFinderNetworkerTests: XCTestCase {
         }
 
         XCTAssertTrue(request.url!.query!.contains("offset=25"), "Query: \(request.url!.query!) should use the given offset")
+    }
+
+    func testCreatingRetrieveAllAnimalsTaskWithNoStoredSpecies() {
+        PetFinderNetworker.retrieveAllAnimals {_ in}
+
+        guard let task = PetFinderNetworker.session.lastResumedDataTask,
+            let request = task.currentRequest else {
+                return XCTFail("A task should have a currentRequest")
+        }
+
+        XCTAssertFalse(request.url!.query!.contains("animal="), "Query: \(request.url!.query!) should not include a species when there is no stored species")
+    }
+
+    func testCreatingRetrieveAllAnimalsTaskWithSpecies() {
+        SettingsManager.shared.set(value: AnimalSpecies.dog.rawValue, forKey: .species)
+        PetFinderNetworker.retrieveAllAnimals(offset: 25) {_ in}
+
+        guard let task = PetFinderNetworker.session.lastResumedDataTask else {
+            return XCTFail("A task should have been created")
+        }
+
+        guard let request = task.currentRequest else {
+            return XCTFail("A task should have a currentRequest")
+        }
+
+        XCTAssertTrue(request.url!.query!.contains("animal=dog"), "Query: \(request.url!.query!) should use the stored species")
     }
 
     func testNewRetrieveAllAnimalsTaskCancelsExistingTask() {

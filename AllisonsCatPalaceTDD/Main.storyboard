@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VFa-DY-njt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VFa-DY-njt">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -28,14 +28,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tnn-oU-cgj">
-                                            <rect key="frame" x="74" y="0.0" width="286" height="43.5"/>
+                                            <rect key="frame" x="75" y="0.0" width="285" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="catOutline" id="F7z-ed-9CL">
-                                            <rect key="frame" x="15" y="0.0" width="44" height="43.5"/>
+                                            <rect key="frame" x="16" y="0.0" width="44" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </imageView>
                                     </subviews>
@@ -107,7 +107,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="activityIndicator" destination="Fyf-Ri-qq9" id="I9Z-2k-kCS"/>
-                        <outlet property="kolodaView" destination="S6d-Ci-Se9" id="RLP-ZE-o1p"/>
+                        <outlet property="deckView" destination="S6d-Ci-Se9" id="2B5-yD-1gl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fHm-TB-UfG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -188,7 +188,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RO9-7k-uqA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-350" y="-916"/>
+            <point key="canvasLocation" x="399" y="-916"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="X5v-Bv-9X3">
@@ -196,20 +196,94 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VFa-DY-njt" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="5v9-zt-lCE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="EgF-el-P0W" kind="relationship" relationship="rootViewController" id="bd1-LD-lSr"/>
+                        <segue destination="vDh-La-cHV" kind="relationship" relationship="rootViewController" id="v7L-Wd-ZIu"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QsR-7T-g5D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1089" y="-916"/>
         </scene>
+        <!--Species Selection Controller-->
+        <scene sceneID="FTZ-qi-bWJ">
+            <objects>
+                <viewController storyboardIdentifier="SpeciesSelectionController" id="vDh-La-cHV" customClass="SpeciesSelectionController" customModule="AllisonsCatPalaceTDD" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kDw-iO-aG2"/>
+                        <viewControllerLayoutGuide type="bottom" id="uuA-rl-K7u"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GLb-QM-6XM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="hgg-ui-wbu">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zlU-95-7Zc">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="190.5"/>
+                                        <state key="normal" title="Cats Button" backgroundImage="catOutline">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="speciesTapped:" destination="vDh-La-cHV" eventType="touchUpInside" id="qNH-JK-HIY"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YWR-XY-Xmc">
+                                        <rect key="frame" x="0.0" y="206.5" width="375" height="190"/>
+                                        <state key="normal" title="Dogs Button" backgroundImage="catOutline">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="speciesTapped:" destination="vDh-La-cHV" eventType="touchUpInside" id="aip-wm-1dE"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bjh-m8-P4m">
+                                        <rect key="frame" x="0.0" y="412.5" width="375" height="190.5"/>
+                                        <state key="normal" title="Either Button" backgroundImage="catOutline">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="speciesTapped:" destination="vDh-La-cHV" eventType="touchUpInside" id="E5A-Dc-xq8"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hgg-ui-wbu" firstAttribute="top" secondItem="kDw-iO-aG2" secondAttribute="bottom" id="0I7-cj-Rkk"/>
+                            <constraint firstAttribute="bottom" secondItem="hgg-ui-wbu" secondAttribute="bottom" id="BiO-Ot-H8g"/>
+                            <constraint firstAttribute="trailing" secondItem="hgg-ui-wbu" secondAttribute="trailing" id="Unh-VV-6NT"/>
+                            <constraint firstItem="hgg-ui-wbu" firstAttribute="leading" secondItem="GLb-QM-6XM" secondAttribute="leading" id="kMr-eU-thX"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Nn1-IH-5v5">
+                        <barButtonItem key="rightBarButtonItem" title="Favorites" id="cau-bB-qlr">
+                            <connections>
+                                <segue destination="WVV-vz-AHA" kind="show" identifier="showFavoritesListController" id="iu2-83-MtI"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="anyButton" destination="Bjh-m8-P4m" id="3EW-mw-j1r"/>
+                        <outlet property="catsButton" destination="zlU-95-7Zc" id="ucd-Ua-viP"/>
+                        <outlet property="dogsButton" destination="YWR-XY-Xmc" id="F7y-8S-LZB"/>
+                        <segue destination="EgF-el-P0W" kind="show" identifier="ShowLocationController" id="t1f-U6-BzJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wPu-tl-LR3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-351.19999999999999" y="-916.1919040479761"/>
+        </scene>
     </scenes>
     <resources>
         <image name="catOutline" width="384" height="384"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="F89-TC-tTJ"/>
+    </inferredMetricsTieBreakers>
 </document>

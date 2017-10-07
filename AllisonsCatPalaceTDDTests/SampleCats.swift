@@ -24,6 +24,15 @@ let sampleGenotype = AnimalGenotype(
 )
 
 enum SampleImageLocations {
+    static let multipleSmall = AnimalImageLocations(
+        small: [
+            URL(string: "https://www.google.com/test.png")!,
+            URL(string: "https://www.google.com/test2.png")!
+        ],
+        medium: [],
+        large: []
+    )
+
     static let smallMediumLarge = AnimalImageLocations(
         small: [URL(string: "https://www.google.com/small-cat.png")!],
         medium: [URL(string: "https://www.google.com/medium-cat.png")!],

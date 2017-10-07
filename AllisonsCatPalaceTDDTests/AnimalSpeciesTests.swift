@@ -7,21 +7,31 @@
 //
 
 import XCTest
+import RealmSwift
 @testable import AllisonsCatPalaceTDD
 
 class AnimalSpeciesTests: XCTestCase {
 
+    var realm: Realm!
+
+    override func setUp() {
+        super.setUp()
+
+        realm = realmForTest(withName: name!)
+        reset(realm)
+    }
+
     func testInitializerWithEmptyString() {
-        XCTAssertNil(AnimalSpecies(petFinderRawValue: ""),
-                     "Should not create animal species from empty string")
+        XCTAssertEqual(AnimalSpecies(petFinderRawValue: ""), .other,
+                     "Should create animal species other from empty string")
     }
 
     func testInitializerWithInvalidStrings() {
         let strings = ["dog", "cat", "DOG", "CAT", "BarnYard", "Bird", "Horse", "Rabbit", "Reptile"]
 
         strings.forEach { character in
-            XCTAssertNil(AnimalSpecies(petFinderRawValue: character),
-                         "\(character) should not create an animal species")
+            XCTAssertEqual(AnimalSpecies(petFinderRawValue: ""), .other,
+                           "\(character) should create animal species other")
         }
     }
 
@@ -37,10 +47,43 @@ class AnimalSpeciesTests: XCTestCase {
 
         animalSpecies.forEach { species in
             switch species {
-            case .cat, .dog:
+            case .cat, .dog, .other:
                 break
             }
         }
     }
 
+    func testManagedObject() {
+        XCTAssertNil(AnimalSpeciesObject().value.value,
+                     "AnimalSpeciesObject should have no value by default")
+
+        let species = AnimalSpecies.cat
+        let managed = species.managedObject
+
+        XCTAssertEqual(species.rawValue, managed.value.value,
+                       "Managed object should store correct raw value")
+    }
+
+    func testInitializingFromManagedObject() {
+        let species = AnimalSpecies.dog
+        let managed = species.managedObject
+        let objectFromManaged = AnimalSpecies(managedObject: managed)
+
+        XCTAssertEqual(objectFromManaged?.rawValue, species.rawValue)
+    }
+
+    func testSavingManagedObject() {
+        let original = AnimalSpecies.dog
+        let managed = original.managedObject
+
+        try! realm.write {
+            realm.add(managed)
+        }
+
+        let fetchedManagedObject = realm.objects(AnimalSpeciesObject.self).last!
+
+        let originalValueFromFetched = AnimalSpecies(managedObject: fetchedManagedObject)
+
+        XCTAssertEqual(original.rawValue, originalValueFromFetched?.rawValue)
+    }
 }

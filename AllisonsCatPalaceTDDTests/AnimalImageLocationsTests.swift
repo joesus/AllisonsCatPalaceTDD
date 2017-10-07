@@ -7,9 +7,27 @@
 //
 
 import XCTest
+import RealmSwift
 @testable import AllisonsCatPalaceTDD
 
 class AnimalImageLocationsTests: XCTestCase {
+    var realm: Realm!
+
+    override func setUp() {
+        super.setUp()
+
+        Realm.Configuration.defaultConfiguration.inMemoryIdentifier = self.name
+
+        guard let db = try? Realm() else {
+            return XCTFail("Could not initialize realm database")
+        }
+        realm = db
+
+        try! realm.write {
+            realm.deleteAll()
+        }
+
+    }
 
     func testHasNoImageLocationsByDefault() {
         let locations = AnimalImageLocations()
@@ -42,5 +60,69 @@ class AnimalImageLocationsTests: XCTestCase {
                        "Medium locations should be created with provided location")
         XCTAssertEqual(locations.large, [large[0], large[2]],
                        "Multiple locations should be created if they are not duplicates")
+    }
+
+    func testManagedObject() {
+        XCTAssertEqual(AnimalImageLocationsObject().small, Data(),
+                       "Animal image locations for small images should have empty data object as default")
+        XCTAssertEqual(AnimalImageLocationsObject().medium, Data(),
+                       "Animal image locations for medium images should have empty data object as default")
+        XCTAssertEqual(AnimalImageLocationsObject().large, Data(),
+                       "Animal image locations for large images should have empty data object as default")
+    }
+
+    func testManagedObjectWithEmptyLocations() {
+        let originalLocations = AnimalImageLocations(small: [],
+                                                    medium: [],
+                                                    large: [])
+        let managedLocations = originalLocations.managedObject
+
+        let decodedLocations = AnimalImageLocations(managedObject: managedLocations)
+
+        XCTAssertEqual(decodedLocations.small, originalLocations.small)
+        XCTAssertEqual(decodedLocations.medium, originalLocations.medium)
+        XCTAssertEqual(decodedLocations.large, originalLocations.large)
+    }
+
+    func testRealmObjectWithSingleNonEmptyLocations() {
+        let managedLocations = SampleImageLocations.smallMediumLarge.managedObject
+
+        let decodedLocations = AnimalImageLocations(managedObject: managedLocations)
+
+        XCTAssertEqual(decodedLocations.small, SampleImageLocations.smallMediumLarge.small)
+        XCTAssertEqual(decodedLocations.medium, SampleImageLocations.smallMediumLarge.medium)
+        XCTAssertEqual(decodedLocations.large, SampleImageLocations.smallMediumLarge.large)
+    }
+
+    func testRealmObjectWithMultipleNonEmptyLocations() {
+        let locations = AnimalImageLocations(small: [URL(string: "https://www.google.com/test.png")!,
+                                                     URL(string: "https://www.google.com/test.png")!],
+                                             medium: [],
+                                             large: [])
+
+        let managedLocations = locations.managedObject
+        let decodedLocations = AnimalImageLocations(managedObject: managedLocations)
+
+        XCTAssertEqual(decodedLocations.small, locations.small)
+        XCTAssertEqual(decodedLocations.medium, locations.medium)
+        XCTAssertEqual(decodedLocations.large, locations.large)
+    }
+
+    func testSavingManagedObject() {
+        let locations = SampleImageLocations.multipleSmall
+
+        let managedLocations = locations.managedObject
+
+        try? realm.write {
+            realm.add(managedLocations)
+        }
+
+        let locationDataFromRealm = realm.objects(AnimalImageLocationsObject.self).last
+
+        let decodedLocations = AnimalImageLocations(managedObject: locationDataFromRealm!)
+
+        XCTAssertEqual(decodedLocations.small, locations.small)
+        XCTAssertEqual(decodedLocations.medium, locations.medium)
+        XCTAssertEqual(decodedLocations.large, locations.large)
     }
 }

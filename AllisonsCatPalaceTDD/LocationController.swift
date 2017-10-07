@@ -20,7 +20,13 @@ class LocationController: UIViewController {
 
         decorateZipCodeField()
         populateZipCodeField()
-        zipCodeField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        zipCodeField.addTarget(self, action: #selector(LocationController.textFieldDidChange(_:)), for: .valueChanged)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        populateZipCodeField()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -45,7 +51,7 @@ class LocationController: UIViewController {
 
     fileprivate func populateZipCodeField() {
         let storedZipCode = SettingsManager.shared.value(forKey: .zipCode) as? String
-        zipCodeField.text = storedZipCode ?? ""
+        zipCodeField.text = storedZipCode
     }
 
     fileprivate var zipCodeText: String {
@@ -64,7 +70,7 @@ extension LocationController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.layer.borderColor = UIColor.lightGray.cgColor
 
-        activityIndicator.stopAnimating() // find out if it's bad to stop if already stopped
+        activityIndicator.stopAnimating()
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -76,8 +82,12 @@ extension LocationController: UITextFieldDelegate {
             return false
         }
 
+        if newString.characters.count == 5 {
+            textField.resignFirstResponder()
+        }
+
         if newString.characters.count > 5 {
-            textField.endEditing(true)
+
             return false
         }
 
@@ -85,23 +95,25 @@ extension LocationController: UITextFieldDelegate {
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.resignFirstResponder()
-
         activityIndicator.startAnimating()
         textField.isUserInteractionEnabled = false
 
+        geocodeAddress(zipCodeText)
+    }
+
+    private func geocodeAddress(_ text: String) {
         geocoder.geocodeAddressString(zipCodeText) { [weak self] (placemarks, error) in
             // geocode
             self?.activityIndicator.stopAnimating()
-            textField.isUserInteractionEnabled = true
+            self?.zipCodeField.isUserInteractionEnabled = true
 
             guard error == nil,
                 let locations = placemarks,
                 locations.isEmpty == false,
                 let zipCode = locations.first?.postalCode else {
 
-                textField.layer.borderColor = UIColor.red.cgColor
-                return
+                    self?.zipCodeField.layer.borderColor = UIColor.red.cgColor
+                    return
             }
 
             SettingsManager.shared.set(value: zipCode, forKey: .zipCode)

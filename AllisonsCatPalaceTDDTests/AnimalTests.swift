@@ -181,7 +181,7 @@ class AnimalTests: XCTestCase {
         animal.genotype = sampleGenotype
         animal.stateCode = "NY"
         animal.size = .medium
-        animal.imageLocations = sampleImageLocations
+        animal.imageLocations = SampleImageLocations.smallMediumLarge
 
         let breedsData = NSKeyedArchiver.archivedData(withRootObject: animal.genotype!.breeds)
         let imageLocationSmallData = NSKeyedArchiver.archivedData(withRootObject: animal.imageLocations.small)
@@ -228,7 +228,7 @@ class AnimalTests: XCTestCase {
         animal.genotype = sampleGenotype
         animal.stateCode = "NY"
         animal.size = .medium
-        animal.imageLocations = sampleImageLocations
+        animal.imageLocations = SampleImageLocations.smallMediumLarge
 
         let objectFromManaged = Animal(managedObject: animal.managedObject)
 
@@ -270,7 +270,7 @@ class AnimalTests: XCTestCase {
         animal.genotype = sampleGenotype
         animal.stateCode = "NY"
         animal.size = .medium
-        animal.imageLocations = sampleImageLocations
+        animal.imageLocations = SampleImageLocations.smallMediumLarge
 
         let managed = animal.managedObject
 

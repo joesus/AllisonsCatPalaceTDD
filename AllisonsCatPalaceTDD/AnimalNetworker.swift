@@ -8,20 +8,6 @@
 
 import Foundation
 
-private var CatServiceComponents: URLComponents = {
-    var components = URLComponents()
-    components.scheme = "https"
-    components.host = "api.petfinder.com"
-    components.queryItems = [
-        URLQueryItem(name: "key", value: "62ec521f97d864a2a8d44833a8b08afb"),
-        URLQueryItem(name: "format", value: "json"),
-        URLQueryItem(name: "output", value: "full"),
-        URLQueryItem(name: "count", value: PetFinderNetworker.desiredNumberOfResults)
-    ]
-
-    return components
-}()
-
 protocol AnimalNetworker {
     associatedtype Response
     associatedtype ResponseHandler = (Result<Response>) -> Void
@@ -42,31 +28,37 @@ enum PetFinderNetworker: AnimalNetworker {
 
         retrieveAllAnimalsTask?.cancel()
 
-        CatServiceComponents.path = "/pet.find"
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.petfinder.com"
+        components.queryItems = [
+            URLQueryItem(name: "key", value: "APIKEY"),
+            URLQueryItem(name: "format", value: "json"),
+            URLQueryItem(name: "output", value: "full"),
+            URLQueryItem(name: "count", value: PetFinderNetworker.desiredNumberOfResults)
+        ]
+
+        components.path = "/pet.find"
         let locationQuery = URLQueryItem(name: "location", value: location)
+        components.queryItems?.append(locationQuery)
 
-        removeQueryItem(named: "location")
-        removeQueryItem(named: "offset")
-        removeQueryItem(named: "animal")
-
-        CatServiceComponents.queryItems?.append(locationQuery)
         let offsetQuery = URLQueryItem(name: "offset", value: "\(offset)")
-        CatServiceComponents.queryItems?.append(offsetQuery)
+        components.queryItems?.append(offsetQuery)
 
         if let persistedSpeciesRawValue = SettingsManager.shared.value(forKey: .species) as? Int,
             let species = AnimalSpecies(rawValue: persistedSpeciesRawValue) {
 
             switch species {
             case .cat:
-                CatServiceComponents.queryItems?.append(URLQueryItem(name: "animal", value: "cat"))
+                components.queryItems?.append(URLQueryItem(name: "animal", value: "cat"))
             case .dog:
-                CatServiceComponents.queryItems?.append(URLQueryItem(name: "animal", value: "dog"))
+                components.queryItems?.append(URLQueryItem(name: "animal", value: "dog"))
             default:
                 break
             }
         }
 
-        guard let url = CatServiceComponents.url else { return }
+        guard let url = components.url else { return }
 
         let task = session.dataTask(with: url) {
             potentialData, potentialResponse, potentialError in
@@ -103,13 +95,20 @@ enum PetFinderNetworker: AnimalNetworker {
 
     static func retrieveAnimal(withIdentifier id: Int, completion: @escaping ResponseHandler) {
 
-        CatServiceComponents.path = "/pet.get"
-        let idQuery = URLQueryItem(name: "id", value: String(id))
-        if CatServiceComponents.queryItems?.contains(idQuery) == false {
-            CatServiceComponents.queryItems?.append(idQuery)
-        }
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.petfinder.com"
+        components.queryItems = [
+            URLQueryItem(name: "key", value: "APIKEY"),
+            URLQueryItem(name: "format", value: "json"),
+            URLQueryItem(name: "output", value: "full")
+        ]
 
-        guard let url = CatServiceComponents.url else { return }
+        components.path = "/pet.get"
+        let idQuery = URLQueryItem(name: "id", value: String(id))
+        components.queryItems?.append(idQuery)
+
+        guard let url = components.url else { return }
 
         let task = session.dataTask(with: url) {
             potentialData, potentialResponse, potentialError in
@@ -138,14 +137,6 @@ enum PetFinderNetworker: AnimalNetworker {
             return Result.failure(AnimalNetworkError.missingAnimal(identifier: identifier))
         default:
             fatalError()
-        }
-    }
-
-    private static func removeQueryItem(named queryName: String) {
-        if let oldQuery = CatServiceComponents.queryItems?.first(where: { $0.name == queryName }),
-            let index = CatServiceComponents.queryItems?.index(of: oldQuery) {
-
-            CatServiceComponents.queryItems?.remove(at: index)
         }
     }
 }

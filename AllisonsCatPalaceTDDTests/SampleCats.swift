@@ -17,13 +17,62 @@ let cats: [Animal] = (1...100).map { integer in
     return cat
 }
 
-let sampleGenotype = AnimalGenotype(
-    species: .cat,
-    purity: .mixed,
-    breeds: []
-)
+enum SampleGenotypes {
+    static let breeds = ["terrier", "Lab", "CALICO"]
+
+    static let mixedCatNoBreeds = AnimalGenotype(
+        species: .cat,
+        purity: .mixed,
+        breeds: []
+    )
+
+    static let mixedCatSingleBreed = AnimalGenotype(
+        species: .cat,
+        purity: .mixed,
+        breeds: ["Cat Breed"]
+    )
+
+    static let mixedCatMultipleBreeds = AnimalGenotype(
+        species: .cat,
+        purity: .mixed,
+        breeds: breeds
+    )
+
+    static let purebredCatNoBreeds = AnimalGenotype(
+        species: .cat,
+        purity: .purebred,
+        breeds: []
+    )
+
+    static let purebredCatSingleBreed = AnimalGenotype(
+        species: .cat,
+        purity: .purebred,
+        breeds: ["Cat breed"]
+    )
+
+    static let purebredCatMultipleBreeds = AnimalGenotype(
+        species: .cat,
+        purity: .purebred,
+        breeds: breeds
+    )
+}
 
 enum SampleImageLocations {
+    static let noImages = AnimalImageLocations(
+        small: [],
+        medium: [],
+        large: []
+    )
+
+    static let multipleSmall = AnimalImageLocations(
+        small: [
+            URL(string: "https://www.google.com/test.png")!,
+            URL(string: "https://www.google.com/test2.png")!
+        ],
+        medium: [],
+        large: []
+    )
+
     static let smallMediumLarge = AnimalImageLocations(
         small: [URL(string: "https://www.google.com/small-cat.png")!],
         medium: [URL(string: "https://www.google.com/medium-cat.png")!],

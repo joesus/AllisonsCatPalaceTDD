@@ -19,12 +19,14 @@ class AnimalDetailHeaderViewTests: XCTestCase {
         super.setUp()
 
         URLSession.beginSpyingOnDataTaskCreation()
+        ImageProvider.reset()
     }
 
     override func tearDown() {
         super.tearDown()
 
         URLSession.endSpyingOnDataTaskCreation()
+        ImageProvider.reset()
     }
 
     func testContainsAView() {

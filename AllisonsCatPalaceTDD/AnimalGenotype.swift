@@ -7,8 +7,15 @@
 //
 
 import Foundation
+import RealmSwift
 
 typealias AnimalBreed = String
+
+class AnimalGenotypeObject: Object {
+    dynamic var species: AnimalSpeciesObject? = nil
+    dynamic var purity: GeneticPurityObject? = nil
+    dynamic var breeds = Data()
+}
 
 struct AnimalGenotype {
 
@@ -29,5 +36,32 @@ struct AnimalGenotype {
         self.species = species
         self.purity = purity
         self.breeds = breeds
+    }
+}
+
+extension AnimalGenotype: Persistable {
+    typealias ManagedObject = AnimalGenotypeObject
+
+    var managedObject: ManagedObject {
+        let object = ManagedObject()
+
+        object.species = species.managedObject
+        object.purity = purity.managedObject
+        object.breeds = NSKeyedArchiver.archivedData(withRootObject: breeds)
+
+        return object
+    }
+
+    init?(managedObject: ManagedObject) {
+        guard let managedSpecies = managedObject.species,
+            let species = AnimalSpecies(managedObject: managedSpecies),
+            let managedPurity = managedObject.purity,
+            let purity = GeneticPurity(managedObject: managedPurity) else {
+            return nil
+        }
+
+        let breeds = NSKeyedUnarchiver.unarchiveObject(with: managedObject.breeds) as? [String] ?? []
+
+        self.init(species: species, purity: purity, breeds: breeds)
     }
 }

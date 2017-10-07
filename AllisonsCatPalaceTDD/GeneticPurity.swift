@@ -7,8 +7,13 @@
 //
 
 import Foundation
+import RealmSwift
 
-enum GeneticPurity {
+class GeneticPurityObject: Object {
+    var value = RealmOptional<Int>()
+}
+
+enum GeneticPurity: Int {
     case purebred, mixed
 
     init?(petFinderRawValue: String) {
@@ -24,5 +29,27 @@ enum GeneticPurity {
 
     var isPurebred: Bool {
         return self == .purebred
+    }
+}
+
+extension GeneticPurity: Persistable {
+    typealias ManagedObject = GeneticPurityObject
+
+    var managedObject: ManagedObject {
+        let object = ManagedObject()
+
+        object.value = RealmOptional<Int>(self.rawValue)
+
+        return object
+    }
+
+    init?(managedObject: ManagedObject) {
+        let value = managedObject.value
+        guard let int = value.value else {
+
+            return nil
+        }
+
+        self.init(rawValue: int)
     }
 }

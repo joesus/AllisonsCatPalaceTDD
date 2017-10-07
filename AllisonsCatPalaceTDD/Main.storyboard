@@ -6,13 +6,15 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Cat List Controller-->
+        <!--Favorites List Controller-->
         <scene sceneID="jSa-6M-l0w">
             <objects>
-                <tableViewController storyboardIdentifier="CatListController" id="WVV-vz-AHA" customClass="CatListController" customModule="AllisonsCatPalaceTDD" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="FavoritesListController" id="WVV-vz-AHA" customClass="FavoritesListController" customModule="AllisonsCatPalaceTDD" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="01f-Aw-hRT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -52,7 +54,65 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cIc-u8-JBa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="380" y="-917.09145427286364"/>
+            <point key="canvasLocation" x="542" y="-99"/>
+        </scene>
+        <!--Title-->
+        <scene sceneID="6d2-ga-kKw">
+            <objects>
+                <viewController storyboardIdentifier="AnimalCardsViewController" id="ZMo-cE-XsX" customClass="AnimalCardsViewController" customModule="AllisonsCatPalaceTDD" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hlW-Zc-w99"/>
+                        <viewControllerLayoutGuide type="bottom" id="qiB-0U-eag"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yZl-99-H0Z">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S6d-Ci-Se9" customClass="KolodaView" customModule="Koloda">
+                                <rect key="frame" x="32" y="114" width="311" height="353"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="S6d-Ci-Se9" secondAttribute="height" multiplier="311:353" id="Ztt-hM-V0o"/>
+                                </constraints>
+                            </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Fyf-Ri-qq9">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                                <color key="color" red="0.3382484019" green="0.24732157590000001" blue="0.50051718950000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Fyf-Ri-qq9" firstAttribute="centerX" secondItem="yZl-99-H0Z" secondAttribute="centerX" id="6Al-rY-mcE"/>
+                            <constraint firstItem="S6d-Ci-Se9" firstAttribute="top" secondItem="hlW-Zc-w99" secondAttribute="bottom" constant="50" id="9Jf-r0-FIe"/>
+                            <constraint firstItem="S6d-Ci-Se9" firstAttribute="centerX" secondItem="yZl-99-H0Z" secondAttribute="centerX" id="Ifj-IV-XP5"/>
+                            <constraint firstItem="Fyf-Ri-qq9" firstAttribute="centerY" secondItem="yZl-99-H0Z" secondAttribute="centerY" id="Lty-a0-EAk"/>
+                            <constraint firstItem="S6d-Ci-Se9" firstAttribute="leading" secondItem="yZl-99-H0Z" secondAttribute="leadingMargin" constant="16" id="Wci-WU-Anj"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="S6d-Ci-Se9" secondAttribute="trailing" constant="16" id="bu7-uf-JTg"/>
+                            <constraint firstItem="S6d-Ci-Se9" firstAttribute="centerY" secondItem="yZl-99-H0Z" secondAttribute="centerY" id="x4B-hJ-Q8v"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Ifj-IV-XP5"/>
+                                <exclude reference="x4B-hJ-Q8v"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Title" id="Ndp-sc-csm">
+                        <barButtonItem key="rightBarButtonItem" title="Favorites" id="4ws-Cy-w8S">
+                            <connections>
+                                <segue destination="WVV-vz-AHA" kind="show" identifier="showFavoritesListController" id="F89-TC-tTJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="Fyf-Ri-qq9" id="I9Z-2k-kCS"/>
+                        <outlet property="deckView" destination="S6d-Ci-Se9" id="8sJ-21-690"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fHm-TB-UfG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-351" y="-99"/>
         </scene>
         <!--Cat Detail Controller-->
         <scene sceneID="X7A-LK-UmY">
@@ -72,7 +132,7 @@
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4PO-vt-Kv9" id="6FR-WD-3Wo">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -123,7 +183,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="XP6-mm-BoX" id="9wQ-FK-TGs"/>
                         <outlet property="zipCodeField" destination="o6O-tz-5HC" id="aWX-tc-dhb"/>
-                        <segue destination="WVV-vz-AHA" kind="show" identifier="ShowCatListController" id="V0e-Ug-Gej"/>
+                        <segue destination="ZMo-cE-XsX" kind="show" identifier="ShowAnimalCardsViewController" id="e4f-1Z-EQU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RO9-7k-uqA" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -12,16 +12,18 @@ protocol AnimalNetworker {
     associatedtype Response
     associatedtype ResponseHandler = (Result<Response>) -> Void
 
-    static func retrieveAllAnimals(for location: String, completion: ResponseHandler) // TODO - make location a dependent type
+    static func retrieveAllAnimals(offset: Int, completion: ResponseHandler)
     static func retrieveAnimal(withIdentifier id: Int, completion: ResponseHandler)
 }
 
-enum PetFinderNetworker {
+enum PetFinderNetworker: AnimalNetworker {
+    typealias Response = PetFinderResponse
     typealias ResponseHandler = (Result<PetFinderResponse>) -> Void
     static var session = URLSession.shared
     static weak var retrieveAllAnimalsTask: URLSessionTask?
+    static let desiredNumberOfResults = "20"
 
-    static func retrieveAllAnimals(completion: @escaping ResponseHandler)  {
+    static func retrieveAllAnimals(offset: Int = 0, completion: @escaping ResponseHandler)  {
         let location = SettingsManager.shared.value(forKey: .zipCode) as? String ?? ""
 
         retrieveAllAnimalsTask?.cancel()

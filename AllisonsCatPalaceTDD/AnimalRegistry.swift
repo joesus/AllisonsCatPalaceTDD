@@ -8,10 +8,17 @@
 
 import Foundation
 
-class AnimalRegistry {
+protocol AnimalFetching: class {
+    static var offset: Int { get set }
+    static func fetchAllAnimals(completion: @escaping ([Animal]) -> Void)
+    static func fetchAnimal(withIdentifier identifier: Int, completion: @escaping (Animal?) -> Void)
+}
+
+class AnimalRegistry: AnimalFetching {
+    static var offset = 0
 
     static func fetchAllAnimals(completion: @escaping ([Animal]) -> Void) {
-        PetFinderNetworker.retrieveAllAnimals { result in
+        PetFinderNetworker.retrieveAllAnimals(offset: offset) { result in
             guard case .success(let response) = result else {
                 return completion([])
             }

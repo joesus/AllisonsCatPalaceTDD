@@ -1,5 +1,5 @@
 //
-//  CatListControllerTests.swift
+//  FavoritesListControllerTests.swift
 //  AllisonsCatPalaceTDD
 //
 //  Created by Joesus on 2/12/17.
@@ -8,11 +8,13 @@
 
 import XCTest
 import TestableUIKit
+import RealmSwift
 @testable import AllisonsCatPalaceTDD
 
-class CatListControllerTests: XCTestCase {
+class FavoritesListControllerTests: XCTestCase {
 
-    var controller: CatListController!
+    var realm: Realm!
+    var controller: FavoritesListController!
     var navController: UINavigationController!
     var tableView: UITableView!
     let firstCatIndexPath = IndexPath(row: 0, section: 0)
@@ -20,18 +22,22 @@ class CatListControllerTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
+        realm = realmForTest(withName: name!)
+        reset(realm)
+        InjectionMap.realm = realm
+
         navController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
         
         replaceRootViewController(with: navController) // the main controller for the window is now the navController
 
         URLSessionTask.beginStubbingResume()
 
-        guard let catListController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CatListController") as? CatListController else {
-            return XCTFail("Could not instantiate cat list controller from main storyboard")
+        guard let favoritesListController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FavoritesListController") as? FavoritesListController else {
+            return XCTFail("Could not instantiate favorites list controller from main storyboard")
         }
 
-        navController.addChildViewController(catListController)
-        controller = navController.topViewController as! CatListController
+        navController.addChildViewController(favoritesListController)
+        controller = navController.topViewController as! FavoritesListController
         tableView = controller.tableView
 
     }
@@ -44,11 +50,29 @@ class CatListControllerTests: XCTestCase {
     }
 
     func testIsTableViewController() {
-        XCTAssert(controller as Any is UITableViewController, "CatListController should be a UITableViewController")
+        XCTAssert(controller as Any is UITableViewController, "FavoritesListController should be a UITableViewController")
     }
 
-    func testHasNoCatsByDefault() {
-        XCTAssert(controller.cats.isEmpty, "CatListController should have no cats by default")
+    func testHasNoAnimalsByDefault() {
+        XCTAssert(controller.animals.isEmpty, "FavoritesListController should have no animals by default, had: \(controller.animals.count) animals")
+    }
+
+    func testFetchesDataOnLoad() {
+        try? realm.write {
+            cats.forEach {
+                realm.add($0.managedObject, update: true)
+            }
+        }
+
+        controller.viewDidLoad()
+
+        XCTAssertEqual(cats.count, controller.animals.count,
+                       "Controller should load correct number of animals from local storage")
+
+        controller.animals.enumerated().forEach { index, animal in
+            XCTAssertEqual(animal.identifier, cats[index].identifier,
+                           "animal with identifier: \(animal.identifier) should be loaded from local storage")
+        }
     }
 
     func testViewDidLoadCallsSuperViewDidLoad() {
@@ -58,10 +82,7 @@ class CatListControllerTests: XCTestCase {
         }
     }
 
-    // TODO: - figure out how to test that the registry was called.
-    //    func testRequestsCatsOnViewDidLoad() { }
-
-    func testReloadDataIsCalledWhenCatsAreUpdated() {
+    func testReloadDataIsCalledWhenAnimalsAreUpdated() {
         let reloadedPredicate = NSPredicate { [controller] _,_ in
             controller!.tableView.reloadDataCalled
         }
@@ -70,18 +91,18 @@ class CatListControllerTests: XCTestCase {
         UITableView.ReloadDataSpyController.createSpy(on: tableView)!.spy {
             DispatchQueue.global(qos: .background).async { [weak controller] in
                 let cat = Animal(name: "Test", identifier: 1)
-                controller?.cats.append(cat)
+                controller?.animals.append(cat)
             }
 
             waitForExpectations(timeout: 2, handler: nil)
             XCTAssert(tableView.reloadDataCalled,
-                      "TableView should be reloaded when cats are updated")
+                      "TableView should be reloaded when animals are updated")
             XCTAssert(tableView.reloadDataCalledOnMainThread!,
-                      "Reload data should be called on the main thread when cats are updated on a background thread")
+                      "Reload data should be called on the main thread when animals are updated on a background thread")
         }
     }
 
-    func testReloadDataIsCalledWhenCatsAreCleared() {
+    func testReloadDataIsCalledWhenAnimalsAreCleared() {
         let reloadedPredicate = NSPredicate { [controller] _,_ in
             controller!.tableView.reloadDataCalled
         }
@@ -89,23 +110,22 @@ class CatListControllerTests: XCTestCase {
 
         UITableView.ReloadDataSpyController.createSpy(on: tableView)!.spy {
             DispatchQueue.global(qos: .background).async { [weak controller] in
-                controller?.cats = []
+                controller?.animals = []
             }
 
             waitForExpectations(timeout: 2, handler: nil)
 
             guard controller.tableView.reloadDataCalled else {
-                return XCTFail("TableView should be reloaded when cats are cleared")
+                return XCTFail("TableView should be reloaded when animals are cleared")
             }
 
             XCTAssert(controller.tableView.reloadDataCalledOnMainThread!,
-                      "Reload data should be called on the main thread when cats are cleared on a background thread")
-
+                      "Reload data should be called on the main thread when animals are cleared on a background thread")
         }
     }
 
     func testPrepareForSeguePreparesDetailController() {
-        controller.cats = [SampleCat]
+        controller.animals = [SampleCat]
 
         guard let destination = UIStoryboard(name: "Main", bundle: Bundle(for: CatDetailController.self)).instantiateViewController(withIdentifier: "CatDetailController") as? CatDetailController else {
             return XCTFail("Main storyboard should have a cat detail controller scene")
@@ -132,7 +152,7 @@ class CatListControllerTests: XCTestCase {
         expectation(for: NSPredicate(block: predicateBlock), evaluatedWith: self)
 
         UIViewController.PerformSegueSpyController.createSpy(on: controller)!.spy {
-            controller.cats = [SampleCat]
+            controller.animals = [SampleCat]
 
             let cell = controller.tableView.cellForRow(at: firstCatIndexPath) as? CatCell
             controller.performSegue(withIdentifier: "ShowCatDetail", sender: cell)
@@ -144,7 +164,7 @@ class CatListControllerTests: XCTestCase {
             }
             XCTAssertEqual(controller.performSegueIdentifier, "ShowCatDetail",
                            "Segue identifier should identify the destination of the segue")
-            //XCTAssertTrue(controller.performSegueSender! is CatListController, "Pushed view controller should be a CatDetailController")
+            //XCTAssertTrue(controller.performSegueSender! is FavoritesListController, "Pushed view controller should be a CatDetailController")
         }
     }
 

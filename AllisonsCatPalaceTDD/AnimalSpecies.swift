@@ -7,13 +7,24 @@
 //
 
 import Foundation
+import RealmSwift
 
-enum AnimalSpecies {
-    case cat, dog
+class AnimalSpeciesObject: Object {
+    var value = RealmOptional<Int>()
+}
+
+enum AnimalSpecies: Int {
+    case cat, dog, smallAndFurry, barnYard, bird, horse, rabbit, reptile
 
     private static let petFinderRawValueMappable: [String: AnimalSpecies] = [
         "Cat": .cat,
-        "Dog": .dog
+        "Dog": .dog,
+        "Small&amp;Furry": .smallAndFurry,
+        "BarnYard": .barnYard,
+        "Bird": .bird,
+        "Horse": .horse,
+        "Rabbit": .rabbit,
+        "Reptile": .reptile
     ]
 
     init?(petFinderRawValue: String) {
@@ -21,5 +32,27 @@ enum AnimalSpecies {
             return nil
         }
         self = value
+    }
+}
+
+extension AnimalSpecies: Persistable {
+    typealias ManagedObject = AnimalSpeciesObject
+
+    var managedObject: ManagedObject {
+        let object = ManagedObject()
+
+        object.value = RealmOptional<Int>(self.rawValue)
+
+        return object
+    }
+
+    init?(managedObject: ManagedObject) {
+        let value = managedObject.value
+        guard let int = value.value else {
+
+            return nil
+        }
+
+        self.init(rawValue: int)
     }
 }

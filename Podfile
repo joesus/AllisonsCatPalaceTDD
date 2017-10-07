@@ -6,6 +6,8 @@ target 'AllisonsCatPalaceTDD' do
   use_frameworks!
 
   # Pods for AllisonsCatPalaceTDD
+  pod "Koloda"
+  pod "RealmSwift"
 
   target 'AllisonsCatPalaceTDDTests' do
     inherit! :search_paths

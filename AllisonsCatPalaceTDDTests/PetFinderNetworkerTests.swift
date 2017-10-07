@@ -53,6 +53,9 @@ class PetFinderNetworkerTests: XCTestCase {
         XCTAssertTrue(request.url!.query!.contains("output=full"), "Query: \(request.url!.query!) should specify output size")
         XCTAssertTrue(request.url!.query!.contains("location="), "Query: \(request.url!.query!) should specify location")
         XCTAssertTrue(request.url!.query!.contains("key=APIKEY"), "Query: \(request.url!.query!) should contain api key")
+
+        XCTAssertTrue(request.url!.query!.contains("count=\(PetFinderNetworker.desiredNumberOfResults)"), "Query: \(request.url!.query!) should contain predefined default results count")
+        XCTAssertTrue(request.url!.query!.contains("offset=0"), "Query: \(request.url!.query!) should contain default offset of zero")
         XCTAssert(task.resumeWasCalled, "task should be started")
 
         // Cleanup of sorts
@@ -74,6 +77,7 @@ class PetFinderNetworkerTests: XCTestCase {
 
     func testCreatingRetrieveAllAnimalsTaskWithOffset() {
         PetFinderNetworker.retrieveAllAnimals(offset: 25) {_ in}
+
         guard let task = PetFinderNetworker.session.lastResumedDataTask else {
             return XCTFail("A task should have been created")
         }

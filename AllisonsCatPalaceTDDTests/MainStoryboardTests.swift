@@ -28,9 +28,9 @@ class MainStoryboardTests: XCTestCase {
         XCTAssertNotNil(topViewController, "Top view controller should be a LocationController")
     }
 
-    func testCatListController() {
-        let catListController = storyboard.instantiateViewController(withIdentifier: "CatListController")
-        XCTAssert(catListController is CatListController, "Should be able to instantiate CatListController from storyboard")
+    func testFavoritesListController() {
+        let favoritesListController = storyboard.instantiateViewController(withIdentifier: "FavoritesListController")
+        XCTAssert(favoritesListController is FavoritesListController, "Should be able to instantiate FavoritesListController from storyboard")
     }
 
     func testCatDetailViewController() {

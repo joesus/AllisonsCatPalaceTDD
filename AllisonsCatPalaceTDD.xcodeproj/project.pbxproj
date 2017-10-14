@@ -51,6 +51,8 @@
 		F41612611EB54DB000E3E6F6 /* UITestingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41612601EB54DB000E3E6F6 /* UITestingHelper.swift */; };
 		F41A38801F897A6100AD2762 /* PaginationCursorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A387F1F897A6100AD2762 /* PaginationCursorTests.swift */; };
 		F41A38821F897B6A00AD2762 /* PaginationCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A38811F897B6A00AD2762 /* PaginationCursor.swift */; };
+		F42E16CA1F929C5800FDD9BE /* ZipCodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42E16C91F929C5800FDD9BE /* ZipCodeTests.swift */; };
+		F42E16CC1F92A47700FDD9BE /* ZipCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42E16CB1F92A47700FDD9BE /* ZipCode.swift */; };
 		F436324D1F536A73004DF88A /* AnimalCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F436324C1F536A73004DF88A /* AnimalCardsViewController.swift */; };
 		F436324F1F5371AB004DF88A /* SwipeOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F436324E1F5371AB004DF88A /* SwipeOverlayView.swift */; };
 		F43632511F537595004DF88A /* SwipeOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F43632501F537595004DF88A /* SwipeOverlayView.xib */; };
@@ -166,6 +168,8 @@
 		F41612601EB54DB000E3E6F6 /* UITestingHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITestingHelper.swift; sourceTree = "<group>"; };
 		F41A387F1F897A6100AD2762 /* PaginationCursorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationCursorTests.swift; sourceTree = "<group>"; };
 		F41A38811F897B6A00AD2762 /* PaginationCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationCursor.swift; sourceTree = "<group>"; };
+		F42E16C91F929C5800FDD9BE /* ZipCodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZipCodeTests.swift; sourceTree = "<group>"; };
+		F42E16CB1F92A47700FDD9BE /* ZipCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZipCode.swift; sourceTree = "<group>"; };
 		F436324C1F536A73004DF88A /* AnimalCardsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalCardsViewController.swift; sourceTree = "<group>"; };
 		F436324E1F5371AB004DF88A /* SwipeOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeOverlayView.swift; sourceTree = "<group>"; };
 		F43632501F537595004DF88A /* SwipeOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwipeOverlayView.xib; sourceTree = "<group>"; };
@@ -268,6 +272,7 @@
 				F4AB68991F2D39F300CC4CC2 /* GeneticPurity.swift */,
 				F4AB68D71F328CF300CC4CC2 /* GenotypeBuilder.swift */,
 				F46539BA1EFF11430049E7FD /* PositiveInteger.swift */,
+				F42E16CB1F92A47700FDD9BE /* ZipCode.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -311,6 +316,7 @@
 		276C61A91E2C062200225CF4 /* AllisonsCatPalaceTDDTests */ = {
 			isa = PBXGroup;
 			children = (
+				F42E16C91F929C5800FDD9BE /* ZipCodeTests.swift */,
 				F41A387F1F897A6100AD2762 /* PaginationCursorTests.swift */,
 				F4A507991F6043B100B8E480 /* SpeciesSelectionControllerTests.swift */,
 				F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */,
@@ -698,6 +704,7 @@
 				F46539C31EFF1F2F0049E7FD /* AnimalAgeGroups.swift in Sources */,
 				276C61C61E2D728800225CF4 /* AnimalBuilder.swift in Sources */,
 				F4AB689A1F2D39F300CC4CC2 /* GeneticPurity.swift in Sources */,
+				F42E16CC1F92A47700FDD9BE /* ZipCode.swift in Sources */,
 				F4E82A411F507DEA0019F1AE /* GeocodingError.swift in Sources */,
 				F4AB689C1F2D405400CC4CC2 /* AnimalGenotype.swift in Sources */,
 				F46539BF1EFF18FB0049E7FD /* AnimalSize.swift in Sources */,
@@ -749,6 +756,7 @@
 				27E823931E5A43AB009B202A /* FavoritesListDataSourceTests.swift in Sources */,
 				270A6AE51E3E70CD00B12D38 /* URLSessionDataTaskSpies.swift in Sources */,
 				270A6AEB1E3E7DB000B12D38 /* ResultTests.swift in Sources */,
+				F42E16CA1F929C5800FDD9BE /* ZipCodeTests.swift in Sources */,
 				F46539BD1EFF136B0049E7FD /* AnimalSizeTests.swift in Sources */,
 				F436325B1F54DF58004DF88A /* AnimalCardsViewControllerTests.swift in Sources */,
 				F4E82A3F1F507C470019F1AE /* GeocodingErrorTests.swift in Sources */,

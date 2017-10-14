@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ZipCode: RawRepresentable {
+struct ZipCode: RawRepresentable, Equatable {
     let rawValue: String
 
     init?(rawValue: String) {

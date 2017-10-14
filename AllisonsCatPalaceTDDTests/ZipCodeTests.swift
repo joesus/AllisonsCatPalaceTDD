@@ -6,30 +6,38 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
+@testable import AllisonsCatPalaceTDD
 import XCTest
 
 class ZipCodeTests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+
+    func testInitializingWithBadValues() {
+        ["1234x", "1234@", "@#$%1", "123", "001", "123 4", "", "123456"].forEach { badString in
+            XCTAssertNil(ZipCode(rawValue: badString),
+                         "Should not create a zip code with \(badString)")
         }
     }
-    
+
+    func testInitializingWithGoodValues() {
+        ["00000", "00001", "99998", "99999", "80220", "90210"].forEach { string in
+            guard let zip = ZipCode(rawValue: string) else {
+                return XCTFail("Should create a zip code with \(string)")
+            }
+
+            XCTAssertEqual(zip.rawValue, string,
+                           "Zip code should not alter the string that was passed in")
+        }
+    }
+
+    func testEquatability() {
+        let validZip = ZipCode(rawValue: "80220")!
+        let sameZip = ZipCode(rawValue: "80220")!
+        let differentZip = ZipCode(rawValue: "80221")!
+
+        XCTAssertEqual(validZip, sameZip,
+                       "Identical zip codes should be equal")
+        XCTAssertNotEqual(validZip, differentZip,
+                          "Different zip codes should not be equal")
+    }
+
 }

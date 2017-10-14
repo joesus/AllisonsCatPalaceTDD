@@ -47,7 +47,7 @@ class SpeciesSelectionControllerTests: XCTestCase {
 
         controller.speciesTapped(controller.catsButton)
 
-        XCTAssertEqual(SettingsManager.shared.value(forKey: .species) as? Int, AnimalSpecies.cat.rawValue,
+        XCTAssertEqual(SettingsManager.shared.value(forKey: .species) as? String, AnimalSpecies.cat.rawValue,
                        "Cats button should update settings to specify cat as the species to search for")
     }
     
@@ -56,7 +56,7 @@ class SpeciesSelectionControllerTests: XCTestCase {
 
         controller.speciesTapped(controller.dogsButton)
 
-        XCTAssertEqual(SettingsManager.shared.value(forKey: .species) as? Int, AnimalSpecies.dog.rawValue,
+        XCTAssertEqual(SettingsManager.shared.value(forKey: .species) as? String, AnimalSpecies.dog.rawValue,
                        "Dogs button should update settings to specify dog as the species to search for")
     }
 

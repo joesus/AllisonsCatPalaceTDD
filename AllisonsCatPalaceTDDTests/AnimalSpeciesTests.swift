@@ -50,13 +50,13 @@ class AnimalSpeciesTests: XCTestCase {
     }
 
     func testManagedObject() {
-        XCTAssertNil(AnimalSpeciesObject().value.value,
+        XCTAssertNil(AnimalSpeciesObject().value,
                      "AnimalSpeciesObject should have no value by default")
 
         let species = AnimalSpecies.cat
         let managed = species.managedObject
 
-        XCTAssertEqual(species.rawValue, managed.value.value,
+        XCTAssertEqual(species.rawValue, managed.value,
                        "Managed object should store correct raw value")
     }
 

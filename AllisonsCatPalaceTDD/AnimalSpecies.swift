@@ -10,10 +10,10 @@ import Foundation
 import RealmSwift
 
 class AnimalSpeciesObject: Object {
-    var value = RealmOptional<Int>()
+    dynamic var value: String? = nil
 }
 
-enum AnimalSpecies: Int {
+enum AnimalSpecies: String {
     case cat, dog, smallAndFurry, barnYard, bird, horse, rabbit, reptile
 
     private static let petFinderRawValueMappable: [String: AnimalSpecies] = [
@@ -41,18 +41,16 @@ extension AnimalSpecies: Persistable {
     var managedObject: ManagedObject {
         let object = ManagedObject()
 
-        object.value = RealmOptional<Int>(self.rawValue)
+        object.value = self.rawValue
 
         return object
     }
 
     init?(managedObject: ManagedObject) {
-        let value = managedObject.value
-        guard let int = value.value else {
-
+        guard let value = managedObject.value else {
             return nil
         }
 
-        self.init(rawValue: int)
+        self.init(rawValue: value)
     }
 }

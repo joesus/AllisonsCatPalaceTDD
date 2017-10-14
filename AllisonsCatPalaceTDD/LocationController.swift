@@ -110,7 +110,8 @@ extension LocationController: UITextFieldDelegate {
             guard error == nil,
                 let locations = placemarks,
                 locations.isEmpty == false,
-                let zipCode = locations.first?.postalCode else {
+                let zipCode = locations.first?.postalCode,
+                ZipCode(rawValue: zipCode) != nil else {
 
                     self?.zipCodeField.layer.borderColor = UIColor.red.cgColor
                     return

@@ -56,13 +56,13 @@ class AnimalAgeGroupTests: XCTestCase {
     }
 
     func testManagedObject() {
-        XCTAssertNil(AnimalAgeGroupObject().value.value,
+        XCTAssertNil(AnimalAgeGroupObject().value,
                      "AnimalAgeGroupObject should have no value by default")
 
         let ageGroup = AnimalAgeGroup.adult
         let managed = ageGroup.managedObject
 
-        XCTAssertEqual(ageGroup.rawValue, managed.value.value,
+        XCTAssertEqual(ageGroup.rawValue, managed.value,
                        "Managed object should store correct raw value")
     }
 
@@ -85,7 +85,7 @@ class AnimalAgeGroupTests: XCTestCase {
 
         let fetchedManagedObject = realm.objects(AnimalAgeGroupObject.self).last!
 
-        XCTAssertEqual(ageGroup.rawValue, fetchedManagedObject.value.value,
+        XCTAssertEqual(ageGroup.rawValue, fetchedManagedObject.value,
                        "Fetched age group should map back to original value")
     }
 }

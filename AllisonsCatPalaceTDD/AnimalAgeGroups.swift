@@ -10,10 +10,10 @@ import Foundation
 import RealmSwift
 
 class AnimalAgeGroupObject: Object {
-    var value = RealmOptional<Int>()
+    dynamic var value: String? = nil
 }
 
-enum AnimalAgeGroup: Int {
+enum AnimalAgeGroup: String {
     case baby, young, adult, senior
 
     static private let petFinderRawValueMapping: [String: AnimalAgeGroup] = [
@@ -37,13 +37,13 @@ extension AnimalAgeGroup: Persistable {
     var managedObject: ManagedObject {
         let object = AnimalAgeGroupObject()
 
-        object.value = RealmOptional<Int>(self.rawValue)
+        object.value = self.rawValue
 
         return object
     }
 
     init?(managedObject: ManagedObject) {
-        guard let int = managedObject.value.value else {
+        guard let int = managedObject.value else {
             return nil
         }
 

@@ -68,13 +68,13 @@ struct PetFinderSearchParameters {
         let value: String?
         switch validSize {
         case .extraLarge:
-            value = "extraLarge"
+            value = "XL"
         case .large:
-            value = "large"
+            value = "L"
         case .medium:
-            value = "medium"
+            value = "M"
         case .small:
-            value = "small"
+            value = "S"
         }
 
         return URLQueryItem(
@@ -83,15 +83,15 @@ struct PetFinderSearchParameters {
         )
     }
 
-    private var sexQueryItem: URLQueryItem? { // TODO - make this backed by string but make sure this check is still here for unknown
+    private var sexQueryItem: URLQueryItem? {
         guard let validSex = sex else { return nil }
 
         let value: String?
         switch validSex {
         case .female:
-            value = "female"
+            value = "F"
         case .male:
-            value = "male"
+            value = "M"
         case .unknown:
             return nil
         }
@@ -102,24 +102,12 @@ struct PetFinderSearchParameters {
         )
     }
 
-    private var ageQueryItem: URLQueryItem? { // TODO - make this backed by string,
+    private var ageQueryItem: URLQueryItem? {
         guard let validAge = age else { return nil }
-
-        let value: String?
-        switch validAge {
-        case .baby:
-            value = "baby"
-        case .young:
-            value = "young"
-        case .adult:
-            value = "adult"
-        case .senior:
-            value = "senior"
-        }
 
         return URLQueryItem(
             name: QueryItemKeys.age,
-            value: value
+            value: validAge.rawValue
         )
     }
 

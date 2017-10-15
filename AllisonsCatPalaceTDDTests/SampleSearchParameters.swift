@@ -28,17 +28,17 @@ enum SampleSearchParameters {
 
     static let ageQueryItem = URLQueryItem(
         name: PetFinderSearchParameters.QueryItemKeys.age,
-        value: "adult" // TODO - make this a string backed enum
+        value: "adult"
     )
 
     static let sizeQueryItem = URLQueryItem(
         name: PetFinderSearchParameters.QueryItemKeys.size,
-        value: "medium" // TODO - make this a string backed enum
+        value: "M"
     )
 
     static let sexQueryItem = URLQueryItem(
         name: PetFinderSearchParameters.QueryItemKeys.sex,
-        value: "female" // TODO - make this a string backed enum
+        value: "F"
     )
 
     static let zipCodeOnly = PetFinderSearchParameters(zipCode: zipCode)

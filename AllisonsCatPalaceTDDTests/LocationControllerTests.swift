@@ -175,17 +175,16 @@ class LocationControllerTests: XCTestCase {
 
     func testGeocoderIsNotCalledWithoutValidZipCode() {
         replaceRootViewController(with: controller)
-        textField.becomeFirstResponder()
-        textField.text = "000"
-        textField.resignFirstResponder()
+        attemptGeocoding(withText: "000")
 
         XCTAssertFalse(geocoder.forwardGeocodeAddressCalled,
-                     "Geocoder should not be called with an invalid zip code")
+                       "Geocoder should not be called with an invalid zip code")
     }
 
     func testZipCodeFieldGeocodesAtFiveCharacters() {
-        textField.text = "80220"
-        delegate.textFieldDidEndEditing!(textField)
+        replaceRootViewController(with: controller)
+        attemptGeocoding(withText: "80220")
+
         XCTAssertTrue(geocoder.forwardGeocodeAddressCalled,
                       "Textfield should forward geocode when it ends editing")
     }
@@ -198,8 +197,8 @@ class LocationControllerTests: XCTestCase {
     }
 
     func testGeocodingInProgress() {
-        textField.text = "80220"
-        delegate.textFieldDidEndEditing!(textField)
+        replaceRootViewController(with: controller)
+        attemptGeocoding(withText: "80220")
 
         XCTAssertTrue(controller.activityIndicator.isAnimating,
                       "Activity indicator should animate while geocoding")
@@ -209,8 +208,8 @@ class LocationControllerTests: XCTestCase {
     }
 
     func testGeocodingCompleted() {
-        textField.text = "80220"
-        delegate.textFieldDidEndEditing!(textField)
+        replaceRootViewController(with: controller)
+        attemptGeocoding(withText: "80220")
 
         guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
             return XCTFail("Geocoder should be called with a handler")
@@ -225,8 +224,7 @@ class LocationControllerTests: XCTestCase {
 
     func testGeocodingWithEmptyResultsAndError() {
         replaceRootViewController(with: controller)
-        textField.becomeFirstResponder()
-        textField.resignFirstResponder()
+        attemptGeocoding(withText: "12345")
 
         geocoder.forwardGeocodeAddressCompletionHandler?([], GeocodingError.noLocationsFound)
 
@@ -236,7 +234,8 @@ class LocationControllerTests: XCTestCase {
     }
 
     func testGeocodingWithEmptyResultsAndNoError() {
-        delegate.textFieldDidEndEditing!(textField)
+        replaceRootViewController(with: controller)
+        attemptGeocoding(withText: "80220")
 
         guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
             return XCTFail("Geocoder should be called with a handler")
@@ -250,8 +249,7 @@ class LocationControllerTests: XCTestCase {
 
     func testGeocodingWithNonEmptyResultsAndNoError() {
         replaceRootViewController(with: controller)
-        textField.becomeFirstResponder()
-        textField.resignFirstResponder()
+        attemptGeocoding(withText: "12345")
 
         guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
             return XCTFail("Geocoder should be called with a handler")
@@ -277,9 +275,10 @@ class LocationControllerTests: XCTestCase {
     func testSuccessfulGeocodingWhenNotTopViewController() {
         navController.addChildViewController(controller)
 
-        delegate.textFieldDidEndEditing!(textField) // end editing to kick off geocoding task
+        replaceRootViewController(with: controller)
+        attemptGeocoding(withText: "12345")
 
-        controller.removeFromParentViewController() // remove from nav stack
+        controller.removeFromParentViewController()
 
         guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
             return XCTFail("Geocoder should be called with a handler")
@@ -287,13 +286,17 @@ class LocationControllerTests: XCTestCase {
         handler([placemark], nil)
 
         XCTAssertFalse(navController.showCalled,
-                      "Navigation controller should not call show on a successful geocoding when location controller is not the top view controller")
+                       "Navigation controller should not call show on a successful geocoding when location controller is not the top view controller")
         XCTAssertFalse(controller.performSegueCalled,
-                      "Controller should not perform segue on successful geocoding when not top view controller")
+                       "Controller should not perform segue on successful geocoding when not top view controller")
     }
 
     func testSuccessfulGeocodingWhenTopViewController() {
         navController.addChildViewController(controller)
+
+        replaceRootViewController(with: navController)
+
+        attemptGeocoding(withText: "12345")
 
         // Find out why this one won't cooperate
         delegate.textFieldDidEndEditing!(textField)
@@ -319,16 +322,18 @@ class LocationControllerTests: XCTestCase {
 
     func testSavingToUserDefaults() {
         replaceRootViewController(with: controller)
-        textField.becomeFirstResponder()
-        textField.resignFirstResponder()
+        attemptGeocoding(withText: "12345")
 
         guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
             return XCTFail("Geocoder should be called with a handler")
         }
         handler([placemark], nil)
 
-        XCTAssertEqual(SettingsManager.shared.value(forKey: SettingsManager.Key.zipCode) as? String, "80220",
-                       "Geocoding should save zip code to settings")
+        XCTAssertEqual(
+            SettingsManager.shared.value(forKey: SettingsManager.Key.zipCode) as? String,
+            "80220",
+            "Geocoding should save zip code to settings"
+        )
     }
 
     func testTextFieldDoesNotPrepopulateWithStoredZipCodeIfNotAvailable() {
@@ -366,4 +371,11 @@ extension LocationControllerTests {
         delegate = controller
         geocoder = controller.geocoder
     }
+
+    func attemptGeocoding(withText text: String) {
+        textField.becomeFirstResponder()
+        textField.text = text
+        textField.resignFirstResponder()
+    }
+
 }

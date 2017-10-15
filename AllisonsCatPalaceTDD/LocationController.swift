@@ -98,10 +98,14 @@ extension LocationController: UITextFieldDelegate {
         activityIndicator.startAnimating()
         textField.isUserInteractionEnabled = false
 
-        geocodeAddress(zipCodeText)
+        geocodeAddress()
     }
 
-    private func geocodeAddress(_ text: String) {
+    private func geocodeAddress() {
+        guard ZipCode(rawValue: zipCodeText) != nil else {
+            return
+        }
+
         geocoder.geocodeAddressString(zipCodeText) { [weak self] (placemarks, error) in
             // geocode
             self?.activityIndicator.stopAnimating()
@@ -110,8 +114,7 @@ extension LocationController: UITextFieldDelegate {
             guard error == nil,
                 let locations = placemarks,
                 locations.isEmpty == false,
-                let zipCode = locations.first?.postalCode,
-                ZipCode(rawValue: zipCode) != nil else {
+                let zipCode = locations.first?.postalCode else {
 
                     self?.zipCodeField.layer.borderColor = UIColor.red.cgColor
                     return

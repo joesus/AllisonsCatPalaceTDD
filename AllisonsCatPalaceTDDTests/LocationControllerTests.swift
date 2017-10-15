@@ -173,6 +173,16 @@ class LocationControllerTests: XCTestCase {
         }
     }
 
+    func testGeocoderIsNotCalledWithoutValidZipCode() {
+        replaceRootViewController(with: controller)
+        textField.becomeFirstResponder()
+        textField.text = "000"
+        textField.resignFirstResponder()
+
+        XCTAssertFalse(geocoder.forwardGeocodeAddressCalled,
+                     "Geocoder should not be called with an invalid zip code")
+    }
+
     func testZipCodeFieldGeocodesAtFiveCharacters() {
         textField.text = "80220"
         delegate.textFieldDidEndEditing!(textField)

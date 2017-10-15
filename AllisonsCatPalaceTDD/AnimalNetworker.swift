@@ -45,7 +45,7 @@ enum PetFinderNetworker: AnimalNetworker {
         let offsetQuery = URLQueryItem(name: "offset", value: "\(offset)")
         components.queryItems?.append(offsetQuery)
 
-        if let persistedSpeciesRawValue = SettingsManager.shared.value(forKey: .species) as? Int,
+        if let persistedSpeciesRawValue = SettingsManager.shared.value(forKey: .species) as? String,
             let species = AnimalSpecies(rawValue: persistedSpeciesRawValue) {
 
             let rawSpeciesName = species == .cat ? "cat" : "dog"

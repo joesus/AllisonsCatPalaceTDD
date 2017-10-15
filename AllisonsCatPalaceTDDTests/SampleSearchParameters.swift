@@ -12,38 +12,38 @@ import Foundation
 enum SampleSearchParameters {
     static let zipCode = ZipCode(rawValue: "80220")!
     static let zipCodeQueryItem = URLQueryItem(
-        name: AnimalSearchParameters.QueryItemKeys.location,
+        name: PetFinderSearchParameters.QueryItemKeys.location,
         value: SampleSearchParameters.zipCode.rawValue
     )
 
     static let speciesQueryItem = URLQueryItem(
-        name: AnimalSearchParameters.QueryItemKeys.species,
+        name: PetFinderSearchParameters.QueryItemKeys.species,
         value: AnimalSpecies.cat.rawValue
     )
 
     static let breedQueryItem = URLQueryItem(
-        name: AnimalSearchParameters.QueryItemKeys.breed,
+        name: PetFinderSearchParameters.QueryItemKeys.breed,
         value: "egyptian"
     )
 
     static let ageQueryItem = URLQueryItem(
-        name: AnimalSearchParameters.QueryItemKeys.age,
+        name: PetFinderSearchParameters.QueryItemKeys.age,
         value: "adult" // TODO - make this a string backed enum
     )
 
     static let sizeQueryItem = URLQueryItem(
-        name: AnimalSearchParameters.QueryItemKeys.size,
+        name: PetFinderSearchParameters.QueryItemKeys.size,
         value: "medium" // TODO - make this a string backed enum
     )
 
     static let sexQueryItem = URLQueryItem(
-        name: AnimalSearchParameters.QueryItemKeys.sex,
+        name: PetFinderSearchParameters.QueryItemKeys.sex,
         value: "female" // TODO - make this a string backed enum
     )
 
-    static let zipCodeOnly = AnimalSearchParameters(zipCode: zipCode)
+    static let zipCodeOnly = PetFinderSearchParameters(zipCode: zipCode)
 
-    static let fullSearchOptions = AnimalSearchParameters(
+    static let fullSearchOptions = PetFinderSearchParameters(
         zipCode: zipCode,
         species: .cat,
         breed: "egyptian",

@@ -1,5 +1,5 @@
 //
-//  AnimalSearchParameters.swift
+//  PetFinderSearchParameters.swift
 //  AllisonsCatPalaceTDD
 //
 //  Created by Joe Susnick on 10/14/17.
@@ -8,9 +8,7 @@
 
 import Foundation
 
-// TODO - this is only for petfinder so rename it all!
-
-struct AnimalSearchParameters {
+struct PetFinderSearchParameters {
     let zipCode: ZipCode
     let species: AnimalSpecies?
     let breed: AnimalBreed?
@@ -139,7 +137,7 @@ struct AnimalSearchParameters {
     }
 }
 
-extension AnimalSearchParameters {
+extension PetFinderSearchParameters {
     enum QueryItemKeys {
         static let location = "location"
         static let species = "animal"

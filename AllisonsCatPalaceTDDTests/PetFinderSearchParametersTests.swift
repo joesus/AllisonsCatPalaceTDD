@@ -1,5 +1,5 @@
 //
-//  AnimalSearchParametersTests.swift
+//  PetFinderSearchParametersTests.swift
 //  AllisonsCatPalaceTDDTests
 //
 //  Created by Joe Susnick on 10/14/17.
@@ -9,20 +9,20 @@
 @testable import AllisonsCatPalaceTDD
 import XCTest
 
-class AnimalSearchParametersTests: XCTestCase {
+class PetFinderSearchParametersTests: XCTestCase {
 
     func testSearchParameterKeys() {
-        XCTAssertEqual(AnimalSearchParameters.QueryItemKeys.location, "location",
+        XCTAssertEqual(PetFinderSearchParameters.QueryItemKeys.location, "location",
                        "There should be a defined name for each key")
-        XCTAssertEqual(AnimalSearchParameters.QueryItemKeys.species, "animal",
+        XCTAssertEqual(PetFinderSearchParameters.QueryItemKeys.species, "animal",
                        "There should be a defined name for each key")
-        XCTAssertEqual(AnimalSearchParameters.QueryItemKeys.breed, "breed",
+        XCTAssertEqual(PetFinderSearchParameters.QueryItemKeys.breed, "breed",
                        "There should be a defined name for each key")
-        XCTAssertEqual(AnimalSearchParameters.QueryItemKeys.size, "size",
+        XCTAssertEqual(PetFinderSearchParameters.QueryItemKeys.size, "size",
                        "There should be a defined name for each key")
-        XCTAssertEqual(AnimalSearchParameters.QueryItemKeys.sex, "sex",
+        XCTAssertEqual(PetFinderSearchParameters.QueryItemKeys.sex, "sex",
                        "There should be a defined name for each key")
-        XCTAssertEqual(AnimalSearchParameters.QueryItemKeys.age, "age",
+        XCTAssertEqual(PetFinderSearchParameters.QueryItemKeys.age, "age",
                        "There should be a defined name for each key")
     }
 
@@ -45,7 +45,7 @@ class AnimalSearchParametersTests: XCTestCase {
     }
 
     func testParametersMayIncludeSpecies() {
-        let parameters = AnimalSearchParameters(
+        let parameters = PetFinderSearchParameters(
             zipCode: SampleSearchParameters.zipCode,
             species: .cat
         )
@@ -68,7 +68,7 @@ class AnimalSearchParametersTests: XCTestCase {
     }
 
     func testParametersMayIncludeBreed() {
-        let parameters = AnimalSearchParameters(
+        let parameters = PetFinderSearchParameters(
             zipCode: SampleSearchParameters.zipCode,
             breed: "egyptian"
         )
@@ -91,7 +91,7 @@ class AnimalSearchParametersTests: XCTestCase {
     }
 
     func testParametersMayIncludeAnimalSize() {
-        let parameters = AnimalSearchParameters(
+        let parameters = PetFinderSearchParameters(
             zipCode: SampleSearchParameters.zipCode,
             size: .medium
         )
@@ -114,7 +114,7 @@ class AnimalSearchParametersTests: XCTestCase {
     }
 
     func testParametersMayIncludeAnimalAge() {
-        let parameters = AnimalSearchParameters(
+        let parameters = PetFinderSearchParameters(
             zipCode: SampleSearchParameters.zipCode,
             age: .adult
         )
@@ -137,7 +137,7 @@ class AnimalSearchParametersTests: XCTestCase {
     }
 
     func testParametersMayIncludeAnimalSex() {
-        let parameters = AnimalSearchParameters(
+        let parameters = PetFinderSearchParameters(
             zipCode: SampleSearchParameters.zipCode,
             sex: .female
         )

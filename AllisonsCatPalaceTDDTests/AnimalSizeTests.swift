@@ -74,10 +74,10 @@ class AnimalSizeTests: XCTestCase {
     }
 
     func testManagedObject() {
-        XCTAssertNil(AnimalSizeObject().value.value,
+        XCTAssertNil(AnimalSizeObject().value,
                      "AnimalSizeObject should have no value by default")
 
-        XCTAssertEqual(AnimalSize.large.rawValue, AnimalSize.large.managedObject.value.value,
+        XCTAssertEqual(AnimalSize.large.rawValue, AnimalSize.large.managedObject.value,
                        "Managed object should store correct raw value")
     }
 

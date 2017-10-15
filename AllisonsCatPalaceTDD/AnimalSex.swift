@@ -10,10 +10,10 @@ import Foundation
 import RealmSwift
 
 class AnimalSexObject: Object {
-    var value = RealmOptional<Int>()
+    dynamic var value: String? = nil
 }
 
-enum AnimalSex: Int {
+enum AnimalSex: String {
 
     case male, female, unknown
 
@@ -37,18 +37,18 @@ extension AnimalSex: Persistable {
     var managedObject: ManagedObject {
         let object = ManagedObject()
 
-        object.value = RealmOptional<Int>(self.rawValue)
+        object.value = self.rawValue
 
         return object
     }
 
     init?(managedObject: ManagedObject) {
         let value = managedObject.value
-        guard let int = value.value else {
+        guard let string = value else {
 
             return nil
         }
 
-        self.init(rawValue: int)
+        self.init(rawValue: string)
     }
 }

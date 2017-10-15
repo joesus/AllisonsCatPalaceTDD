@@ -198,7 +198,7 @@ class AnimalTests: XCTestCase {
                        "Managed object for animal should store correct value for age")
         XCTAssertEqual(animal.city, animal.managedObject.city,
                        "Managed object for animal should store correct value for city")
-        XCTAssertEqual(animal.sex.rawValue, animal.managedObject.sex?.value.value,
+        XCTAssertEqual(animal.sex.rawValue, animal.managedObject.sex?.value,
                        "Managed object for animal should store correct value for sex")
         XCTAssertEqual(animal.genotype?.species.rawValue, animal.managedObject.genotype?.species?.value,
                        "Managed object for animal should store correct value for genotype - species")

@@ -37,7 +37,7 @@
 		276C61C41E2C1D8600225CF4 /* AnimalBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276C61C31E2C1D8600225CF4 /* AnimalBuilderTests.swift */; };
 		276C61C61E2D728800225CF4 /* AnimalBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276C61C51E2D728800225CF4 /* AnimalBuilder.swift */; };
 		277199121E33F45B00930630 /* PetFinderNetworkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277199111E33F45B00930630 /* PetFinderNetworkerTests.swift */; };
-		277199141E34002300930630 /* AnimalNetworker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277199131E34002300930630 /* AnimalNetworker.swift */; };
+		277199141E34002300930630 /* PetFinderNetworker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277199131E34002300930630 /* PetFinderNetworker.swift */; };
 		27E8238A1E5A273D009B202A /* UIViewControllerSpies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E823891E5A273D009B202A /* UIViewControllerSpies.swift */; };
 		27E823931E5A43AB009B202A /* FavoritesListDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E823921E5A43AB009B202A /* FavoritesListDataSourceTests.swift */; };
 		27E823951E5A4E42009B202A /* CatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E823941E5A4E42009B202A /* CatCell.swift */; };
@@ -155,7 +155,7 @@
 		276C61C31E2C1D8600225CF4 /* AnimalBuilderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalBuilderTests.swift; sourceTree = "<group>"; };
 		276C61C51E2D728800225CF4 /* AnimalBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalBuilder.swift; sourceTree = "<group>"; };
 		277199111E33F45B00930630 /* PetFinderNetworkerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetFinderNetworkerTests.swift; sourceTree = "<group>"; };
-		277199131E34002300930630 /* AnimalNetworker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalNetworker.swift; sourceTree = "<group>"; };
+		277199131E34002300930630 /* PetFinderNetworker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetFinderNetworker.swift; sourceTree = "<group>"; };
 		27E823891E5A273D009B202A /* UIViewControllerSpies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerSpies.swift; sourceTree = "<group>"; };
 		27E823921E5A43AB009B202A /* FavoritesListDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesListDataSourceTests.swift; sourceTree = "<group>"; };
 		27E823941E5A4E42009B202A /* CatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatCell.swift; sourceTree = "<group>"; };
@@ -453,13 +453,13 @@
 			isa = PBXGroup;
 			children = (
 				F42E16CD1F92ACF600FDD9BE /* Models */,
-				277199131E34002300930630 /* AnimalNetworker.swift */,
 				270A6AF41E3E9D3800B12D38 /* AnimalNetworkError.swift */,
 				275D26121E511B3400FAE334 /* AnimalRegistry.swift */,
 				F4E82A401F507DEA0019F1AE /* GeocodingError.swift */,
 				2767E37E1E6269B900A7C5F9 /* ImageProvider.swift */,
 				F41A38811F897B6A00AD2762 /* PaginationCursor.swift */,
 				270A6AEC1E3E7F7800B12D38 /* Result.swift */,
+				277199131E34002300930630 /* PetFinderNetworker.swift */,
 				F4E68C1E1FA501AA00EB30D5 /* PetFinderUrlBuilder.swift */,
 			);
 			name = Networking;
@@ -710,7 +710,7 @@
 				F4BE6C991F584CFE00480671 /* Persistable.swift in Sources */,
 				F43BC6A21F1AA8A400E025EB /* ArrayExtensions.swift in Sources */,
 				F4A5079C1F60459400B8E480 /* SpeciesSelectionController.swift in Sources */,
-				277199141E34002300930630 /* AnimalNetworker.swift in Sources */,
+				277199141E34002300930630 /* PetFinderNetworker.swift in Sources */,
 				276C61BC1E2C183300225CF4 /* ExternalAnimal.swift in Sources */,
 				F4AB68D81F328CF300CC4CC2 /* GenotypeBuilder.swift in Sources */,
 				F43BC6A41F1AC9E400E025EB /* ExternalData.swift in Sources */,

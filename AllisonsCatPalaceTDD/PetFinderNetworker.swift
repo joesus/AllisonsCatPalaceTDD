@@ -19,8 +19,10 @@ protocol AnimalNetworker {
 enum PetFinderNetworker: AnimalNetworker {
     typealias Response = PetFinderResponse
     typealias ResponseHandler = (Result<PetFinderResponse>) -> Void
+
     static var session = URLSession.shared
     static weak var retrieveAllAnimalsTask: URLSessionTask?
+
     static let desiredNumberOfResults = "20"
 
     static func retrieveAllAnimals(offset: Int = 0, completion: @escaping ResponseHandler)  {

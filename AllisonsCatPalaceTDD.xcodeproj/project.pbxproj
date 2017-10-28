@@ -51,6 +51,7 @@
 		F41612611EB54DB000E3E6F6 /* UITestingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41612601EB54DB000E3E6F6 /* UITestingHelper.swift */; };
 		F41A38801F897A6100AD2762 /* PaginationCursorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A387F1F897A6100AD2762 /* PaginationCursorTests.swift */; };
 		F41A38821F897B6A00AD2762 /* PaginationCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A38811F897B6A00AD2762 /* PaginationCursor.swift */; };
+		F41A388A1F8985E200AD2762 /* PetfinderUrlBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A38891F8985E200AD2762 /* PetfinderUrlBuilderTests.swift */; };
 		F42E16C81F929B8B00FDD9BE /* PetFinderSearchParametersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42E16C71F929B8B00FDD9BE /* PetFinderSearchParametersTests.swift */; };
 		F42E16CA1F929C5800FDD9BE /* ZipCodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42E16C91F929C5800FDD9BE /* ZipCodeTests.swift */; };
 		F42E16CC1F92A47700FDD9BE /* ZipCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42E16CB1F92A47700FDD9BE /* ZipCode.swift */; };
@@ -175,6 +176,7 @@
 		F41612601EB54DB000E3E6F6 /* UITestingHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITestingHelper.swift; sourceTree = "<group>"; };
 		F41A387F1F897A6100AD2762 /* PaginationCursorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationCursorTests.swift; sourceTree = "<group>"; };
 		F41A38811F897B6A00AD2762 /* PaginationCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationCursor.swift; sourceTree = "<group>"; };
+		F41A38891F8985E200AD2762 /* PetfinderUrlBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetfinderUrlBuilderTests.swift; sourceTree = "<group>"; };
 		F42E16C71F929B8B00FDD9BE /* PetFinderSearchParametersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetFinderSearchParametersTests.swift; sourceTree = "<group>"; };
 		F42E16C91F929C5800FDD9BE /* ZipCodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZipCodeTests.swift; sourceTree = "<group>"; };
 		F42E16CB1F92A47700FDD9BE /* ZipCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZipCode.swift; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 				27E823961E5A5115009B202A /* MainStoryboardTests.swift */,
 				F41A387F1F897A6100AD2762 /* PaginationCursorTests.swift */,
 				277199111E33F45B00930630 /* PetFinderNetworkerTests.swift */,
+				F41A38891F8985E200AD2762 /* PetfinderUrlBuilderTests.swift */,
 				F46539B81EFF0F580049E7FD /* PositiveIntegerTests.swift */,
 				F483B6951F57536D00E57471 /* RealmTests.swift */,
 				270A6AEA1E3E7DB000B12D38 /* ResultTests.swift */,
@@ -790,6 +793,7 @@
 				F47D38F11FA51DB7001DBD60 /* PetFinderRecordLengthTests.swift in Sources */,
 				F4AB68A01F2D4E0400CC4CC2 /* SampleExternalGenotypeData.swift in Sources */,
 				27E823931E5A43AB009B202A /* FavoritesListDataSourceTests.swift in Sources */,
+				F41A388A1F8985E200AD2762 /* PetfinderUrlBuilderTests.swift in Sources */,
 				270A6AE51E3E70CD00B12D38 /* URLSessionDataTaskSpies.swift in Sources */,
 				270A6AEB1E3E7DB000B12D38 /* ResultTests.swift in Sources */,
 				F42E16CA1F929C5800FDD9BE /* ZipCodeTests.swift in Sources */,

@@ -28,20 +28,21 @@ class PetFinderSearchParametersTests: XCTestCase {
 
     func testParametersIncludeZipCode() {
         XCTAssertEqual(
-            SampleSearchParameters.zipCodeOnly.zipCode,
+            SampleSearchParameters.minimalSearchOptions.zipCode,
             SampleSearchParameters.zipCode,
             "Parameters include a zip code"
         )
 
         XCTAssertEqual(
-            SampleSearchParameters.zipCodeOnly.queryItems,
+            SampleSearchParameters.minimalSearchOptions.queryItems,
             [SampleSearchParameters.zipCodeQueryItem],
             "Parameters should provide query items"
         )
     }
 
     func testParametersDoNotRequireSpecies() {
-        XCTAssertNil(SampleSearchParameters.zipCodeOnly.species, "Parameters do not require a species")
+        XCTAssertNil(SampleSearchParameters.minimalSearchOptions.species,
+                     "Parameters do not require a species")
     }
 
     func testParametersMayIncludeSpecies() {
@@ -64,7 +65,8 @@ class PetFinderSearchParametersTests: XCTestCase {
     }
 
     func testParametersDoNotRequireAnimalBreed() {
-        XCTAssertNil(SampleSearchParameters.zipCodeOnly.breed, "Parameters do not require a breed")
+        XCTAssertNil(SampleSearchParameters.minimalSearchOptions.breed,
+                     "Parameters do not require a breed")
     }
 
     func testParametersMayIncludeBreed() {
@@ -87,7 +89,8 @@ class PetFinderSearchParametersTests: XCTestCase {
     }
 
     func testParametersDoNotRequireAnimalSize() {
-        XCTAssertNil(SampleSearchParameters.zipCodeOnly.size, "Parameters do not require a size")
+        XCTAssertNil(SampleSearchParameters.minimalSearchOptions.size,
+                     "Parameters do not require a size")
     }
 
     func testParametersMayIncludeAnimalSize() {
@@ -110,7 +113,8 @@ class PetFinderSearchParametersTests: XCTestCase {
     }
 
     func testParametersDoNotRequireAnimalAge() {
-        XCTAssertNil(SampleSearchParameters.zipCodeOnly.age, "Parameters do not require an age")
+        XCTAssertNil(SampleSearchParameters.minimalSearchOptions.age,
+                     "Parameters do not require an age")
     }
 
     func testParametersMayIncludeAnimalAge() {
@@ -133,7 +137,8 @@ class PetFinderSearchParametersTests: XCTestCase {
     }
 
     func testParametersDoNotRequireAnimalSex() {
-        XCTAssertNil(SampleSearchParameters.zipCodeOnly.sex, "Parameters do not require a sex")
+        XCTAssertNil(SampleSearchParameters.minimalSearchOptions.sex,
+                     "Parameters do not require a sex")
     }
 
     func testParametersMayIncludeAnimalSex() {

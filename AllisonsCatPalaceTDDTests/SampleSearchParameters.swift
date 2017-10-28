@@ -41,7 +41,7 @@ enum SampleSearchParameters {
         value: "F"
     )
 
-    static let zipCodeOnly = PetFinderSearchParameters(zipCode: zipCode)
+    static let minimalSearchOptions = PetFinderSearchParameters(zipCode: zipCode)
 
     static let fullSearchOptions = PetFinderSearchParameters(
         zipCode: zipCode,

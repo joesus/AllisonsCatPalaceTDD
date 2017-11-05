@@ -8,55 +8,27 @@
 
 import Foundation
 
-protocol AnimalNetworker {
-    associatedtype Response
-    associatedtype ResponseHandler = (Result<Response>) -> Void
-
-    static func retrieveAllAnimals(offset: Int, completion: ResponseHandler)
-    static func retrieveAnimal(withIdentifier id: Int, completion: ResponseHandler)
-}
-
 enum PetFinderNetworker: AnimalNetworker {
     typealias Response = PetFinderResponse
-    typealias ResponseHandler = (Result<PetFinderResponse>) -> Void
+    typealias SearchParameters = PetFinderSearchParameters
 
     static var session = URLSession.shared
     static weak var retrieveAllAnimalsTask: URLSessionTask?
 
     static let desiredNumberOfResults = "20"
 
-    static func retrieveAllAnimals(offset: Int = 0, completion: @escaping ResponseHandler)  {
-        let location = SettingsManager.shared.value(forKey: .zipCode) as? String ?? ""
+    static func findAnimals(
+        matching parameters: SearchParameters,
+        inRange range: PaginationCursor,
+        completion: @escaping (Result<Response>) -> Void
+        ) {
 
         retrieveAllAnimalsTask?.cancel()
 
-        var components = URLComponents()
-        components.scheme = "https"
-        components.host = "api.petfinder.com"
-        components.queryItems = [
-            URLQueryItem(name: "key", value: "APIKEY"),
-            URLQueryItem(name: "format", value: "json"),
-            URLQueryItem(name: "output", value: "full"),
-            URLQueryItem(name: "count", value: PetFinderNetworker.desiredNumberOfResults)
-        ]
-
-        components.path = "/pet.find"
-        let locationQuery = URLQueryItem(name: "location", value: location)
-        components.queryItems?.append(locationQuery)
-
-        let offsetQuery = URLQueryItem(name: "offset", value: "\(offset)")
-        components.queryItems?.append(offsetQuery)
-
-        if let persistedSpeciesRawValue = SettingsManager.shared.value(forKey: .species) as? String,
-            let species = AnimalSpecies(rawValue: persistedSpeciesRawValue) {
-
-            let rawSpeciesName = species == .cat ? "cat" : "dog"
-            components.queryItems?.append(
-                URLQueryItem(name: "animal", value: rawSpeciesName)
-            )
-        }
-
-        guard let url = components.url else { return }
+        let url = PetFinderUrlBuilder.buildSearchUrl(
+            searchParameters: parameters,
+            range: range
+        )
 
         let task = session.dataTask(with: url) {
             potentialData, potentialResponse, potentialError in
@@ -66,7 +38,6 @@ enum PetFinderNetworker: AnimalNetworker {
             } else if let response = potentialResponse as? HTTPURLResponse {
                 completion(handleAnimalsRetrieval(data: potentialData, response: response))
             }
-
         }
 
         retrieveAllAnimalsTask = task
@@ -91,7 +62,7 @@ enum PetFinderNetworker: AnimalNetworker {
         }
     }
 
-    static func retrieveAnimal(withIdentifier id: Int, completion: @escaping ResponseHandler) {
+    static func retrieveAnimal(withIdentifier id: Int, completion: @escaping (Result<Response>) -> Void) {
 
         var components = URLComponents()
         components.scheme = "https"

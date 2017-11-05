@@ -13,7 +13,7 @@ import RealmSwift
 class AnimalCardsViewController: UIViewController {
     @IBOutlet fileprivate(set) weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet fileprivate(set) weak var deckView: KolodaView!
-    var registry: AnimalFetching.Type = AnimalRegistry.self
+    var registry: AnimalFinding.Type = PetFinderAnimalRegistry.self
 
     var animals = [Animal]() {
         didSet {
@@ -42,7 +42,10 @@ class AnimalCardsViewController: UIViewController {
 
         activityIndicator.startAnimating()
         registry.offset = 0
-        registry.fetchAllAnimals { [weak self] fetchedAnimals in
+        registry.findAnimals(
+            matching: PetFinderSearchParameters(zipCode: ZipCode(rawValue: "80220")!),
+            cursor: PaginationCursor(size: 20)
+        ) { [weak self] fetchedAnimals in
 
             // Delay accounts for the built in animation time for loading the kolodaView
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
@@ -57,9 +60,9 @@ class AnimalCardsViewController: UIViewController {
 }
 
 extension AnimalCardsViewController: KolodaViewDelegate {
-//    func koloda(koloda: KolodaView, didSelectCardAt index: Int) {
-//        transition to detail view
-//    }
+    //    func koloda(koloda: KolodaView, didSelectCardAt index: Int) {
+    //        transition to detail view
+    //    }
 
     func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
         guard animals.indices.contains(index) else {
@@ -96,8 +99,12 @@ extension AnimalCardsViewController: KolodaViewDataSource {
 
         // if the card is the 10th to last card, kick off a new fetch, add the new results to the existing. As long as the offset matches the number being fetched we don't get duplicates.
         if index == animals.count - 10 {
-            registry.offset += 20
-            registry.fetchAllAnimals { fetchedAnimals in
+//            registry.offset += 20
+            registry.findAnimals(
+                matching: PetFinderSearchParameters(zipCode: ZipCode(rawValue: "80220")!),
+                cursor: PaginationCursor(size: 20)
+            ) { fetchedAnimals in
+
                 self.animals += fetchedAnimals
             }
         }

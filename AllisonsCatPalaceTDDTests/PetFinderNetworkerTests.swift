@@ -12,6 +12,7 @@ import XCTest
 class PetFinderNetworkerTests: XCTestCase {
 
     var taskRetrievalExpectation: XCTestExpectation!
+    let cursor = PaginationCursor(size: 20)
 
     override func setUp() {
         super.setUp()
@@ -34,149 +35,115 @@ class PetFinderNetworkerTests: XCTestCase {
     }
 
     func testNetworkerSessionIsSharedSession() {
-        XCTAssertEqual(PetFinderNetworker.session, URLSession.shared, "Networker should be using the shared session")
+        XCTAssertEqual(PetFinderNetworker.session, URLSession.shared,
+                       "Networker should be using the shared session")
     }
 
-    func testCreatingRetrieveAllAnimalsTask() {
-        PetFinderNetworker.retrieveAllAnimals {_ in}
-
-        guard let task = PetFinderNetworker.session.lastResumedDataTask else {
-            return XCTFail("A task should have been created")
-        }
-
-        guard let request = task.currentRequest else {
-            return XCTFail("A task should have a currentRequest")
-        }
-
-        XCTAssertEqual(request.httpMethod, "GET", "The request method for retrieving cats should be get")
-        XCTAssertEqual(request.url?.host, "api.petfinder.com", "The domain should be localhost")
-        XCTAssertEqual(request.url?.path, "/pet.find", "The path should be cats")
-        XCTAssertTrue(request.url!.query!.contains("format=json"), "Query: \(request.url!.query!) should specify json format response")
-        XCTAssertTrue(request.url!.query!.contains("output=full"), "Query: \(request.url!.query!) should specify output size")
-        XCTAssertTrue(request.url!.query!.contains("location="), "Query: \(request.url!.query!) should specify location")
-        XCTAssertTrue(request.url!.query!.contains("key=APIKEY"), "Query: \(request.url!.query!) should contain api key")
-
-        XCTAssertTrue(request.url!.query!.contains("count=\(PetFinderNetworker.desiredNumberOfResults)"), "Query: \(request.url!.query!) should contain predefined default results count")
-        XCTAssertTrue(request.url!.query!.contains("offset=0"), "Query: \(request.url!.query!) should contain default offset of zero")
-        XCTAssert(task.resumeWasCalled, "task should be started")
-
-        // Cleanup of sorts
-        task.resumeWasCalled = false
-    }
-
-    func testCreatingRetrieveAllAnimalsTaskWithPersistedLocation() {
-        SettingsManager.shared.set(value: "55555", forKey: .zipCode)
-        PetFinderNetworker.retrieveAllAnimals {_ in}
+    func testCreatingFindAnimalsTask() {
+        PetFinderNetworker.findAnimals(
+            matching: SampleSearchParameters.minimalSearchOptions,
+            inRange: cursor
+        ) { _ in }
 
         guard let task = PetFinderNetworker.session.lastResumedDataTask,
-            let request = task.currentRequest else {
-
-            return XCTFail("A task should have a currentRequest")
-        }
-
-        XCTAssertTrue(request.url!.query!.contains("55555"), "Query: \(request.url!.query!) should use the persisted location")
-    }
-
-    func testCreatingRetrieveAllAnimalsTaskWithOffset() {
-        PetFinderNetworker.retrieveAllAnimals(offset: 25) {_ in}
-
-        guard let task = PetFinderNetworker.session.lastResumedDataTask else {
-            return XCTFail("A task should have been created")
-        }
-
-        guard let request = task.currentRequest else {
-            return XCTFail("A task should have a currentRequest")
-        }
-
-        XCTAssertTrue(request.url!.query!.contains("offset=25"), "Query: \(request.url!.query!) should use the given offset")
-    }
-
-    func testCreatingRetrieveAllAnimalsTaskWithNoStoredSpecies() {
-        PetFinderNetworker.retrieveAllAnimals {_ in}
-
-        guard let task = PetFinderNetworker.session.lastResumedDataTask,
-            let request = task.currentRequest else {
+            let request = task.currentRequest
+            else {
                 return XCTFail("A task should have a currentRequest")
         }
 
-        XCTAssertFalse(request.url!.query!.contains("animal="), "Query: \(request.url!.query!) should not include a species when there is no stored species")
+        let expectedUrl = PetFinderUrlBuilder.buildSearchUrl(
+            searchParameters: SampleSearchParameters.minimalSearchOptions,
+            range: cursor
+        )
+
+        XCTAssertEqual(expectedUrl, request.url,
+                       "Finding animals should use the url returned by the url builder")
     }
 
-    func testCreatingRetrieveAllAnimalsTaskWithSpecies() {
-        SettingsManager.shared.set(value: AnimalSpecies.dog.rawValue, forKey: .species)
-        PetFinderNetworker.retrieveAllAnimals(offset: 25) {_ in}
-
-        guard let task = PetFinderNetworker.session.lastResumedDataTask else {
-            return XCTFail("A task should have been created")
-        }
-
-        guard let request = task.currentRequest else {
-            return XCTFail("A task should have a currentRequest")
-        }
-
-        XCTAssertTrue(request.url!.query!.contains("animal=dog"), "Query: \(request.url!.query!) should use the stored species")
-    }
-
-    func testNewRetrieveAllAnimalsTaskCancelsExistingTask() {
-        PetFinderNetworker.retrieveAllAnimals { _ in }
+    func testNewFindAnimalsTaskCancelsExistingTask() {
+        PetFinderNetworker.findAnimals(
+            matching: SampleSearchParameters.minimalSearchOptions,
+            inRange: cursor
+        ) { _ in }
 
         guard let firstTask = PetFinderNetworker.session.lastResumedDataTask else {
             fatalError("A task should have been created")
         }
-        PetFinderNetworker.retrieveAllAnimals { _ in }
-        XCTAssertTrue(firstTask.cancelWasCalled, "Any outstanding retrieval tasks should be cancelled when a new request is made")
+
+        PetFinderNetworker.findAnimals(
+            matching: SampleSearchParameters.minimalSearchOptions,
+            inRange: cursor
+        ) { _ in }
+
+        XCTAssertTrue(firstTask.cancelWasCalled,
+                      "Any outstanding retrieval tasks should be cancelled when a new request is made")
     }
 
-    func testHandlingRetrieveAllAnimalsNetworkFailure() {
+    func testHandlingFindAnimalsNetworkFailure() {
         var receivedError: NSError?
 
-        PetFinderNetworker.retrieveAllAnimals { result in
+        PetFinderNetworker.findAnimals(
+            matching: SampleSearchParameters.minimalSearchOptions,
+            inRange: cursor
+        ) { result in
             if case let .failure(error) = result {
                 receivedError = error as NSError
             }
         }
-        let handler = PetFinderNetworker.session.capturedCompletionHandler
-        handler?(nil, nil, fakeNetworkError)
-        XCTAssertEqual(receivedError, fakeNetworkError, "the network error should be passed to the completion handler")
+
+        PetFinderNetworker.session.capturedCompletionHandler?(nil, nil, fakeNetworkError)
+        XCTAssertEqual(receivedError, fakeNetworkError,
+                       "The network error should be passed to the completion handler")
     }
 
-    func testHandlingMissingAnimalsEndpoint() {
+    func testHandlingMissingFindAnimalsEndpoint() {
         var receivedError: AnimalNetworkError?
 
-        PetFinderNetworker.retrieveAllAnimals { result in
+        PetFinderNetworker.findAnimals(
+            matching: SampleSearchParameters.minimalSearchOptions,
+            inRange: cursor
+        ) { result in
             if case let .failure(error) = result {
                 receivedError = error as? AnimalNetworkError
             }
         }
-        let handler = PetFinderNetworker.session.capturedCompletionHandler
-        handler?(nil, response404, nil)
-        XCTAssertEqual(receivedError?.message, "Animal service unavailable", "missing animal endpoint should provide a service unavailable message")
+
+        PetFinderNetworker.session.capturedCompletionHandler?(nil, response404, nil)
+        XCTAssertEqual(receivedError?.message, "Animal service unavailable",
+                       "Missing animal endpoint should provide a service unavailable message")
     }
 
-    func testHandlingMissingDataWithValidResponseForAllAnimals() {
+    func testHandlingMissingDataWithValidResponseForFindAnimals() {
         var receivedError: AnimalNetworkError?
 
-        PetFinderNetworker.retrieveAllAnimals { result in
+        PetFinderNetworker.findAnimals(
+            matching: SampleSearchParameters.minimalSearchOptions,
+            inRange: cursor
+        ) { result in
             if case let .failure(error) = result {
                 receivedError = error as? AnimalNetworkError
             }
         }
-        let handler = PetFinderNetworker.session.capturedCompletionHandler
-        handler?(nil, response200(), nil)
-        XCTAssertEqual(receivedError?.message, "Missing Data", "animal retrieval with missing data and success code should fail")
+
+        PetFinderNetworker.session.capturedCompletionHandler?(nil, response200(), nil)
+        XCTAssertEqual(receivedError?.message, "Missing Data",
+                       "Animal retrieval with missing data and success code should fail")
     }
 
-    func testRetrievingAllAnimals() {
+    func testFindingAnimals() {
         var retrievedAnimalData: PetFinderResponse?
         let sampleData = try! JSONSerialization.data(withJSONObject: [:], options: [])
 
-        PetFinderNetworker.retrieveAllAnimals { result in
+        PetFinderNetworker.findAnimals(
+            matching: SampleSearchParameters.minimalSearchOptions,
+            inRange: cursor
+        ) { result in
             if case let .success(response) = result {
                 retrievedAnimalData = response
             }
         }
-        let handler = PetFinderNetworker.session.capturedCompletionHandler
-        handler?(sampleData, response200(), nil)
+
+        PetFinderNetworker.session.capturedCompletionHandler?(sampleData, response200(), nil)
         XCTAssertNotNil(retrievedAnimalData, "retrievedAnimalData should not be nil")
     }
 

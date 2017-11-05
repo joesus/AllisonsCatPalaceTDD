@@ -1,5 +1,5 @@
 //
-//  AnimalRegistryTests.swift
+//  PetFinderAnimalRegistryTests.swift
 //  AllisonsCatPalaceTDD
 //
 //  Created by Joesus on 2/12/17.
@@ -9,9 +9,10 @@
 import XCTest
 @testable import AllisonsCatPalaceTDD
 
-class AnimalRegistryTests: XCTestCase {
+class PetFinderAnimalRegistryTests: XCTestCase {
 
     var completionHandlerInvoked = false
+    var cursor = PaginationCursor(size: 20)
 
     override func setUp() {
         super.setUp()
@@ -28,22 +29,32 @@ class AnimalRegistryTests: XCTestCase {
         super.tearDown()
     }
 
-    func testGettingAllAnimalsFailure() {
+    func testFindingAnimalsFailure() {
         var receivedAnimals: [Animal]?
-        AnimalRegistry.fetchAllAnimals() { animals in
+        PetFinderAnimalRegistry.findAnimals(
+            matching: SampleSearchParameters.fullSearchOptions,
+            cursor: cursor
+        ) { animals in
+
             self.completionHandlerInvoked = true
             receivedAnimals = animals
         }
         let handler = PetFinderNetworker.session.capturedCompletionHandler
         handler?(nil, response200(), nil)
 
-        XCTAssertTrue(completionHandlerInvoked, "Completion handler should be invoked on all calls to registry")
-        XCTAssert(receivedAnimals!.isEmpty, "Should not have animals without data")
+        XCTAssertTrue(completionHandlerInvoked,
+                      "Completion handler should be invoked on all calls to registry")
+        XCTAssertTrue(receivedAnimals!.isEmpty,
+                      "Should not have animals without data")
     }
 
-    func testGettingAllAnimalsWithEmptyResult() {
+    func testFindingAnimalsWithEmptyResult() {
         var receivedAnimals: [Animal]?
-        AnimalRegistry.fetchAllAnimals() { animals in
+        PetFinderAnimalRegistry.findAnimals(
+            matching: SampleSearchParameters.fullSearchOptions,
+            cursor: cursor
+        ) { animals in
+
             self.completionHandlerInvoked = true
             receivedAnimals = animals
         }
@@ -57,9 +68,13 @@ class AnimalRegistryTests: XCTestCase {
         XCTAssert(receivedAnimals!.isEmpty, "Should not have animals with empty data")
     }
 
-    func testGettingAllAnimalsSuccess() {
+    func testFindingAnimalsSuccess() {
         var receivedAnimals: [Animal]?
-        AnimalRegistry.fetchAllAnimals() { animals in
+        PetFinderAnimalRegistry.findAnimals(
+            matching: SampleSearchParameters.fullSearchOptions,
+            cursor: cursor
+        ) { animals in
+
             self.completionHandlerInvoked = true
             receivedAnimals = animals
         }
@@ -78,7 +93,7 @@ class AnimalRegistryTests: XCTestCase {
 
     func testGetSingleAnimalFailure() {
         var retrievedAnimal: Animal?
-        AnimalRegistry.fetchAnimal(withIdentifier: 2) { animal in
+        PetFinderAnimalRegistry.fetchAnimal(withIdentifier: 2) { animal in
             self.completionHandlerInvoked = true
             retrievedAnimal = animal
         }
@@ -91,7 +106,7 @@ class AnimalRegistryTests: XCTestCase {
 
     func testGetSingleAnimalWithEmptyResult() {
         var retrievedAnimal: Animal?
-        AnimalRegistry.fetchAnimal(withIdentifier: 1) { animal in
+        PetFinderAnimalRegistry.fetchAnimal(withIdentifier: 1) { animal in
             self.completionHandlerInvoked = true
             retrievedAnimal = animal
         }
@@ -105,7 +120,7 @@ class AnimalRegistryTests: XCTestCase {
 
     func testGetSingleAnimalSuccess() {
         var retrievedAnimal: Animal?
-        AnimalRegistry.fetchAnimal(withIdentifier: 1) { animal in
+        PetFinderAnimalRegistry.fetchAnimal(withIdentifier: 1) { animal in
             self.completionHandlerInvoked = true
             retrievedAnimal = animal
         }

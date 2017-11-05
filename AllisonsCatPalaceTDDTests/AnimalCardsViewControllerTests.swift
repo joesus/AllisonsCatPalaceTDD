@@ -340,12 +340,17 @@ class AnimalCardsViewControllerTests: XCTestCase {
     }
 }
 
-fileprivate class MockRegistry: AnimalFetching {
+fileprivate class MockRegistry: AnimalFinding {
     static var animals = [Animal]()
     static var fetchAllAnimalsCallCount = 0
     static var offset: Int = 0
 
-    static func fetchAllAnimals(completion: @escaping ([Animal]) -> Void) {
+    static func findAnimals(
+        matching: PetFinderSearchParameters,
+        cursor: PaginationCursor,
+        completion: @escaping ([Animal]) -> Void
+        ) {
+
         fetchAllAnimalsCallCount += 1
         completion(animals)
     }

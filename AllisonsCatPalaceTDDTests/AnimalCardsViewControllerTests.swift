@@ -21,7 +21,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        MockRegistry.reset() //Clears call counts and stored animals between tests
+        FakeRegistry.reset() //Clears call counts and stored animals between tests
         ImageProvider.reset()
         realm = realmForTest(withName: name!)
 
@@ -31,7 +31,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
             return XCTFail("Should be able to instantiate animal cards view controller from main storyboard")
         }
         controller = vc
-        controller.registry = MockRegistry.self
+        controller.registry = FakeRegistry.self
         controller.loadViewIfNeeded()
 
         deckView = controller.deckView
@@ -50,16 +50,16 @@ class AnimalCardsViewControllerTests: XCTestCase {
     }
 
     func testRequestsAnimalsOnViewDidLoad() {
-        XCTAssertEqual(MockRegistry.fetchAllAnimalsCallCount, 1,
+        XCTAssertEqual(FakeRegistry.fetchAllAnimalsCallCount, 1,
                        "Registry should be called when view loads")
     }
 
     func testResetsRegistryOffsetOnViewDidLoad() {
-        MockRegistry.offset = 20
+        FakeRegistry.offset = 20
 
         controller.viewDidLoad()
 
-        XCTAssertEqual(MockRegistry.offset, 0,
+        XCTAssertEqual(FakeRegistry.offset, 0,
                        "Controller should reset registry offset on viewDidLoad")
     }
 
@@ -124,42 +124,42 @@ class AnimalCardsViewControllerTests: XCTestCase {
     }
 
     func testDeckViewDoesNotFetchMoreAnimalsWhenMoreThanTenRemaining() {
-        MockRegistry.fetchAllAnimalsCallCount = 0
-        controller.registry = MockRegistry.self
+        FakeRegistry.fetchAllAnimalsCallCount = 0
+        controller.registry = FakeRegistry.self
 
         controller.animals = Array(repeating: SampleCat, count: 20)
 
         _ = dataSource.koloda(deckView, viewForCardAt: 0)
-        XCTAssertEqual(MockRegistry.fetchAllAnimalsCallCount, 0,
+        XCTAssertEqual(FakeRegistry.fetchAllAnimalsCallCount, 0,
                        "Should not call registry when more than 10 cards remaining")
     }
 
     func testDeckViewDoesNotFetchMoreAnimalsWhenFewerThanTenRemaining() {
-        MockRegistry.fetchAllAnimalsCallCount = 0
-        controller.registry = MockRegistry.self
+        FakeRegistry.fetchAllAnimalsCallCount = 0
+        controller.registry = FakeRegistry.self
 
         controller.animals = Array(repeating: SampleCat, count: 9)
 
         _ = dataSource.koloda(deckView, viewForCardAt: 0)
-        XCTAssertEqual(MockRegistry.fetchAllAnimalsCallCount, 0,
+        XCTAssertEqual(FakeRegistry.fetchAllAnimalsCallCount, 0,
                        "Should not call registry when fewer than 10 cards remaining")
     }
 
     func testDeckViewFetchesMoreAnimalsWhenTenCardsRemaining() {
-        MockRegistry.fetchAllAnimalsCallCount = 0
-        controller.registry = MockRegistry.self
-        MockRegistry.animals = Array(repeating: SampleCat, count: 50)
+        FakeRegistry.fetchAllAnimalsCallCount = 0
+        controller.registry = FakeRegistry.self
+        FakeRegistry.animals = Array(repeating: SampleCat, count: 50)
         controller.animals = Array(repeating: SampleCat, count: 50)
 
         _ = dataSource.koloda(deckView, viewForCardAt: 40)
-        XCTAssertEqual(MockRegistry.fetchAllAnimalsCallCount, 1,
+        XCTAssertEqual(FakeRegistry.fetchAllAnimalsCallCount, 1,
                        "Should call registry when exactly 10 cards remaining")
         XCTAssertEqual(controller.animals.count, 100,
                        "Retrieving additional animals should add new animals to the remaining, existing animals")
 
         _ = dataSource.koloda(deckView, viewForCardAt: 90)
 
-        XCTAssertEqual(MockRegistry.fetchAllAnimalsCallCount, 2,
+        XCTAssertEqual(FakeRegistry.fetchAllAnimalsCallCount, 2,
                        "Should call registry when exactly 10 cards remaining")
         XCTAssertEqual(controller.animals.count, 150,
                        "Retrieving additional animals should add new animals to the existing animals")
@@ -167,7 +167,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
 
     func testLoadingIndicatorWithNoCats() {
         // This passes because of the delay on the fetching callback, if that changes this may begin to fail
-        MockRegistry.animals = Array(repeating: SampleCat, count: 50)
+        FakeRegistry.animals = Array(repeating: SampleCat, count: 50)
         XCTAssertTrue(controller.activityIndicator.isAnimating,
                       "Activity indicator should be animating when there are no animal cards to display")
 
@@ -185,7 +185,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
         cats[10].imageLocations = imageLocations
 
         // loads cats from the mock registry - waiting for the tenth card to be loaded since it will indicate that card images are being loaded before they are being displayed
-        MockRegistry.animals = cats
+        FakeRegistry.animals = cats
         controller.viewDidLoad()
 
         let predicate = NSPredicate { _,_ in
@@ -201,7 +201,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
         let imageLocations = AnimalImageLocations(small: [urlToPreload], medium: [], large: [])
         cats[10].imageLocations = imageLocations
 
-        MockRegistry.animals = cats
+        FakeRegistry.animals = cats
         controller.viewDidLoad()
 
         let predicate = NSPredicate { _,_ in
@@ -217,7 +217,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
         let imageLocations = AnimalImageLocations(small: [], medium: [], large: [urlToPreload])
         cats[10].imageLocations = imageLocations
 
-        MockRegistry.animals = cats
+        FakeRegistry.animals = cats
         controller.viewDidLoad()
 
         let predicate = NSPredicate { _,_ in
@@ -231,7 +231,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
     func testSwipingRightSavesSingleAnimalToFavorites() {
         var savedAnimals: [Animal]
 
-        MockRegistry.animals = cats
+        FakeRegistry.animals = cats
         controller.viewDidLoad()
 
         savedAnimals = realm.objects(AnimalObject.self).flatMap { animalObject in
@@ -252,7 +252,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
     }
 
     func testSwipingRightMultipleTimes() {
-        MockRegistry.animals = cats
+        FakeRegistry.animals = cats
         controller.viewDidLoad()
         
         deckView.delegate?.koloda(deckView, didSwipeCardAt: 0, in: .right)
@@ -269,7 +269,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
     }
 
     func testSwipingRightMultipleTimesSameCard() {
-        MockRegistry.animals = cats
+        FakeRegistry.animals = cats
         controller.viewDidLoad()
 
         let predicate = NSPredicate { _, _ in
@@ -293,7 +293,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
     }
 
     func testSwipingLeftDoesNotSaveToFavorites() {
-        MockRegistry.animals = cats
+        FakeRegistry.animals = cats
         controller.viewDidLoad()
 
         deckView.delegate?.koloda(deckView, didSwipeCardAt: 0, in: .left)
@@ -337,29 +337,5 @@ class AnimalCardsViewControllerTests: XCTestCase {
     // TODO - test for clicking card to get to detail view
     func testPrepareForSegue() {
         // TODO - for clicking on card passing known information
-    }
-}
-
-fileprivate class MockRegistry: AnimalFinding {
-    static var animals = [Animal]()
-    static var fetchAllAnimalsCallCount = 0
-    static var offset: Int = 0
-
-    static func findAnimals(
-        matching: PetFinderSearchParameters,
-        cursor: PaginationCursor,
-        completion: @escaping ([Animal]) -> Void
-        ) {
-
-        fetchAllAnimalsCallCount += 1
-        completion(animals)
-    }
-    static func fetchAnimal(withIdentifier identifier: Int, completion: @escaping (Animal?) -> Void) {
-        completion(animals.first)
-    }
-
-    static func reset() {
-        animals = [Animal]()
-        fetchAllAnimalsCallCount = 0
     }
 }

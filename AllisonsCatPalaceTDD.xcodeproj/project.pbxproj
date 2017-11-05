@@ -84,6 +84,7 @@
 		F46539CD1EFF29A80049E7FD /* AnimalSpecies.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539CC1EFF29A80049E7FD /* AnimalSpecies.swift */; };
 		F46539CF1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */; };
 		F46539D11EFF2F6D0049E7FD /* AnimalPhotoSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */; };
+		F4764B3B1FAFB73B007990B4 /* FakeRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4764B3A1FAFB73B007990B4 /* FakeRegistry.swift */; };
 		F47D38F11FA51DB7001DBD60 /* PetFinderRecordLengthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D38F01FA51DB7001DBD60 /* PetFinderRecordLengthTests.swift */; };
 		F47D38F31FA51EC0001DBD60 /* PetFinderRecordLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D38F21FA51EC0001DBD60 /* PetFinderRecordLength.swift */; };
 		F47D38F51FA5314A001DBD60 /* AnimalNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D38F41FA5314A001DBD60 /* AnimalNetworking.swift */; };
@@ -211,6 +212,7 @@
 		F46539CC1EFF29A80049E7FD /* AnimalSpecies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalSpecies.swift; sourceTree = "<group>"; };
 		F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalPhotoSizeTests.swift; sourceTree = "<group>"; };
 		F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalPhotoSize.swift; sourceTree = "<group>"; };
+		F4764B3A1FAFB73B007990B4 /* FakeRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeRegistry.swift; sourceTree = "<group>"; };
 		F47D38F01FA51DB7001DBD60 /* PetFinderRecordLengthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetFinderRecordLengthTests.swift; sourceTree = "<group>"; };
 		F47D38F21FA51EC0001DBD60 /* PetFinderRecordLength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetFinderRecordLength.swift; sourceTree = "<group>"; };
 		F47D38F41FA5314A001DBD60 /* AnimalNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalNetworking.swift; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 			children = (
 				270A6AE81E3E7BAB00B12D38 /* Box.swift */,
 				F4E8BE841F2407CC00F680E2 /* DataTaskResumeStub.swift */,
+				F4764B3A1FAFB73B007990B4 /* FakeRegistry.swift */,
 				270FE1DB1E749E0E006126B2 /* ImageProviderExtensions.swift */,
 				270A6AEE1E3E85BE00B12D38 /* NetworkTestingConstants.swift */,
 				F416125E1EB5481B00E3E6F6 /* PredicateHelper.swift */,
@@ -792,6 +795,7 @@
 				275D26151E5125D100FAE334 /* FavoritesListControllerTests.swift in Sources */,
 				F4E82A431F509F4A0019F1AE /* SettingsManagerTests.swift in Sources */,
 				270FE1DA1E748E22006126B2 /* SampleCats.swift in Sources */,
+				F4764B3B1FAFB73B007990B4 /* FakeRegistry.swift in Sources */,
 				F47D38F11FA51DB7001DBD60 /* PetFinderRecordLengthTests.swift in Sources */,
 				F4AB68A01F2D4E0400CC4CC2 /* SampleExternalGenotypeData.swift in Sources */,
 				27E823931E5A43AB009B202A /* FavoritesListDataSourceTests.swift in Sources */,

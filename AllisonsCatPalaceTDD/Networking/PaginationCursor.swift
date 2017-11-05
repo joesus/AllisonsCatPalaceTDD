@@ -20,4 +20,11 @@ struct PaginationCursor {
     var offset: Int {
         return size * index
     }
+
+    func nextPage() -> PaginationCursor {
+        return PaginationCursor(
+            size: size,
+            index: index + 1
+        )
+    }
 }

@@ -38,4 +38,19 @@ class PaginationCursorTests: XCTestCase {
         XCTAssertEqual(cursor.offset, 90,
                        "The offset should be size times index")
     }
+
+    func testNextCursor() {
+        cursor = PaginationCursor(size: 20)
+        var next = cursor.nextPage()
+        XCTAssertEqual(next.index, cursor.index + 1,
+                       "The next cursor should be a cursor with an incremented index")
+        XCTAssertEqual(next.size, cursor.size,
+                       "The next cursor should not modify the page size")
+
+        next = next.nextPage()
+        XCTAssertEqual(next.index, cursor.index + 2,
+                       "The next cursor should be a cursor with an incremented index")
+        XCTAssertEqual(next.size, cursor.size,
+                       "The next cursor should not modify the page size")
+    }
 }

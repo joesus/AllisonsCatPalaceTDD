@@ -47,5 +47,4 @@ class SwipeOverlayViewTests: XCTestCase {
                        "Should set correct image for right overlay state")
     }
 
-
 }

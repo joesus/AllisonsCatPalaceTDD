@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 class AnimalSizeObject: Object {
-    dynamic var value: String? = nil
+    dynamic var value: String?
 }
 
 enum AnimalSize: String {

@@ -124,7 +124,7 @@ class FavoritesListDataSourceTests: XCTestCase {
         ImageProvider.cache.storeCachedResponse(CachedURLResponse(response: response, data: imageData!), for: URLRequest(url: thumbnailUrl))
 
         // Need to force it to load the cell at that IndexPath
-        let _ = tableView.dataSource?.tableView(tableView, cellForRowAt: firstCatIndexPath)
+        _ = tableView.dataSource?.tableView(tableView, cellForRowAt: firstCatIndexPath)
 
         let cell = tableView.cellForRow(at: firstCatIndexPath)
         XCTAssertEqual(UIImagePNGRepresentation((cell!.imageView!.image)!), imageData,
@@ -168,7 +168,7 @@ class FavoritesListDataSourceTests: XCTestCase {
         // adds all the animals
         controller.animals.append(contentsOf: cats)
 
-        let reloadedPredicate = NSPredicate { [tableView] _,_ in
+        let reloadedPredicate = NSPredicate { [tableView] _, _ in
             tableView!.reloadRowsCalled
         }
         expectation(for: reloadedPredicate, evaluatedWith: [:], handler: nil)
@@ -178,7 +178,6 @@ class FavoritesListDataSourceTests: XCTestCase {
 
         // call the completion handler
         let handler = URLSession.shared.capturedCompletionHandler
-
 
         DispatchQueue.global(qos: .background).async {
             handler!(self.imageData, response200(url: cats.first!.imageLocations.small.first!), nil)

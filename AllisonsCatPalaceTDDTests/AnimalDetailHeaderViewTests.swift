@@ -71,7 +71,6 @@ class AnimalDetailHeaderViewTests: XCTestCase {
         }
     }
 
-
     // Test that it's called on the main queue
     func testSettingAnimalFetchesLargeImageIfAvailable() {
         let imageData = UIImagePNGRepresentation(#imageLiteral(resourceName: "testCat"))
@@ -85,7 +84,7 @@ class AnimalDetailHeaderViewTests: XCTestCase {
             header.setNeedsLayoutCalled
         }
 
-        let _ = expectation(for: setNeedsLayoutCalledExpectation, evaluatedWith: self, handler: nil)
+        _ = expectation(for: setNeedsLayoutCalledExpectation, evaluatedWith: self, handler: nil)
 
         header.animal = cats.first!
 

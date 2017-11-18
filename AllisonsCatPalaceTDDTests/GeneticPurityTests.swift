@@ -20,7 +20,7 @@ class GeneticPurityTests: XCTestCase {
         realm = realmForTest(withName: name!)
         reset(realm)
     }
-    
+
     func testPurityCases() {
         [GeneticPurity.purebred, .mixed].forEach { value in
             switch value {

@@ -88,7 +88,7 @@ extension AnimalCardsViewController: KolodaViewDataSource {
         return .default
     }
 
-    func kolodaNumberOfCards(_ koloda:KolodaView) -> Int {
+    func kolodaNumberOfCards(_ koloda: KolodaView) -> Int {
         return animals.count
     }
 
@@ -126,7 +126,7 @@ extension AnimalCardsViewController: KolodaViewDataSource {
         view.layer.cornerRadius = deckView.frame.width / 10
         return view
     }
-    
+
     func kolodaSwipeThresholdRatioMargin(_ koloda: KolodaView) -> CGFloat? {
         return CGFloat(0.35)
     }

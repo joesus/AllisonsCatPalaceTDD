@@ -27,7 +27,7 @@ class FavoritesListControllerTests: XCTestCase {
         InjectionMap.realm = realm
 
         navController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
-        
+
         replaceRootViewController(with: navController) // the main controller for the window is now the navController
 
         URLSessionTask.beginStubbingResume()
@@ -79,7 +79,7 @@ class FavoritesListControllerTests: XCTestCase {
     }
 
     func testReloadDataIsCalledWhenAnimalsAreUpdated() {
-        let reloadedPredicate = NSPredicate { [controller] _,_ in
+        let reloadedPredicate = NSPredicate { [controller] _, _ in
             controller!.tableView.reloadDataCalled
         }
         expectation(for: reloadedPredicate, evaluatedWith: [:], handler: nil)
@@ -99,7 +99,7 @@ class FavoritesListControllerTests: XCTestCase {
     }
 
     func testReloadDataIsCalledWhenAnimalsAreCleared() {
-        let reloadedPredicate = NSPredicate { [controller] _,_ in
+        let reloadedPredicate = NSPredicate { [controller] _, _ in
             controller!.tableView.reloadDataCalled
         }
         expectation(for: reloadedPredicate, evaluatedWith: [:], handler: nil)

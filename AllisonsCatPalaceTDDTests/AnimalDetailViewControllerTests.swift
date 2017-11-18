@@ -160,6 +160,3 @@ class CatDetailViewControllerTests: XCTestCase {
                       "Controller should not pass animal to header view if header view already has an animal")
     }
 }
-
-
-

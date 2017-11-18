@@ -26,7 +26,6 @@ fileprivate let capturedCompletionHandlerKey = UnsafeRawPointer(capturedCompleti
 fileprivate let lastCreatedDataTaskString = NSUUID().uuidString.cString(using: .utf8)!
 fileprivate let lastCreatedDataTaskKey = UnsafeRawPointer(lastCreatedDataTaskString)
 
-
 extension URLSession {
     var lastResumedDataTask: URLSessionTask? {
         get {
@@ -57,7 +56,6 @@ extension URLSession {
             objc_setAssociatedObject(self, capturedRequestURLKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
-
 
     var capturedRequest: URLRequest? {
         get {

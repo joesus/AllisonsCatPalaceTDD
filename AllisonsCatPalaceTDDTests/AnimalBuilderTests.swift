@@ -11,7 +11,7 @@ import XCTest
 
 class AnimalBuilderTests: XCTestCase {
 
-    // MARK:- List tests
+    // MARK: - List tests
 
     // Bad Data - Don't need to test since if it's bad data it'll be handled in networker before it gets here
 //    func testTransformingBadDataToArrayOfAnimals() {
@@ -44,7 +44,7 @@ class AnimalBuilderTests: XCTestCase {
         XCTAssertEqual(animalTwo.identifier, 2, "Second animal Id was set incorrectly")
     }
 
-    // MARK:- Single tests
+    // MARK: - Single tests
 
     // Bad Data - Don't need to test since if it's bad data it'll be handled in networker before it gets here
 //    func testTransformingBadDataToAnimal() {
@@ -84,7 +84,7 @@ class AnimalBuilderTests: XCTestCase {
         XCTAssertEqual(animal.identifier, 1, "Builder should set identifier correctly from valid data")
     }
 
-    // MARK:- Specific Properties
+    // MARK: - Specific Properties
 
     // Gender Property
     func testBuildingAnimalFromExternalAnimalWithSpecificGender() {

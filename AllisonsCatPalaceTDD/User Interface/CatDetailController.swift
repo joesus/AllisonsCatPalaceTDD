@@ -17,7 +17,7 @@ class CatDetailController: UITableViewController {
                 cat = oldValue
                 return
             }
-            
+
             tableView.reloadData()
         }
     }

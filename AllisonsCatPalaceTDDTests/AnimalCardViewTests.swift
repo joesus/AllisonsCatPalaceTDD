@@ -10,7 +10,7 @@
 import XCTest
 
 class AnimalCardViewTests: XCTestCase {
-    
+
     var animalCardView: AnimalCardView!
 
     override func setUp() {
@@ -66,7 +66,7 @@ class AnimalCardViewTests: XCTestCase {
 
         animalCardView.configure(with: cat)
 
-        let predicate = NSPredicate { _,_ in
+        let predicate = NSPredicate { _, _ in
             guard let image = self.animalCardView.imageView.image else {
                 return false
             }
@@ -124,7 +124,7 @@ class AnimalCardViewTests: XCTestCase {
         let imageData = UIImagePNGRepresentation(#imageLiteral(resourceName: "testCat"))
         animalCardView.configure(with: cat)
 
-        let predicate = NSPredicate { _,_ in
+        let predicate = NSPredicate { _, _ in
             guard let image = self.animalCardView.imageView.image else {
                 return false
             }

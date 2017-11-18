@@ -10,7 +10,7 @@ import XCTest
 @testable import AllisonsCatPalaceTDD
 
 class SequenceRemovingDuplicatesTests: XCTestCase {
-    
+
     func testIntegerArrayWithoutDuplicates() {
         let original = [1, 2, 3, 4, 5]
 

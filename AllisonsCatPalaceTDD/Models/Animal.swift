@@ -10,15 +10,15 @@ import Foundation
 import RealmSwift
 
 class AnimalObject: Object {
-    dynamic var name: String? = nil
+    dynamic var name: String?
     var identifier = RealmOptional<Int>()
-    dynamic var about: String? = nil
+    dynamic var about: String?
     dynamic var adoptionStatus: AnimalAdoptionStatusObject?
     dynamic var age: AnimalAgeGroupObject?
-    dynamic var city: String? = nil
+    dynamic var city: String?
     dynamic var sex: AnimalSexObject?
     dynamic var genotype: AnimalGenotypeObject?
-    dynamic var stateCode: String? = nil
+    dynamic var stateCode: String?
     dynamic var size: AnimalSizeObject?
     dynamic var imageLocations: AnimalImageLocationsObject?
 

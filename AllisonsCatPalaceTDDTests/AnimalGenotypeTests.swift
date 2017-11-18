@@ -35,7 +35,7 @@ class AnimalGenotypeTests: XCTestCase {
 
     func testCreatingPurebredWithoutBreeds() {
         genotype = SampleGenotypes.purebredCatNoBreeds
-        
+
         XCTAssertNil(genotype, "Should not create purebred without breeds")
     }
 

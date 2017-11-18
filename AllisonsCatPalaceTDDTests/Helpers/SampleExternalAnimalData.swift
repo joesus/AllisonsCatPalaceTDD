@@ -97,7 +97,7 @@ struct SampleExternalAnimalData {
         "name": [
             "$t": "Cat"
         ],
-        "id":  [
+        "id": [
             "$t": "4"
         ],
         "media": [

@@ -50,7 +50,7 @@ class SpeciesSelectionControllerTests: XCTestCase {
         XCTAssertEqual(SettingsManager.shared.value(forKey: .species) as? String, AnimalSpecies.cat.rawValue,
                        "Cats button should update settings to specify cat as the species to search for")
     }
-    
+
     func testSelectingDogsUpdatesSettings() {
         XCTAssertNil(SettingsManager.shared.value(forKey: .species))
 

@@ -9,14 +9,14 @@
 import Foundation
 @testable import AllisonsCatPalaceTDD
 
-//MARK: - Keys for associated objects
+// MARK: - Keys for associated objects
 fileprivate let resumeWasCalledUniqueString = NSUUID().uuidString.cString(using: .utf8)!
 fileprivate let resumeWasCalledKey = UnsafeRawPointer(resumeWasCalledUniqueString)
 
 fileprivate let cancelWasCalledString = NSUUID().uuidString.cString(using: .utf8)!
 fileprivate let cancelWasCalledKey = UnsafeRawPointer(cancelWasCalledString)
 
-//MARK: - URLSessionTask extension for spying on resume()
+// MARK: - URLSessionTask extension for spying on resume()
 extension URLSessionTask {
 
     var cancelWasCalled: Bool {

@@ -17,7 +17,7 @@ class PetFinderPaginationCursorTests: PaginationCursorTests {
         XCTAssertEqual(PetFinderUrlBuilder.PaginationKeys.count, "count",
                        "There should be a defined name for each key")
     }
-    
+
     func testInitialPageQueryItems() {
         let expectedQueryItems: Set = [
             URLQueryItem(

@@ -10,7 +10,7 @@ import XCTest
 @testable import AllisonsCatPalaceTDD
 
 class PositiveIntegerTests: XCTestCase {
-    
+
     func testCannotCreatePositiveIntegerWithMinInt() {
         XCTAssertNil(PositiveInteger(Int.min),
                      "Cannot create a positive integer with a negative value")

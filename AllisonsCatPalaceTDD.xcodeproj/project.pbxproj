@@ -84,6 +84,7 @@
 		F46539CD1EFF29A80049E7FD /* AnimalSpecies.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539CC1EFF29A80049E7FD /* AnimalSpecies.swift */; };
 		F46539CF1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */; };
 		F46539D11EFF2F6D0049E7FD /* AnimalPhotoSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */; };
+		F4764B391FAFB0D9007990B4 /* PetFinderSearchControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4764B381FAFB0D9007990B4 /* PetFinderSearchControllerTests.swift */; };
 		F4764B3B1FAFB73B007990B4 /* FakeRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4764B3A1FAFB73B007990B4 /* FakeRegistry.swift */; };
 		F47D38F11FA51DB7001DBD60 /* PetFinderRecordLengthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D38F01FA51DB7001DBD60 /* PetFinderRecordLengthTests.swift */; };
 		F47D38F31FA51EC0001DBD60 /* PetFinderRecordLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D38F21FA51EC0001DBD60 /* PetFinderRecordLength.swift */; };
@@ -110,6 +111,7 @@
 		F4E82A431F509F4A0019F1AE /* SettingsManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E82A421F509F4A0019F1AE /* SettingsManagerTests.swift */; };
 		F4E82A451F50AC490019F1AE /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E82A441F50AC490019F1AE /* SettingsManager.swift */; };
 		F4E8BE851F2407CC00F680E2 /* DataTaskResumeStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E8BE841F2407CC00F680E2 /* DataTaskResumeStub.swift */; };
+		F4EF10D91FAFC59000E93240 /* PetFinderSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EF10D81FAFC59000E93240 /* PetFinderSearchController.swift */; };
 		F4FB8EE11F410E1B006767AE /* AnimalDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FB8EE01F410E1B006767AE /* AnimalDetailHeaderView.swift */; };
 		F4FB8EE31F410EAC006767AE /* AnimalDetailHeaderViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FB8EE21F410EAC006767AE /* AnimalDetailHeaderViewTests.swift */; };
 		F4FB8EE51F410FA0006767AE /* AnimalDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4FB8EE41F410FA0006767AE /* AnimalDetailHeaderView.xib */; };
@@ -212,6 +214,7 @@
 		F46539CC1EFF29A80049E7FD /* AnimalSpecies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalSpecies.swift; sourceTree = "<group>"; };
 		F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalPhotoSizeTests.swift; sourceTree = "<group>"; };
 		F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalPhotoSize.swift; sourceTree = "<group>"; };
+		F4764B381FAFB0D9007990B4 /* PetFinderSearchControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetFinderSearchControllerTests.swift; sourceTree = "<group>"; };
 		F4764B3A1FAFB73B007990B4 /* FakeRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeRegistry.swift; sourceTree = "<group>"; };
 		F47D38F01FA51DB7001DBD60 /* PetFinderRecordLengthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetFinderRecordLengthTests.swift; sourceTree = "<group>"; };
 		F47D38F21FA51EC0001DBD60 /* PetFinderRecordLength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetFinderRecordLength.swift; sourceTree = "<group>"; };
@@ -237,6 +240,7 @@
 		F4E82A421F509F4A0019F1AE /* SettingsManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsManagerTests.swift; sourceTree = "<group>"; };
 		F4E82A441F50AC490019F1AE /* SettingsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		F4E8BE841F2407CC00F680E2 /* DataTaskResumeStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTaskResumeStub.swift; sourceTree = "<group>"; };
+		F4EF10D81FAFC59000E93240 /* PetFinderSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetFinderSearchController.swift; sourceTree = "<group>"; };
 		F4FB8EE01F410E1B006767AE /* AnimalDetailHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalDetailHeaderView.swift; sourceTree = "<group>"; };
 		F4FB8EE21F410EAC006767AE /* AnimalDetailHeaderViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalDetailHeaderViewTests.swift; sourceTree = "<group>"; };
 		F4FB8EE41F410FA0006767AE /* AnimalDetailHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnimalDetailHeaderView.xib; sourceTree = "<group>"; };
@@ -367,6 +371,7 @@
 				277199111E33F45B00930630 /* PetFinderNetworkerTests.swift */,
 				F4E68C1C1FA4FD3700EB30D5 /* PetFinderPaginationCursorTests.swift */,
 				F47D38F01FA51DB7001DBD60 /* PetFinderRecordLengthTests.swift */,
+				F4764B381FAFB0D9007990B4 /* PetFinderSearchControllerTests.swift */,
 				F42E16C71F929B8B00FDD9BE /* PetFinderSearchParametersTests.swift */,
 				F41A38891F8985E200AD2762 /* PetfinderUrlBuilderTests.swift */,
 				F46539B81EFF0F580049E7FD /* PositiveIntegerTests.swift */,
@@ -498,6 +503,7 @@
 			children = (
 				F47D38F21FA51EC0001DBD60 /* PetFinderRecordLength.swift */,
 				F42E16CE1F92AD0E00FDD9BE /* PetFinderSearchParameters.swift */,
+				F4EF10D81FAFC59000E93240 /* PetFinderSearchController.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -723,6 +729,7 @@
 				F43BC6A21F1AA8A400E025EB /* ArrayExtensions.swift in Sources */,
 				F4A5079C1F60459400B8E480 /* SpeciesSelectionController.swift in Sources */,
 				277199141E34002300930630 /* PetFinderNetworker.swift in Sources */,
+				F4EF10D91FAFC59000E93240 /* PetFinderSearchController.swift in Sources */,
 				276C61BC1E2C183300225CF4 /* ExternalAnimal.swift in Sources */,
 				F4AB68D81F328CF300CC4CC2 /* GenotypeBuilder.swift in Sources */,
 				F43BC6A41F1AC9E400E025EB /* ExternalData.swift in Sources */,
@@ -767,6 +774,7 @@
 				F46539C51EFF24720049E7FD /* AnimalSexTests.swift in Sources */,
 				F4E8BE851F2407CC00F680E2 /* DataTaskResumeStub.swift in Sources */,
 				F42E16C81F929B8B00FDD9BE /* PetFinderSearchParametersTests.swift in Sources */,
+				F4764B391FAFB0D9007990B4 /* PetFinderSearchControllerTests.swift in Sources */,
 				F43632591F53B091004DF88A /* AnimalCardViewTests.swift in Sources */,
 				27E8238A1E5A273D009B202A /* UIViewControllerSpies.swift in Sources */,
 				F4543DA01F43C42700F9CDE3 /* TextFieldVerifiers.swift in Sources */,

@@ -10,25 +10,37 @@
 import Foundation
 
 class FakeRegistry: AnimalFinding {
-    static var animals = [Animal]()
-    static var fetchAllAnimalsCallCount = 0
+    static var stubbedAnimals = [Animal]()
+    static var findAnimalsCallCount = 0
+    static var capturedSearchParameters: PetFinderSearchParameters?
+    static var capturedPaginationCursor: PaginationCursor?
+    private static var capturedCompletionHandler: (([Animal]) -> Void)?
     static var offset: Int = 0
 
     static func findAnimals(
-        matching: PetFinderSearchParameters,
+        matching searchParameters: PetFinderSearchParameters,
         cursor: PaginationCursor,
         completion: @escaping ([Animal]) -> Void
         ) {
 
-        fetchAllAnimalsCallCount += 1
-        completion(animals)
+        findAnimalsCallCount += 1
+        capturedSearchParameters = searchParameters
+        capturedPaginationCursor = cursor
+        capturedCompletionHandler = completion
     }
     static func fetchAnimal(withIdentifier identifier: Int, completion: @escaping (Animal?) -> Void) {
-        completion(animals.first)
+        completion(stubbedAnimals.first)
     }
 
     static func reset() {
-        animals = [Animal]()
-        fetchAllAnimalsCallCount = 0
+        stubbedAnimals = [Animal]()
+        findAnimalsCallCount = 0
+        capturedSearchParameters = nil
+        capturedPaginationCursor = nil
+        capturedCompletionHandler = nil
+    }
+
+    static func invokeCompletionHandler(with animals: [Animal]) {
+        capturedCompletionHandler?(animals)
     }
 }

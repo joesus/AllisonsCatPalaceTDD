@@ -34,7 +34,7 @@ class MainStoryboardTests: XCTestCase {
     }
 
     func testFavoritesListController() {
-        let favoritesListController = storyboard.instantiateViewController(withIdentifier: "FavoritesListController")
+        let favoritesListController = storyboard.instantiateViewController(withIdentifier: "FavoritesScene")
         XCTAssert(favoritesListController is FavoritesListController, "Should be able to instantiate FavoritesListController from storyboard")
     }
 

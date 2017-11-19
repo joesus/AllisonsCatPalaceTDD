@@ -232,7 +232,7 @@ class FavoritesListDataSourceTests: XCTestCase {
 
 extension FavoritesListDataSourceTests {
     func loadComponents() {
-        controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FavoritesListController") as! FavoritesListController
+        controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FavoritesScene") as! FavoritesListController
         controller.loadViewIfNeeded()
 
         dataSource = controller as UITableViewDataSource

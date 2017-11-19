@@ -32,7 +32,7 @@ class FavoritesListControllerTests: XCTestCase {
 
         URLSessionTask.beginStubbingResume()
 
-        guard let favoritesListController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FavoritesListController") as? FavoritesListController else {
+        guard let favoritesListController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FavoritesScene") as? FavoritesListController else {
             return XCTFail("Could not instantiate favorites list controller from main storyboard")
         }
 

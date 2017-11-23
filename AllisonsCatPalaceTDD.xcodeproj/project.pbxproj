@@ -339,11 +339,12 @@
 		276C61A91E2C062200225CF4 /* AllisonsCatPalaceTDDTests */ = {
 			isa = PBXGroup;
 			children = (
+				277199151E35636A00930630 /* Helpers */,
 				F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */,
 				F46539C01EFF1E690049E7FD /* AnimalAgeGroupTests.swift */,
 				276C61C31E2C1D8600225CF4 /* AnimalBuilderTests.swift */,
-				F436325A1F54DF58004DF88A /* AnimalCardsViewControllerTests.swift */,
 				F43632581F53B091004DF88A /* AnimalCardViewTests.swift */,
+				F436325A1F54DF58004DF88A /* AnimalCardsViewControllerTests.swift */,
 				F4FB8EE21F410EAC006767AE /* AnimalDetailHeaderViewTests.swift */,
 				2700D3F41E885FE7004E77A1 /* AnimalDetailViewControllerTests.swift */,
 				F4AB68951F2D352700CC4CC2 /* AnimalGenotypeTests.swift */,
@@ -361,7 +362,6 @@
 				F4AB68971F2D37FE00CC4CC2 /* GeneticPurityTests.swift */,
 				F4AB689D1F2D4D4D00CC4CC2 /* GenotypeBuilderTests.swift */,
 				F4E82A3E1F507C470019F1AE /* GeocodingErrorTests.swift */,
-				277199151E35636A00930630 /* Helpers */,
 				2767E37C1E62679600A7C5F9 /* ImageProviderTests.swift */,
 				276C61AC1E2C062200225CF4 /* Info.plist */,
 				F4543D9B1F43C19F00F9CDE3 /* LocationControllerTests.swift */,
@@ -390,6 +390,7 @@
 				270A6AE81E3E7BAB00B12D38 /* Box.swift */,
 				F4E8BE841F2407CC00F680E2 /* DataTaskResumeStub.swift */,
 				F4764B3A1FAFB73B007990B4 /* FakeRegistry.swift */,
+				F44AEAD71FC717D500DF0A49 /* GestureRecognizerHelper.swift */,
 				270FE1DB1E749E0E006126B2 /* ImageProviderExtensions.swift */,
 				270A6AEE1E3E85BE00B12D38 /* NetworkTestingConstants.swift */,
 				F416125E1EB5481B00E3E6F6 /* PredicateHelper.swift */,
@@ -404,7 +405,6 @@
 				27E823891E5A273D009B202A /* UIViewControllerSpies.swift */,
 				270A6AE41E3E70CD00B12D38 /* URLSessionDataTaskSpies.swift */,
 				270A6AE21E3E700C00B12D38 /* URLSessionSpies.swift */,
-				F44AEAD71FC717D500DF0A49 /* GestureRecognizerHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -468,11 +468,11 @@
 		F41A38861F89844300AD2762 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				F42E16CD1F92ACF600FDD9BE /* Models */,
 				270A6AF41E3E9D3800B12D38 /* AnimalNetworkError.swift */,
 				F47D38F41FA5314A001DBD60 /* AnimalNetworking.swift */,
 				F4E82A401F507DEA0019F1AE /* GeocodingError.swift */,
 				2767E37E1E6269B900A7C5F9 /* ImageProvider.swift */,
-				F42E16CD1F92ACF600FDD9BE /* Models */,
 				F41A38811F897B6A00AD2762 /* PaginationCursor.swift */,
 				275D26121E511B3400FAE334 /* PetFinderAnimalRegistry.swift */,
 				277199131E34002300930630 /* PetFinderNetworker.swift */,
@@ -502,8 +502,8 @@
 			isa = PBXGroup;
 			children = (
 				F47D38F21FA51EC0001DBD60 /* PetFinderRecordLength.swift */,
-				F42E16CE1F92AD0E00FDD9BE /* PetFinderSearchParameters.swift */,
 				F4EF10D81FAFC59000E93240 /* PetFinderSearchController.swift */,
+				F42E16CE1F92AD0E00FDD9BE /* PetFinderSearchParameters.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";

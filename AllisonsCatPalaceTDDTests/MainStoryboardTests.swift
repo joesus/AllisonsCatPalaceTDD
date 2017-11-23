@@ -19,18 +19,15 @@ class MainStoryboardTests: XCTestCase {
         XCTAssertNotNil(initialViewController, "initialViewController should be a UINavigationController")
     }
 
-    func testTopViewControllerIsSpeciesSelectionController() {
+    func testTopViewControllerIsLocationController() {
         guard let navController = storyboard.instantiateInitialViewController() as? UINavigationController else {
             return XCTFail("Initial view controller should be a UINavigationController")
         }
-        let topViewController = navController.topViewController as? SpeciesSelectionController
 
-        XCTAssertNotNil(topViewController, "Top view controller should be a SpeciesSelectionController")
-    }
-
-    func testTopViewControllerIsLocationController() {
-        let locationController = storyboard.instantiateViewController(withIdentifier: "LocationController")
-        XCTAssert(locationController is LocationController, "Should be able to instantiate locationController from storyboard")
+        XCTAssertNotNil(
+            navController.topViewController as? LocationController,
+            "Top view controller should be a LocationController"
+        )
     }
 
     func testFavoritesListController() {

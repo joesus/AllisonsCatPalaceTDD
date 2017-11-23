@@ -196,22 +196,23 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VFa-DY-njt" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="5v9-zt-lCE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="vDh-La-cHV" kind="relationship" relationship="rootViewController" id="v7L-Wd-ZIu"/>
+                        <segue destination="EgF-el-P0W" kind="relationship" relationship="rootViewController" id="uNe-qJ-46C"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QsR-7T-g5D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-351" y="-916"/>
         </scene>
     </scenes>
     <resources>
         <image name="catOutline" width="384" height="384"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="iu2-83-MtI"/>
+        <segue reference="lwn-KU-VNv"/>
     </inferredMetricsTieBreakers>
 </document>

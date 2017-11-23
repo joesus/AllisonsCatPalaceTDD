@@ -133,4 +133,20 @@ class PetFinderAnimalRegistryTests: XCTestCase {
         XCTAssertTrue(completionHandlerInvoked, "Completion handler should be invoked on all calls to registry")
         XCTAssertNotNil(retrievedAnimal, "Valid animal data should return an animal")
     }
+
+    func testRegistryProvidesSearchController() {
+        let controller = PetFinderAnimalRegistry.searchController(
+            for: SampleSearchParameters.minimalSearchOptions
+        ) { _ in }
+
+        XCTAssertTrue(controller.results.isEmpty,
+                      "Registry should provide a search controller in its default state with no results")
+        XCTAssertFalse(controller.resultsKnownToBeExhausted,
+                       "Registry should provide a search controller in its default state with results not known to be exhausted")
+        XCTAssertEqual(
+            controller.cursor,
+            PaginationCursor(size: 20, index: 0),
+            "Registry should provide a search controller with a default pagination cursor with a size of 20 and an index of 0"
+            )
+    }
 }

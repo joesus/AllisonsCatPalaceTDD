@@ -23,6 +23,20 @@ protocol AnimalFinding {
 
 enum PetFinderAnimalRegistry: AnimalFinding {
     static var offset = 0
+    private static let animalSearchPageSize = 20
+
+    static func searchController(
+        for criteria: PetFinderSearchParameters,
+        resultsHandler: @escaping ([Int]) -> Void
+        ) -> PetFinderSearchController {
+
+            return PetFinderSearchController(
+                with: criteria,
+                pageSize: animalSearchPageSize,
+                finderProxy: self,
+                completion: resultsHandler
+        )
+    }
 
     static func findAnimals(
         matching criteria: PetFinderSearchParameters,

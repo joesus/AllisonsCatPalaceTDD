@@ -28,7 +28,12 @@ class FakeRegistry: AnimalFinding {
         capturedPaginationCursor = cursor
         capturedCompletionHandler = completion
     }
-    static func fetchAnimal(withIdentifier identifier: Int, completion: @escaping (Animal?) -> Void) {
+
+    static func fetchAnimal(
+        withIdentifier identifier: Int,
+        completion: @escaping (Animal?) -> Void
+        ) {
+
         completion(stubbedAnimals.first)
     }
 

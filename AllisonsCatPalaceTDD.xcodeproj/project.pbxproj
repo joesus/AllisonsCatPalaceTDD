@@ -94,6 +94,7 @@
 		F48AAD591F87207B00BC8081 /* RealmProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48AAD581F87207B00BC8081 /* RealmProtocol.swift */; };
 		F49434991FD4983A00B6EEA7 /* SpeciesSelectionIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49434981FD4983A00B6EEA7 /* SpeciesSelectionIndexTests.swift */; };
 		F494349B1FD499FC00B6EEA7 /* SpeciesSelectionIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F494349A1FD499FC00B6EEA7 /* SpeciesSelectionIndex.swift */; };
+		F494349D1FD4AFCC00B6EEA7 /* LocationServicesEnabledStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F494349C1FD4AFCC00B6EEA7 /* LocationServicesEnabledStub.swift */; };
 		F494349F1FD4B3D700B6EEA7 /* AuthorizationStatusStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F494349E1FD4B3D600B6EEA7 /* AuthorizationStatusStub.swift */; };
 		F4AB68921F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */; };
 		F4AB68941F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68931F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift */; };
@@ -232,6 +233,7 @@
 		F48AAD581F87207B00BC8081 /* RealmProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmProtocol.swift; sourceTree = "<group>"; };
 		F49434981FD4983A00B6EEA7 /* SpeciesSelectionIndexTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeciesSelectionIndexTests.swift; sourceTree = "<group>"; };
 		F494349A1FD499FC00B6EEA7 /* SpeciesSelectionIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeciesSelectionIndex.swift; sourceTree = "<group>"; };
+		F494349C1FD4AFCC00B6EEA7 /* LocationServicesEnabledStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServicesEnabledStub.swift; sourceTree = "<group>"; };
 		F494349E1FD4B3D600B6EEA7 /* AuthorizationStatusStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationStatusStub.swift; sourceTree = "<group>"; };
 		F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalAdoptionStatusTests.swift; sourceTree = "<group>"; };
 		F4AB68931F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalAdoptionStatus.swift; sourceTree = "<group>"; };
@@ -427,6 +429,7 @@
 				27E823891E5A273D009B202A /* UIViewControllerSpies.swift */,
 				270A6AE41E3E70CD00B12D38 /* URLSessionDataTaskSpies.swift */,
 				270A6AE21E3E700C00B12D38 /* URLSessionSpies.swift */,
+				F494349C1FD4AFCC00B6EEA7 /* LocationServicesEnabledStub.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -834,6 +837,7 @@
 				2767E37D1E62679600A7C5F9 /* ImageProviderTests.swift in Sources */,
 				F43BC69C1F1A9CF700E025EB /* AnimalImageLocationsTests.swift in Sources */,
 				F4543D9C1F43C19F00F9CDE3 /* LocationControllerTests.swift in Sources */,
+				F494349D1FD4AFCC00B6EEA7 /* LocationServicesEnabledStub.swift in Sources */,
 				F43BC6A01F1AA5AD00E025EB /* SequenceRemovingDuplicatesTests.swift in Sources */,
 				F416125F1EB5481B00E3E6F6 /* PredicateHelper.swift in Sources */,
 				F4238FBD1FC1068C00046EB1 /* SegueTemplates.swift in Sources */,

@@ -365,12 +365,11 @@
 		276C61A91E2C062200225CF4 /* AllisonsCatPalaceTDDTests */ = {
 			isa = PBXGroup;
 			children = (
-				277199151E35636A00930630 /* Helpers */,
 				F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */,
 				F46539C01EFF1E690049E7FD /* AnimalAgeGroupTests.swift */,
 				276C61C31E2C1D8600225CF4 /* AnimalBuilderTests.swift */,
-				F43632581F53B091004DF88A /* AnimalCardViewTests.swift */,
 				F436325A1F54DF58004DF88A /* AnimalCardsViewControllerTests.swift */,
+				F43632581F53B091004DF88A /* AnimalCardViewTests.swift */,
 				F4FB8EE21F410EAC006767AE /* AnimalDetailHeaderViewTests.swift */,
 				2700D3F41E885FE7004E77A1 /* AnimalDetailViewControllerTests.swift */,
 				F4AB68951F2D352700CC4CC2 /* AnimalGenotypeTests.swift */,
@@ -388,6 +387,7 @@
 				F4AB68971F2D37FE00CC4CC2 /* GeneticPurityTests.swift */,
 				F4AB689D1F2D4D4D00CC4CC2 /* GenotypeBuilderTests.swift */,
 				F4E82A3E1F507C470019F1AE /* GeocodingErrorTests.swift */,
+				277199151E35636A00930630 /* Helpers */,
 				2767E37C1E62679600A7C5F9 /* ImageProviderTests.swift */,
 				276C61AC1E2C062200225CF4 /* Info.plist */,
 				F4543D9B1F43C19F00F9CDE3 /* LocationControllerTests.swift */,
@@ -405,10 +405,10 @@
 				F4D7926A1FDDD3CF00D0876A /* SampleData */,
 				F43BC69F1F1AA5AD00E025EB /* SequenceRemovingDuplicatesTests.swift */,
 				F4E82A421F509F4A0019F1AE /* SettingsManagerTests.swift */,
+				F49434981FD4983A00B6EEA7 /* SpeciesSelectionIndexTests.swift */,
 				F43632561F53A4B3004DF88A /* SwipeOverlayViewTests.swift */,
 				F4D792661FDDCC1800D0876A /* UserLocationResolutionTests.swift */,
 				F42E16C91F929C5800FDD9BE /* ZipCodeTests.swift */,
-				F49434981FD4983A00B6EEA7 /* SpeciesSelectionIndexTests.swift */,
 			);
 			path = AllisonsCatPalaceTDDTests;
 			sourceTree = "<group>";

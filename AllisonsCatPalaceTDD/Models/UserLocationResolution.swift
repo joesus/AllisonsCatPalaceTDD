@@ -10,8 +10,9 @@ import CoreLocation
 
 enum UserLocationResolution {
     case unknown
+    case allowed
+    case disallowed
     case resolving
     case resolved(location: CLPlacemark)
     case resolutionFailure(error: Error)
-    case blocked
 }

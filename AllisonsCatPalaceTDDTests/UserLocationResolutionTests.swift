@@ -14,20 +14,20 @@ class UserLocationResolutionTests: XCTestCase {
 
     func testAllCases() {
         let possibleValues: [UserLocationResolution] = [
-            .resolved(location: SamplePlacemark.denver),
+            .unknown,
             .resolving,
+            .resolved(location: SamplePlacemark.denver),
             .resolutionFailure(error: SampleError()),
-            .blocked,
-            .geocodeFailure(error: SampleError())
+            .blocked
          ]
 
         possibleValues.forEach { value in
             switch value {
-            case .resolved,
+            case .unknown,
                  .resolving,
+                 .resolved,
                  .resolutionFailure,
-                 .blocked,
-                 .geocodeFailure:
+                 .blocked:
                 break
             }
         }

@@ -33,9 +33,20 @@ class LocationControllerTests: XCTestCase {
 
         SettingsManager.shared.clear() // Clears persisted zip code
 
-        loadComponents()
+        CLLocationManager.beginStubbingLocationServicesEnabled(with: true)
+        CLLocationManager.beginStubbingAuthorizationStatus(with: .authorizedWhenInUse)
 
-        geocoderSpy = CLGeocoder.ForwardGeocodeAddressSpyController.createSpy(on: geocoder)
+        loadController()
+    }
+
+    private func loadComponents() {
+        controller.loadViewIfNeeded()
+
+        favoritesButton = controller.favoritesButton
+        searchButton = controller.searchButton
+        geocoder = controller.geocoder
+
+        geocoderSpy = CLGeocoder.ReverseGeocodeLocationSpyController.createSpy(on: geocoder)
         geocoderSpy?.beginSpying()
 
         navController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
@@ -47,12 +58,67 @@ class LocationControllerTests: XCTestCase {
         showSpy?.beginSpying()
     }
 
+    private func loadController() {
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle(for: LocationController.self))
+        controller = storyboard.instantiateViewController(withIdentifier: "LocationController") as? LocationController
+    }
+
     override func tearDown() {
         geocoderSpy?.endSpying()
         performSegueSpy?.endSpying()
         showSpy?.endSpying()
+        CLLocationManager.endStubbingAuthorizationStatus()
+        CLLocationManager.endStubbingLocationServicesEnabled()
+
 
         super.tearDown()
+    }
+
+    func testUserLocationResolutionForFirstLaunch() {
+        CLLocationManager.stubbedAuthorizationStatus = .notDetermined
+        loadController()
+
+        switch controller.userLocationResolution {
+        case .unknown:
+            break
+        default:
+            XCTFail("Controller should have a user location resolution with an initial state of unknown when location services are enabled but authorization status is unknown")
+        }
+    }
+
+    func testUserLocationResolutionForEnabledAndAuthorizedLocationServices() {
+        loadController()
+
+        switch controller.userLocationResolution {
+        case .allowed:
+            break
+        default:
+            XCTFail("Controller should have a user location resolution with an initial state of allowed if location services are enabled and authorized")
+        }
+    }
+
+    func testUserLocationResolutionForDisabledLocationServices() {
+        CLLocationManager.stubbedLocationServicesEnabled = false
+        loadController()
+
+        switch controller.userLocationResolution {
+        case .disallowed:
+            break
+        default:
+            XCTFail("Controller should have a user location resolution with an initial state of disallowed if location services are disabled")
+        }
+    }
+
+    func testUserLocationResolutionForUnauthorizedPermissions() {
+        CLLocationManager.stubbedAuthorizationStatus = .denied
+        loadController()
+
+        switch controller.userLocationResolution {
+        case .disallowed:
+            break
+        default:
+            XCTFail("Controller should have a user location resolution with an initial state of disallowed if location services authorization has been denied")
+        }
     }
 
     func testViewDidLoad() {

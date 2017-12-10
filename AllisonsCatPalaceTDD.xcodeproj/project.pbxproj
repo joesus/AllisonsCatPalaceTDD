@@ -96,6 +96,7 @@
 		F494349B1FD499FC00B6EEA7 /* SpeciesSelectionIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F494349A1FD499FC00B6EEA7 /* SpeciesSelectionIndex.swift */; };
 		F494349D1FD4AFCC00B6EEA7 /* LocationServicesEnabledStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F494349C1FD4AFCC00B6EEA7 /* LocationServicesEnabledStub.swift */; };
 		F494349F1FD4B3D700B6EEA7 /* AuthorizationStatusStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F494349E1FD4B3D600B6EEA7 /* AuthorizationStatusStub.swift */; };
+		F49434A51FD4BE2E00B6EEA7 /* UIAlertActionInitializerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49434A41FD4BE2E00B6EEA7 /* UIAlertActionInitializerSpy.swift */; };
 		F4AB68921F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */; };
 		F4AB68941F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68931F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift */; };
 		F4AB68961F2D352700CC4CC2 /* AnimalGenotypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68951F2D352700CC4CC2 /* AnimalGenotypeTests.swift */; };
@@ -235,6 +236,7 @@
 		F494349A1FD499FC00B6EEA7 /* SpeciesSelectionIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeciesSelectionIndex.swift; sourceTree = "<group>"; };
 		F494349C1FD4AFCC00B6EEA7 /* LocationServicesEnabledStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServicesEnabledStub.swift; sourceTree = "<group>"; };
 		F494349E1FD4B3D600B6EEA7 /* AuthorizationStatusStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationStatusStub.swift; sourceTree = "<group>"; };
+		F49434A41FD4BE2E00B6EEA7 /* UIAlertActionInitializerSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertActionInitializerSpy.swift; sourceTree = "<group>"; };
 		F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalAdoptionStatusTests.swift; sourceTree = "<group>"; };
 		F4AB68931F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalAdoptionStatus.swift; sourceTree = "<group>"; };
 		F4AB68951F2D352700CC4CC2 /* AnimalGenotypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalGenotypeTests.swift; sourceTree = "<group>"; };
@@ -410,6 +412,7 @@
 		277199151E35636A00930630 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				F49434A41FD4BE2E00B6EEA7 /* UIAlertActionInitializerSpy.swift */,
 				F494349E1FD4B3D600B6EEA7 /* AuthorizationStatusStub.swift */,
 				270A6AE81E3E7BAB00B12D38 /* Box.swift */,
 				F4E8BE841F2407CC00F680E2 /* DataTaskResumeStub.swift */,
@@ -808,6 +811,7 @@
 				F4AB68921F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift in Sources */,
 				F4D792671FDDCC1800D0876A /* UserLocationResolutionTests.swift in Sources */,
 				276C61B61E2C068900225CF4 /* AppDelegateTests.swift in Sources */,
+				F49434A51FD4BE2E00B6EEA7 /* UIAlertActionInitializerSpy.swift in Sources */,
 				F4D792701FDDD91800D0876A /* SampleError.swift in Sources */,
 				F46539C51EFF24720049E7FD /* AnimalSexTests.swift in Sources */,
 				F4E8BE851F2407CC00F680E2 /* DataTaskResumeStub.swift in Sources */,

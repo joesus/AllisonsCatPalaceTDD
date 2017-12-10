@@ -106,6 +106,9 @@
 		F4BE6C991F584CFE00480671 /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BE6C981F584CFE00480671 /* Persistable.swift */; };
 		F4BE6C9B1F59C00900480671 /* RealmHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BE6C9A1F59C00900480671 /* RealmHelpers.swift */; };
 		F4C52A941FAFA3D5002AD597 /* PetFinderAnimalRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D26121E511B3400FAE334 /* PetFinderAnimalRegistry.swift */; };
+		F4D7926C1FDDD3D000D0876A /* EncodedPlacemark in Resources */ = {isa = PBXBuildFile; fileRef = F4D7926B1FDDD3CF00D0876A /* EncodedPlacemark */; };
+		F4D7926E1FDDD6FC00D0876A /* SamplePlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D7926D1FDDD6FC00D0876A /* SamplePlacemark.swift */; };
+		F4D792701FDDD91800D0876A /* SampleError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D7926F1FDDD91800D0876A /* SampleError.swift */; };
 		F4E68C1D1FA4FD3700EB30D5 /* PetFinderPaginationCursorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E68C1C1FA4FD3700EB30D5 /* PetFinderPaginationCursorTests.swift */; };
 		F4E68C1F1FA501AA00EB30D5 /* PetFinderUrlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E68C1E1FA501AA00EB30D5 /* PetFinderUrlBuilder.swift */; };
 		F4E82A3F1F507C470019F1AE /* GeocodingErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E82A3E1F507C470019F1AE /* GeocodingErrorTests.swift */; };
@@ -237,6 +240,9 @@
 		F4AB68D71F328CF300CC4CC2 /* GenotypeBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenotypeBuilder.swift; sourceTree = "<group>"; };
 		F4BE6C981F584CFE00480671 /* Persistable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
 		F4BE6C9A1F59C00900480671 /* RealmHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmHelpers.swift; sourceTree = "<group>"; };
+		F4D7926B1FDDD3CF00D0876A /* EncodedPlacemark */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = EncodedPlacemark; sourceTree = "<group>"; };
+		F4D7926D1FDDD6FC00D0876A /* SamplePlacemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplePlacemark.swift; sourceTree = "<group>"; };
+		F4D7926F1FDDD91800D0876A /* SampleError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleError.swift; sourceTree = "<group>"; };
 		F4E68C1C1FA4FD3700EB30D5 /* PetFinderPaginationCursorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetFinderPaginationCursorTests.swift; sourceTree = "<group>"; };
 		F4E68C1E1FA501AA00EB30D5 /* PetFinderUrlBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetFinderUrlBuilder.swift; sourceTree = "<group>"; };
 		F4E82A3E1F507C470019F1AE /* GeocodingErrorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeocodingErrorTests.swift; sourceTree = "<group>"; };
@@ -381,6 +387,7 @@
 				F41A38891F8985E200AD2762 /* PetfinderUrlBuilderTests.swift */,
 				F46539B81EFF0F580049E7FD /* PositiveIntegerTests.swift */,
 				270A6AEA1E3E7DB000B12D38 /* ResultTests.swift */,
+				F4D7926A1FDDD3CF00D0876A /* SampleData */,
 				F43BC69F1F1AA5AD00E025EB /* SequenceRemovingDuplicatesTests.swift */,
 				F4E82A421F509F4A0019F1AE /* SettingsManagerTests.swift */,
 				F43632561F53A4B3004DF88A /* SwipeOverlayViewTests.swift */,
@@ -514,6 +521,16 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		F4D7926A1FDDD3CF00D0876A /* SampleData */ = {
+			isa = PBXGroup;
+			children = (
+				F4D7926B1FDDD3CF00D0876A /* EncodedPlacemark */,
+				F4D7926D1FDDD6FC00D0876A /* SamplePlacemark.swift */,
+				F4D7926F1FDDD91800D0876A /* SampleError.swift */,
+			);
+			path = SampleData;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -619,6 +636,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4D7926C1FDDD3D000D0876A /* EncodedPlacemark in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -776,6 +794,7 @@
 				F4BE6C9B1F59C00900480671 /* RealmHelpers.swift in Sources */,
 				F4AB68921F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift in Sources */,
 				276C61B61E2C068900225CF4 /* AppDelegateTests.swift in Sources */,
+				F4D792701FDDD91800D0876A /* SampleError.swift in Sources */,
 				F46539C51EFF24720049E7FD /* AnimalSexTests.swift in Sources */,
 				F4E8BE851F2407CC00F680E2 /* DataTaskResumeStub.swift in Sources */,
 				F42E16C81F929B8B00FDD9BE /* PetFinderSearchParametersTests.swift in Sources */,
@@ -783,6 +802,7 @@
 				F43632591F53B091004DF88A /* AnimalCardViewTests.swift in Sources */,
 				27E8238A1E5A273D009B202A /* UIViewControllerSpies.swift in Sources */,
 				F4543DA01F43C42700F9CDE3 /* TextFieldVerifiers.swift in Sources */,
+				F4D7926E1FDDD6FC00D0876A /* SamplePlacemark.swift in Sources */,
 				F42E16D11F92AEAF00FDD9BE /* SampleSearchParameters.swift in Sources */,
 				F46539CF1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift in Sources */,
 				270A6AF31E3E981100B12D38 /* AnimalNetworkErrorTests.swift in Sources */,

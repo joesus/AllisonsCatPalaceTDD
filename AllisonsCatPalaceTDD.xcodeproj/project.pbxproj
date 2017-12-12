@@ -119,6 +119,9 @@
 		F4D792721FDF58B700D0876A /* ResolvingLocationViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D792711FDF58B700D0876A /* ResolvingLocationViewTests.swift */; };
 		F4D792741FDF5C3200D0876A /* ResolvingLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D792731FDF5C3200D0876A /* ResolvingLocationView.swift */; };
 		F4D792761FDF5C3D00D0876A /* ResolvingLocationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4D792751FDF5C3D00D0876A /* ResolvingLocationView.xib */; };
+		F4D792781FDF655F00D0876A /* ResolvedLocationViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D792771FDF655F00D0876A /* ResolvedLocationViewTests.swift */; };
+		F4D7927A1FDF65F000D0876A /* ResolvedLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D792791FDF65F000D0876A /* ResolvedLocationView.swift */; };
+		F4D7927C1FDF671F00D0876A /* ResolvedLocationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4D7927B1FDF671F00D0876A /* ResolvedLocationView.xib */; };
 		F4E68C1D1FA4FD3700EB30D5 /* PetFinderPaginationCursorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E68C1C1FA4FD3700EB30D5 /* PetFinderPaginationCursorTests.swift */; };
 		F4E68C1F1FA501AA00EB30D5 /* PetFinderUrlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E68C1E1FA501AA00EB30D5 /* PetFinderUrlBuilder.swift */; };
 		F4E82A3F1F507C470019F1AE /* GeocodingErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E82A3E1F507C470019F1AE /* GeocodingErrorTests.swift */; };
@@ -263,6 +266,9 @@
 		F4D792711FDF58B700D0876A /* ResolvingLocationViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolvingLocationViewTests.swift; sourceTree = "<group>"; };
 		F4D792731FDF5C3200D0876A /* ResolvingLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolvingLocationView.swift; sourceTree = "<group>"; };
 		F4D792751FDF5C3D00D0876A /* ResolvingLocationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResolvingLocationView.xib; sourceTree = "<group>"; };
+		F4D792771FDF655F00D0876A /* ResolvedLocationViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolvedLocationViewTests.swift; sourceTree = "<group>"; };
+		F4D792791FDF65F000D0876A /* ResolvedLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolvedLocationView.swift; sourceTree = "<group>"; };
+		F4D7927B1FDF671F00D0876A /* ResolvedLocationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResolvedLocationView.xib; sourceTree = "<group>"; };
 		F4E68C1C1FA4FD3700EB30D5 /* PetFinderPaginationCursorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetFinderPaginationCursorTests.swift; sourceTree = "<group>"; };
 		F4E68C1E1FA501AA00EB30D5 /* PetFinderUrlBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetFinderUrlBuilder.swift; sourceTree = "<group>"; };
 		F4E82A3E1F507C470019F1AE /* GeocodingErrorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeocodingErrorTests.swift; sourceTree = "<group>"; };
@@ -408,6 +414,7 @@
 				F42E16C71F929B8B00FDD9BE /* PetFinderSearchParametersTests.swift */,
 				F41A38891F8985E200AD2762 /* PetfinderUrlBuilderTests.swift */,
 				F46539B81EFF0F580049E7FD /* PositiveIntegerTests.swift */,
+				F4D792771FDF655F00D0876A /* ResolvedLocationViewTests.swift */,
 				F4D792711FDF58B700D0876A /* ResolvingLocationViewTests.swift */,
 				270A6AEA1E3E7DB000B12D38 /* ResultTests.swift */,
 				F43BC69F1F1AA5AD00E025EB /* SequenceRemovingDuplicatesTests.swift */,
@@ -490,6 +497,8 @@
 				F43632521F538695004DF88A /* AnimalCardView.xib */,
 				F4FB8EE01F410E1B006767AE /* AnimalDetailHeaderView.swift */,
 				F4FB8EE41F410FA0006767AE /* AnimalDetailHeaderView.xib */,
+				F4D792791FDF65F000D0876A /* ResolvedLocationView.swift */,
+				F4D7927B1FDF671F00D0876A /* ResolvedLocationView.xib */,
 				F4D792731FDF5C3200D0876A /* ResolvingLocationView.swift */,
 				F4D792751FDF5C3D00D0876A /* ResolvingLocationView.xib */,
 				F436324E1F5371AB004DF88A /* SwipeOverlayView.swift */,
@@ -655,6 +664,7 @@
 				276C61B81E2C0A1900225CF4 /* Main.storyboard in Resources */,
 				F43632511F537595004DF88A /* SwipeOverlayView.xib in Resources */,
 				F416125A1EB5201F00E3E6F6 /* CatNameCell.xib in Resources */,
+				F4D7927C1FDF671F00D0876A /* ResolvedLocationView.xib in Resources */,
 				276C61A01E2C062200225CF4 /* LaunchScreen.storyboard in Resources */,
 				F4FB8EE51F410FA0006767AE /* AnimalDetailHeaderView.xib in Resources */,
 				F43632531F538695004DF88A /* AnimalCardView.xib in Resources */,
@@ -784,6 +794,7 @@
 				270A6AF51E3E9D3800B12D38 /* AnimalNetworkError.swift in Sources */,
 				F4BE6C991F584CFE00480671 /* Persistable.swift in Sources */,
 				F43BC6A21F1AA8A400E025EB /* ArrayExtensions.swift in Sources */,
+				F4D7927A1FDF65F000D0876A /* ResolvedLocationView.swift in Sources */,
 				277199141E34002300930630 /* PetFinderNetworker.swift in Sources */,
 				F4EF10D91FAFC59000E93240 /* PetFinderSearchController.swift in Sources */,
 				F494349B1FD499FC00B6EEA7 /* SpeciesSelectionIndex.swift in Sources */,
@@ -864,6 +875,7 @@
 				F43BC6A01F1AA5AD00E025EB /* SequenceRemovingDuplicatesTests.swift in Sources */,
 				F416125F1EB5481B00E3E6F6 /* PredicateHelper.swift in Sources */,
 				F4238FBD1FC1068C00046EB1 /* SegueTemplates.swift in Sources */,
+				F4D792781FDF655F00D0876A /* ResolvedLocationViewTests.swift in Sources */,
 				27E823971E5A5115009B202A /* MainStoryboardTests.swift in Sources */,
 				F4D792721FDF58B700D0876A /* ResolvingLocationViewTests.swift in Sources */,
 				270FE1DC1E749E0E006126B2 /* ImageProviderExtensions.swift in Sources */,

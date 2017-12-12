@@ -8,6 +8,7 @@
 
 import UIKit
 
+@IBDesignable
 class ResolvingLocationView: UIView {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!

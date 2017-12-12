@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ResolvingLocationView" customModule="AllisonsCatPalaceTDD" customModuleProvider="target">
+            <connections>
+                <outlet property="activityIndicator" destination="59J-PF-FbA" id="105-dv-BL0"/>
+                <outlet property="progressLabel" destination="NvV-oX-RkU" id="64H-4Y-ce5"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="59J-PF-FbA">
+                    <rect key="frame" x="24" y="24" width="37" height="37"/>
+                    <color key="color" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </activityIndicatorView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Finding Location" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NvV-oX-RkU">
+                    <rect key="frame" x="77" y="26" width="144" height="33"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="NvV-oX-RkU" firstAttribute="centerY" secondItem="59J-PF-FbA" secondAttribute="centerY" id="HJq-Si-ZQT"/>
+                <constraint firstItem="NvV-oX-RkU" firstAttribute="leading" secondItem="59J-PF-FbA" secondAttribute="trailing" constant="16" id="IsL-da-QTX"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="NvV-oX-RkU" secondAttribute="trailing" constant="16" id="KTu-kB-UDp"/>
+                <constraint firstItem="59J-PF-FbA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="24" id="Q87-GA-0OF"/>
+                <constraint firstItem="59J-PF-FbA" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="24" id="VfZ-1z-mY9"/>
+                <constraint firstItem="NvV-oX-RkU" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="hTh-7m-TJf"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="NvV-oX-RkU" secondAttribute="bottom" constant="16" id="y8g-Jf-MXH"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="-2" y="-33"/>
+        </view>
+    </objects>
+</document>

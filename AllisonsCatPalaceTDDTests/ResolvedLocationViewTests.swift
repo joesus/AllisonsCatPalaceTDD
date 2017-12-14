@@ -56,6 +56,14 @@ class ResolvedLocationViewTests: XCTestCase {
 
         XCTAssertEqual(label.text, "Location",
                        "Resolved location view's label should have the expected text")
+        XCTAssertEqual(label.font, UIFont.preferredFont(forTextStyle: .title2),
+                       "Resolved location view's label should have a title2 text style so that it can display larger sizes when needed")
+        XCTAssertEqual(label.numberOfLines, 0,
+                       "Resolved location view's label should have number of lines set to zero so that it display long text on multiple lines.")
+        XCTAssertEqual(label.lineBreakMode, .byWordWrapping,
+                       "Resolved location view's label should have line break mode set to word wrap so that it can display long text on multiple lines.")
+        XCTAssertFalse(label.isHidden,
+                       "Resolved location view's label should not be hidden")
     }
 
 }

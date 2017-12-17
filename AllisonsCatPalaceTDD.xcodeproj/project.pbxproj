@@ -108,6 +108,8 @@
 		F4AB689E1F2D4D4D00CC4CC2 /* GenotypeBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB689D1F2D4D4D00CC4CC2 /* GenotypeBuilderTests.swift */; };
 		F4AB68A01F2D4E0400CC4CC2 /* SampleExternalGenotypeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB689F1F2D4E0400CC4CC2 /* SampleExternalGenotypeData.swift */; };
 		F4AB68D81F328CF300CC4CC2 /* GenotypeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68D71F328CF300CC4CC2 /* GenotypeBuilder.swift */; };
+		F4B44C531FE720FE005D5A29 /* DisplayableStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B44C521FE720FE005D5A29 /* DisplayableStringTests.swift */; };
+		F4B44C551FE72612005D5A29 /* DisplayableString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B44C541FE72612005D5A29 /* DisplayableString.swift */; };
 		F4BE6C991F584CFE00480671 /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BE6C981F584CFE00480671 /* Persistable.swift */; };
 		F4BE6C9B1F59C00900480671 /* RealmHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BE6C9A1F59C00900480671 /* RealmHelpers.swift */; };
 		F4C52A941FAFA3D5002AD597 /* PetFinderAnimalRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D26121E511B3400FAE334 /* PetFinderAnimalRegistry.swift */; };
@@ -258,6 +260,8 @@
 		F4AB689D1F2D4D4D00CC4CC2 /* GenotypeBuilderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenotypeBuilderTests.swift; sourceTree = "<group>"; };
 		F4AB689F1F2D4E0400CC4CC2 /* SampleExternalGenotypeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleExternalGenotypeData.swift; sourceTree = "<group>"; };
 		F4AB68D71F328CF300CC4CC2 /* GenotypeBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenotypeBuilder.swift; sourceTree = "<group>"; };
+		F4B44C521FE720FE005D5A29 /* DisplayableStringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayableStringTests.swift; sourceTree = "<group>"; };
+		F4B44C541FE72612005D5A29 /* DisplayableString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayableString.swift; sourceTree = "<group>"; };
 		F4BE6C981F584CFE00480671 /* Persistable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
 		F4BE6C9A1F59C00900480671 /* RealmHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmHelpers.swift; sourceTree = "<group>"; };
 		F4D792661FDDCC1800D0876A /* UserLocationResolutionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationResolutionTests.swift; sourceTree = "<group>"; };
@@ -373,6 +377,7 @@
 				F41A38871F89846C00AD2762 /* System */,
 				F41A38831F89838800AD2762 /* User Interface */,
 				276C61951E2C062200225CF4 /* AppDelegate.swift */,
+				F4B44C541FE72612005D5A29 /* DisplayableString.swift */,
 				276C61A11E2C062200225CF4 /* Info.plist */,
 			);
 			path = AllisonsCatPalaceTDD;
@@ -401,6 +406,7 @@
 				F46539CA1EFF281D0049E7FD /* AnimalSpeciesTests.swift */,
 				276C61BF1E2C1AFF00225CF4 /* AnimalTests.swift */,
 				276C61B51E2C068900225CF4 /* AppDelegateTests.swift */,
+				F4B44C521FE720FE005D5A29 /* DisplayableStringTests.swift */,
 				275D26141E5125D100FAE334 /* FavoritesListControllerTests.swift */,
 				27E823921E5A43AB009B202A /* FavoritesListDataSourceTests.swift */,
 				F4AB68971F2D37FE00CC4CC2 /* GeneticPurityTests.swift */,
@@ -822,6 +828,7 @@
 				F4C52A941FAFA3D5002AD597 /* PetFinderAnimalRegistry.swift in Sources */,
 				276C61C61E2D728800225CF4 /* AnimalBuilder.swift in Sources */,
 				F4AB689A1F2D39F300CC4CC2 /* GeneticPurity.swift in Sources */,
+				F4B44C551FE72612005D5A29 /* DisplayableString.swift in Sources */,
 				F4D792801FDF6DF900D0876A /* ActionableMessageView.swift in Sources */,
 				F42E16CF1F92AD0E00FDD9BE /* PetFinderSearchParameters.swift in Sources */,
 				F42E16CC1F92A47700FDD9BE /* ZipCode.swift in Sources */,
@@ -857,6 +864,7 @@
 				F4543DA01F43C42700F9CDE3 /* TextFieldVerifiers.swift in Sources */,
 				F49434A21FD4BB8F00B6EEA7 /* UIApplicationOpenUrlSpy.swift in Sources */,
 				F4D7926E1FDDD6FC00D0876A /* SamplePlacemarks.swift in Sources */,
+				F4B44C531FE720FE005D5A29 /* DisplayableStringTests.swift in Sources */,
 				F42E16D11F92AEAF00FDD9BE /* SampleSearchParameters.swift in Sources */,
 				F46539CF1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift in Sources */,
 				270A6AF31E3E981100B12D38 /* AnimalNetworkErrorTests.swift in Sources */,

@@ -118,7 +118,6 @@
 		F4D792701FDDD91800D0876A /* SampleError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D7926F1FDDD91800D0876A /* SampleError.swift */; };
 		F4D792721FDF58B700D0876A /* ResolvingLocationViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D792711FDF58B700D0876A /* ResolvingLocationViewTests.swift */; };
 		F4D792741FDF5C3200D0876A /* ResolvingLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D792731FDF5C3200D0876A /* ResolvingLocationView.swift */; };
-		F4D792761FDF5C3D00D0876A /* ResolvingLocationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4D792751FDF5C3D00D0876A /* ResolvingLocationView.xib */; };
 		F4D792781FDF655F00D0876A /* ResolvedLocationViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D792771FDF655F00D0876A /* ResolvedLocationViewTests.swift */; };
 		F4D7927A1FDF65F000D0876A /* ResolvedLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D792791FDF65F000D0876A /* ResolvedLocationView.swift */; };
 		F4D7927C1FDF671F00D0876A /* ResolvedLocationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4D7927B1FDF671F00D0876A /* ResolvedLocationView.xib */; };
@@ -268,7 +267,6 @@
 		F4D7926F1FDDD91800D0876A /* SampleError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleError.swift; sourceTree = "<group>"; };
 		F4D792711FDF58B700D0876A /* ResolvingLocationViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolvingLocationViewTests.swift; sourceTree = "<group>"; };
 		F4D792731FDF5C3200D0876A /* ResolvingLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolvingLocationView.swift; sourceTree = "<group>"; };
-		F4D792751FDF5C3D00D0876A /* ResolvingLocationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResolvingLocationView.xib; sourceTree = "<group>"; };
 		F4D792771FDF655F00D0876A /* ResolvedLocationViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolvedLocationViewTests.swift; sourceTree = "<group>"; };
 		F4D792791FDF65F000D0876A /* ResolvedLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolvedLocationView.swift; sourceTree = "<group>"; };
 		F4D7927B1FDF671F00D0876A /* ResolvedLocationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResolvedLocationView.xib; sourceTree = "<group>"; };
@@ -509,7 +507,6 @@
 				F4D792791FDF65F000D0876A /* ResolvedLocationView.swift */,
 				F4D7927B1FDF671F00D0876A /* ResolvedLocationView.xib */,
 				F4D792731FDF5C3200D0876A /* ResolvingLocationView.swift */,
-				F4D792751FDF5C3D00D0876A /* ResolvingLocationView.xib */,
 				F436324E1F5371AB004DF88A /* SwipeOverlayView.swift */,
 				F43632501F537595004DF88A /* SwipeOverlayView.xib */,
 			);
@@ -679,7 +676,6 @@
 				F4D792821FDF6E7F00D0876A /* ActionableMessageView.xib in Resources */,
 				F43632531F538695004DF88A /* AnimalCardView.xib in Resources */,
 				276C619D1E2C062200225CF4 /* Assets.xcassets in Resources */,
-				F4D792761FDF5C3D00D0876A /* ResolvingLocationView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

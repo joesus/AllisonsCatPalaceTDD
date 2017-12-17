@@ -39,4 +39,10 @@ class ResolvingLocationView: UIView {
 
         loadNib()
     }
+
+    override var isHidden: Bool {
+        didSet {
+            isHidden ? activityIndicator?.stopAnimating() : activityIndicator?.startAnimating()
+        }
+    }
 }

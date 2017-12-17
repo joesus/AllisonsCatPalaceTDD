@@ -41,8 +41,26 @@ class ResolvingLocationViewTests: XCTestCase {
             return XCTFail("Resolving location view should contain an activity indicator")
         }
 
+        XCTAssertTrue(activityIndicator.isAnimating,
+                      "Resolving location view's activity indicator should be animating by default")
         XCTAssertTrue(activityIndicator.hidesWhenStopped,
                       "Resolving location view's activity indicator should hide when stopped")
+    }
+
+    func testActivityIndicator() {
+        let frame = CGRect(x: 0, y: 0, width: 10, height: 10)
+        let view = ResolvingLocationView(frame: frame)
+        guard let activityIndicator = view.activityIndicator else {
+            return XCTFail("Resolving location view should contain an activity indicator")
+        }
+
+        view.isHidden = true
+        XCTAssertFalse(activityIndicator.isAnimating,
+                       "Activity indicator should stop animating when the view is hidden")
+
+        view.isHidden = false
+        XCTAssertTrue(activityIndicator.isAnimating,
+                      "Activity indicator should begin animating when the view is unhidden")
     }
 
     func testHasProgressLabel() {

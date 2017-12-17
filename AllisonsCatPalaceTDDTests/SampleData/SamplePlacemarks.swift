@@ -1,5 +1,5 @@
 //
-//  SamplePlacemark.swift
+//  SamplePlacemarks.swift
 //  AllisonsCatPalaceTDDTests
 //
 //  Created by Joe Susnick on 12/10/17.
@@ -8,7 +8,7 @@
 
 import CoreLocation
 
-enum SamplePlacemark {
+enum SamplePlacemarks {
     static let denver: CLPlacemark = {
         guard let url = Bundle(for: UserLocationResolutionTests.self)
             .url(forResource: "EncodedPlacemark", withExtension: nil),

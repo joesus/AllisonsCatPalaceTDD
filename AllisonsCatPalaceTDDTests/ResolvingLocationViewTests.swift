@@ -43,8 +43,8 @@ class ResolvingLocationViewTests: XCTestCase {
 
         XCTAssertTrue(activityIndicator.isAnimating,
                       "Resolving location view's activity indicator should be animating by default")
-        XCTAssertTrue(activityIndicator.hidesWhenStopped,
-                      "Resolving location view's activity indicator should hide when stopped")
+        XCTAssertFalse(activityIndicator.hidesWhenStopped,
+                       "Resolving location view's activity indicator should not hide when stopped")
     }
 
     func testActivityIndicator() {

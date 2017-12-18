@@ -122,7 +122,6 @@
 		F4D792741FDF5C3200D0876A /* ResolvingLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D792731FDF5C3200D0876A /* ResolvingLocationView.swift */; };
 		F4D792781FDF655F00D0876A /* ResolvedLocationViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D792771FDF655F00D0876A /* ResolvedLocationViewTests.swift */; };
 		F4D7927A1FDF65F000D0876A /* ResolvedLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D792791FDF65F000D0876A /* ResolvedLocationView.swift */; };
-		F4D7927C1FDF671F00D0876A /* ResolvedLocationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4D7927B1FDF671F00D0876A /* ResolvedLocationView.xib */; };
 		F4D7927E1FDF6AF200D0876A /* ActionableMessageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D7927D1FDF6AF200D0876A /* ActionableMessageViewTests.swift */; };
 		F4D792801FDF6DF900D0876A /* ActionableMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D7927F1FDF6DF900D0876A /* ActionableMessageView.swift */; };
 		F4D792821FDF6E7F00D0876A /* ActionableMessageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4D792811FDF6E7F00D0876A /* ActionableMessageView.xib */; };
@@ -273,7 +272,6 @@
 		F4D792731FDF5C3200D0876A /* ResolvingLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolvingLocationView.swift; sourceTree = "<group>"; };
 		F4D792771FDF655F00D0876A /* ResolvedLocationViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolvedLocationViewTests.swift; sourceTree = "<group>"; };
 		F4D792791FDF65F000D0876A /* ResolvedLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolvedLocationView.swift; sourceTree = "<group>"; };
-		F4D7927B1FDF671F00D0876A /* ResolvedLocationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResolvedLocationView.xib; sourceTree = "<group>"; };
 		F4D7927D1FDF6AF200D0876A /* ActionableMessageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionableMessageViewTests.swift; sourceTree = "<group>"; };
 		F4D7927F1FDF6DF900D0876A /* ActionableMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionableMessageView.swift; sourceTree = "<group>"; };
 		F4D792811FDF6E7F00D0876A /* ActionableMessageView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionableMessageView.xib; sourceTree = "<group>"; };
@@ -511,7 +509,6 @@
 				F4FB8EE01F410E1B006767AE /* AnimalDetailHeaderView.swift */,
 				F4FB8EE41F410FA0006767AE /* AnimalDetailHeaderView.xib */,
 				F4D792791FDF65F000D0876A /* ResolvedLocationView.swift */,
-				F4D7927B1FDF671F00D0876A /* ResolvedLocationView.xib */,
 				F4D792731FDF5C3200D0876A /* ResolvingLocationView.swift */,
 				F436324E1F5371AB004DF88A /* SwipeOverlayView.swift */,
 				F43632501F537595004DF88A /* SwipeOverlayView.xib */,
@@ -676,7 +673,6 @@
 				276C61B81E2C0A1900225CF4 /* Main.storyboard in Resources */,
 				F43632511F537595004DF88A /* SwipeOverlayView.xib in Resources */,
 				F416125A1EB5201F00E3E6F6 /* CatNameCell.xib in Resources */,
-				F4D7927C1FDF671F00D0876A /* ResolvedLocationView.xib in Resources */,
 				276C61A01E2C062200225CF4 /* LaunchScreen.storyboard in Resources */,
 				F4FB8EE51F410FA0006767AE /* AnimalDetailHeaderView.xib in Resources */,
 				F4D792821FDF6E7F00D0876A /* ActionableMessageView.xib in Resources */,

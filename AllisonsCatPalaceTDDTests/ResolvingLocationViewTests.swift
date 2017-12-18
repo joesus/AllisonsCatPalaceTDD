@@ -19,7 +19,7 @@ class ResolvingLocationViewTests: XCTestCase {
         super.setUp()
 
         view.activityIndicator = activityIndicator
-        view.progressLabel = label
+        view.label = label
     }
 
     func testActivityIndicatorControl() {

@@ -11,7 +11,7 @@ import UIKit
 class ResolvingLocationView: UIView {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var progressLabel: UILabel!
+    @IBOutlet weak var label: UILabel!
 
     override var isHidden: Bool {
         didSet {

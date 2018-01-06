@@ -135,23 +135,6 @@ class LocationControllerTests: XCTestCase {
         }
     }
 
-    func testSceneHasUserResolutionIndicationElementsInAStack() {
-        loadComponents()
-
-        guard let stackView = controller.locationResolutionStack else {
-            return XCTFail("Controller should have a stack to hold the location resolution indicators")
-        }
-
-        let expectedStackContents: [UIView] = [
-            controller.resolvingLocationView!,
-            controller.resolvedLocationView!,
-            controller.actionableMessageView!
-        ]
-
-        XCTAssertEqual(stackView.arrangedSubviews, expectedStackContents,
-                       "Controller's location resolution indicators should be enclosed in a stack in the proper order")
-    }
-
     func testResolvingLocationView() {
         loadComponents()
 
@@ -234,7 +217,23 @@ class LocationControllerTests: XCTestCase {
 
         XCTAssertEqual(action, #selector(LocationController.continueLocationResolution).description,
                        "The button should notify the view of the user's intent to find location")
+    }
 
+    func testSceneHasUserResolutionIndicationElementsInAStack() {
+        loadComponents()
+
+        guard let stackView = controller.locationResolutionStack else {
+            return XCTFail("Controller should have a stack to hold the location resolution indicators")
+        }
+
+        let expectedStackContents: [UIView] = [
+            controller.resolvingLocationView!,
+            controller.resolvedLocationView!,
+            controller.actionableMessageView!
+        ]
+
+        XCTAssertEqual(stackView.arrangedSubviews, expectedStackContents,
+                       "Controller's location resolution indicators should be enclosed in a stack in the proper order")
     }
 
     func testSpeciesSelectionControl() {

@@ -76,47 +76,31 @@ class LocationControllerTests: XCTestCase {
         CLLocationManager.stubbedAuthorizationStatus = .notDetermined
         loadController()
 
-        switch controller.userLocationResolution {
-        case .unknown:
-            break
-        default:
-            XCTFail("Controller should have a user location resolution with an initial state of unknown when location services are enabled but authorization status is unknown")
-        }
+        XCTAssertEqual(controller.userLocationResolution, .unknown,
+                       "Controller should have a user location resolution with an initial state of unknown when location services are enabled but authorization status is unknown")
     }
 
     func testUserLocationResolutionForEnabledAndAuthorizedLocationServices() {
         loadController()
 
-        switch controller.userLocationResolution {
-        case .allowed:
-            break
-        default:
-            XCTFail("Controller should have a user location resolution with an initial state of allowed if location services are enabled and authorized")
-        }
+        XCTAssertEqual(controller.userLocationResolution, .allowed,
+                       "Controller should have a user location resolution with an initial state of allowed if location services are enabled and authorized")
     }
 
     func testUserLocationResolutionForDisabledLocationServices() {
         CLLocationManager.stubbedLocationServicesEnabled = false
         loadController()
 
-        switch controller.userLocationResolution {
-        case .disallowed:
-            break
-        default:
-            XCTFail("Controller should have a user location resolution with an initial state of disallowed if location services are disabled")
-        }
+        XCTAssertEqual(controller.userLocationResolution, .disallowed,
+                       "Controller should have a user location resolution with an initial state of disallowed if location services are disabled")
     }
 
     func testUserLocationResolutionForUnauthorizedPermissions() {
         CLLocationManager.stubbedAuthorizationStatus = .denied
         loadController()
 
-        switch controller.userLocationResolution {
-        case .disallowed:
-            break
-        default:
-            XCTFail("Controller should have a user location resolution with an initial state of disallowed if location services authorization has been denied")
-        }
+        XCTAssertEqual(controller.userLocationResolution, .disallowed,
+                       "Controller should have a user location resolution with an initial state of disallowed if location services authorization has been denied")
     }
 
     func testViewDidLoad() {
@@ -489,6 +473,26 @@ class LocationControllerTests: XCTestCase {
 
 extension LocationControllerTests {
     func attemptGeocoding(withText text: String) {
+    }
+
+}
+extension UserLocationResolution: Equatable {
+
+    public static func == (lhs: UserLocationResolution, rhs: UserLocationResolution) -> Bool {
+        switch (lhs, rhs) {
+        case (.unknown, .unknown),
+            (.disallowed, .disallowed),
+            (.allowed, .allowed),
+            (.resolving, .resolving),
+            (.resolutionFailure, .resolutionFailure):
+            return true
+
+        case (.resolved(let leftPlacemark), .resolved(let rightPlacemark)):
+            return leftPlacemark == rightPlacemark
+
+        default:
+            return false
+        }
     }
 
 }

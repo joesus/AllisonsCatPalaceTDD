@@ -561,6 +561,29 @@ class LocationControllerTests: XCTestCase {
                        "Search button should not be enabled if there is no resolved location")
     }
 
+    func testSuccessfulGeocoding() {
+        loadComponents()
+
+        controller.locationManager(
+            locationManager,
+            didUpdateLocations: [CLLocation(latitude: 0, longitude: 0)]
+        )
+
+        guard let handler = geocoder.reverseGeocodeLocationCompletionHandler else {
+            return XCTFail("Geocoder should be called with the last location received")
+        }
+
+        handler([SamplePlacemarks.denver, SamplePlacemarks.detroit], nil)
+
+        XCTAssertEqual(
+            controller.userLocationResolution,
+            .resolved(location: SamplePlacemarks.denver),
+            "Successful geocoding should update user location resolution with the first available placemark"
+        )
+        XCTAssertTrue(searchButton.isEnabled,
+                      "Search button should be enabled if there is a resolved location")
+    }
+
 
     func testFavoritesButtonWithSavedFavorites() {
         addCatsToRealm()
@@ -618,47 +641,7 @@ class LocationControllerTests: XCTestCase {
                        "Favorites button should be displayed in the navigation bar if there are favorites")
     }
 
-        replaceRootViewController(with: controller)
-        attemptGeocoding(withText: "000")
-
-        XCTAssertFalse(geocoder.forwardGeocodeAddressCalled,
-                       "Geocoder should not be called with an invalid zip code")
-    }
-
-    func testGeocodingInProgress() {
-    }
-
     func testGeocodingCompleted() {
-    }
-
-    func testGeocodingWithEmptyResultsAndError() {
-        replaceRootViewController(with: controller)
-        attemptGeocoding(withText: "12345")
-
-        geocoder.forwardGeocodeAddressCompletionHandler?([], LocationResolutionError.noLocationsFound)
-
-    }
-
-    func testGeocodingWithEmptyResultsAndNoError() {
-        replaceRootViewController(with: controller)
-        attemptGeocoding(withText: "80220")
-
-        guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
-            return XCTFail("Geocoder should be called with a handler")
-        }
-        handler([], nil)
-
-    }
-
-    func testGeocodingWithNonEmptyResultsAndNoError() {
-        replaceRootViewController(with: controller)
-        attemptGeocoding(withText: "12345")
-
-        guard let handler = geocoder.forwardGeocodeAddressCompletionHandler else {
-            return XCTFail("Geocoder should be called with a handler")
-        }
-        handler([placemark], nil)
-
     }
 
     func testViewWillDisappearCancelsGeocoding() {

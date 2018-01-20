@@ -493,6 +493,15 @@ class LocationControllerTests: XCTestCase {
                        "Location manager should not request authorization if user is restricted")
     }
 
+    // MARK:- Requesting Location
+
+    func testControllerIsLocationManagerDelegate() {
+        loadComponents()
+
+        XCTAssertTrue(locationManager.delegate === controller,
+                      "Controller should be the location manager's delegate")
+    }
+
 
 
     func testFavoritesButtonWithSavedFavorites() {

@@ -46,6 +46,12 @@ class LocationController: UIViewController, RealmInjected {
         }
     }
 
+    lazy var locationManager: CLLocationManager = {
+        let manager = CLLocationManager()
+        manager.delegate = self
+        return manager
+    }()
+
     var geocoder = CLGeocoder()
 
     override func viewDidLoad() {

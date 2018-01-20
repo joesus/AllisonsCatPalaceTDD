@@ -517,6 +517,27 @@ class LocationControllerTests: XCTestCase {
                       "Location manager should request location if already authorized")
     }
 
+    // MARK:- Geocoding
+
+    func testGeocoderIsCalledOnLocationReceipt() {
+        loadComponents()
+        let expectedLocation = CLLocation(latitude: 1, longitude: 1)
+        let locations = [
+            CLLocation(latitude: 0, longitude: 0),
+            CLLocation(latitude: 0, longitude: 0),
+            expectedLocation
+        ]
+
+        controller.locationManager(locationManager, didUpdateLocations: locations)
+
+        guard geocoder.reverseGeocodeLocationCalled,
+            let location = geocoder.reverseGeocodeLocationLocation,
+            location == expectedLocation
+            else {
+                return XCTFail("Geocoder should be called with the last location received")
+        }
+    }
+
 
     func testFavoritesButtonWithSavedFavorites() {
         addCatsToRealm()

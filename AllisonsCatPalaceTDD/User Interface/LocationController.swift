@@ -175,6 +175,10 @@ class LocationController: UIViewController, RealmInjected {
 
 extension LocationController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+
+        geocoder.reverseGeocodeLocation(location) { _, _ in
+        }
 
     }
 

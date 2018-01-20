@@ -1,5 +1,5 @@
 //
-//  GeocodingError.swift
+//  LocationResolutionError.swift
 //  AllisonsCatPalaceTDD
 //
 //  Created by Joe Susnick on 8/25/17.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum GeocodingError: Error {
+enum LocationResolutionError: Error {
     case noLocationsFound, unknownError
 
     var message: String {

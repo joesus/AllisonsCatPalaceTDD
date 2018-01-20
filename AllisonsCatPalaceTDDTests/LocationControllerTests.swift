@@ -590,7 +590,7 @@ class LocationControllerTests: XCTestCase {
         replaceRootViewController(with: controller)
         attemptGeocoding(withText: "12345")
 
-        geocoder.forwardGeocodeAddressCompletionHandler?([], GeocodingError.noLocationsFound)
+        geocoder.forwardGeocodeAddressCompletionHandler?([], LocationResolutionError.noLocationsFound)
 
     }
 

@@ -1,5 +1,5 @@
 //
-//  GeocodingErrorTests.swift
+//  LocationResolutionErrorTests.swift
 //  AllisonsCatPalaceTDD
 //
 //  Created by Joe Susnick on 8/25/17.
@@ -10,9 +10,9 @@ import XCTest
 
 @testable import AllisonsCatPalaceTDD
 
-class GeocodingErrorTests: XCTestCase {
+class LocationResolutionErrorTests: XCTestCase {
 
-    var error: GeocodingError!
+    var error: LocationResolutionError!
 
     func testGeocodingErrorCases() {
         error = .noLocationsFound

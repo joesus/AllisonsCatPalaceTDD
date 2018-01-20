@@ -388,7 +388,7 @@ class LocationControllerTests: XCTestCase {
         )
     }
 
-    // MARK: - Resolving Location
+    // MARK: - Location Permission
 
     func testApplicationProvidesWhenInUseAuthorizationRequestString() {
         guard let infoDictionary = Bundle(for: LocationController.self).infoDictionary,

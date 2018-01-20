@@ -86,6 +86,7 @@
 		F46539CD1EFF29A80049E7FD /* AnimalSpecies.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539CC1EFF29A80049E7FD /* AnimalSpecies.swift */; };
 		F46539CF1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */; };
 		F46539D11EFF2F6D0049E7FD /* AnimalPhotoSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */; };
+		F471ABB72013F22700EF2B03 /* CLLocationManagerRequestLocationSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F471ABB62013F22700EF2B03 /* CLLocationManagerRequestLocationSpy.swift */; };
 		F4764B391FAFB0D9007990B4 /* PetFinderSearchControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4764B381FAFB0D9007990B4 /* PetFinderSearchControllerTests.swift */; };
 		F4764B3B1FAFB73B007990B4 /* FakeRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4764B3A1FAFB73B007990B4 /* FakeRegistry.swift */; };
 		F47D38F11FA51DB7001DBD60 /* PetFinderRecordLengthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D38F01FA51DB7001DBD60 /* PetFinderRecordLengthTests.swift */; };
@@ -234,6 +235,7 @@
 		F46539CC1EFF29A80049E7FD /* AnimalSpecies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalSpecies.swift; sourceTree = "<group>"; };
 		F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalPhotoSizeTests.swift; sourceTree = "<group>"; };
 		F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalPhotoSize.swift; sourceTree = "<group>"; };
+		F471ABB62013F22700EF2B03 /* CLLocationManagerRequestLocationSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationManagerRequestLocationSpy.swift; sourceTree = "<group>"; };
 		F4764B381FAFB0D9007990B4 /* PetFinderSearchControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetFinderSearchControllerTests.swift; sourceTree = "<group>"; };
 		F4764B3A1FAFB73B007990B4 /* FakeRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeRegistry.swift; sourceTree = "<group>"; };
 		F47D38F01FA51DB7001DBD60 /* PetFinderRecordLengthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetFinderRecordLengthTests.swift; sourceTree = "<group>"; };
@@ -434,6 +436,7 @@
 			children = (
 				F494349E1FD4B3D600B6EEA7 /* AuthorizationStatusStub.swift */,
 				270A6AE81E3E7BAB00B12D38 /* Box.swift */,
+				F471ABB62013F22700EF2B03 /* CLLocationManagerRequestLocationSpy.swift */,
 				F4E8BE841F2407CC00F680E2 /* DataTaskResumeStub.swift */,
 				F4764B3A1FAFB73B007990B4 /* FakeRegistry.swift */,
 				F44AEAD71FC717D500DF0A49 /* GestureRecognizerHelper.swift */,
@@ -898,6 +901,7 @@
 				F46539C11EFF1E690049E7FD /* AnimalAgeGroupTests.swift in Sources */,
 				F4AB68981F2D37FE00CC4CC2 /* GeneticPurityTests.swift in Sources */,
 				276C61C41E2C1D8600225CF4 /* AnimalBuilderTests.swift in Sources */,
+				F471ABB72013F22700EF2B03 /* CLLocationManagerRequestLocationSpy.swift in Sources */,
 				F41612581EB51EA600E3E6F6 /* AnimalNameCellTests.swift in Sources */,
 				F46539CB1EFF281D0049E7FD /* AnimalSpeciesTests.swift in Sources */,
 				2700D3F51E885FE7004E77A1 /* AnimalDetailViewControllerTests.swift in Sources */,

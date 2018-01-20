@@ -22,6 +22,7 @@ class LocationControllerTests: XCTestCase {
     var geocoderSpy: Spy?
     var performSegueSpy: Spy?
     var showSpy: Spy?
+    var openURLSpy: Spy?
     var navController: UINavigationController!
     var placemark: MutablePlacemark = {
         let mark = MutablePlacemark()
@@ -57,9 +58,11 @@ class LocationControllerTests: XCTestCase {
 
         performSegueSpy = UIViewController.PerformSegueSpyController.createSpy(on: controller)
         showSpy = UIViewController.ShowSpyController.createSpy(on: navController)
+        openURLSpy = UIApplication.OpenUrlSpyController.createSpy(on: UIApplication.shared)
 
         performSegueSpy?.beginSpying()
         showSpy?.beginSpying()
+        openURLSpy?.beginSpying()
     }
 
     private func loadController() {
@@ -71,6 +74,8 @@ class LocationControllerTests: XCTestCase {
         geocoderSpy?.endSpying()
         performSegueSpy?.endSpying()
         showSpy?.endSpying()
+        openURLSpy?.endSpying()
+
         CLLocationManager.endStubbingAuthorizationStatus()
         CLLocationManager.endStubbingLocationServicesEnabled()
 
@@ -343,6 +348,15 @@ class LocationControllerTests: XCTestCase {
         )
         XCTAssertEqual(button.title(for: .normal), "Open Settings",
                        "Actionable message button should be configured correctly for disallowed resolution")
+
+        guard let action = button.actions(forTarget: controller, forControlEvent: .touchUpInside)?
+            .onlyElement
+            else {
+                return XCTFail("The button's action should target the controller")
+        }
+
+        XCTAssertEqual(action, NSStringFromSelector(#selector(LocationController.continueLocationResolution)),
+                       "Tapping the button should open the settings app")
     }
 
     func testViewConfigurationForInProgressLocationResolution() {
@@ -393,6 +407,19 @@ class LocationControllerTests: XCTestCase {
             "Find My Location",
             "Actionable message button should be configured correctly for resolution failure"
         )
+    }
+
+    func testSceneContinueLocationResolutionWhenDisallowed() {
+        loadComponents()
+
+        controller.continueLocationResolution()
+
+        let application = UIApplication.shared
+        guard application.openUrlCalled,
+            application.openUrlUrl == URL(string: UIApplicationOpenSettingsURLString)!
+            else {
+                return XCTFail("The settings action should open the settings screen after dismissing the alert")
+        }
     }
 
     // MARK: - Location Permission

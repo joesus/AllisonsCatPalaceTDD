@@ -155,5 +155,9 @@ class LocationController: UIViewController, RealmInjected {
             return false
     }
 
-    @IBAction func continueLocationResolution() {}
+    @IBAction func continueLocationResolution() {
+        guard let url = URL(string: UIApplicationOpenSettingsURLString) else { return }
+
+        UIApplication.shared.open(url, options: [:])
+    }
 }

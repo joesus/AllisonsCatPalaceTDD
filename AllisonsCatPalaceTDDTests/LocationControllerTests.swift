@@ -394,7 +394,8 @@ class LocationControllerTests: XCTestCase {
 
     func testViewConfigurationForFailedLocationResolution() {
         loadComponents()
-        controller.transition(to: .resolutionFailure(error: GeocodingError.unknownError))
+
+        controller.locationManager(locationManager, didFailWithError: LocationResolutionError.unknownError)
 
         XCTAssertTrue(controller.resolvingLocationView.isHidden,
                       "Resolving location view should be hidden with resolution failure")

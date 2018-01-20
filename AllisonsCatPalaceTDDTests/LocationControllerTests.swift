@@ -30,6 +30,7 @@ class LocationControllerTests: XCTestCase {
         return mark
     }()
     var realm: Realm!
+    var requestLocationSpy: Spy?
 
     override func setUp() {
         super.setUp()
@@ -60,6 +61,10 @@ class LocationControllerTests: XCTestCase {
         showSpy = UIViewController.ShowSpyController.createSpy(on: navController)
         openURLSpy = UIApplication.OpenUrlSpyController.createSpy(on: UIApplication.shared)
 
+        requestLocationSpy = CLLocationManager.RequestLocationSpyController
+            .createSpy(on: locationManager)
+        requestLocationSpy?.beginSpying()
+
         performSegueSpy?.beginSpying()
         showSpy?.beginSpying()
         openURLSpy?.beginSpying()
@@ -75,6 +80,7 @@ class LocationControllerTests: XCTestCase {
         performSegueSpy?.endSpying()
         showSpy?.endSpying()
         openURLSpy?.endSpying()
+        requestLocationSpy?.endSpying()
 
         CLLocationManager.endStubbingAuthorizationStatus()
         CLLocationManager.endStubbingLocationServicesEnabled()
@@ -502,6 +508,13 @@ class LocationControllerTests: XCTestCase {
                       "Controller should be the location manager's delegate")
     }
 
+    func testLocationIsRequestedOnAppearing() {
+        loadComponents()
+        controller.viewDidAppear(false)
+
+        XCTAssertTrue(locationManager.requestLocationCalled,
+                      "Location manager should request location if already authorized")
+    }
 
 
     func testFavoritesButtonWithSavedFavorites() {

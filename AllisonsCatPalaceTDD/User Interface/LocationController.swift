@@ -75,6 +75,11 @@ class LocationController: UIViewController, RealmInjected {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        if case .allowed = userLocationResolution {
+            userLocationResolution = .resolving
+            locationManager.requestLocation()
+        }
+
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -165,5 +170,15 @@ class LocationController: UIViewController, RealmInjected {
         guard let url = URL(string: UIApplicationOpenSettingsURLString) else { return }
 
         UIApplication.shared.open(url, options: [:])
+    }
+}
+
+extension LocationController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+
+    }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+
     }
 }

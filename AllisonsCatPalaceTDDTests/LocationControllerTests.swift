@@ -401,20 +401,6 @@ class LocationControllerTests: XCTestCase {
                        "Prompt should be correct")
     }
 
-    func testUserNotPromptedIfLocationServicesUnavailable() {
-        loadComponents()
-        CLLocationManager.beginStubbingLocationServicesEnabled(with: false)
-
-        controller.viewDidAppear(false)
-
-        XCTAssertEqual(controller.userLocationResolution, .disallowed,
-                       "User location resolution should be disallowed when location services are not available")
-        XCTAssertFalse(locationManager.requestWhenInUseAuthorizationCalled,
-                       "Location manager should not request when in use authorization if location services are not enabled")
-
-        CLLocationManager.endStubbingLocationServicesEnabled()
-    }
-
     func testLocationServicesPromptsWhenNotDetermined() {
         loadComponents()
         CLLocationManager.stubbedAuthorizationStatus = .notDetermined
@@ -425,6 +411,18 @@ class LocationControllerTests: XCTestCase {
                        "User location resolution should be unknown when location permission is not determined")
         XCTAssertTrue(locationManager.requestWhenInUseAuthorizationCalled,
                       "Location manager should request when in use authorization if status is not determined")
+    }
+
+    func testUserNotPromptedIfLocationServicesUnavailable() {
+        loadComponents()
+        CLLocationManager.stubbedLocationServicesEnabled = false
+
+        controller.viewDidAppear(false)
+
+        XCTAssertEqual(controller.userLocationResolution, .disallowed,
+                       "User location resolution should be disallowed when location services are not available")
+        XCTAssertFalse(locationManager.requestWhenInUseAuthorizationCalled,
+                       "Location manager should not request when in use authorization if location services are not enabled")
     }
 
     func testLocationServicesDoesNotPromptWhenAuthorized() {

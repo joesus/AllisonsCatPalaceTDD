@@ -538,6 +538,29 @@ class LocationControllerTests: XCTestCase {
         }
     }
 
+    func testGeocodingWithError() {
+        loadComponents()
+
+        controller.locationManager(
+            locationManager,
+            didUpdateLocations: [CLLocation(latitude: 0, longitude: 0)]
+        )
+
+        guard let handler = geocoder.reverseGeocodeLocationCompletionHandler else {
+            return XCTFail("Geocoder should be called with the last location received")
+        }
+
+        handler(nil, LocationResolutionError.noLocationsFound)
+
+        XCTAssertEqual(
+            controller.userLocationResolution,
+            .resolutionFailure(error: LocationResolutionError.noLocationsFound),
+            "Failure to geocode should update user location resolution"
+        )
+        XCTAssertFalse(searchButton.isEnabled,
+                       "Search button should not be enabled if there is no resolved location")
+    }
+
 
     func testFavoritesButtonWithSavedFavorites() {
         addCatsToRealm()

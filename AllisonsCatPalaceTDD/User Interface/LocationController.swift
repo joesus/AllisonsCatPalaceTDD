@@ -177,7 +177,10 @@ extension LocationController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
 
-        geocoder.reverseGeocodeLocation(location) { _, _ in
+        geocoder.reverseGeocodeLocation(location) { [weak self] _, potentialError in
+            if let error = potentialError {
+                self?.transition(to: .resolutionFailure(error: error))
+            }
         }
 
     }

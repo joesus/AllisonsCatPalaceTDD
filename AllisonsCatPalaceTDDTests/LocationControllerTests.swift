@@ -11,11 +11,13 @@ import TestSwagger
 import TestableUIKit
 import TestableCoreLocation
 import CoreLocation
+import RealmSwift
 import XCTest
 
 class LocationControllerTests: XCTestCase {
     var controller: LocationController!
     var delegate: UITextFieldDelegate!
+    var favoritesButton: UIBarButtonItem!
     var geocoder: CLGeocoder!
     var geocoderSpy: Spy?
     var performSegueSpy: Spy?
@@ -26,10 +28,14 @@ class LocationControllerTests: XCTestCase {
         mark.postalCode = "80220"
         return mark
     }()
+    var realm: Realm!
 
     override func setUp() {
         super.setUp()
 
+        realm = realmForTest(withName: name!)
+        reset(realm)
+        InjectionMap.realm = realm
 
         CLLocationManager.beginStubbingLocationServicesEnabled(with: true)
         CLLocationManager.beginStubbingAuthorizationStatus(with: .authorizedWhenInUse)
@@ -68,6 +74,7 @@ class LocationControllerTests: XCTestCase {
         CLLocationManager.endStubbingAuthorizationStatus()
         CLLocationManager.endStubbingLocationServicesEnabled()
 
+        reset(realm)
 
         super.tearDown()
     }
@@ -461,7 +468,60 @@ class LocationControllerTests: XCTestCase {
 
 
 
+    func testFavoritesButtonWithSavedFavorites() {
+        addCatsToRealm()
+
+        guard let button = favoritesButton,
+            let target = button.target
+            else {
+                return XCTFail("Navigation bar should have a left bar button item with a target")
         }
+
+        XCTAssertEqual(button.title, "Favorites",
+                       "Favorites button should exist and have correct title")
+        XCTAssertTrue(button.isEnabled,
+                      "Favorites button should be enabled if there are saved favorites")
+
+        XCTAssertTrue(
+            target.isKind(of: NSClassFromString("UIStoryboardShowSegueTemplate")!),
+            "Favorite button target should be a show segue template"
+        )
+
+        guard let template = controller.segueTemplate(identifiedBy: "ShowFavorites"),
+            template.destinationSceneIdentifier == "FavoritesScene"
+            else {
+                return XCTFail("The controller should have a segue to transition to the favorites scene")
+        }
+
+        XCTAssertTrue(target === template.rawTemplate,
+                      "The buttons target should be a show segue")
+    }
+
+    func testFavoritesButtonWithNoDatabase() {
+        InjectionMap.realm = nil
+        controller.viewWillAppear(false)
+
+        XCTAssertNil(controller.navigationItem.leftBarButtonItem,
+                     "Favorites button should not be displayed in the navigation bar if there is no way to save favorites")
+    }
+
+    func testFavoritesButtonWithoutSavedFavorites() {
+        loadComponents()
+        controller.viewWillAppear(false)
+
+        XCTAssertNil(controller.navigationItem.leftBarButtonItem,
+                     "Favorites button should not be displayed in the navigation bar if there are no saved favorites")
+    }
+
+    func testFavoritesButtonIsReAddedAfterFavoriting() {
+        loadComponents()
+        controller.viewWillAppear(false)
+
+        addCatsToRealm()
+        controller.viewWillAppear(false)
+
+        XCTAssertEqual(controller.navigationItem.leftBarButtonItem, favoritesButton,
+                       "Favorites button should be displayed in the navigation bar if there are favorites")
     }
 
         replaceRootViewController(with: controller)
@@ -528,6 +588,16 @@ extension LocationControllerTests {
     func attemptGeocoding(withText text: String) {
     }
 
+    func addCatsToRealm(_ file: StaticString = #file, _ line: UInt = #line) {
+        try? realm.write {
+            cats.forEach {
+                realm.add($0.managedObject, update: true)
+            }
+        }
+
+        XCTAssertEqual(realm.objects(AnimalObject.self).count, cats.count,
+                       "Correct number of animals should be persisted", file: file, line: line)
+    }
 }
 extension UserLocationResolution: Equatable {
 

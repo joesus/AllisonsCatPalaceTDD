@@ -8,8 +8,9 @@
 
 import UIKit
 import CoreLocation
+import RealmSwift
 
-class LocationController: UIViewController {
+class LocationController: UIViewController, RealmInjected {
 
     private(set) var userLocationResolution: UserLocationResolution = {
         guard CLLocationManager.locationServicesEnabled() else {
@@ -56,6 +57,13 @@ class LocationController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        if realm?.objects(AnimalObject.self) == nil ||
+           realm?.objects(AnimalObject.self).isEmpty == true {
+
+            navigationItem.setLeftBarButton(nil, animated: true)
+        } else {
+            navigationItem.setLeftBarButton(favoritesButton, animated: true)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {

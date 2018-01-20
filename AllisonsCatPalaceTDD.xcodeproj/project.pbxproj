@@ -87,6 +87,7 @@
 		F46539CF1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */; };
 		F46539D11EFF2F6D0049E7FD /* AnimalPhotoSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */; };
 		F471ABB72013F22700EF2B03 /* CLLocationManagerRequestLocationSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F471ABB62013F22700EF2B03 /* CLLocationManagerRequestLocationSpy.swift */; };
+		F471ABB92014085900EF2B03 /* DetroitPlacemark in Resources */ = {isa = PBXBuildFile; fileRef = F471ABB82014085800EF2B03 /* DetroitPlacemark */; };
 		F4764B391FAFB0D9007990B4 /* PetFinderSearchControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4764B381FAFB0D9007990B4 /* PetFinderSearchControllerTests.swift */; };
 		F4764B3B1FAFB73B007990B4 /* FakeRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4764B3A1FAFB73B007990B4 /* FakeRegistry.swift */; };
 		F47D38F11FA51DB7001DBD60 /* PetFinderRecordLengthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D38F01FA51DB7001DBD60 /* PetFinderRecordLengthTests.swift */; };
@@ -116,7 +117,7 @@
 		F4C52A941FAFA3D5002AD597 /* PetFinderAnimalRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D26121E511B3400FAE334 /* PetFinderAnimalRegistry.swift */; };
 		F4D792671FDDCC1800D0876A /* UserLocationResolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D792661FDDCC1800D0876A /* UserLocationResolutionTests.swift */; };
 		F4D792691FDDCE3000D0876A /* UserLocationResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D792681FDDCE3000D0876A /* UserLocationResolution.swift */; };
-		F4D7926C1FDDD3D000D0876A /* EncodedPlacemark in Resources */ = {isa = PBXBuildFile; fileRef = F4D7926B1FDDD3CF00D0876A /* EncodedPlacemark */; };
+		F4D7926C1FDDD3D000D0876A /* DenverPlacemark in Resources */ = {isa = PBXBuildFile; fileRef = F4D7926B1FDDD3CF00D0876A /* DenverPlacemark */; };
 		F4D7926E1FDDD6FC00D0876A /* SamplePlacemarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D7926D1FDDD6FC00D0876A /* SamplePlacemarks.swift */; };
 		F4D792701FDDD91800D0876A /* SampleError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D7926F1FDDD91800D0876A /* SampleError.swift */; };
 		F4D792721FDF58B700D0876A /* ResolvingLocationViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D792711FDF58B700D0876A /* ResolvingLocationViewTests.swift */; };
@@ -236,6 +237,7 @@
 		F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalPhotoSizeTests.swift; sourceTree = "<group>"; };
 		F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalPhotoSize.swift; sourceTree = "<group>"; };
 		F471ABB62013F22700EF2B03 /* CLLocationManagerRequestLocationSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationManagerRequestLocationSpy.swift; sourceTree = "<group>"; };
+		F471ABB82014085800EF2B03 /* DetroitPlacemark */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = DetroitPlacemark; sourceTree = "<group>"; };
 		F4764B381FAFB0D9007990B4 /* PetFinderSearchControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetFinderSearchControllerTests.swift; sourceTree = "<group>"; };
 		F4764B3A1FAFB73B007990B4 /* FakeRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeRegistry.swift; sourceTree = "<group>"; };
 		F47D38F01FA51DB7001DBD60 /* PetFinderRecordLengthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetFinderRecordLengthTests.swift; sourceTree = "<group>"; };
@@ -264,7 +266,7 @@
 		F4BE6C9A1F59C00900480671 /* RealmHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmHelpers.swift; sourceTree = "<group>"; };
 		F4D792661FDDCC1800D0876A /* UserLocationResolutionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationResolutionTests.swift; sourceTree = "<group>"; };
 		F4D792681FDDCE3000D0876A /* UserLocationResolution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationResolution.swift; sourceTree = "<group>"; };
-		F4D7926B1FDDD3CF00D0876A /* EncodedPlacemark */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = EncodedPlacemark; sourceTree = "<group>"; };
+		F4D7926B1FDDD3CF00D0876A /* DenverPlacemark */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = DenverPlacemark; sourceTree = "<group>"; };
 		F4D7926D1FDDD6FC00D0876A /* SamplePlacemarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplePlacemarks.swift; sourceTree = "<group>"; };
 		F4D7926F1FDDD91800D0876A /* SampleError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleError.swift; sourceTree = "<group>"; };
 		F4D792711FDF58B700D0876A /* ResolvingLocationViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolvingLocationViewTests.swift; sourceTree = "<group>"; };
@@ -566,7 +568,8 @@
 		F4D7926A1FDDD3CF00D0876A /* SampleData */ = {
 			isa = PBXGroup;
 			children = (
-				F4D7926B1FDDD3CF00D0876A /* EncodedPlacemark */,
+				F4D7926B1FDDD3CF00D0876A /* DenverPlacemark */,
+				F471ABB82014085800EF2B03 /* DetroitPlacemark */,
 				F4D7926F1FDDD91800D0876A /* SampleError.swift */,
 				F4D7926D1FDDD6FC00D0876A /* SamplePlacemarks.swift */,
 			);
@@ -678,7 +681,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4D7926C1FDDD3D000D0876A /* EncodedPlacemark in Resources */,
+				F4D7926C1FDDD3D000D0876A /* DenverPlacemark in Resources */,
+				F471ABB92014085900EF2B03 /* DetroitPlacemark in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

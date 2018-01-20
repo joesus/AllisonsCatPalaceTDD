@@ -9,9 +9,12 @@
 import CoreLocation
 
 enum SamplePlacemarks {
-    static let denver: CLPlacemark = {
+    static let denver = loadPlacemark(named: "DenverPlacemark")
+    static let detroit = loadPlacemark(named: "DetroitPlacemark")
+
+    static func loadPlacemark(named filename: String) -> CLPlacemark {
         guard let url = Bundle(for: UserLocationResolutionTests.self)
-            .url(forResource: "EncodedPlacemark", withExtension: nil),
+            .url(forResource: filename, withExtension: nil),
             let placemark = NSKeyedUnarchiver.unarchiveObject(withFile: url.path)
                 as? CLPlacemark
             else {
@@ -19,5 +22,5 @@ enum SamplePlacemarks {
         }
 
         return placemark
-    }()
+    }
 }

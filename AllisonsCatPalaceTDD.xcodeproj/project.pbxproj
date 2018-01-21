@@ -88,6 +88,7 @@
 		F46539D11EFF2F6D0049E7FD /* AnimalPhotoSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */; };
 		F471ABB72013F22700EF2B03 /* CLLocationManagerRequestLocationSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F471ABB62013F22700EF2B03 /* CLLocationManagerRequestLocationSpy.swift */; };
 		F471ABB92014085900EF2B03 /* DetroitPlacemark in Resources */ = {isa = PBXBuildFile; fileRef = F471ABB82014085800EF2B03 /* DetroitPlacemark */; };
+		F471ABBB20140FD800EF2B03 /* CollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F471ABBA20140FD800EF2B03 /* CollectionExtensions.swift */; };
 		F4764B391FAFB0D9007990B4 /* PetFinderSearchControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4764B381FAFB0D9007990B4 /* PetFinderSearchControllerTests.swift */; };
 		F4764B3B1FAFB73B007990B4 /* FakeRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4764B3A1FAFB73B007990B4 /* FakeRegistry.swift */; };
 		F47D38F11FA51DB7001DBD60 /* PetFinderRecordLengthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D38F01FA51DB7001DBD60 /* PetFinderRecordLengthTests.swift */; };
@@ -238,6 +239,7 @@
 		F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalPhotoSize.swift; sourceTree = "<group>"; };
 		F471ABB62013F22700EF2B03 /* CLLocationManagerRequestLocationSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationManagerRequestLocationSpy.swift; sourceTree = "<group>"; };
 		F471ABB82014085800EF2B03 /* DetroitPlacemark */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = DetroitPlacemark; sourceTree = "<group>"; };
+		F471ABBA20140FD800EF2B03 /* CollectionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensions.swift; sourceTree = "<group>"; };
 		F4764B381FAFB0D9007990B4 /* PetFinderSearchControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetFinderSearchControllerTests.swift; sourceTree = "<group>"; };
 		F4764B3A1FAFB73B007990B4 /* FakeRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeRegistry.swift; sourceTree = "<group>"; };
 		F47D38F01FA51DB7001DBD60 /* PetFinderRecordLengthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetFinderRecordLengthTests.swift; sourceTree = "<group>"; };
@@ -460,6 +462,7 @@
 				27E823891E5A273D009B202A /* UIViewControllerSpies.swift */,
 				270A6AE41E3E70CD00B12D38 /* URLSessionDataTaskSpies.swift */,
 				270A6AE21E3E700C00B12D38 /* URLSessionSpies.swift */,
+				F471ABBA20140FD800EF2B03 /* CollectionExtensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -876,6 +879,7 @@
 				F41612611EB54DB000E3E6F6 /* UITestingHelper.swift in Sources */,
 				270A6AEF1E3E85BE00B12D38 /* NetworkTestingConstants.swift in Sources */,
 				2767E37D1E62679600A7C5F9 /* ImageProviderTests.swift in Sources */,
+				F471ABBB20140FD800EF2B03 /* CollectionExtensions.swift in Sources */,
 				F43BC69C1F1A9CF700E025EB /* AnimalImageLocationsTests.swift in Sources */,
 				F4543D9C1F43C19F00F9CDE3 /* LocationControllerTests.swift in Sources */,
 				F494349D1FD4AFCC00B6EEA7 /* LocationServicesEnabledStub.swift in Sources */,

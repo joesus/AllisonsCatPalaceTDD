@@ -16,8 +16,8 @@ import XCTest
 
 class LocationControllerTests: XCTestCase {
     var controller: LocationController!
-    var delegate: UITextFieldDelegate!
     var favoritesButton: UIBarButtonItem!
+    var searchButton: UIBarButtonItem!
     var geocoder: CLGeocoder!
     var geocoderSpy: Spy?
     var performSegueSpy: Spy?
@@ -30,6 +30,8 @@ class LocationControllerTests: XCTestCase {
         return mark
     }()
     var realm: Realm!
+    var locationManager: CLLocationManager!
+    var requestAuthorizationSpy: Spy?
     var requestLocationSpy: Spy?
 
     override func setUp() {
@@ -61,6 +63,10 @@ class LocationControllerTests: XCTestCase {
         showSpy = UIViewController.ShowSpyController.createSpy(on: navController)
         openURLSpy = UIApplication.OpenUrlSpyController.createSpy(on: UIApplication.shared)
 
+        locationManager = controller.locationManager
+
+        requestAuthorizationSpy = CLLocationManager.RequestWhenInUseAuthorizationSpyController
+            .createSpy(on: locationManager)
         requestLocationSpy = CLLocationManager.RequestLocationSpyController
             .createSpy(on: locationManager)
         requestLocationSpy?.beginSpying()
@@ -68,6 +74,7 @@ class LocationControllerTests: XCTestCase {
         performSegueSpy?.beginSpying()
         showSpy?.beginSpying()
         openURLSpy?.beginSpying()
+        requestAuthorizationSpy?.beginSpying()
     }
 
     private func loadController() {
@@ -141,7 +148,6 @@ class LocationControllerTests: XCTestCase {
         loadComponents()
 
         guard let view = controller.resolvingLocationView,
-            let activityIndicator = view.activityIndicator,
             let label = view.label
             else {
                 return XCTFail("Controller should have a view with an activity indicator and label for indicating that location is being resolved")
@@ -212,7 +218,7 @@ class LocationControllerTests: XCTestCase {
         guard let action = button.actions(
             forTarget: controller,
             forControlEvent: .touchUpInside
-            )?.first
+            )?.onlyElement
             else {
                 return XCTFail("The button should have an associated action")
         }
@@ -370,11 +376,11 @@ class LocationControllerTests: XCTestCase {
         controller.transition(to: .resolving)
 
         XCTAssertFalse(controller.resolvingLocationView.isHidden,
-                      "Resolving location view should not be hidden with resolving resolution")
+                       "Resolving location view should not be hidden with resolving resolution")
         XCTAssertTrue(controller.resolvedLocationView.isHidden,
                       "Resolved location view should be hidden with resolving resolution")
         XCTAssertTrue(controller.actionableMessageView.isHidden,
-                       "Actionable message view should be hidden with resolving resolution")
+                      "Actionable message view should be hidden with resolving resolution")
     }
 
     func testViewConfigurationForSuccessfulLocationResolution() {
@@ -384,7 +390,7 @@ class LocationControllerTests: XCTestCase {
         XCTAssertTrue(controller.resolvingLocationView.isHidden,
                       "Resolving location view should be hidden with a resolved location")
         XCTAssertFalse(controller.resolvedLocationView.isHidden,
-                      "Resolved location view should not be hidden with a resolved location")
+                       "Resolved location view should not be hidden with a resolved location")
         XCTAssertTrue(controller.actionableMessageView.isHidden,
                       "Actionable message view should be hidden with a resolved location")
 
@@ -584,9 +590,12 @@ class LocationControllerTests: XCTestCase {
                       "Search button should be enabled if there is a resolved location")
     }
 
+    // MARK:- Favorites Button
 
     func testFavoritesButtonWithSavedFavorites() {
         addCatsToRealm()
+        loadComponents()
+        controller.viewWillAppear(false)
 
         guard let button = favoritesButton,
             let target = button.target
@@ -681,10 +690,10 @@ extension UserLocationResolution: Equatable {
     public static func == (lhs: UserLocationResolution, rhs: UserLocationResolution) -> Bool {
         switch (lhs, rhs) {
         case (.unknown, .unknown),
-            (.disallowed, .disallowed),
-            (.allowed, .allowed),
-            (.resolving, .resolving),
-            (.resolutionFailure, .resolutionFailure):
+             (.disallowed, .disallowed),
+             (.allowed, .allowed),
+             (.resolving, .resolving),
+             (.resolutionFailure, .resolutionFailure):
             return true
 
         case (.resolved(let leftPlacemark), .resolved(let rightPlacemark)):

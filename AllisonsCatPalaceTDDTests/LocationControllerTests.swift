@@ -21,7 +21,6 @@ class LocationControllerTests: XCTestCase {
     var geocoder: CLGeocoder!
     var geocoderSpy: Spy?
     var performSegueSpy: Spy?
-    var showSpy: Spy?
     var openURLSpy: Spy?
     var navController: UINavigationController!
     var placemark: MutablePlacemark = {
@@ -60,7 +59,6 @@ class LocationControllerTests: XCTestCase {
         navController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
 
         performSegueSpy = UIViewController.PerformSegueSpyController.createSpy(on: controller)
-        showSpy = UIViewController.ShowSpyController.createSpy(on: navController)
         openURLSpy = UIApplication.OpenUrlSpyController.createSpy(on: UIApplication.shared)
 
         locationManager = controller.locationManager
@@ -72,7 +70,6 @@ class LocationControllerTests: XCTestCase {
         requestLocationSpy?.beginSpying()
 
         performSegueSpy?.beginSpying()
-        showSpy?.beginSpying()
         openURLSpy?.beginSpying()
         requestAuthorizationSpy?.beginSpying()
     }
@@ -85,7 +82,6 @@ class LocationControllerTests: XCTestCase {
     override func tearDown() {
         geocoderSpy?.endSpying()
         performSegueSpy?.endSpying()
-        showSpy?.endSpying()
         openURLSpy?.endSpying()
         requestLocationSpy?.endSpying()
 

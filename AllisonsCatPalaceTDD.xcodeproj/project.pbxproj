@@ -43,6 +43,7 @@
 		27E823971E5A5115009B202A /* MainStoryboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E823961E5A5115009B202A /* MainStoryboardTests.swift */; };
 		E87D9181992DAEA50CC83375 /* Pods_AllisonsCatPalaceTDDTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594F7F2BF537A93B3382F169 /* Pods_AllisonsCatPalaceTDDTests.framework */; };
 		F1F9EA499B210CE9275EF938 /* Pods_AllisonsCatPalaceTDD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7BADEA9B2CD90052691E3DC /* Pods_AllisonsCatPalaceTDD.framework */; };
+		F402B15A201D1343004074E1 /* CLGeocoderIsGeocodingStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F402B159201D1343004074E1 /* CLGeocoderIsGeocodingStub.swift */; };
 		F41612581EB51EA600E3E6F6 /* AnimalNameCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41612571EB51EA600E3E6F6 /* AnimalNameCellTests.swift */; };
 		F416125A1EB5201F00E3E6F6 /* CatNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F41612591EB5201F00E3E6F6 /* CatNameCell.xib */; };
 		F416125D1EB520D300E3E6F6 /* CatNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F416125C1EB520D300E3E6F6 /* CatNameCell.swift */; };
@@ -194,6 +195,7 @@
 		7875B590B29305AC1493953A /* Pods-AllisonsCatPalaceTDDTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AllisonsCatPalaceTDDTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AllisonsCatPalaceTDDTests/Pods-AllisonsCatPalaceTDDTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8337DA1BFB7A3226D3410B0F /* Pods-AllisonsCatPalaceTDD.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AllisonsCatPalaceTDD.release.xcconfig"; path = "Pods/Target Support Files/Pods-AllisonsCatPalaceTDD/Pods-AllisonsCatPalaceTDD.release.xcconfig"; sourceTree = "<group>"; };
 		A7BADEA9B2CD90052691E3DC /* Pods_AllisonsCatPalaceTDD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AllisonsCatPalaceTDD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F402B159201D1343004074E1 /* CLGeocoderIsGeocodingStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLGeocoderIsGeocodingStub.swift; sourceTree = "<group>"; };
 		F41612571EB51EA600E3E6F6 /* AnimalNameCellTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalNameCellTests.swift; sourceTree = "<group>"; };
 		F41612591EB5201F00E3E6F6 /* CatNameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CatNameCell.xib; sourceTree = "<group>"; };
 		F416125C1EB520D300E3E6F6 /* CatNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatNameCell.swift; sourceTree = "<group>"; };
@@ -440,7 +442,9 @@
 			children = (
 				F494349E1FD4B3D600B6EEA7 /* AuthorizationStatusStub.swift */,
 				270A6AE81E3E7BAB00B12D38 /* Box.swift */,
+				F402B159201D1343004074E1 /* CLGeocoderIsGeocodingStub.swift */,
 				F471ABB62013F22700EF2B03 /* CLLocationManagerRequestLocationSpy.swift */,
+				F471ABBA20140FD800EF2B03 /* CollectionExtensions.swift */,
 				F4E8BE841F2407CC00F680E2 /* DataTaskResumeStub.swift */,
 				F4764B3A1FAFB73B007990B4 /* FakeRegistry.swift */,
 				F44AEAD71FC717D500DF0A49 /* GestureRecognizerHelper.swift */,
@@ -462,7 +466,6 @@
 				27E823891E5A273D009B202A /* UIViewControllerSpies.swift */,
 				270A6AE41E3E70CD00B12D38 /* URLSessionDataTaskSpies.swift */,
 				270A6AE21E3E700C00B12D38 /* URLSessionSpies.swift */,
-				F471ABBA20140FD800EF2B03 /* CollectionExtensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -885,6 +888,7 @@
 				F494349D1FD4AFCC00B6EEA7 /* LocationServicesEnabledStub.swift in Sources */,
 				F43BC6A01F1AA5AD00E025EB /* SequenceRemovingDuplicatesTests.swift in Sources */,
 				F416125F1EB5481B00E3E6F6 /* PredicateHelper.swift in Sources */,
+				F402B15A201D1343004074E1 /* CLGeocoderIsGeocodingStub.swift in Sources */,
 				F4238FBD1FC1068C00046EB1 /* SegueTemplates.swift in Sources */,
 				F4D792781FDF655F00D0876A /* ResolvedLocationViewTests.swift in Sources */,
 				27E823971E5A5115009B202A /* MainStoryboardTests.swift in Sources */,

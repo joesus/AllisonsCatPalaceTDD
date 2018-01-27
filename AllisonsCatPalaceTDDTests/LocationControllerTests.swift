@@ -96,36 +96,7 @@ class LocationControllerTests: XCTestCase {
         super.tearDown()
     }
 
-    func testUserLocationResolutionForFirstLaunch() {
-        CLLocationManager.stubbedAuthorizationStatus = .notDetermined
-        loadController()
-
-        XCTAssertEqual(controller.userLocationResolution, .unknown,
-                       "Controller should have a user location resolution with an initial state of unknown when location services are enabled but authorization status is unknown")
-    }
-
-    func testUserLocationResolutionForEnabledAndAuthorizedLocationServices() {
-        loadController()
-
-        XCTAssertEqual(controller.userLocationResolution, .allowed,
-                       "Controller should have a user location resolution with an initial state of allowed if location services are enabled and authorized")
-    }
-
-    func testUserLocationResolutionForDisabledLocationServices() {
-        CLLocationManager.stubbedLocationServicesEnabled = false
-        loadController()
-
-        XCTAssertEqual(controller.userLocationResolution, .disallowed,
-                       "Controller should have a user location resolution with an initial state of disallowed if location services are disabled")
-    }
-
-    func testUserLocationResolutionForUnauthorizedPermissions() {
-        CLLocationManager.stubbedAuthorizationStatus = .denied
-        loadController()
-
-        XCTAssertEqual(controller.userLocationResolution, .disallowed,
-                       "Controller should have a user location resolution with an initial state of disallowed if location services authorization has been denied")
-    }
+    // MARK: View Lifecycle
 
     func testViewDidLoad() {
         UIViewController.ViewDidLoadSpyController.createSpy(on: controller)!.spy {
@@ -142,6 +113,234 @@ class LocationControllerTests: XCTestCase {
                       "ViewDidAppear should call viewDidAppear on controller")
         }
     }
+
+    // MARK: Initial User Location Resolution State
+
+    func testUserLocationResolutionForDisabledLocationServices() {
+        CLLocationManager.stubbedLocationServicesEnabled = false
+        loadController()
+
+        XCTAssertEqual(controller.userLocationResolution, .disallowed,
+                       "Controller should have a user location resolution with an initial state of disallowed if location services are disabled")
+    }
+
+    func testUserLocationResolutionForFirstLaunch() {
+        CLLocationManager.stubbedAuthorizationStatus = .notDetermined
+        loadController()
+
+        XCTAssertEqual(controller.userLocationResolution, .unknown,
+                       "Controller should have a user location resolution with an initial state of unknown when location services are enabled but authorization status is unknown")
+    }
+
+    func testUserLocationResolutionForUnauthorizedPermissions() {
+        CLLocationManager.stubbedAuthorizationStatus = .denied
+        loadController()
+
+        XCTAssertEqual(controller.userLocationResolution, .disallowed,
+                       "Controller should have a user location resolution with an initial state of disallowed if location services authorization has been denied")
+    }
+
+    func testUserLocationResolutionForEnabledAndAuthorizedLocationServices() {
+        loadController()
+
+        XCTAssertEqual(controller.userLocationResolution, .allowed,
+                       "Controller should have a user location resolution with an initial state of allowed if location services are enabled and authorized")
+    }
+
+    // MARK: - Initial User Location Transitions
+
+    func testUserNotPromptedIfLocationServicesUnavailable() {
+        CLLocationManager.stubbedLocationServicesEnabled = false
+        loadController()
+        loadComponents()
+
+        controller.viewDidAppear(false)
+
+        XCTAssertEqual(controller.userLocationResolution, .disallowed,
+                       "User location resolution should be disallowed when location services are not available")
+        XCTAssertFalse(locationManager.requestWhenInUseAuthorizationCalled,
+                       "Location manager should not request when in use authorization if location services are not enabled")
+    }
+
+    func testLocationServicesPromptsWhenNotDetermined() {
+        CLLocationManager.stubbedAuthorizationStatus = .notDetermined
+        loadController()
+        loadComponents()
+
+        controller.viewDidAppear(false)
+
+        XCTAssertEqual(controller.userLocationResolution, .unknown,
+                       "User location resolution should be unknown when location permission is not determined")
+        XCTAssertTrue(locationManager.requestWhenInUseAuthorizationCalled,
+                      "Location manager should request when in use authorization if status is not determined")
+    }
+
+    func testLocationServicesDoesNotPromptWhenPreviouslyDenied() {
+        CLLocationManager.stubbedAuthorizationStatus = .denied
+        loadController()
+        loadComponents()
+
+        controller.viewDidAppear(false)
+
+        XCTAssertEqual(controller.userLocationResolution, .disallowed,
+                       "User location resolution should be disallowed when location permission is denied")
+        XCTAssertFalse(locationManager.requestWhenInUseAuthorizationCalled,
+                       "Location manager should not request authorization if previously denied")
+    }
+
+    func testLocationServicesDoesNotPromptWhenRestricted() {
+        CLLocationManager.stubbedAuthorizationStatus = .restricted
+        loadController()
+        loadComponents()
+
+        controller.viewDidAppear(false)
+
+        XCTAssertEqual(controller.userLocationResolution, .disallowed,
+                       "User location resolution should be disallowed when location permission is restricted")
+        XCTAssertFalse(locationManager.requestWhenInUseAuthorizationCalled,
+                       "Location manager should not request authorization if user is restricted")
+    }
+
+    func testLocationServicesDoesNotPromptWhenAuthorized() {
+        loadComponents()
+
+        controller.transition(to: .unknown)
+
+        controller.viewDidAppear(false)
+
+        XCTAssertEqual(controller.userLocationResolution, .resolving,
+                       "User location resolution should be resolving when location permission is authorized")
+        XCTAssertFalse(locationManager.requestWhenInUseAuthorizationCalled,
+                       "Location manager should not request authorization if already authorized")
+    }
+
+    func testUserLocationResolutionRemainsDisallowedWhenLocationServicesDisabled() {
+        CLLocationManager.stubbedLocationServicesEnabled = false
+        loadComponents()
+        controller.transition(to: .disallowed)
+
+        controller.viewDidAppear(false)
+
+        XCTAssertEqual(controller.userLocationResolution, .disallowed,
+                       "Controller should not change user location resolution state")
+        XCTAssertFalse(locationManager.requestWhenInUseAuthorizationCalled,
+                       "Location manager should not request when in use authorization if location services disabled")
+    }
+
+    func testUserLocationResolutionRemainsDisallowedWhenLocationServicesRestricted() {
+        loadComponents()
+        controller.transition(to: .disallowed)
+
+        CLLocationManager.stubbedAuthorizationStatus = .restricted
+
+        controller.viewDidAppear(false)
+
+        XCTAssertEqual(controller.userLocationResolution, .disallowed,
+                       "User location resolution should remain disallowed when location permission is restricted")
+        XCTAssertFalse(locationManager.requestWhenInUseAuthorizationCalled,
+                       "Location manager should not request authorization if previously restricted")
+    }
+
+    func testUserLocationResolutionRemainsDisallowedWhenLocationServicesUnauthorized() {
+        loadComponents()
+        controller.transition(to: .disallowed)
+
+        CLLocationManager.stubbedAuthorizationStatus = .denied
+
+        controller.viewDidAppear(false)
+
+        XCTAssertEqual(controller.userLocationResolution, .disallowed,
+                       "User location resolution should remain disallowed when location permission is denied")
+        XCTAssertFalse(locationManager.requestWhenInUseAuthorizationCalled,
+                       "Location manager should not request authorization if previously denied")
+    }
+
+    func testUserLocationResolutionTransitionsFromDisallowedToResolvingWhenLocationServicesAuthorized() {
+        loadComponents()
+        controller.transition(to: .disallowed)
+
+        CLLocationManager.stubbedAuthorizationStatus = .authorizedWhenInUse
+
+        controller.viewDidAppear(false)
+
+        XCTAssertEqual(controller.userLocationResolution, .resolving,
+                       "User location resolution should transition to resolving when location permission is granted")
+    }
+
+    func testUserLocationResolutionTransitionsFromAllowedToDisallowedWhenLocationServicesDisabled() {
+        loadComponents()
+        controller.transition(to: .allowed)
+
+        CLLocationManager.stubbedLocationServicesEnabled = false
+
+        controller.viewDidAppear(false)
+
+        XCTAssertEqual(controller.userLocationResolution, .disallowed,
+                       "User location resolution should transition to disallowed when location services disabled")
+    }
+
+    func testUserLocationResolutionTransitionsFromAllowedToDisallowedWhenLocationServicesDenied() {
+        loadComponents()
+        controller.transition(to: .allowed)
+
+        CLLocationManager.stubbedAuthorizationStatus = .denied
+
+        controller.viewDidAppear(false)
+
+        XCTAssertEqual(controller.userLocationResolution, .disallowed,
+                       "User location resolution should transition to disallowed when location permission is denied")
+    }
+
+    func testUserLocationResolutionTransitionsFromAllowedToDisallowedWhenLocationServicesRestricted() {
+        loadComponents()
+        controller.transition(to: .allowed)
+
+        CLLocationManager.stubbedAuthorizationStatus = .restricted
+
+        controller.viewDidAppear(false)
+
+        XCTAssertEqual(controller.userLocationResolution, .disallowed,
+                       "User location resolution should transition to disallowed when location permission is restricted")
+    }
+
+    func testUserLocationResolutionTransitionsFromAllowedToResolvingWhenLocationServicesAuthorized() {
+        loadComponents()
+        controller.transition(to: .allowed)
+
+        controller.viewDidAppear(false)
+
+        XCTAssertEqual(controller.userLocationResolution, .resolving,
+                       "User location resolution should transition to resolving when location permission is granted")
+    }
+
+    // MARK: - Subsequent User Location Transitions
+
+    func testNewlyEnabledLocationServicesPromptsForAuthorizationWhenNotDetermined() {
+        loadComponents()
+        CLLocationManager.stubbedAuthorizationStatus = .notDetermined
+        controller.transition(to: .disallowed)
+
+        controller.viewDidAppear(false)
+
+        XCTAssertEqual(controller.userLocationResolution, .unknown,
+                       "User location resolution should transition to unknown when location services are enabled")
+        XCTAssertFalse(locationManager.requestWhenInUseAuthorizationCalled,
+                       "Location manager should not request authorization if previously restricted")
+    }
+
+    func testUserLocationResolutionRemainsResolved() {
+        loadComponents()
+        let resolution = UserLocationResolution.resolved(location: SamplePlacemarks.denver)
+
+        controller.transition(to: resolution)
+
+        controller.viewDidAppear(false)
+
+        XCTAssertEqual(controller.userLocationResolution, resolution,
+                       "User location resolution should not change once it has resolved")
+    }
+
+    // MARK: - Default View Configurations
 
     func testResolvingLocationView() {
         loadComponents()
@@ -311,6 +510,23 @@ class LocationControllerTests: XCTestCase {
                       "The buttons target should be a show segue")
     }
 
+    // State-View Coordination
+
+    func testDefaultViewConfiguration() {
+        CLLocationManager.stubbedAuthorizationStatus = .notDetermined
+        loadController()
+        loadComponents()
+
+        assert(controller.userLocationResolution == .unknown)
+
+        XCTAssertTrue(controller.resolvingLocationView.isHidden,
+                      "Resolving location view should be hidden with unknown resolution")
+        XCTAssertTrue(controller.resolvedLocationView.isHidden,
+                      "Resolved location view should be hidden with unknown resolution")
+        XCTAssertTrue(controller.actionableMessageView.isHidden,
+                      "Actionable message view should be hidden with unknown resolution")
+    }
+
     func testViewConfigurationForUnknownLocationResolution() {
         loadComponents()
         controller.transition(to: .unknown)
@@ -421,7 +637,7 @@ class LocationControllerTests: XCTestCase {
         )
     }
 
-    func testSceneContinueLocationResolutionWhenDisallowed() {
+    func testSceneContinuesLocationResolutionWhenDisallowed() {
         loadComponents()
 
         controller.continueLocationResolution()
@@ -445,64 +661,6 @@ class LocationControllerTests: XCTestCase {
 
         XCTAssertEqual(whenInUsePrompt, "Your location will allow us to search local shelters for pets near you!",
                        "Prompt should be correct")
-    }
-
-    func testLocationServicesPromptsWhenNotDetermined() {
-        loadComponents()
-        CLLocationManager.stubbedAuthorizationStatus = .notDetermined
-
-        controller.viewDidAppear(false)
-
-        XCTAssertEqual(controller.userLocationResolution, .unknown,
-                       "User location resolution should be unknown when location permission is not determined")
-        XCTAssertTrue(locationManager.requestWhenInUseAuthorizationCalled,
-                      "Location manager should request when in use authorization if status is not determined")
-    }
-
-    func testUserNotPromptedIfLocationServicesUnavailable() {
-        loadComponents()
-        CLLocationManager.stubbedLocationServicesEnabled = false
-
-        controller.viewDidAppear(false)
-
-        XCTAssertEqual(controller.userLocationResolution, .disallowed,
-                       "User location resolution should be disallowed when location services are not available")
-        XCTAssertFalse(locationManager.requestWhenInUseAuthorizationCalled,
-                       "Location manager should not request when in use authorization if location services are not enabled")
-    }
-
-    func testLocationServicesDoesNotPromptWhenAuthorized() {
-        loadComponents()
-        controller.viewDidAppear(false)
-
-        XCTAssertEqual(controller.userLocationResolution, .resolving,
-                       "User location resolution should be resolving when location permission is authorized")
-        XCTAssertFalse(locationManager.requestWhenInUseAuthorizationCalled,
-                       "Location manager should not request authorization if already authorized")
-    }
-
-    func testLocationServicesDoesNotPromptWhenPreviouslyDenied() {
-        loadComponents()
-        CLLocationManager.stubbedAuthorizationStatus = .denied
-
-        controller.viewDidAppear(false)
-
-        XCTAssertEqual(controller.userLocationResolution, .disallowed,
-                       "User location resolution should be disallowed when location permission is denied")
-        XCTAssertFalse(locationManager.requestWhenInUseAuthorizationCalled,
-                       "Location manager should not request authorization if previously denied")
-    }
-
-    func testLocationServicesDoesNotPromptWhenRestricted() {
-        loadComponents()
-        CLLocationManager.stubbedAuthorizationStatus = .restricted
-
-        controller.viewDidAppear(false)
-
-        XCTAssertEqual(controller.userLocationResolution, .disallowed,
-                       "User location resolution should be disallowed when location permission is restricted")
-        XCTAssertFalse(locationManager.requestWhenInUseAuthorizationCalled,
-                       "Location manager should not request authorization if user is restricted")
     }
 
     // MARK:- Requesting Location

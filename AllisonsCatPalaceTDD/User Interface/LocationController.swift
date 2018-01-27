@@ -54,6 +54,17 @@ class LocationController: UIViewController, RealmInjected {
 
     var geocoder = CLGeocoder()
 
+    private var hasUserLocationPermissions: Bool {
+        return CLLocationManager.locationServicesEnabled() &&
+            CLLocationManager.authorizationStatus() == .authorizedWhenInUse
+    }
+
+    private var shouldPromptForLocationAuthorization: Bool {
+        guard CLLocationManager.locationServicesEnabled() else { return false }
+
+        return CLLocationManager.authorizationStatus() == .notDetermined
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -75,9 +86,35 @@ class LocationController: UIViewController, RealmInjected {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if case .allowed = userLocationResolution {
-            userLocationResolution = .resolving
+        switch userLocationResolution {
+
+        case .unknown:
+            guard CLLocationManager.authorizationStatus() != .notDetermined else {
+                locationManager.requestWhenInUseAuthorization()
+                return
+            }
+
+            let newResolution: UserLocationResolution = hasUserLocationPermissions ?
+                .resolving : .disallowed
+
+            transition(to: newResolution)
+
+        case .disallowed:
+            if shouldPromptForLocationAuthorization {
+                transition(to: .unknown)
+            }
+            else if hasUserLocationPermissions {
+                transition(to: .resolving)
+            }
+
+        case .allowed:
+            transition(to: hasUserLocationPermissions ? .resolving : .disallowed)
+
+        case .resolving:
             locationManager.requestLocation()
+
+        default:
+            break
         }
 
     }

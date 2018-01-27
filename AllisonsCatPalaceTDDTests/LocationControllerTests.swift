@@ -56,22 +56,24 @@ class LocationControllerTests: XCTestCase {
         geocoderSpy = CLGeocoder.ReverseGeocodeLocationSpyController.createSpy(on: geocoder)
         geocoderSpy?.beginSpying()
 
-        navController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
+        navController = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateInitialViewController() as! UINavigationController
 
         performSegueSpy = UIViewController.PerformSegueSpyController.createSpy(on: controller)
+        performSegueSpy?.beginSpying()
+
         openURLSpy = UIApplication.OpenUrlSpyController.createSpy(on: UIApplication.shared)
+        openURLSpy?.beginSpying()
 
         locationManager = controller.locationManager
 
         requestAuthorizationSpy = CLLocationManager.RequestWhenInUseAuthorizationSpyController
             .createSpy(on: locationManager)
+        requestAuthorizationSpy?.beginSpying()
+
         requestLocationSpy = CLLocationManager.RequestLocationSpyController
             .createSpy(on: locationManager)
         requestLocationSpy?.beginSpying()
-
-        performSegueSpy?.beginSpying()
-        openURLSpy?.beginSpying()
-        requestAuthorizationSpy?.beginSpying()
     }
 
     private func loadController() {
@@ -84,6 +86,7 @@ class LocationControllerTests: XCTestCase {
         performSegueSpy?.endSpying()
         openURLSpy?.endSpying()
         requestLocationSpy?.endSpying()
+        requestAuthorizationSpy?.endSpying()
 
         CLLocationManager.endStubbingAuthorizationStatus()
         CLLocationManager.endStubbingLocationServicesEnabled()

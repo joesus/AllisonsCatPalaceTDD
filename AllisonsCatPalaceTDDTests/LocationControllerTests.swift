@@ -590,6 +590,21 @@ class LocationControllerTests: XCTestCase {
                       "Search button should be enabled if there is a resolved location")
     }
 
+    func testGeocodingCancelledWhenSceneDisappears() {
+        loadComponents()
+
+        geocoder.beginStubbingIsGeocoding(with: true)
+
+        CLGeocoder.CancelGeocodeSpyController.createSpy(on: geocoder)!.spy {
+            controller.viewWillDisappear(false)
+
+            XCTAssertTrue(geocoder.cancelGeocodeCalled,
+                          "Geocoding should be cancelled when scene disappears before task is complete")
+        }
+
+        geocoder.endStubbingIsGeocoding()
+    }
+
     // MARK:- Favorites Button
 
     func testFavoritesButtonWithSavedFavorites() {
@@ -641,6 +656,7 @@ class LocationControllerTests: XCTestCase {
 
     func testFavoritesButtonIsReAddedAfterFavoriting() {
         loadComponents()
+
         controller.viewWillAppear(false)
 
         addCatsToRealm()
@@ -648,21 +664,6 @@ class LocationControllerTests: XCTestCase {
 
         XCTAssertEqual(controller.navigationItem.leftBarButtonItem, favoritesButton,
                        "Favorites button should be displayed in the navigation bar if there are favorites")
-    }
-
-    func testGeocodingCompleted() {
-    }
-
-    func testViewWillDisappearCancelsGeocoding() {
-// TODO - figure out why geocoder.isGeocoding always returns false in tests
-//        CLGeocoder.CancelGeocodeSpyController.createSpy(on: geocoder)!.spy {
-//            delegate.textFieldDidEndEditing!(textField) // end editing to kick off geocoding task
-//
-//            controller.viewWillDisappear(false)
-//
-//            XCTAssertTrue(geocoder.cancelGeocodeCalled,
-//                          "Geocoding should be cancelled when view disappears before task is complete")
-//        }
     }
 
 

@@ -87,7 +87,6 @@ class LocationController: UIViewController, RealmInjected {
         super.viewDidAppear(animated)
 
         switch userLocationResolution {
-
         case .unknown:
             guard CLLocationManager.authorizationStatus() != .notDetermined else {
                 locationManager.requestWhenInUseAuthorization()
@@ -116,7 +115,6 @@ class LocationController: UIViewController, RealmInjected {
         default:
             break
         }
-
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -127,21 +125,27 @@ class LocationController: UIViewController, RealmInjected {
         }
     }
 
-
-        }
-
-
-
-    }
-
     func transition(to locationResolution: UserLocationResolution) {
         userLocationResolution = locationResolution
         configureLocationResolutionStack()
         searchButton.isEnabled = shouldEnableSearchButton
+        advanceResolution()
+    }
+
+    func advanceResolution() {
+        switch userLocationResolution {
+        case .unknown:
+            locationManager.requestWhenInUseAuthorization()
+
+        case .resolving:
+            locationManager.requestLocation()
+
+        default:
+            break
+        }
     }
 
     func configureLocationResolutionStack() {
-        // hide all
         locationResolutionStack.arrangedSubviews.forEach { subview in
             subview.isHidden = true
         }

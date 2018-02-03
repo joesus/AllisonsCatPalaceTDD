@@ -112,6 +112,14 @@ class LocationController: UIViewController, RealmInjected {
         case .resolving:
             locationManager.requestLocation()
 
+        case .resolutionFailure:
+            if hasUserLocationPermissions {
+                transition(to: .resolving)
+            }
+            else {
+                transition(to: .disallowed)
+            }
+
         default:
             break
         }

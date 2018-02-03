@@ -223,9 +223,24 @@ class LocationController: UIViewController, RealmInjected {
     }
 
     @IBAction func continueLocationResolution() {
-        guard let url = URL(string: UIApplicationOpenSettingsURLString) else { return }
+        switch userLocationResolution {
+        case .resolutionFailure:
+            if hasUserLocationPermissions {
+                transition(to: .resolving)
+            }
+            else {
+                transition(to: .disallowed)
+            }
 
-        UIApplication.shared.open(url, options: [:])
+        case .disallowed:
+            guard let url = URL(string: UIApplicationOpenSettingsURLString) else { return }
+
+            UIApplication.shared.open(url, options: [:])
+
+        default:
+            fatalError()
+        }
+
     }
 }
 

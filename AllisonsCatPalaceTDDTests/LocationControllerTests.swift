@@ -333,7 +333,8 @@ class LocationControllerTests: XCTestCase {
     func testTransitionsFromFailureToDisallowedForLocationServicesUnavailable() {
         loadComponents()
 
-        controller.transition(to: .resolutionFailure(error: SampleError()))
+        let error = SampleError()
+        controller.transition(to: .resolutionFailure(error: error))
 
         CLLocationManager.stubbedLocationServicesEnabled = false
 
@@ -365,6 +366,32 @@ class LocationControllerTests: XCTestCase {
 
         XCTAssertEqual(controller.userLocationResolution, .resolving,
                        "User location resolution should transition to resolving if location is available")
+    }
+
+    // MARK: - User Initiated Transitions
+
+    func testRetryingLocationResolutionAfterFailure() {
+        loadComponents()
+
+        controller.viewDidAppear(false)
+
+        locationManager.requestLocationCalled = false
+
+        controller.transition(to: .resolutionFailure(error: SampleError()))
+
+        controller.continueLocationResolution() // same as tapping the actionable message view's button
+
+        XCTAssertFalse(controller.resolvingLocationView.isHidden,
+                       "Resolving location view should not be hidden after retrying location")
+        XCTAssertTrue(controller.resolvedLocationView.isHidden,
+                      "Resolved location view should be hidden after retrying location")
+        XCTAssertTrue(controller.actionableMessageView.isHidden,
+                      "Actionable message view should be hidden after retrying location")
+
+        XCTAssertFalse(locationManager.requestWhenInUseAuthorizationCalled,
+                       "Location manager should request not request authorization")
+        XCTAssertTrue(locationManager.requestLocationCalled,
+                      "Should request location")
     }
     // MARK: - Default View Configurations
 
@@ -1092,8 +1119,10 @@ extension UserLocationResolution: Equatable {
         case (.unknown, .unknown),
              (.disallowed, .disallowed),
              (.allowed, .allowed),
-             (.resolving, .resolving),
-             (.resolutionFailure, .resolutionFailure):
+             (.resolving, .resolving):
+            return true
+
+        case (.resolutionFailure(_), .resolutionFailure(_)):
             return true
 
         case (.resolved(let leftPlacemark), .resolved(let rightPlacemark)):

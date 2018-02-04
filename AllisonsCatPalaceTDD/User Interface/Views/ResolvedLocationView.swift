@@ -12,6 +12,7 @@ class ResolvedLocationView: UIView {
 
     @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var button: UIButton!
 
     enum SimplifiedLocationName {
         case unknown

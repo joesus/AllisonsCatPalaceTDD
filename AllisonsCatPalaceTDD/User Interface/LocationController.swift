@@ -20,8 +20,10 @@ class LocationController: UIViewController, RealmInjected {
         switch CLLocationManager.authorizationStatus() {
         case .notDetermined:
             return .unknown
+
         case .authorizedWhenInUse, .authorizedAlways:
             return .allowed
+
         case .denied, .restricted:
             return .disallowed
         }
@@ -224,7 +226,7 @@ class LocationController: UIViewController, RealmInjected {
 
     @IBAction func continueLocationResolution() {
         switch userLocationResolution {
-        case .resolutionFailure:
+        case .resolutionFailure, .resolved:
             if hasUserLocationPermissions {
                 transition(to: .resolving)
             }

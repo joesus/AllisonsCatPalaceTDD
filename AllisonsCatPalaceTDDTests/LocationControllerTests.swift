@@ -373,10 +373,6 @@ class LocationControllerTests: XCTestCase {
     func testRetryingLocationResolutionAfterFailure() {
         loadComponents()
 
-        controller.viewDidAppear(false)
-
-        locationManager.requestLocationCalled = false
-
         controller.transition(to: .resolutionFailure(error: SampleError()))
 
         controller.continueLocationResolution() // same as tapping the actionable message view's button
@@ -393,6 +389,49 @@ class LocationControllerTests: XCTestCase {
         XCTAssertTrue(locationManager.requestLocationCalled,
                       "Should request location")
     }
+
+    func testRetryingLocationResolutionWithResolvedLocation() {
+        loadComponents()
+
+        controller.transition(to: .resolved(location: SamplePlacemarks.denver))
+
+        controller.continueLocationResolution()
+
+        XCTAssertFalse(controller.resolvingLocationView.isHidden,
+                       "Resolving location view should not be hidden after retrying location")
+        XCTAssertTrue(controller.resolvedLocationView.isHidden,
+                      "Resolved location view should be hidden after retrying location")
+        XCTAssertTrue(controller.actionableMessageView.isHidden,
+                      "Actionable message view should be hidden after retrying location")
+
+        XCTAssertFalse(locationManager.requestWhenInUseAuthorizationCalled,
+                       "Location manager should request not request authorization")
+        XCTAssertTrue(locationManager.requestLocationCalled,
+                      "Should request location")
+    }
+
+    func testRetryingLocationResolutionWithResolvedLocationWhenLocationUnavailable() {
+        loadComponents()
+
+        controller.transition(to: .resolved(location: SamplePlacemarks.denver))
+
+        CLLocationManager.stubbedLocationServicesEnabled = false
+
+        controller.continueLocationResolution()
+
+        XCTAssertTrue(controller.resolvingLocationView.isHidden,
+                       "Resolving location view should be hidden after retrying location when location unavailable")
+        XCTAssertTrue(controller.resolvedLocationView.isHidden,
+                      "Resolved location view should be hidden after retrying location when location unavailable")
+        XCTAssertFalse(controller.actionableMessageView.isHidden,
+                      "Actionable message view should not be hidden after retrying location when location unavailable")
+
+        XCTAssertFalse(locationManager.requestWhenInUseAuthorizationCalled,
+                       "Location manager should request not request authorization")
+        XCTAssertFalse(locationManager.requestLocationCalled,
+                      "Should not request location")
+    }
+
     // MARK: - Default View Configurations
 
     func testResolvingLocationView() {
@@ -423,7 +462,8 @@ class LocationControllerTests: XCTestCase {
 
         guard let view = controller.resolvedLocationView,
             let icon = view.icon,
-            let label = view.label
+            let label = view.label,
+            let button = view.button
             else {
                 return XCTFail("Controller should have a view with an icon and label for indicating that location has been resolved")
         }
@@ -441,6 +481,19 @@ class LocationControllerTests: XCTestCase {
                        "Resolved location view's label should have line break mode set to truncate tail")
         XCTAssertFalse(label.isHidden,
                        "Resolved location view's label should not be hidden")
+        XCTAssertEqual(button.title(for: .normal), "Update",
+                       "Resolved location view's button should have the correct text")
+
+        guard let action = button.actions(
+            forTarget: controller,
+            forControlEvent: .touchUpInside
+            )?.onlyElement
+            else {
+                return XCTFail("The button should have an associated action")
+        }
+
+        XCTAssertEqual(action, #selector(LocationController.continueLocationResolution).description,
+                       "The button should notify the view of the user's intent to find location")
     }
 
     func testActionableMessageView() {
@@ -942,14 +995,6 @@ class LocationControllerTests: XCTestCase {
 
         XCTAssertTrue(locationManager.delegate === controller,
                       "Controller should be the location manager's delegate")
-    }
-
-    func testLocationIsRequestedOnAppearing() {
-        loadComponents()
-        controller.viewDidAppear(false)
-
-        XCTAssertTrue(locationManager.requestLocationCalled,
-                      "Location manager should request location if already authorized")
     }
 
     // MARK:- Geocoding

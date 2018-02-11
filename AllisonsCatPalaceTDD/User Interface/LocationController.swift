@@ -88,6 +88,10 @@ class LocationController: UIViewController, RealmInjected {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        updateUserLocationResolution()
+    }
+
+    func updateUserLocationResolution() {
         switch userLocationResolution {
         case .unknown:
             guard CLLocationManager.authorizationStatus() != .notDetermined else {

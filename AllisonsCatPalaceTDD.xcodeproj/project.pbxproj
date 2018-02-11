@@ -115,6 +115,7 @@
 		F4B44C531FE720FE005D5A29 /* DisplayableStringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B44C521FE720FE005D5A29 /* DisplayableStringTests.swift */; };
 		F4B44C551FE72612005D5A29 /* DisplayableString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B44C541FE72612005D5A29 /* DisplayableString.swift */; };
 		F4B688832030F8A400F3184E /* SearchWorkflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B688822030F8A400F3184E /* SearchWorkflow.swift */; };
+		F4B688862031090000F3184E /* CollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B688852031090000F3184E /* CollectionExtensions.swift */; };
 		F4BE6C991F584CFE00480671 /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BE6C981F584CFE00480671 /* Persistable.swift */; };
 		F4BE6C9B1F59C00900480671 /* RealmHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BE6C9A1F59C00900480671 /* RealmHelpers.swift */; };
 		F4C52A941FAFA3D5002AD597 /* PetFinderAnimalRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D26121E511B3400FAE334 /* PetFinderAnimalRegistry.swift */; };
@@ -268,6 +269,7 @@
 		F4B44C521FE720FE005D5A29 /* DisplayableStringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayableStringTests.swift; sourceTree = "<group>"; };
 		F4B44C541FE72612005D5A29 /* DisplayableString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayableString.swift; sourceTree = "<group>"; };
 		F4B688822030F8A400F3184E /* SearchWorkflow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWorkflow.swift; sourceTree = "<group>"; };
+		F4B688852031090000F3184E /* CollectionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensions.swift; sourceTree = "<group>"; };
 		F4BE6C981F584CFE00480671 /* Persistable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
 		F4BE6C9A1F59C00900480671 /* RealmHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmHelpers.swift; sourceTree = "<group>"; };
 		F4D792661FDDCC1800D0876A /* UserLocationResolutionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationResolutionTests.swift; sourceTree = "<group>"; };
@@ -371,16 +373,17 @@
 		276C61941E2C062200225CF4 /* AllisonsCatPalaceTDD */ = {
 			isa = PBXGroup;
 			children = (
+				276C61951E2C062200225CF4 /* AppDelegate.swift */,
 				F416125B1EB5202700E3E6F6 /* Cells */,
+				F4B44C541FE72612005D5A29 /* DisplayableString.swift */,
+				F4B68884203108DD00F3184E /* Extensions */,
+				276C61A11E2C062200225CF4 /* Info.plist */,
 				2719FBED1E7F137300D3D79A /* Models */,
 				F41A38861F89844300AD2762 /* Networking */,
 				F41A38851F8983F200AD2762 /* Persistence */,
 				F41A38881F89852500AD2762 /* Resources */,
 				F41A38871F89846C00AD2762 /* System */,
 				F41A38831F89838800AD2762 /* User Interface */,
-				276C61951E2C062200225CF4 /* AppDelegate.swift */,
-				F4B44C541FE72612005D5A29 /* DisplayableString.swift */,
-				276C61A11E2C062200225CF4 /* Info.plist */,
 			);
 			path = AllisonsCatPalaceTDD;
 			sourceTree = "<group>";
@@ -572,6 +575,14 @@
 				F42E16CE1F92AD0E00FDD9BE /* PetFinderSearchParameters.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		F4B68884203108DD00F3184E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F4B688852031090000F3184E /* CollectionExtensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		F4D7926A1FDDD3CF00D0876A /* SampleData */ = {
@@ -824,6 +835,7 @@
 				F48AAD591F87207B00BC8081 /* RealmInterfacing.swift in Sources */,
 				F4E68C1F1FA501AA00EB30D5 /* PetFinderUrlBuilder.swift in Sources */,
 				27E823951E5A4E42009B202A /* CatCell.swift in Sources */,
+				F4B688862031090000F3184E /* CollectionExtensions.swift in Sources */,
 				F46539C71EFF25B10049E7FD /* AnimalSex.swift in Sources */,
 				275D26171E512F5E00FAE334 /* FavoritesListController.swift in Sources */,
 				F43BC69E1F1AA26300E025EB /* AnimalImageLocations.swift in Sources */,

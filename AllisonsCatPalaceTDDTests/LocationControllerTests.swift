@@ -1198,7 +1198,35 @@ class LocationControllerTests: XCTestCase {
                      "The 'any' species selection should correspond to the final segment")
     }
 
+    func testSegueToSearchScene() {
+        loadComponents()
 
+        let destination = AnimalCardsViewController()
+        let segue = UIStoryboardSegue(
+            identifier: SearchWorkflow.SegueIdentifiers.performSearch,
+            source: controller,
+            destination: destination
+        )
+
+        let placemark = SamplePlacemarks.denver
+        let resolution = UserLocationResolution.resolved(location: placemark)
+        controller.transition(to: resolution)
+
+        controller.speciesSelectionControl.selectedSegmentIndex = 1
+
+        controller.prepare(for: segue, sender: controller)
+
+        XCTAssertEqual(
+            destination.searchParameters.zipCode.rawValue,
+            placemark.postalCode,
+            "Segueing to an animal list scene should pass the expected zip code"
+        )
+
+        XCTAssertEqual(
+            destination.searchParameters.species,
+            .dog,
+            "Segueing to an animal list scene should pass the expected species or lack thereof"
+        )
     }
 
 }

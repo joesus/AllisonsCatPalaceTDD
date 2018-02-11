@@ -57,6 +57,20 @@ class LocationController: UIViewController, RealmInjected {
         }
     }
 
+    private var searchParameters: PetFinderSearchParameters? {
+        guard case .resolved(let placemark) = userLocationResolution,
+            let postalCode = placemark.postalCode,
+            let zipCode = ZipCode(rawValue: postalCode)
+            else {
+                return nil
+        }
+
+        return PetFinderSearchParameters(
+            zipCode: zipCode,
+            species: selectedSpecies
+        )
+    }
+
     lazy var locationManager: CLLocationManager = {
         let manager = CLLocationManager()
         manager.delegate = self
@@ -145,6 +159,14 @@ class LocationController: UIViewController, RealmInjected {
 
         if geocoder.isGeocoding {
             geocoder.cancelGeocode()
+        }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == SearchWorkflow.SegueIdentifiers.performSearch,
+            let destination = segue.destination as? AnimalCardsViewController {
+
+            destination.searchParameters = searchParameters
         }
     }
 

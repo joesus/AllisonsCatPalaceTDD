@@ -290,7 +290,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" enabled="NO" title="Search" id="jnF-fG-4yy">
                             <connections>
-                                <segue destination="ZMo-cE-XsX" kind="show" identifier="ShowSearch" id="kGl-95-UZx"/>
+                                <segue destination="ZMo-cE-XsX" kind="show" identifier="PerformSearch" id="kGl-95-UZx"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

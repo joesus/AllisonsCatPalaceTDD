@@ -626,7 +626,9 @@ class LocationControllerTests: XCTestCase {
             "Search button target should be a show segue template"
         )
 
-        guard let template = controller.segueTemplate(identifiedBy: "ShowSearch"),
+        guard let template = controller.segueTemplate(
+            identifiedBy: SearchWorkflow.SegueIdentifiers.performSearch
+            ),
             template.destinationSceneIdentifier == "SearchResultsScene"
             else {
                 return XCTFail("The controller should have a segue to transition to the search results scene")

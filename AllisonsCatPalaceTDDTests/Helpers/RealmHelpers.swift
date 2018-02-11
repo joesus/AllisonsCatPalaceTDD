@@ -17,7 +17,7 @@ extension XCTestCase {
         return try! Realm()
     }
 
-    func reset(_ realm: Realm) {
+    func resetRealm(_ realm: Realm) {
         try? realm.write {
             realm.deleteAll()
         }

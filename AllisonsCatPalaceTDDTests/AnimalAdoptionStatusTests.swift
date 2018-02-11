@@ -18,7 +18,7 @@ class AnimalAdoptionStatusTests: XCTestCase {
         super.setUp()
 
         realm = realmForTest(withName: name!)
-        reset(realm)
+        resetRealm(realm)
     }
 
     func testAllCases() {

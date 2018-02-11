@@ -37,7 +37,7 @@ class LocationControllerTests: XCTestCase {
         super.setUp()
 
         realm = realmForTest(withName: name!)
-        reset(realm)
+        resetRealm(realm)
         InjectionMap.realm = realm
 
         CLLocationManager.beginStubbingLocationServicesEnabled(with: true)
@@ -91,7 +91,7 @@ class LocationControllerTests: XCTestCase {
         CLLocationManager.endStubbingAuthorizationStatus()
         CLLocationManager.endStubbingLocationServicesEnabled()
 
-        reset(realm)
+        resetRealm(realm)
 
         super.tearDown()
     }

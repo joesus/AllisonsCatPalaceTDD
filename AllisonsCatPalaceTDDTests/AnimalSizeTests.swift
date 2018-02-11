@@ -18,7 +18,7 @@ class AnimalSizeTests: XCTestCase {
         super.setUp()
 
         realm = realmForTest(withName: self.name!)
-        reset(realm)
+        resetRealm(realm)
     }
 
     func testCannotCreateAnimalSizeFromEmptyString() {

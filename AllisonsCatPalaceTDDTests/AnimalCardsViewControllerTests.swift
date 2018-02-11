@@ -25,7 +25,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
         ImageProvider.reset()
         realm = realmForTest(withName: name!)
 
-        reset(realm)
+        resetRealm(realm)
 
         guard let vc = UIStoryboard(name: "Main", bundle: Bundle(for: AnimalCardsViewController.self)).instantiateViewController(withIdentifier: "SearchResultsScene") as? AnimalCardsViewController else {
             return XCTFail("Should be able to instantiate animal cards view controller from main storyboard")

@@ -25,7 +25,7 @@ class AnimalGenotypeTests: XCTestCase {
         genotype = sample
 
         realm = realmForTest(withName: name!)
-        reset(realm)
+        resetRealm(realm)
     }
 
     func testGenotypeHasSpecies() {

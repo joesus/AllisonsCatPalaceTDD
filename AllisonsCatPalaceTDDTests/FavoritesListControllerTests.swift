@@ -23,7 +23,7 @@ class FavoritesListControllerTests: XCTestCase {
         super.setUp()
 
         realm = realmForTest(withName: name!)
-        reset(realm)
+        resetRealm(realm)
         InjectionMap.realm = realm
 
         navController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController

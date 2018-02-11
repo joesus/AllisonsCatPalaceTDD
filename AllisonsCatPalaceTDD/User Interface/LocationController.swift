@@ -48,6 +48,15 @@ class LocationController: UIViewController, RealmInjected {
         }
     }
 
+    var selectedSpecies: AnimalSpecies? {
+        switch speciesSelectionControl.selectedSegmentIndex {
+        case 0: return .cat
+        case 1: return .dog
+
+        default: return nil
+        }
+    }
+
     lazy var locationManager: CLLocationManager = {
         let manager = CLLocationManager()
         manager.delegate = self

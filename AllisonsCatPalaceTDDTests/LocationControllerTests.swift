@@ -1160,6 +1160,42 @@ class LocationControllerTests: XCTestCase {
                        "Favorites button should be displayed in the navigation bar if there are favorites")
     }
 
+    func testSceneHasSpeciesSelectionControl() {
+        loadComponents()
+
+        guard let control = controller.speciesSelectionControl,
+            control.numberOfSegments == 3
+            else {
+                return XCTFail("The scene should have a segmented control for selecting the search species")
+        }
+
+        let expectedTitles = ["Cat", "Dog", "Any"]
+        let actualTitles = (0 ..< control.numberOfSegments).flatMap {
+            control.titleForSegment(at: $0)
+        }
+
+        XCTAssertEqual(actualTitles, expectedTitles,
+                       "Species selection control should have the correct titles in the correct order")
+
+        XCTAssertEqual(control.selectedSegmentIndex, 0,
+                       "The first segment should be selected by default")
+    }
+
+    func testSceneIndicatesSpeciesSelection() {
+        loadComponents()
+
+        XCTAssertEqual(controller.selectedSpecies, .cat,
+                       "The cat species should correspond to the first segment")
+
+        controller.speciesSelectionControl.selectedSegmentIndex = 1
+        XCTAssertEqual(controller.selectedSpecies, .dog,
+                       "The dog species should correspond to the second segment")
+
+        controller.speciesSelectionControl.selectedSegmentIndex = 2
+        XCTAssertNil(controller.selectedSpecies,
+                     "The 'any' species selection should correspond to the final segment")
+    }
+
 
     }
 

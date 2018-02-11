@@ -42,6 +42,11 @@ class AnimalCardsViewControllerTests: XCTestCase {
         XCTAssert(controller.animals.isEmpty, "AnimalCardsViewController should have no animals by default")
     }
 
+    func testHasSearchParameters() {
+        XCTAssertNil(scene.searchParameters,
+                     "Scene should not have search parameters by default")
+    }
+
     func testViewDidLoadCallsSuperViewDidLoad() {
         UITableViewController.ViewDidLoadSpyController.createSpy(on: controller)!.spy {
             controller.viewDidLoad()

@@ -37,6 +37,8 @@ class AnimalCardsViewController: UIViewController {
         }
     }
 
+    var searchParameters: PetFinderSearchParameters!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

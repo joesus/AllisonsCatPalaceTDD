@@ -370,6 +370,26 @@ class LocationControllerTests: XCTestCase {
 
     // MARK: - User Initiated Transitions
 
+    func testDenyingLocationPermissionsPrompt() {
+        loadComponents()
+        CLLocationManager.stubbedAuthorizationStatus = .denied
+
+        controller.locationManager(locationManager, didChangeAuthorization: .denied)
+
+        XCTAssertEqual(controller.userLocationResolution, .disallowed,
+                       "User location resolution should transition to disallowed when location permissions are denied")
+    }
+
+    func testAcceptingLocationPermissionsPrompt() {
+        loadComponents()
+        CLLocationManager.stubbedAuthorizationStatus = .authorizedWhenInUse
+
+        controller.locationManager(locationManager, didChangeAuthorization: .authorizedWhenInUse)
+
+        XCTAssertEqual(controller.userLocationResolution, .resolving,
+                       "User location resolution should transition to resolving when location permissions are allowed")
+    }
+
     func testRetryingLocationResolutionAfterFailure() {
         loadComponents()
 

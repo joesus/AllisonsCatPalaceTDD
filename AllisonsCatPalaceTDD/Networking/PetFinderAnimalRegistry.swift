@@ -9,7 +9,6 @@
 import Foundation
 
 protocol AnimalFinding {
-    static var offset: Int { get set }
     static func findAnimals(
         matching: PetFinderSearchParameters,
         cursor: PaginationCursor,
@@ -22,7 +21,6 @@ protocol AnimalFinding {
 }
 
 enum PetFinderAnimalRegistry: AnimalFinding {
-    static var offset = 0
     private static let animalSearchPageSize = 20
 
     static func searchController(

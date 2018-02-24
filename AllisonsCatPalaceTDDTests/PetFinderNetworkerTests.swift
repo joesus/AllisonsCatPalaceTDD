@@ -23,14 +23,12 @@ class PetFinderNetworkerTests: XCTestCase {
         URLSessionTask.beginSpyingOnResume()
         URLSessionTask.beginSpyingOnCancel()
         URLSession.beginSpyingOnDataTaskCreation()
-        SettingsManager.shared.clear()
     }
 
     override func tearDown() {
         URLSessionTask.endSpyingOnResume()
         URLSessionTask.endSpyingOnCancel()
         URLSession.endSpyingOnDataTaskCreation()
-        SettingsManager.shared.clear()
 
         super.tearDown()
     }

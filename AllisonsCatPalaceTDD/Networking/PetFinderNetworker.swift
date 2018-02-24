@@ -15,8 +15,6 @@ enum PetFinderNetworker: AnimalNetworker {
     static var session = URLSession.shared
     static weak var retrieveAllAnimalsTask: URLSessionTask?
 
-    static let desiredNumberOfResults = "20"
-
     static func findAnimals(
         matching parameters: SearchParameters,
         inRange range: PaginationCursor,

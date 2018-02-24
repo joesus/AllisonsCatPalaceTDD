@@ -11,13 +11,13 @@ import XCTest
 
 class PetFinderSearchControllerTests: XCTestCase {
 
-    var context: PetFinderSearchController!
+    var searchController: PetFinderSearchController!
     var indices: [Int]!
 
     override func setUp() {
         super.setUp()
 
-        context = PetFinderSearchController(
+        searchController = PetFinderSearchController(
             with: SampleSearchParameters.minimalSearchOptions,
             pageSize: 3,
             finderProxy: FakeRegistry.self
@@ -33,7 +33,7 @@ class PetFinderSearchControllerTests: XCTestCase {
     }
 
     func testHasNoRetrievedResultsByDefault() {
-        XCTAssertTrue(context.results.isEmpty,
+        XCTAssertTrue(searchController.results.isEmpty,
                       "Context should have no results by default")
     }
 
@@ -43,7 +43,7 @@ class PetFinderSearchControllerTests: XCTestCase {
     }
 
     func testInitiatingSearch() {
-        context.getMoreResults()
+        searchController.getMoreResults()
 
         XCTAssertEqual(FakeRegistry.findAnimalsCallCount, 1,
                        "Getting more results should invoke a search on on the context's finder proxy")
@@ -61,23 +61,23 @@ class PetFinderSearchControllerTests: XCTestCase {
 
     func testGettingFullPageOfResults() {
         let newCats = Array(cats.prefix(3))
-        context.getMoreResults()
+        searchController.getMoreResults()
 
         FakeRegistry.invokeCompletionHandler(with: newCats)
 
-        zip(context.results, newCats).forEach {
+        zip(searchController.results, newCats).forEach {
             guard $0.0 === $0.1 else {
                 return XCTFail("Context animals should match new cats")
             }
         }
         XCTAssertEqual(indices, [0, 1, 2],
                        "Context should provide indices in it's callback")
-        XCTAssertFalse(context.resultsKnownToBeExhausted,
+        XCTAssertFalse(searchController.resultsKnownToBeExhausted,
                        "Context should not make assumptions about future results when a full page is returned")
     }
 
     func testEmptyPageOfResultsDoesNotReturnResultIndices() {
-        context.getMoreResults()
+        searchController.getMoreResults()
 
         FakeRegistry.invokeCompletionHandler(with: [])
 
@@ -86,16 +86,16 @@ class PetFinderSearchControllerTests: XCTestCase {
     }
 
     func testEmptyPageOfResultsEndsSearch() {
-        context.getMoreResults()
+        searchController.getMoreResults()
 
         FakeRegistry.invokeCompletionHandler(with: [])
 
-        XCTAssertTrue(context.resultsKnownToBeExhausted,
+        XCTAssertTrue(searchController.resultsKnownToBeExhausted,
                       "An empty page of results should mark future searches inadvisable")
     }
 
     func testPartialPageOfResultsEndsSearch() {
-        context.getMoreResults()
+        searchController.getMoreResults()
 
         // the page count is 3 so invoking with a single cat represents a partial result set
         FakeRegistry.invokeCompletionHandler(with: [SampleCat])
@@ -107,11 +107,11 @@ class PetFinderSearchControllerTests: XCTestCase {
     func testSubsequentPage() {
         // increments cursor and call count and appends results
         var newCats = Array(cats.prefix(3))
-        context.getMoreResults()
+        searchController.getMoreResults()
         FakeRegistry.invokeCompletionHandler(with: newCats)
 
         newCats = Array(cats[3 ..< 6])
-        context.getMoreResults()
+        searchController.getMoreResults()
         FakeRegistry.invokeCompletionHandler(with: newCats)
 
         XCTAssertEqual(
@@ -123,7 +123,7 @@ class PetFinderSearchControllerTests: XCTestCase {
         XCTAssertEqual(FakeRegistry.findAnimalsCallCount, 2,
                        "Subsequent attempts to get more results should hit the proxy if the search is not ended")
 
-        zip(context.results, cats.prefix(6)).forEach { actual, expected in
+        zip(searchController.results, cats.prefix(6)).forEach { actual, expected in
             guard actual === expected else {
                 return XCTFail("Subsequent searches should append results to previous search results")
             }
@@ -132,10 +132,10 @@ class PetFinderSearchControllerTests: XCTestCase {
 
     func testSubsequentPageWhenSearchIsEnded() {
         // does not increment cursor or call count
-        context.getMoreResults()
+        searchController.getMoreResults()
         FakeRegistry.invokeCompletionHandler(with: [])
 
-        context.getMoreResults()
+        searchController.getMoreResults()
 
         XCTAssertEqual(
             FakeRegistry.capturedPaginationCursor,

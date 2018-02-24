@@ -90,10 +90,13 @@ class LocationController: UIViewController, RealmInjected {
         return CLLocationManager.authorizationStatus() == .notDetermined
     }
 
+    var needsUpdateOnAppearance = true
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureLocationResolutionStack()
+        observeApplicationAppearanceEvents()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -111,7 +114,13 @@ class LocationController: UIViewController, RealmInjected {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        updateUserLocationResolution()
+        handleAppearance()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        handleDisappearance()
     }
 
     func updateUserLocationResolution() {
@@ -278,6 +287,32 @@ class LocationController: UIViewController, RealmInjected {
             fatalError()
         }
 
+    }
+
+    private func observeApplicationAppearanceEvents() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(LocationController.handleDisappearance),
+            name: .UIApplicationDidEnterBackground,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(LocationController.handleAppearance),
+            name: .UIApplicationWillEnterForeground,
+            object: nil
+        )
+    }
+
+    func handleDisappearance() {
+        needsUpdateOnAppearance = true
+    }
+
+    func handleAppearance() {
+        guard needsUpdateOnAppearance else { return }
+
+        needsUpdateOnAppearance = false
+        updateUserLocationResolution()
     }
 }
 

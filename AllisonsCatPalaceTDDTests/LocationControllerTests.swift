@@ -110,8 +110,72 @@ class LocationControllerTests: XCTestCase {
             replaceRootViewController(with: controller)
             controller.viewDidAppear(false)
             XCTAssert(controller.superclassViewDidAppearCalled,
-                      "ViewDidAppear should call viewDidAppear on controller")
+                      "Controller should invoke its superclass implementation of `viewDidAppear(animated:)`")
         }
+    }
+
+    func testViewWillDisappear() {
+        UIViewController.ViewWillDisappearSpyController.createSpy(on: controller)!.spy {
+            replaceRootViewController(with: controller)
+            controller.viewWillDisappear(false)
+            XCTAssert(controller.superclassViewWillDisappearCalled,
+                      "Controller should invoke its superclass implementation of `viewWillDisappear(animated:)`")
+        }
+    }
+
+    func testViewDidDisappear() {
+        UIViewController.ViewDidDisappearSpyController.createSpy(on: controller)!.spy {
+            replaceRootViewController(with: controller)
+            controller.viewDidDisappear(false)
+            XCTAssert(controller.superclassViewDidDisappearCalled,
+                      "Controller should invoke its superclass implementation of `viewDidDisappear(animated:)`")
+        }
+    }
+
+    func testUpdatingOnReappearance() {
+        loadController()
+        loadComponents()
+
+        CLLocationManager.stubbedAuthorizationStatus = .denied
+        controller.viewDidAppear(false)
+
+        // Disappearing will set a flag that causes appearing to update user location resolution
+        controller.viewDidDisappear(false)
+        CLLocationManager.stubbedAuthorizationStatus = .authorizedWhenInUse
+        controller.viewDidAppear(false)
+
+        XCTAssertEqual(controller.userLocationResolution, .resolving,
+                       "Controller should update user location resolution on reappearance")
+
+        controller.transition(to: .disallowed)
+        // entering the foreground does nothing if nothing caused the flag to be set
+        NotificationCenter.default.post(name: .UIApplicationWillEnterForeground, object: nil)
+
+        XCTAssertEqual(controller.userLocationResolution, .disallowed,
+                       "Controller should not transition user location resolution on appearance if it was not previously backgrounded, disappeared, or was not part of the initial appearance")
+    }
+
+    func testUpdatingOnEnteringTheForeground() {
+        loadController()
+        loadComponents()
+
+        CLLocationManager.stubbedAuthorizationStatus = .denied
+        NotificationCenter.default.post(name: .UIApplicationWillEnterForeground, object: nil)
+
+        // Entering the background will set a flag that causes appearing to update user location resolution
+        NotificationCenter.default.post(name: .UIApplicationDidEnterBackground, object: nil)
+        CLLocationManager.stubbedAuthorizationStatus = .authorizedWhenInUse
+        NotificationCenter.default.post(name: .UIApplicationWillEnterForeground, object: nil)
+
+        XCTAssertEqual(controller.userLocationResolution, .resolving,
+                       "Controller should update user location resolution on reappearance")
+
+        controller.transition(to: .disallowed)
+
+        controller.viewDidAppear(false)
+
+        XCTAssertEqual(controller.userLocationResolution, .disallowed,
+                       "Controller should not transition user location resolution on appearance if it was not previously backgrounded, disappeared, or was not part of the initial appearance")
     }
 
     // MARK: Initial User Location Resolution State

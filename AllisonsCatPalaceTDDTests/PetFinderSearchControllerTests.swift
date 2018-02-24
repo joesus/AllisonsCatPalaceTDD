@@ -123,7 +123,7 @@ class PetFinderSearchControllerTests: XCTestCase {
         XCTAssertEqual(FakeRegistry.findAnimalsCallCount, 2,
                        "Subsequent attempts to get more results should hit the proxy if the search is not ended")
 
-        zip(context.results, newCats).forEach { actual, expected in
+        zip(context.results, cats.prefix(6)).forEach { actual, expected in
             guard actual === expected else {
                 return XCTFail("Subsequent searches should append results to previous search results")
             }

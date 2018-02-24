@@ -46,7 +46,7 @@ class PetFinderSearchController {
 
             let priorResultCount = strongSelf.results.count
 
-            strongSelf.results = animals
+            strongSelf.results.append(contentsOf: animals)
             let indices = animals.indices.map { $0.advanced(by: priorResultCount) }
 
             strongSelf.cursor = strongSelf.cursor.nextPage()

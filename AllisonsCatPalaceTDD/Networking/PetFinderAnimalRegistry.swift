@@ -18,6 +18,11 @@ protocol AnimalFinding {
         withIdentifier: Int,
         completion: @escaping (Animal?) -> Void
     )
+
+    static func searchController(
+        for: PetFinderSearchParameters,
+        resultsHandler: @escaping ([Int]) -> Void
+    ) -> PetFinderSearchController
 }
 
 enum PetFinderAnimalRegistry: AnimalFinding {

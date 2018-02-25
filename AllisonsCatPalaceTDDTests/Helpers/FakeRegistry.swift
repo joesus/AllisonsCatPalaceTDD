@@ -16,6 +16,20 @@ class FakeRegistry: AnimalFinding {
     static var capturedPaginationCursor: PaginationCursor?
     private static var capturedCompletionHandler: (([Animal]) -> Void)?
     static var offset: Int = 0
+    static let pageSize = 17
+
+    static func searchController(
+        for searchParameters: PetFinderSearchParameters,
+        resultsHandler: @escaping ([Int]) -> Void
+        ) -> PetFinderSearchController {
+
+        return PetFinderSearchController(
+            with: searchParameters,
+            pageSize: pageSize,
+            finderProxy: self,
+            completion: resultsHandler
+        )
+    }
 
     static func findAnimals(
         matching searchParameters: PetFinderSearchParameters,

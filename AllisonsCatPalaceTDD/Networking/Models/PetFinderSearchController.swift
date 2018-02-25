@@ -10,7 +10,7 @@ import Foundation
 
 class PetFinderSearchController {
 
-    var results = [Animal]()
+    private(set) var results = [Animal]()
     var resultsKnownToBeExhausted = false
     private let finderProxy: AnimalFinding.Type
     private let criteria: PetFinderSearchParameters

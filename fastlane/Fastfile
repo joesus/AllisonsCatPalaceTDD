@@ -12,6 +12,16 @@
 default_platform(:ios)
 
 platform :ios do
+  desc "Run SwiftLint"
+	lane :lint do
+		swiftlint(
+			mode: :lint,                            # SwiftLint mode: :lint (default) or :autocorrect
+			executable: "Pods/SwiftLint/swiftlint", # The SwiftLint binary path (optional). Important if you've installed it via CocoaPods
+			config_file: ".swiftlint.yml",       # The path of the configuration file (optional)
+			ignore_exit_status: false # Allow fastlane to continue even if SwiftLint returns a non-zero exit status
+		)	
+	end
+
   desc "test"
   lane :test do
     scan(

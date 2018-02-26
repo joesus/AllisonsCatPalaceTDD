@@ -6,9 +6,9 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import UIKit
 import Koloda
 import RealmSwift
+import UIKit
 
 class AnimalCardsViewController: UIViewController {
     @IBOutlet fileprivate(set) weak var activityIndicator: UIActivityIndicatorView!
@@ -20,11 +20,11 @@ class AnimalCardsViewController: UIViewController {
             // Kick off all the requests and let the image provider handle them so they're in the cache when they're needed
             animals.forEach { animal in
                 if let midSizeUrl = animal.imageLocations.medium.first {
-                    ImageProvider.getImage(for: midSizeUrl, completion: {_ in})
+                    ImageProvider.getImage(for: midSizeUrl, completion: { _ in })
                 } else if let smallSizeUrl = animal.imageLocations.small.first {
-                    ImageProvider.getImage(for: smallSizeUrl, completion: {_ in})
+                    ImageProvider.getImage(for: smallSizeUrl, completion: { _ in })
                 } else if let largeSizeUrl = animal.imageLocations.large.first {
-                    ImageProvider.getImage(for: largeSizeUrl, completion: {_ in})
+                    ImageProvider.getImage(for: largeSizeUrl, completion: { _ in })
                 }
             }
 

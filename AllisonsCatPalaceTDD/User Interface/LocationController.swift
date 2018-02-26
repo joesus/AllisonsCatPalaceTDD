@@ -6,9 +6,9 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import UIKit
 import CoreLocation
 import RealmSwift
+import UIKit
 
 class LocationController: UIViewController, RealmInjected {
 

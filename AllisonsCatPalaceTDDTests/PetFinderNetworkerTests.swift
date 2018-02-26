@@ -1,3 +1,4 @@
+// swiftlint:disable force_try vertical_parameter_alignment_on_call
 //
 //  PetFinderNetworkerTests.swift
 //  AllisonsCatPalaceTDD
@@ -6,8 +7,8 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import XCTest
 @testable import AllisonsCatPalaceTDD
+import XCTest
 
 class PetFinderNetworkerTests: XCTestCase {
 
@@ -148,7 +149,7 @@ class PetFinderNetworkerTests: XCTestCase {
     }
 
     func testCreatingRetrieveSingleAnimalTask() {
-        PetFinderNetworker.retrieveAnimal(withIdentifier: 2) {_ in}
+        PetFinderNetworker.retrieveAnimal(withIdentifier: 2) { _ in }
 
         guard let task = PetFinderNetworker.session.lastResumedDataTask else {
             return XCTFail("A task should have been created")
@@ -161,10 +162,22 @@ class PetFinderNetworkerTests: XCTestCase {
         XCTAssertEqual(request.httpMethod, "GET", "The request method for retrieving a single animal should be get")
         XCTAssertEqual(request.url?.host, "api.petfinder.com", "The domain should be localhost")
         XCTAssertEqual(request.url?.path, "/pet.get", "The path should be /pet.get")
-        XCTAssertTrue(request.url!.query!.contains("format=json"), "Query: \(request.url!.query!) should specify json format response")
-        XCTAssertTrue(request.url!.query!.contains("output=full"), "Query: \(request.url!.query!) should specify output size")
-        XCTAssertTrue(request.url!.query!.contains("id=2"), "Query: \(request.url!.query!) should contain animal id")
-        XCTAssertTrue(request.url!.query!.contains("key=APIKEY"), "Query: \(request.url!.query!) should contain api key")
+        XCTAssertTrue(
+            request.url!.query!.contains("format=json"),
+            "Query: \(request.url!.query!) should specify json format response"
+        )
+        XCTAssertTrue(
+            request.url!.query!.contains("output=full"),
+            "Query: \(request.url!.query!) should specify output size"
+        )
+        XCTAssertTrue(
+            request.url!.query!.contains("id=2"),
+            "Query: \(request.url!.query!) should contain animal id"
+        )
+        XCTAssertTrue(
+            request.url!.query!.contains("key=APIKEY"),
+            "Query: \(request.url!.query!) should contain api key"
+        )
 
         XCTAssert(task.resumeWasCalled, "task should be started")
 
@@ -195,7 +208,8 @@ class PetFinderNetworkerTests: XCTestCase {
         }
         let handler = PetFinderNetworker.session.capturedCompletionHandler
         handler?(nil, response404, nil)
-        XCTAssertEqual(receivedError?.message, "Animal 1 not found", "missing animal should provide an animal unavailable message")
+        XCTAssertEqual(receivedError?.message, "Animal 1 not found",
+                       "missing animal should provide an animal unavailable message")
     }
 
     func testHandlingMissingDataWithValidResponseForSingleAnimal() {
@@ -208,7 +222,8 @@ class PetFinderNetworkerTests: XCTestCase {
         }
         let handler = PetFinderNetworker.session.capturedCompletionHandler
         handler?(nil, response200(), nil)
-        XCTAssertEqual(receivedError?.message, "Missing Data", "animal retrieval with missing data and success code should fail")
+        XCTAssertEqual(receivedError?.message, "Missing Data",
+                       "animal retrieval with missing data and success code should fail")
     }
 
     func testRetrievingSingleAnimal() {

@@ -7,8 +7,8 @@
 //
 
 @testable import AllisonsCatPalaceTDD
-import XCTest
 import RealmSwift
+import XCTest
 
 class AnimalAdoptionStatusTests: XCTestCase {
 
@@ -51,7 +51,7 @@ class AnimalAdoptionStatusTests: XCTestCase {
     func testCreatingWithGoodStrings() {
         ["A", "H", "P"].forEach { goodString in
             XCTAssertNotNil(AnimalAdoptionStatus(petFinderRawValue: goodString),
-                         "Should create an adoption status from a good string")
+                            "Should create an adoption status from a good string")
         }
     }
 
@@ -61,7 +61,7 @@ class AnimalAdoptionStatusTests: XCTestCase {
         XCTAssertFalse(AnimalAdoptionStatus.onHold.isAdoptable,
                        "On hold status should not be considered adoptable")
         XCTAssertFalse(AnimalAdoptionStatus.pending.isAdoptable,
-                      "Pending status should not be considered adoptable")
+                       "Pending status should not be considered adoptable")
     }
 
     func testManagedObject() {

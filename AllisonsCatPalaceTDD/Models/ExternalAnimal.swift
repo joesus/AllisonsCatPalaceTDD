@@ -24,7 +24,7 @@ enum ExternalAnimalKeys {
     static let photo = "photo"
     static let photoSize = "@size"
     static let elementContentKey = "$t"
-    static let id = "id"
+    static let identifier = "id"
     static let about = "description"
     static let age = "age"
     static let adoptionStatus = "status"

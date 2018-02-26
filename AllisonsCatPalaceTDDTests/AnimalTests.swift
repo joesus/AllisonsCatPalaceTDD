@@ -1,3 +1,4 @@
+// swiftlint:disable function_body_length type_body_length
 //
 //  AnimalTests.swift
 //  AllisonsCatPalaceTDD
@@ -6,9 +7,9 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import XCTest
-import RealmSwift
 @testable import AllisonsCatPalaceTDD
+import RealmSwift
+import XCTest
 
 class AnimalTests: XCTestCase {
 
@@ -274,7 +275,7 @@ class AnimalTests: XCTestCase {
 
         let managed = animal.managedObject
 
-        try! realm.write {
+        try? realm.write {
             realm.add(managed)
         }
 

@@ -71,7 +71,12 @@ class FavoritesListController: UITableViewController, RealmInjected {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCellEditingStyle,
+        forRowAt indexPath: IndexPath
+        ) {
+
         guard let validRealm = realm,
             editingStyle == .delete else {
 

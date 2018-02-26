@@ -60,7 +60,7 @@ final class Animal {
         didSet {
             guard let value = stateCode else { return }
 
-            let range = NSRange(location: 0, length: value.characters.count)
+            let range = NSRange(location: 0, length: value.count)
             let regex = try? NSRegularExpression(pattern: "^[:alpha:]{2}$", options: [])
             guard let matches = regex?.matches(in: value, options: [], range: range),
                 !matches.isEmpty else {

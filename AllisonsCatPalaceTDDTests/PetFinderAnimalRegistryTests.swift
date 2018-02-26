@@ -1,3 +1,4 @@
+// swiftlint:disable force_try line_length
 //
 //  PetFinderAnimalRegistryTests.swift
 //  AllisonsCatPalaceTDD
@@ -6,8 +7,8 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import XCTest
 @testable import AllisonsCatPalaceTDD
+import XCTest
 
 class PetFinderAnimalRegistryTests: XCTestCase {
 

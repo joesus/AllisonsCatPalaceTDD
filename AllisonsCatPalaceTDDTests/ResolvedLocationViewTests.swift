@@ -16,7 +16,6 @@ class ResolvedLocationViewTests: XCTestCase {
     let imageView = UIImageView()
     let label = UILabel()
 
-
     override func setUp() {
         super.setUp()
 

@@ -6,9 +6,9 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import XCTest
-import RealmSwift
 @testable import AllisonsCatPalaceTDD
+import RealmSwift
+import XCTest
 
 class AnimalAgeGroupTests: XCTestCase {
 
@@ -71,7 +71,8 @@ class AnimalAgeGroupTests: XCTestCase {
         let managed = ageGroup.managedObject
         let objectFromManaged = AnimalAgeGroup(managedObject: managed)
 
-        XCTAssertEqual(objectFromManaged?.rawValue, ageGroup.rawValue,
+        XCTAssertEqual(objectFromManaged?.rawValue,
+                       ageGroup.rawValue,
                        "Age group initialized from managed object should have correct value")
     }
 

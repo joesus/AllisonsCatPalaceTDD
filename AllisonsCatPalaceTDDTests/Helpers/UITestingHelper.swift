@@ -1,6 +1,6 @@
-import XCTest
 import FoundationSwagger
 import os
+import XCTest
 
 extension XCTestCase {
 

@@ -44,7 +44,10 @@ enum PetFinderNetworker: AnimalNetworker {
         task.resume()
     }
 
-    private static func handleAnimalsRetrieval(data potentialData: Data?, response: HTTPURLResponse) -> Result<PetFinderResponse> {
+    private static func handleAnimalsRetrieval(
+        data potentialData: Data?,
+        response: HTTPURLResponse
+        ) -> Result<PetFinderResponse> {
 
         switch response.statusCode {
         case 200:
@@ -58,11 +61,14 @@ enum PetFinderNetworker: AnimalNetworker {
         case 404:
             return Result.failure(AnimalNetworkError.missingAnimalService)
         default:
-            fatalError()
+            fatalError("Unexpected status code")
         }
     }
 
-    static func retrieveAnimal(withIdentifier id: Int, completion: @escaping (Result<Response>) -> Void) {
+    static func retrieveAnimal(
+        withIdentifier identifier: Int,
+        completion: @escaping (Result<Response>) -> Void
+        ) {
 
         var components = URLComponents()
         components.scheme = "https"
@@ -74,7 +80,7 @@ enum PetFinderNetworker: AnimalNetworker {
         ]
 
         components.path = "/pet.get"
-        let idQuery = URLQueryItem(name: "id", value: String(id))
+        let idQuery = URLQueryItem(name: "id", value: String(identifier))
         components.queryItems?.append(idQuery)
 
         guard let url = components.url else { return }
@@ -85,13 +91,17 @@ enum PetFinderNetworker: AnimalNetworker {
             if let error = potentialError {
                 return completion(.failure(error))
             } else if let response = potentialResponse as? HTTPURLResponse {
-                completion(handleAnimalRetrieval(for: id, data: potentialData, response: response))
+                completion(handleAnimalRetrieval(for: identifier, data: potentialData, response: response))
             }
         }
         task.resume()
     }
 
-    private static func handleAnimalRetrieval(for identifier: Int, data potentialData: Data?, response: HTTPURLResponse) -> Result<PetFinderResponse> {
+    private static func handleAnimalRetrieval(
+        for identifier: Int,
+        data potentialData: Data?,
+        response: HTTPURLResponse
+        ) -> Result<PetFinderResponse> {
 
         switch response.statusCode {
         case 200:
@@ -105,7 +115,7 @@ enum PetFinderNetworker: AnimalNetworker {
         case 404:
             return Result.failure(AnimalNetworkError.missingAnimal(identifier: identifier))
         default:
-            fatalError()
+            fatalError("Unexpected status code")
         }
     }
 }

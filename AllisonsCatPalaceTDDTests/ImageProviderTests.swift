@@ -6,8 +6,8 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import XCTest
 @testable import AllisonsCatPalaceTDD
+import XCTest
 
 class ImageProviderTests: XCTestCase {
 
@@ -45,7 +45,8 @@ class ImageProviderTests: XCTestCase {
         }
 
         // with the correct url
-        XCTAssertEqual(task.originalRequest?.url, url,
+        XCTAssertEqual(task.originalRequest?.url,
+                       url,
                        "Data task should be created with the image url")
 
         // and gets started
@@ -102,7 +103,10 @@ class ImageProviderTests: XCTestCase {
 
     func testImageForUrlReturnsCachedImage() {
         let response = URLResponse(url: url, mimeType: nil, expectedContentLength: 1, textEncodingName: nil)
-        ImageProvider.cache.storeCachedResponse(CachedURLResponse(response: response, data: imageData!), for: URLRequest(url: url))
+        ImageProvider.cache.storeCachedResponse(
+            CachedURLResponse(response: response, data: imageData!),
+            for: URLRequest(url: url)
+        )
 
         XCTAssertEqual(UIImagePNGRepresentation(ImageProvider.imageForUrl(url)!), imageData,
                        "imageForUrl should return an image if there is a cached image")
@@ -138,7 +142,8 @@ class ImageProviderTests: XCTestCase {
 
         XCTAssertEqual(UIImagePNGRepresentation(receivedImage!), imageData,
                        "Received image should be equal to the image")
-        XCTAssertEqual(response?.data, imageData,
+        XCTAssertEqual(response?.data,
+                       imageData,
                        "Cached request data should equal the image data")
     }
 
@@ -147,7 +152,10 @@ class ImageProviderTests: XCTestCase {
 
         let imageReceivedExpectation = expectation(description: "image received")
 
-        ImageProvider.cache.storeCachedResponse(CachedURLResponse(response: response, data: imageData!), for: URLRequest(url: url))
+        ImageProvider.cache.storeCachedResponse(
+            CachedURLResponse(response: response, data: imageData!),
+            for: URLRequest(url: url)
+        )
 
         ImageProvider.getImage(for: url) { potentialImage in
             self.receivedImage = potentialImage

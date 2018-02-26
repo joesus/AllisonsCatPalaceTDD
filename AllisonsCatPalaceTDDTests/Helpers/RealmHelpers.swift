@@ -1,3 +1,4 @@
+// swiftlint:disable force_try
 //
 //  RealmHelpers.swift
 //  AllisonsCatPalaceTDD
@@ -7,8 +8,8 @@
 //
 
 import Foundation
-import XCTest
 import RealmSwift
+import XCTest
 
 extension XCTestCase {
     func realmForTest(withName name: String) -> Realm {

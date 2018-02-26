@@ -7,13 +7,15 @@
 //
 
 import CoreLocation
-import TestSwagger
 import FoundationSwagger
+import TestSwagger
 
 extension CLLocationManager {
 
     private static let locationServicesEnabledSurrogateString = UUIDKeyString()
-    private static let locationServicesEnabledSurrogateKey = ObjectAssociationKey(locationServicesEnabledSurrogateString)
+    private static let locationServicesEnabledSurrogateKey = ObjectAssociationKey(
+        locationServicesEnabledSurrogateString
+    )
 
     private class var locationServicesEnabledSurrogate: MethodSurrogate? {
         get {
@@ -74,4 +76,3 @@ extension CLLocationManager {
     }
 
 }
-

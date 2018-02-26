@@ -10,7 +10,6 @@ import CoreLocation
 import FoundationSwagger
 import TestSwagger
 
-
 @available(iOS, introduced: 9.0)
 public extension CLLocationManager {
 
@@ -19,7 +18,6 @@ public extension CLLocationManager {
         ObjectAssociationKey(requestLocationCalledKeyString)
     private static let requestLocationCalledReference =
         SpyEvidenceReference(key: requestLocationCalledKey)
-
 
     /// Spy controller for ensuring that a location manager has had `requestLocation` called on it.
     @available(iOS, introduced: 9.0)
@@ -39,12 +37,10 @@ public extension CLLocationManager {
         ] as Set
     }
 
-
     /// Spy method that replaces the true implementation of `requestLocation`
     dynamic public func spy_requestLocation() {
         requestLocationCalled = true
     }
-
 
     /// Indicates whether the `requestLocation` method has been called on this object.
     public final var requestLocationCalled: Bool {

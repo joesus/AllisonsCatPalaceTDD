@@ -14,32 +14,32 @@ class GenotypeBuilderTests: XCTestCase {
 
     func testBuildingWithMissingSpecies() {
         XCTAssertNil(GenotypeBuilder.build(from: SampleExternalGenotypeData.missingSpecies),
-        "Should not build genotype with missing species")
+                     "Should not build genotype with missing species")
     }
 
     func testBuildingWithEmptySpecies() {
         XCTAssertNil(GenotypeBuilder.build(from: SampleExternalGenotypeData.emptySpecies),
-        "Should not build genotype with empty species")
+                     "Should not build genotype with empty species")
     }
 
     func testBuildingWithMissingPurity() {
         XCTAssertNil(GenotypeBuilder.build(from: SampleExternalGenotypeData.missingPurity),
-        "Should not build genotype with missing purity")
+                     "Should not build genotype with missing purity")
     }
 
     func testBuildingWithEmptyPurity() {
         XCTAssertNil(GenotypeBuilder.build(from: SampleExternalGenotypeData.emptyPurity),
-        "Should not build genotype with empty purity")
+                     "Should not build genotype with empty purity")
     }
 
     func testBuildingWithMissingBreedsElement() {
         XCTAssertNil(GenotypeBuilder.build(from: SampleExternalGenotypeData.missingBreedsElement),
-        "Should not build genotype with missing breeds element")
+                     "Should not build genotype with missing breeds element")
     }
 
     func testBuildingWithMissingBreedElement() {
         XCTAssertNil(GenotypeBuilder.build(from: SampleExternalGenotypeData.missingBreedElement),
-        "Should not build genotype with missing breed element")
+                     "Should not build genotype with missing breed element")
     }
 
     // Should it build with an empty list of breeds?
@@ -47,7 +47,7 @@ class GenotypeBuilderTests: XCTestCase {
     // made it not for now but worth considering
     func testBuildingWithEmptyBreedElement() {
         XCTAssertNil(GenotypeBuilder.build(from: SampleExternalGenotypeData.emptyBreedElement),
-        "Should not build genotype with empty breed element")
+                     "Should not build genotype with empty breed element")
     }
 
     func testBuildingMixed() {

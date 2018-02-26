@@ -6,9 +6,9 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import XCTest
-import RealmSwift
 @testable import AllisonsCatPalaceTDD
+import RealmSwift
+import XCTest
 
 class GeneticPurityTests: XCTestCase {
 
@@ -33,7 +33,7 @@ class GeneticPurityTests: XCTestCase {
     func testInitializerWithinValidStrings() {
         ["YES", "NO", "Yes", "No", "", "Blah"].forEach { invalidString in
             XCTAssertNil(GeneticPurity(petFinderRawValue: invalidString),
-                            "Should not create genetic purity from invalid strings")
+                         "Should not create genetic purity from invalid strings")
         }
     }
 
@@ -74,7 +74,7 @@ class GeneticPurityTests: XCTestCase {
         let original = GeneticPurity.mixed
         let managed = original.managedObject
 
-        try! realm.write {
+        try? realm.write {
             realm.add(managed)
         }
 

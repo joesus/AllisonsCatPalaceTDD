@@ -1,12 +1,11 @@
-import TestSwagger
 import FoundationSwagger
+import TestSwagger
 
 extension UIAlertAction: ObjectSpyable {
 
     private static let handlerString = UUIDKeyString()
     private static let handlerKey = ObjectAssociationKey(handlerString)
     private static let handlerReference = SpyEvidenceReference(key: handlerKey)
-
 
     /// Spy controller for manipulating the initialization of an alert action.
     enum InitializerSpyController: SpyController {
@@ -23,7 +22,6 @@ extension UIAlertAction: ObjectSpyable {
         public static let forwardsInvocations = true
     }
 
-
     /// Spy method that replaces the true implementation of `init(title:style:handler:)`
     dynamic class func spy_action(
         title: String?,
@@ -35,7 +33,6 @@ extension UIAlertAction: ObjectSpyable {
         action.handler = handler
         return action
     }
-
 
     /// Provides the handler passed to `init(title:style:handler:)` if available.
     final var handler: ((UIAlertAction) -> Void)? {

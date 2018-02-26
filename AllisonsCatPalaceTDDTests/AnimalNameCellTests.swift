@@ -19,12 +19,17 @@ class CatNameCellTests: XCTestCase {
         super.setUp()
 
         let contents = Bundle(for: CatNameCell.self).loadNibNamed("CatNameCell", owner: nil, options: nil)!
-        let tempCell = contents.first as! CatNameCell
+        guard let tempCell = contents.first as? CatNameCell
+            else {
+                return XCTFail("Nib should contain a cat name cell")
+        }
         tempCell.middleColor = .purple
         label = tempCell.nameLabel // TODO: - figure out why label won't encode/decode
 
-        let data = NSKeyedArchiver.archivedData(withRootObject: tempCell) // encodes cell
-        cell = NSKeyedUnarchiver.unarchiveObject(with: data) as? CatNameCell // decodes cell which calls init(with coder)
+        // encodes cell
+        let data = NSKeyedArchiver.archivedData(withRootObject: tempCell)
+        // decodes cell which calls init(with coder)
+        cell = NSKeyedUnarchiver.unarchiveObject(with: data) as? CatNameCell
 
         gradientLayer = cell.layer as? CAGradientLayer
     }
@@ -36,7 +41,7 @@ class CatNameCellTests: XCTestCase {
 
     func testCellUsesGradientLayer() {
         XCTAssertTrue(cell.layer is CAGradientLayer,
-                       "Cat name cell's layer class is a CAGradientLayer")
+                      "Cat name cell's layer class is a CAGradientLayer")
     }
 
     func testCellHasNameLabel() {
@@ -44,8 +49,11 @@ class CatNameCellTests: XCTestCase {
             return XCTFail("Cell should have a label for displaying a cat's name")
         }
 
-        XCTAssertEqual(label.font.fontDescriptor.fontAttributes[UIFontDescriptorTextStyleAttribute] as! UIFontTextStyle, .title1,
-                       "Name label should be styled with title 1")
+        XCTAssertEqual(
+            label.font.fontDescriptor.fontAttributes[UIFontDescriptorTextStyleAttribute] as? UIFontTextStyle,
+            .title1,
+            "Name label should be styled with title 1"
+        )
         XCTAssertEqual(label.textAlignment, .center,
                        "Name label should be centered aligned")
         XCTAssertEqual(label.numberOfLines, 3,
@@ -69,11 +77,12 @@ class CatNameCellTests: XCTestCase {
         XCTAssertEqual(gradientLayer.endPoint, CGPoint(x: 1, y: 0.5),
                        "Gradient layer should end at right-center")
         XCTAssertNil(gradientLayer.locations,
-                       "Gradient layer should not have locations")
+                     "Gradient layer should not have locations")
     }
 
     func testGradientLayerHasThreeColors() {
-        XCTAssertEqual(gradientLayer.colors?.count, 3,
+        XCTAssertEqual(gradientLayer.colors?.count,
+                       3,
                        "Gradient layer should have three colors")
     }
 }

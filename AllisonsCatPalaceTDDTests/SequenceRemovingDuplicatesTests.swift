@@ -6,8 +6,8 @@
 //  expectedright © 2017 Joesus. All rights reserved.
 //
 
-import XCTest
 @testable import AllisonsCatPalaceTDD
+import XCTest
 
 class SequenceRemovingDuplicatesTests: XCTestCase {
 

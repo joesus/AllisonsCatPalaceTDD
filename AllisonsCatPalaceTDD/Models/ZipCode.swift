@@ -12,7 +12,7 @@ struct ZipCode: RawRepresentable, Equatable {
     let rawValue: String
 
     init?(rawValue: String) {
-        guard rawValue.characters.count == 5,
+        guard rawValue.count == 5,
             CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: rawValue))
             else {
                 return nil

@@ -52,7 +52,7 @@ class AnimalCardViewTests: XCTestCase {
         animalCardView.configure(with: SampleCat)
 
         XCTAssertEqual(animalCardView.imageView.image, #imageLiteral(resourceName: "catOutline"),
-            "Image view should use a default image when configured with no image")
+                       "Image view should use a default image when configured with no image")
     }
 
     func testConfiguringUsesCacheIfAvailable() {
@@ -62,7 +62,10 @@ class AnimalCardViewTests: XCTestCase {
 
         let response = URLResponse(url: url, mimeType: nil, expectedContentLength: 1, textEncodingName: nil)
 
-        ImageProvider.cache.storeCachedResponse(CachedURLResponse(response: response, data: imageData!), for: URLRequest(url: url))
+        ImageProvider.cache.storeCachedResponse(
+            CachedURLResponse(response: response, data: imageData!),
+            for: URLRequest(url: url)
+        )
 
         animalCardView.configure(with: cat)
 
@@ -78,8 +81,9 @@ class AnimalCardViewTests: XCTestCase {
 
         waitForExpectations(timeout: 3, handler: nil)
 
-        XCTAssertNil(URLSession.shared.lastCreatedDataTask, // can assume it's from cache because of no data task
-            "No data task should be created for a cached request")
+        // can assume it's from cache because of no data task
+        XCTAssertNil(URLSession.shared.lastCreatedDataTask,
+                     "No data task should be created for a cached request")
     }
 
     func testConfiguringFetchesFirstMediumImageIfNothingCached() {
@@ -90,7 +94,8 @@ class AnimalCardViewTests: XCTestCase {
         animalCardView.configure(with: cat)
 
         let task = URLSession.shared.lastCreatedDataTask
-        XCTAssertEqual(task?.currentRequest?.url?.absoluteString, "https://www.google.com/medium-cat.png",
+        XCTAssertEqual(task?.currentRequest?.url?.absoluteString,
+                       "https://www.google.com/medium-cat.png",
                        "Configuring should fetch the first medium image if nothing is cached")
     }
 
@@ -102,7 +107,8 @@ class AnimalCardViewTests: XCTestCase {
         animalCardView.configure(with: cat)
 
         let task = URLSession.shared.lastCreatedDataTask
-        XCTAssertEqual(task?.currentRequest?.url?.absoluteString, "https://www.google.com/catSmall.png",
+        XCTAssertEqual(task?.currentRequest?.url?.absoluteString,
+                       "https://www.google.com/catSmall.png",
                        "Configuring should fetch the first small image if no medium image is available")
     }
 
@@ -114,7 +120,8 @@ class AnimalCardViewTests: XCTestCase {
         animalCardView.configure(with: cat)
 
         let task = URLSession.shared.lastCreatedDataTask
-        XCTAssertEqual(task?.currentRequest?.url?.absoluteString, "https://www.google.com/catLarge.png",
+        XCTAssertEqual(task?.currentRequest?.url?.absoluteString,
+                       "https://www.google.com/catLarge.png",
                        "Configuring should fetch the first large image if no medium or small images are available")
     }
 

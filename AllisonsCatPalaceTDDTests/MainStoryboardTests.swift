@@ -6,12 +6,12 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import XCTest
 @testable import AllisonsCatPalaceTDD
+import XCTest
 
 class MainStoryboardTests: XCTestCase {
 
-    let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
     func testInitialViewControllerIsNavigationController() {
         let initialViewController = storyboard.instantiateInitialViewController() as? UINavigationController
@@ -32,11 +32,13 @@ class MainStoryboardTests: XCTestCase {
 
     func testFavoritesListController() {
         let favoritesListController = storyboard.instantiateViewController(withIdentifier: "FavoritesScene")
-        XCTAssert(favoritesListController is FavoritesListController, "Should be able to instantiate FavoritesListController from storyboard")
+        XCTAssert(favoritesListController is FavoritesListController,
+                  "Should be able to instantiate FavoritesListController from storyboard")
     }
 
     func testCatDetailViewController() {
         let catDetailController = storyboard.instantiateViewController(withIdentifier: "CatDetailController")
-        XCTAssert(catDetailController is CatDetailController, "Should be able to instantiate CatDetailController from storyboard")
+        XCTAssert(catDetailController is CatDetailController,
+                  "Should be able to instantiate CatDetailController from storyboard")
     }
 }

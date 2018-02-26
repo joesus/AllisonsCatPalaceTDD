@@ -1,3 +1,4 @@
+// swiftlint:disable force_cast, file_header
 //
 //  FavoritesListControllerTests.swift
 //  AllisonsCatPalaceTDD
@@ -6,10 +7,10 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import XCTest
-import TestableUIKit
-import RealmSwift
 @testable import AllisonsCatPalaceTDD
+import RealmSwift
+import TestableUIKit
+import XCTest
 
 class FavoritesListControllerTests: XCTestCase {
 
@@ -26,18 +27,35 @@ class FavoritesListControllerTests: XCTestCase {
         resetRealm(realm)
         InjectionMap.realm = realm
 
-        navController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController() as! UINavigationController
+        guard let navController = UIStoryboard(
+            name: "Main",
+            bundle: nil
+            ).instantiateInitialViewController() as? UINavigationController
+            else {
+                return XCTFail("Main storyboard should have a navigation controller")
+        }
+
+        self.navController = navController
 
         replaceRootViewController(with: navController) // the main controller for the window is now the navController
 
         URLSessionTask.beginStubbingResume()
 
-        guard let favoritesListController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FavoritesScene") as? FavoritesListController else {
-            return XCTFail("Could not instantiate favorites list controller from main storyboard")
+        guard let favoritesListController = UIStoryboard(
+            name: "Main",
+            bundle: nil
+            ).instantiateViewController(withIdentifier: "FavoritesScene") as? FavoritesListController
+            else {
+                return XCTFail("Could not instantiate favorites list controller from main storyboard")
         }
 
         navController.addChildViewController(favoritesListController)
-        controller = navController.topViewController as! FavoritesListController
+        guard let controller = navController.topViewController as? FavoritesListController
+            else {
+                return XCTFail("Navigation controller's top view controller should be a favorites list controller")
+        }
+
+        self.controller = controller
         tableView = controller.tableView
 
     }
@@ -50,11 +68,13 @@ class FavoritesListControllerTests: XCTestCase {
     }
 
     func testIsTableViewController() {
-        XCTAssert(controller as Any is UITableViewController, "FavoritesListController should be a UITableViewController")
+        XCTAssert(controller as Any is UITableViewController,
+                  "FavoritesListController should be a UITableViewController")
     }
 
     func testHasNoAnimalsByDefault() {
-        XCTAssert(controller.animals.isEmpty, "FavoritesListController should have no animals by default, had: \(controller.animals.count) animals")
+        XCTAssert(controller.animals.isEmpty,
+                  "FavoritesListController should have no animals by default, had: \(controller.animals.count) animals")
     }
 
     func testFetchesDataOnLoad() {
@@ -94,8 +114,10 @@ class FavoritesListControllerTests: XCTestCase {
             XCTAssert(tableView.reloadDataCalled,
                       "TableView should be reloaded when animals are updated")
             // TODO:- get passing for CI
-//            XCTAssert(tableView.reloadDataCalledOnMainThread!,
-//                      "Reload data should be called on the main thread when animals are updated on a background thread")
+//            XCTAssert(
+//                tableView.reloadDataCalledOnMainThread!,
+//                "Reload data should be called on the main thread when animals are updated on a background thread"
+//            )
         }
     }
 
@@ -117,8 +139,10 @@ class FavoritesListControllerTests: XCTestCase {
             }
 
             // TODO:- get passing for CI
-//            XCTAssert(tableView.reloadDataCalledOnMainThread!,
-//                      "Reload data should be called on the main thread when animals are cleared on a background thread")
+//            XCTAssert(
+//                tableView.reloadDataCalledOnMainThread!,
+//                "Reload data should be called on the main thread when animals are cleared on a background thread"
+//            )
         }
     }
 
@@ -140,7 +164,11 @@ class FavoritesListControllerTests: XCTestCase {
         let randomCatIndex = Int(arc4random_uniform(UInt32(controller.animals.count)))
         let randomCatId = controller.animals[randomCatIndex].identifier
 
-        tableView.dataSource?.tableView?(tableView, commit: .delete, forRowAt: IndexPath(row: randomCatIndex, section: 0))
+        tableView.dataSource?.tableView?(
+            tableView,
+            commit: .delete,
+            forRowAt: IndexPath(row: randomCatIndex, section: 0)
+        )
 
         XCTAssertFalse(controller.animals.contains(where: { $0.identifier == randomCatId }),
                        "Animal at corresponding deleted index path should be removed")
@@ -179,8 +207,12 @@ class FavoritesListControllerTests: XCTestCase {
     func testPrepareForSeguePreparesDetailController() {
         controller.animals = [SampleCat]
 
-        guard let destination = UIStoryboard(name: "Main", bundle: Bundle(for: CatDetailController.self)).instantiateViewController(withIdentifier: "CatDetailController") as? CatDetailController else {
-            return XCTFail("Main storyboard should have a cat detail controller scene")
+        guard let destination = UIStoryboard(
+            name: "Main",
+            bundle: Bundle(for: CatDetailController.self)
+            ).instantiateViewController(withIdentifier: "CatDetailController") as? CatDetailController
+            else {
+                return XCTFail("Main storyboard should have a cat detail controller scene")
         }
 
         let segue = UIStoryboardSegue(identifier: "ShowCatDetail", source: controller, destination: destination)
@@ -216,7 +248,10 @@ class FavoritesListControllerTests: XCTestCase {
             }
             XCTAssertEqual(controller.performSegueIdentifier, "ShowCatDetail",
                            "Segue identifier should identify the destination of the segue")
-            //XCTAssertTrue(controller.performSegueSender! is FavoritesListController, "Pushed view controller should be a CatDetailController")
+//            XCTAssertTrue(
+//                controller.performSegueSender! is FavoritesListController,
+//                "Pushed view controller should be a CatDetailController"
+//            )
         }
     }
 

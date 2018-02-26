@@ -1,3 +1,4 @@
+// swiftlint:disable line_length
 //
 //  LocationController.swift
 //  AllisonsCatPalaceTDD
@@ -284,7 +285,7 @@ class LocationController: UIViewController, RealmInjected {
             UIApplication.shared.open(url, options: [:])
 
         default:
-            fatalError()
+            fatalError("Impossible case")
         }
 
     }

@@ -6,8 +6,8 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import XCTest
 @testable import AllisonsCatPalaceTDD
+import XCTest
 
 class SettingsManagerTests: XCTestCase {
 
@@ -41,9 +41,9 @@ class SettingsManagerTests: XCTestCase {
                         "Should be a persistent domain for storing user defaults associated with the bundle identifier")
         manager.clear()
         XCTAssertNil(UserDefaults.standard.persistentDomain(forName: Bundle.main.bundleIdentifier!),
-                        "Should not be a persistent domain for storing user defaults after clearing settings")
+                     "Should not be a persistent domain for storing user defaults after clearing settings")
         XCTAssertNil(manager.value(forKey: .zipCode),
-                        "Clearing defaults should remove stored values")
+                     "Clearing defaults should remove stored values")
     }
 }
 

@@ -1,3 +1,4 @@
+// swiftlint:disable fatal_error_message
 //
 //  AnimalCardsViewController.swift
 //  AllisonsCatPalaceTDD
@@ -95,8 +96,13 @@ extension AnimalCardsViewController: KolodaViewDataSource {
     }
 
     func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
-        guard let animalCardView = Bundle.main.loadNibNamed("AnimalCardView", owner: self, options: nil)?.first as? AnimalCardView else {
-            return UIView()
+        guard let animalCardView = Bundle.main.loadNibNamed(
+            "AnimalCardView",
+            owner: self,
+            options: nil
+            )?.first as? AnimalCardView
+            else {
+                return UIView()
         }
 
         // if the card is the 10th to last card, kick off a new fetch, add the new results to the existing. As long as the offset matches the number being fetched we don't get duplicates.
@@ -121,7 +127,11 @@ extension AnimalCardsViewController: KolodaViewDataSource {
     }
 
     func koloda(_ koloda: KolodaView, viewForCardOverlayAt index: Int) -> OverlayView? {
-        guard let view = Bundle.main.loadNibNamed("SwipeOverlayView", owner: nil, options: nil)?[0] as? OverlayView else {
+        guard let view = Bundle.main.loadNibNamed(
+            "SwipeOverlayView",
+            owner: nil,
+            options: nil
+            )?[0] as? OverlayView else {
             return nil
         }
         view.layer.masksToBounds = true

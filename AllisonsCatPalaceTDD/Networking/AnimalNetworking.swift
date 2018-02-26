@@ -17,5 +17,5 @@ protocol AnimalNetworker {
         inRange: PaginationCursor,
         completion: @escaping (Result<Response>) -> Void
     )
-    static func retrieveAnimal(withIdentifier id: Int, completion: @escaping (Result<Response>) -> Void)
+    static func retrieveAnimal(withIdentifier: Int, completion: @escaping (Result<Response>) -> Void)
 }

@@ -7,8 +7,8 @@
 //
 
 @testable import AllisonsCatPalaceTDD
-import XCTest
 import Koloda
+import XCTest
 
 class SwipeOverlayViewTests: XCTestCase {
     var swipeOverlayView: SwipeOverlayView!

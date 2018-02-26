@@ -6,13 +6,13 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import XCTest
 @testable import AllisonsCatPalaceTDD
+import XCTest
 
 class AppDelegateTests: XCTestCase {
 
     let application = UIApplication.shared
-    var delegate: UIApplicationDelegate!
+    weak var delegate: UIApplicationDelegate!
 
     override func setUp() {
         super.setUp()

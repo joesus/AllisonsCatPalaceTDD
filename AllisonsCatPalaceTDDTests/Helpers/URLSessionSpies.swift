@@ -1,3 +1,4 @@
+// swiftlint:disable identifier_name
 //
 //  URLSessionSpies.swift
 //  AllisonsCatPalaceTDD
@@ -6,25 +7,25 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import Foundation
 @testable import AllisonsCatPalaceTDD
+import Foundation
 
 typealias NetworkTaskCompletionHandler = ((Data?, URLResponse?, Error?) -> Void)
 
-fileprivate let lastResumedDataTaskString = NSUUID().uuidString.cString(using: .utf8)!
-fileprivate let lastResumedDataTaskKey = UnsafeRawPointer(lastResumedDataTaskString)
+private let lastResumedDataTaskString = NSUUID().uuidString.cString(using: .utf8)!
+private let lastResumedDataTaskKey = UnsafeRawPointer(lastResumedDataTaskString)
 
-fileprivate let capturedRequestURLString = NSUUID().uuidString.cString(using: .utf8)!
-fileprivate let capturedRequestURLKey = UnsafeRawPointer(capturedRequestURLString)
+private let capturedRequestURLString = NSUUID().uuidString.cString(using: .utf8)!
+private let capturedRequestURLKey = UnsafeRawPointer(capturedRequestURLString)
 
-fileprivate let capturedRequestString = NSUUID().uuidString.cString(using: .utf8)!
-fileprivate let capturedRequestKey = UnsafeRawPointer(capturedRequestString)
+private let capturedRequestString = NSUUID().uuidString.cString(using: .utf8)!
+private let capturedRequestKey = UnsafeRawPointer(capturedRequestString)
 
-fileprivate let capturedCompletionHandlerString = NSUUID().uuidString.cString(using: .utf8)!
-fileprivate let capturedCompletionHandlerKey = UnsafeRawPointer(capturedCompletionHandlerString)
+private let capturedCompletionHandlerString = NSUUID().uuidString.cString(using: .utf8)!
+private let capturedCompletionHandlerKey = UnsafeRawPointer(capturedCompletionHandlerString)
 
-fileprivate let lastCreatedDataTaskString = NSUUID().uuidString.cString(using: .utf8)!
-fileprivate let lastCreatedDataTaskKey = UnsafeRawPointer(lastCreatedDataTaskString)
+private let lastCreatedDataTaskString = NSUUID().uuidString.cString(using: .utf8)!
+private let lastCreatedDataTaskKey = UnsafeRawPointer(lastCreatedDataTaskString)
 
 extension URLSession {
     var lastResumedDataTask: URLSessionTask? {
@@ -69,19 +70,35 @@ extension URLSession {
 
     var capturedCompletionHandler: NetworkTaskCompletionHandler? {
         get {
-            let storedValue = objc_getAssociatedObject(self, capturedCompletionHandlerKey) as? Box<NetworkTaskCompletionHandler>
+            let storedValue = objc_getAssociatedObject(
+                self,
+                capturedCompletionHandlerKey
+                ) as? Box<NetworkTaskCompletionHandler>
             return storedValue?.unbox()
         }
         set {
             guard let handler = newValue else {
-                return objc_setAssociatedObject(self, capturedCompletionHandlerKey, nil, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                return objc_setAssociatedObject(
+                    self,
+                    capturedCompletionHandlerKey,
+                    nil,
+                    .OBJC_ASSOCIATION_RETAIN_NONATOMIC
+                )
             }
 
-            objc_setAssociatedObject(self, capturedCompletionHandlerKey, Box(handler), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(
+                self,
+                capturedCompletionHandlerKey,
+                Box(handler),
+                .OBJC_ASSOCIATION_RETAIN_NONATOMIC
+            )
         }
     }
 
-    dynamic func _spyDataTaskCreationRequest(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void) -> URLSessionDataTask {
+    dynamic func _spyDataTaskCreationRequest(
+        with request: URLRequest,
+        completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void
+        ) -> URLSessionDataTask {
 
         capturedRequest = request
         capturedCompletionHandler = completionHandler
@@ -94,7 +111,10 @@ extension URLSession {
 
     }
 
-    dynamic func _spyDataTaskCreation(with url: URL, completionHandler: @escaping NetworkTaskCompletionHandler) -> URLSessionDataTask {
+    dynamic func _spyDataTaskCreation(
+        with url: URL,
+        completionHandler: @escaping NetworkTaskCompletionHandler
+        ) -> URLSessionDataTask {
 
         capturedRequestURL = url
         capturedCompletionHandler = completionHandler
@@ -107,25 +127,48 @@ extension URLSession {
     }
 
     class func beginSpyingOnDataTaskCreation() {
-        let originalSelector = #selector(URLSession.dataTask(with:completionHandler:) as (URLSession) -> (URL, @escaping NetworkTaskCompletionHandler) -> URLSessionDataTask)
+        let originalSelector = #selector(
+            URLSession.dataTask(with:completionHandler:)
+                as (URLSession) -> (URL, @escaping NetworkTaskCompletionHandler) -> URLSessionDataTask
+        )
 
-        swapMethods(originalSelector: originalSelector, alternateSelector: #selector(URLSession._spyDataTaskCreation(with:completionHandler:)))
+        swapMethods(
+            originalSelector: originalSelector,
+            alternateSelector: #selector(URLSession._spyDataTaskCreation(with:completionHandler:))
+        )
 
         // The Request Version
-        let originalWithRequestSelector = #selector(URLSession.dataTask(with:completionHandler:) as (URLSession) -> (URLRequest, @escaping NetworkTaskCompletionHandler) -> URLSessionDataTask)
+        let originalWithRequestSelector = #selector(
+            URLSession.dataTask(with:completionHandler:)
+                as (URLSession) -> (URLRequest, @escaping NetworkTaskCompletionHandler) -> URLSessionDataTask
+        )
 
-        swapMethods(originalSelector: originalWithRequestSelector, alternateSelector: #selector(URLSession._spyDataTaskCreationRequest(with:completionHandler:)))
+        swapMethods(
+            originalSelector: originalWithRequestSelector,
+            alternateSelector: #selector(URLSession._spyDataTaskCreationRequest(with:completionHandler:)))
     }
 
     class func endSpyingOnDataTaskCreation() {
-        let originalSelector = #selector(URLSession.dataTask(with:completionHandler:) as (URLSession) -> (URL, @escaping NetworkTaskCompletionHandler) -> URLSessionDataTask)
+        let originalSelector = #selector(
+            URLSession.dataTask(with:completionHandler:)
+                as (URLSession) -> (URL, @escaping NetworkTaskCompletionHandler) -> URLSessionDataTask
+        )
 
-        swapMethods(originalSelector: originalSelector, alternateSelector: #selector(URLSession._spyDataTaskCreation(with:completionHandler:)))
+        swapMethods(
+            originalSelector: originalSelector,
+            alternateSelector: #selector(URLSession._spyDataTaskCreation(with:completionHandler:))
+        )
 
         // The Request Version
-        let originalWithRequestSelector = #selector(URLSession.dataTask(with:completionHandler:) as (URLSession) -> (URLRequest, @escaping NetworkTaskCompletionHandler) -> URLSessionDataTask)
+        let originalWithRequestSelector = #selector(
+            URLSession.dataTask(with:completionHandler:)
+                as (URLSession) -> (URLRequest, @escaping NetworkTaskCompletionHandler) -> URLSessionDataTask
+        )
 
-        swapMethods(originalSelector: originalWithRequestSelector, alternateSelector: #selector(URLSession._spyDataTaskCreationRequest(with:completionHandler:)))
+        swapMethods(
+            originalSelector: originalWithRequestSelector,
+            alternateSelector: #selector(URLSession._spyDataTaskCreationRequest(with:completionHandler:))
+        )
     }
 
     class func swapMethods(originalSelector: Selector, alternateSelector: Selector) {

@@ -33,7 +33,7 @@ final class PetFinderAnimalBuilder: AnimalBuilder {
     private static func buildAnimalFromExternalAnimal(_ json: ExternalAnimal) -> Animal? {
         guard let nameContainer = json[ExternalAnimalKeys.name] as? JsonObject,
             let name = nameContainer[ExternalAnimalKeys.elementContentKey] as? String,
-            let identifierContainer = json[ExternalAnimalKeys.id] as? JsonObject,
+            let identifierContainer = json[ExternalAnimalKeys.identifier] as? JsonObject,
             let identifierString = identifierContainer[ExternalAnimalKeys.elementContentKey] as? String,
             let identifier = Int(identifierString) else {
                 return nil

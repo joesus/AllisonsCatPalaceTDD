@@ -27,6 +27,7 @@ opt_in_rules:
 
 disabled_rules:
   - statement_position
+  - todo
 
 file_header:
   required_pattern: |

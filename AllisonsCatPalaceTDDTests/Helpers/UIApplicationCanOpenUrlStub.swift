@@ -1,5 +1,5 @@
-import TestSwagger
 import FoundationSwagger
+import TestSwagger
 
 extension UIApplication {
 
@@ -27,10 +27,8 @@ extension UIApplication {
     }
 
     dynamic func stub_canOpenUrl(_ url: URL) -> Bool {
-        for (scheme, canOpen) in stubbedCanOpenUrlPermissions {
-            if url.scheme == scheme {
-                return canOpen
-            }
+        for (scheme, canOpen) in stubbedCanOpenUrlPermissions where url.scheme == scheme {
+            return canOpen
         }
 
         return true

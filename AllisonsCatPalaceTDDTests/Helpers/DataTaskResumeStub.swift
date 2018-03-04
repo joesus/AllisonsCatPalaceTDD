@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import TestSwagger
 import FoundationSwagger
+import TestSwagger
 
 extension URLSessionTask {
 

@@ -607,6 +607,7 @@
 				276C618E1E2C062200225CF4 /* Sources */,
 				276C618F1E2C062200225CF4 /* Frameworks */,
 				276C61901E2C062200225CF4 /* Resources */,
+				27BC7EEE204484E20001C9EA /* Lint with Swiftlint */,
 				864ABF7A7ADBD45ACA7E15F3 /* [CP] Embed Pods Frameworks */,
 				4F2DA9DB8157F35D616F85AC /* [CP] Copy Pods Resources */,
 			);
@@ -738,6 +739,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AllisonsCatPalaceTDDTests/Pods-AllisonsCatPalaceTDDTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		27BC7EEE204484E20001C9EA /* Lint with Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Lint with Swiftlint";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/SwiftLint/swiftlint\"";
 		};
 		4F2DA9DB8157F35D616F85AC /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

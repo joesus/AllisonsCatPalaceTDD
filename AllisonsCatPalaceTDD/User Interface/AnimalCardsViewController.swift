@@ -1,3 +1,4 @@
+// swiftlint:disable fatal_error_message
 //
 //  AnimalCardsViewController.swift
 //  AllisonsCatPalaceTDD
@@ -6,9 +7,9 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import UIKit
 import Koloda
 import RealmSwift
+import UIKit
 
 class AnimalCardsViewController: UIViewController {
     @IBOutlet fileprivate(set) weak var activityIndicator: UIActivityIndicatorView!
@@ -20,11 +21,11 @@ class AnimalCardsViewController: UIViewController {
             // Kick off all the requests and let the image provider handle them so they're in the cache when they're needed
             animals.forEach { animal in
                 if let midSizeUrl = animal.imageLocations.medium.first {
-                    ImageProvider.getImage(for: midSizeUrl, completion: {_ in})
+                    ImageProvider.getImage(for: midSizeUrl, completion: { _ in })
                 } else if let smallSizeUrl = animal.imageLocations.small.first {
-                    ImageProvider.getImage(for: smallSizeUrl, completion: {_ in})
+                    ImageProvider.getImage(for: smallSizeUrl, completion: { _ in })
                 } else if let largeSizeUrl = animal.imageLocations.large.first {
-                    ImageProvider.getImage(for: largeSizeUrl, completion: {_ in})
+                    ImageProvider.getImage(for: largeSizeUrl, completion: { _ in })
                 }
             }
 
@@ -95,8 +96,13 @@ extension AnimalCardsViewController: KolodaViewDataSource {
     }
 
     func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
-        guard let animalCardView = Bundle.main.loadNibNamed("AnimalCardView", owner: self, options: nil)?.first as? AnimalCardView else {
-            return UIView()
+        guard let animalCardView = Bundle.main.loadNibNamed(
+            "AnimalCardView",
+            owner: self,
+            options: nil
+            )?.first as? AnimalCardView
+            else {
+                return UIView()
         }
 
         // if the card is the 10th to last card, kick off a new fetch, add the new results to the existing. As long as the offset matches the number being fetched we don't get duplicates.
@@ -121,7 +127,11 @@ extension AnimalCardsViewController: KolodaViewDataSource {
     }
 
     func koloda(_ koloda: KolodaView, viewForCardOverlayAt index: Int) -> OverlayView? {
-        guard let view = Bundle.main.loadNibNamed("SwipeOverlayView", owner: nil, options: nil)?[0] as? OverlayView else {
+        guard let view = Bundle.main.loadNibNamed(
+            "SwipeOverlayView",
+            owner: nil,
+            options: nil
+            )?[0] as? OverlayView else {
             return nil
         }
         view.layer.masksToBounds = true

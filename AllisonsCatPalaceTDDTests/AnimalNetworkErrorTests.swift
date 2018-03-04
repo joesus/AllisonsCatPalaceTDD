@@ -6,8 +6,8 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import XCTest
 @testable import AllisonsCatPalaceTDD
+import XCTest
 
 class AnimalNetworkErrorTests: XCTestCase {
 
@@ -16,10 +16,10 @@ class AnimalNetworkErrorTests: XCTestCase {
     func testAnimalNetworkErrorCases() {
         error = .missingAnimalService
         switch error! {
-            case .missingAnimalService,
-                 .missingAnimal(_),
-                 .missingData:
-                return
+        case .missingAnimalService,
+             .missingAnimal,
+             .missingData:
+            return
         }
     }
 
@@ -38,7 +38,8 @@ class AnimalNetworkErrorTests: XCTestCase {
         error = .missingAnimal(identifier: 15)
         switch error! {
         case .missingAnimal:
-            XCTAssertEqual(error.message, "Animal 15 not found", "message for missingAnimal error should include correct identifier")
+            XCTAssertEqual(error.message, "Animal 15 not found",
+                           "message for missingAnimal error should include correct identifier")
             return
         default:
             XCTFail("error should be a missingAnimal error")

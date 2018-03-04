@@ -1,3 +1,4 @@
+// swiftlint:disable syntactic_sugar
 //
 //  ArrayExtensions.swift
 //  AllisonsCatPalaceTDD

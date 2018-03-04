@@ -6,8 +6,8 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import XCTest
 @testable import AllisonsCatPalaceTDD
+import XCTest
 
 class ResolvingLocationViewTests: XCTestCase {
 
@@ -31,5 +31,5 @@ class ResolvingLocationViewTests: XCTestCase {
         XCTAssertTrue(activityIndicator.isAnimating,
                       "Activity indicator should begin animating when the view is unhidden")
     }
-    
+
 }

@@ -61,7 +61,12 @@ enum ImageProvider {
         task.resume()
     }
 
-    static private func handleSuccessfulResponse(_ response: HTTPURLResponse, for request: URLRequest, data potentialData: Data?, completion: @escaping ImageCompletion) {
+    static private func handleSuccessfulResponse(
+        _ response: HTTPURLResponse,
+        for request: URLRequest,
+        data potentialData: Data?,
+        completion: @escaping ImageCompletion
+        ) {
 
         guard let data = potentialData else {
             return completion(nil)

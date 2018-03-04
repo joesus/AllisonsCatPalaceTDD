@@ -1,3 +1,4 @@
+// swiftlint:disable identifier_name force_cast
 //
 //  URLSessionDataTaskSpies.swift
 //  AllisonsCatPalaceTDD
@@ -6,15 +7,15 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import Foundation
 @testable import AllisonsCatPalaceTDD
+import Foundation
 
 // MARK: - Keys for associated objects
-fileprivate let resumeWasCalledUniqueString = NSUUID().uuidString.cString(using: .utf8)!
-fileprivate let resumeWasCalledKey = UnsafeRawPointer(resumeWasCalledUniqueString)
+private let resumeWasCalledUniqueString = NSUUID().uuidString.cString(using: .utf8)!
+private let resumeWasCalledKey = UnsafeRawPointer(resumeWasCalledUniqueString)
 
-fileprivate let cancelWasCalledString = NSUUID().uuidString.cString(using: .utf8)!
-fileprivate let cancelWasCalledKey = UnsafeRawPointer(cancelWasCalledString)
+private let cancelWasCalledString = NSUUID().uuidString.cString(using: .utf8)!
+private let cancelWasCalledKey = UnsafeRawPointer(cancelWasCalledString)
 
 // MARK: - URLSessionTask extension for spying on resume()
 extension URLSessionTask {
@@ -46,11 +47,17 @@ extension URLSessionTask {
     }
 
     class func beginSpyingOnResume() {
-        swapMethods(originalSelector: #selector(URLSessionTask.resume), alternateSelector: #selector(URLSessionTask._spyResume))
+        swapMethods(
+            originalSelector: #selector(URLSessionTask.resume),
+            alternateSelector: #selector(URLSessionTask._spyResume)
+        )
     }
 
     class func endSpyingOnResume() {
-        swapMethods(originalSelector: #selector(URLSessionTask.resume), alternateSelector: #selector(URLSessionTask._spyResume))
+        swapMethods(
+            originalSelector: #selector(URLSessionTask.resume),
+            alternateSelector: #selector(URLSessionTask._spyResume)
+        )
     }
 
     dynamic func _spyCancel() {
@@ -58,11 +65,17 @@ extension URLSessionTask {
     }
 
     class func beginSpyingOnCancel() {
-        swapMethods(originalSelector: #selector(URLSessionTask.cancel), alternateSelector: #selector(URLSessionTask._spyCancel))
+        swapMethods(
+            originalSelector: #selector(URLSessionTask.cancel),
+            alternateSelector: #selector(URLSessionTask._spyCancel)
+        )
     }
 
     class func endSpyingOnCancel() {
-        swapMethods(originalSelector: #selector(URLSessionTask.cancel), alternateSelector: #selector(URLSessionTask._spyCancel))
+        swapMethods(
+            originalSelector: #selector(URLSessionTask.cancel),
+            alternateSelector: #selector(URLSessionTask._spyCancel)
+        )
     }
 
     class func swapMethods(originalSelector: Selector, alternateSelector: Selector) {

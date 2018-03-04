@@ -1,6 +1,6 @@
 import CoreLocation
-import TestSwagger
 import FoundationSwagger
+import TestSwagger
 
 extension CLLocationManager {
 

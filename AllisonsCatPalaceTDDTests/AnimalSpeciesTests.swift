@@ -6,9 +6,9 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import XCTest
-import RealmSwift
 @testable import AllisonsCatPalaceTDD
+import RealmSwift
+import XCTest
 
 class AnimalSpeciesTests: XCTestCase {
 
@@ -72,7 +72,7 @@ class AnimalSpeciesTests: XCTestCase {
         let original = AnimalSpecies.dog
         let managed = original.managedObject
 
-        try! realm.write {
+        try? realm.write {
             realm.add(managed)
         }
 

@@ -6,8 +6,8 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import Foundation
 @testable import AllisonsCatPalaceTDD
+import Foundation
 
 typealias ExternalGenotype = JsonObject
 

@@ -1,5 +1,5 @@
-import TestSwagger
 import FoundationSwagger
+import TestSwagger
 
 extension UIApplication {
 
@@ -18,7 +18,6 @@ extension UIApplication {
     private static let openUrlCompletionString = UUIDKeyString()
     private static let openUrlCompletionKey = ObjectAssociationKey(openUrlCompletionString)
     private static let openUrlCompletionReference = SpyEvidenceReference(key: openUrlCompletionKey)
-
 
     /// Spy controller for ensuring an instance of `UIApplication` has had `openUrl(_:)` or
     /// `open(_:options:completionHandler:)` called on it.
@@ -55,13 +54,11 @@ extension UIApplication {
         ] as Set
     }
 
-
     /// Spy method that replaces the true implementation of `openUrl(_:)`
     func spy_openUrl(_ url: URL) {
         openUrlCalled = true
         openUrlUrl = url
     }
-
 
     /// Spy method that replaces the true implementation of `open(_:options:completionHandler:)`
     func spy_open(
@@ -76,7 +73,6 @@ extension UIApplication {
         openUrlCompletion = completionHandler
     }
 
-
     /// Indicates whether the `openUrl(_:)` or `open(_:options:completionHandler:)` method
     /// has been called on this object.
     final var openUrlCalled: Bool {
@@ -87,7 +83,6 @@ extension UIApplication {
             saveEvidence(true, with: UIApplication.openUrlCalledReference)
         }
     }
-
 
     /// Provides the URL passed to `openUrl(_:)` or `open(_:options:completionHandler:)`, if called.
     final var openUrlUrl: URL? {
@@ -104,7 +99,6 @@ extension UIApplication {
         }
     }
 
-
     /// Provides the options dictionary passed to `open(_:options:completionHandler:)`, if called.
     final var openUrlOptions: [String: Any]? {
         get {
@@ -119,7 +113,6 @@ extension UIApplication {
             saveEvidence(options, with: reference)
         }
     }
-
 
     /// Provides the completion handler passed to `open(_:options:completionHandler:)`, if called.
     final var openUrlCompletion: ((Bool) -> Void)? {

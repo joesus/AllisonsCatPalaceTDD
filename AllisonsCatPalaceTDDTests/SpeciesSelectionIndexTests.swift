@@ -10,7 +10,7 @@
 import XCTest
 
 class SpeciesSelectionIndexTests: XCTestCase {
-    
+
     func testCatIndex() {
         guard let catIndex = SpeciesSelectionIndex(rawValue: 0) else {
             return XCTFail("Index 0 should map to a known species index")

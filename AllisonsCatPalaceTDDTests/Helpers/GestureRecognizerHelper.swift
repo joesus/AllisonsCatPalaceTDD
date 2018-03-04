@@ -8,8 +8,8 @@
 
 import Foundation
 
-import UIKit
 import Foundation
+import UIKit
 
 extension UIGestureRecognizer {
 
@@ -37,8 +37,7 @@ private extension String {
         guard let selectorString = trimmingCharacters(in: CharacterSet(charactersIn: "()"))
             .components(separatedBy: ", ")
             .map({ $0.components(separatedBy: "=") })
-            .filter({ $0.first ?? "" == "action" })
-            .first?
+            .first(where: { $0.first ?? "" == "action" })?
             .dropFirst()
             .first
             else {

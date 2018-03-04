@@ -7,8 +7,8 @@
 //
 
 @testable import AllisonsCatPalaceTDD
-import TestSwagger
 import TestableUIKit
+import TestSwagger
 import XCTest
 
 class AnimalDetailHeaderViewTests: XCTestCase {
@@ -31,7 +31,10 @@ class AnimalDetailHeaderViewTests: XCTestCase {
 
     func testContainsAView() {
         let bundle = Bundle(for: AnimalDetailHeaderView.self)
-        guard let _ = bundle.loadNibNamed("AnimalDetailHeaderView", owner: AnimalDetailHeaderView().self)?.first as? UIView else {
+        guard bundle.loadNibNamed(
+            "AnimalDetailHeaderView",
+            owner: AnimalDetailHeaderView().self
+            )?.first as? UIView != nil else {
             return XCTFail("Animal detail header view did not contain a UIView")
         }
     }
@@ -55,7 +58,7 @@ class AnimalDetailHeaderViewTests: XCTestCase {
     func testHasImageView() {
         let frame = CGRect(x: 0, y: 0, width: 10, height: 10)
         let header = AnimalDetailHeaderView(frame: frame)
-        guard let _ = header.imageView else {
+        guard header.imageView != nil else {
             return XCTFail("AnimalDetailHeaderView should contain an image view")
         }
     }

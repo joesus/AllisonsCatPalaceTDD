@@ -1,3 +1,4 @@
+// swiftlint:disable identifier_name
 //
 //  SampleCats.swift
 //  AllisonsCatPalaceTDD
@@ -6,8 +7,8 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import Foundation
 @testable import AllisonsCatPalaceTDD
+import Foundation
 
 let SampleCat = Animal(name: "SampleCat", identifier: 1)
 
@@ -80,7 +81,10 @@ enum SampleImageLocations {
     )
 
     static let smallAndLargeOnly = AnimalImageLocations(
-        small: [URL(string: "https://www.google.com/catSmall.png")!, URL(string: "https://www.google.com/catSmall2.png")!],
+        small: [
+            URL(string: "https://www.google.com/catSmall.png")!,
+            URL(string: "https://www.google.com/catSmall2.png")!
+        ],
         medium: [],
         large: [URL(string: "https://www.google.com/catLarge.png")!]
     )
@@ -88,6 +92,9 @@ enum SampleImageLocations {
     static let largeOnly = AnimalImageLocations(
         small: [],
         medium: [],
-        large: [URL(string: "https://www.google.com/catLarge.png")!, URL(string: "https://www.google.com/catLarge2.png")!]
+        large: [
+            URL(string: "https://www.google.com/catLarge.png")!,
+            URL(string: "https://www.google.com/catLarge2.png")!
+        ]
     )
 }

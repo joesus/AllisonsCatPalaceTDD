@@ -1,3 +1,4 @@
+// swiftlint:disable type_body_length file_length force_cast line_length
 //
 //  LocationControllerTests.swift
 //  AllisonsCatPalaceTDD
@@ -7,11 +8,11 @@
 //
 
 @testable import AllisonsCatPalaceTDD
-import TestSwagger
-import TestableUIKit
-import TestableCoreLocation
 import CoreLocation
 import RealmSwift
+import TestableCoreLocation
+import TestableUIKit
+import TestSwagger
 import XCTest
 
 class LocationControllerTests: XCTestCase {
@@ -504,16 +505,16 @@ class LocationControllerTests: XCTestCase {
         controller.continueLocationResolution()
 
         XCTAssertTrue(controller.resolvingLocationView.isHidden,
-                       "Resolving location view should be hidden after retrying location when location unavailable")
+                      "Resolving location view should be hidden after retrying location when location unavailable")
         XCTAssertTrue(controller.resolvedLocationView.isHidden,
                       "Resolved location view should be hidden after retrying location when location unavailable")
         XCTAssertFalse(controller.actionableMessageView.isHidden,
-                      "Actionable message view should not be hidden after retrying location when location unavailable")
+                       "Actionable message view should not be hidden after retrying location when location unavailable")
 
         XCTAssertFalse(locationManager.requestWhenInUseAuthorizationCalled,
                        "Location manager should request not request authorization")
         XCTAssertFalse(locationManager.requestLocationCalled,
-                      "Should not request location")
+                       "Should not request location")
     }
 
     // MARK: - Default View Configurations
@@ -844,7 +845,7 @@ class LocationControllerTests: XCTestCase {
         }
     }
 
-    // MARK:- State Transition Consequences
+    // MARK: - State Transition Consequences
 
     func testTransitioningFromUnknownToDisallowed() {
         CLLocationManager.stubbedAuthorizationStatus = .notDetermined
@@ -1074,7 +1075,7 @@ class LocationControllerTests: XCTestCase {
                        "Prompt should be correct")
     }
 
-    // MARK:- Requesting Location
+    // MARK: - Requesting Location
 
     func testControllerIsLocationManagerDelegate() {
         loadComponents()
@@ -1083,7 +1084,7 @@ class LocationControllerTests: XCTestCase {
                       "Controller should be the location manager's delegate")
     }
 
-    // MARK:- Geocoding
+    // MARK: - Geocoding
 
     func testGeocoderIsCalledOnLocationReceipt() {
         loadComponents()
@@ -1165,7 +1166,7 @@ class LocationControllerTests: XCTestCase {
         geocoder.endStubbingIsGeocoding()
     }
 
-    // MARK:- Favorites Button
+    // MARK: - Favorites Button
 
     func testFavoritesButtonWithSavedFavorites() {
         addCatsToRealm()
@@ -1317,7 +1318,7 @@ extension UserLocationResolution: Equatable {
              (.resolving, .resolving):
             return true
 
-        case (.resolutionFailure(_), .resolutionFailure(_)):
+        case (.resolutionFailure, .resolutionFailure):
             return true
 
         case (.resolved(let leftPlacemark), .resolved(let rightPlacemark)):

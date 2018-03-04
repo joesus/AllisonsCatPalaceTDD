@@ -1,3 +1,4 @@
+// swiftlint:disable identifier_name
 //
 //  UIViewControllerSpies.swift
 //  AllisonsCatPalaceTDD
@@ -8,8 +9,8 @@
 
 import UIKit
 
-fileprivate let viewDidLoadString = NSUUID().uuidString.cString(using: .utf8)!
-fileprivate let viewDidLoadKey = UnsafeRawPointer(viewDidLoadString)
+private let viewDidLoadString = NSUUID().uuidString.cString(using: .utf8)!
+private let viewDidLoadKey = UnsafeRawPointer(viewDidLoadString)
 
 extension UIViewController {
     var viewDidLoadWasCalled: Bool {

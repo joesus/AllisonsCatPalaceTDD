@@ -1,3 +1,5 @@
+// swiftlint:disable force_cast variable_name
+
 import UIKit
 
 class SegueTemplate: NSObject {

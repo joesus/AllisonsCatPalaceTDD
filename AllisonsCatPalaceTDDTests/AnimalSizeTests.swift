@@ -6,9 +6,9 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import XCTest
-import RealmSwift
 @testable import AllisonsCatPalaceTDD
+import RealmSwift
+import XCTest
 
 class AnimalSizeTests: XCTestCase {
 
@@ -88,7 +88,7 @@ class AnimalSizeTests: XCTestCase {
     }
 
     func testSavingManagedObject() {
-        try! realm.write {
+        try? realm.write {
             realm.add(AnimalSize.large.managedObject)
         }
 

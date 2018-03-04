@@ -6,9 +6,9 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import XCTest
-import TestableUIKit
 @testable import AllisonsCatPalaceTDD
+import TestableUIKit
+import XCTest
 
 class CatDetailViewControllerTests: XCTestCase {
 
@@ -18,7 +18,15 @@ class CatDetailViewControllerTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CatDetailController") as! CatDetailController
+        guard let controller = UIStoryboard(
+            name: "Main",
+            bundle: nil
+            ).instantiateViewController(withIdentifier: "CatDetailController") as? CatDetailController
+            else {
+                return XCTFail("Main storyboard should be able to dequeue a detail controller")
+        }
+
+        self.controller = controller
         header = controller.tableView.tableHeaderView as? AnimalDetailHeaderView
     }
 
@@ -41,9 +49,11 @@ class CatDetailViewControllerTests: XCTestCase {
         controller.cat = cats[0]
         UITableView.ReloadDataSpyController.createSpy(on: controller.tableView)!.spy {
             controller.cat = nil
-            XCTAssertFalse(controller.tableView.reloadDataCalled, "Reload data should not be called when change to cat is blocked")
+            XCTAssertFalse(controller.tableView.reloadDataCalled,
+                           "Reload data should not be called when change to cat is blocked")
             controller.cat = cats[1]
-            XCTAssertFalse(controller.tableView.reloadDataCalled, "Reload data should not be called when change to cat is blocked")
+            XCTAssertFalse(controller.tableView.reloadDataCalled,
+                           "Reload data should not be called when change to cat is blocked")
         }
     }
 
@@ -157,6 +167,6 @@ class CatDetailViewControllerTests: XCTestCase {
         controller.viewDidLoad()
 
         XCTAssertFalse(controller.headerView.animal === controller.cat,
-                      "Controller should not pass animal to header view if header view already has an animal")
+                       "Controller should not pass animal to header view if header view already has an animal")
     }
 }

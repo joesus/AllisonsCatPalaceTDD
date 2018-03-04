@@ -18,7 +18,7 @@ enum SamplePlacemarks {
             let placemark = NSKeyedUnarchiver.unarchiveObject(withFile: url.path)
                 as? CLPlacemark
             else {
-                fatalError()
+                fatalError("A sample placemark is required")
         }
 
         return placemark

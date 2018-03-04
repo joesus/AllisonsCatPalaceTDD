@@ -1,5 +1,5 @@
-import UIKit
 import Koloda
+import UIKit
 
 class SwipeOverlayView: OverlayView {
 

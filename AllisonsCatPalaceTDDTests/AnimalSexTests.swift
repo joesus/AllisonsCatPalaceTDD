@@ -6,9 +6,9 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import XCTest
-import RealmSwift
 @testable import AllisonsCatPalaceTDD
+import RealmSwift
+import XCTest
 
 class AnimalSexTests: XCTestCase {
 
@@ -23,11 +23,11 @@ class AnimalSexTests: XCTestCase {
 
     func testCannotCreateAnimalSexFromEmptyString() {
         XCTAssertEqual(AnimalSex(petFinderRawValue: ""), .unknown,
-                     "Empty string should default to unknown value")
+                       "Empty string should default to unknown value")
     }
 
     func testAnimalSexInitializerWithSingleCharacter() {
-        let characters = Array("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".characters)
+        let characters = Array("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
 
         let validCharacters = ["M", "F"]
         characters.forEach { character in
@@ -36,7 +36,7 @@ class AnimalSexTests: XCTestCase {
                                 "\(character) should create an animal sex")
             } else {
                 XCTAssertEqual(AnimalSex(petFinderRawValue: String(character)), .unknown,
-                             "\(character) should default to unknown")
+                               "\(character) should default to unknown")
             }
         }
     }
@@ -84,7 +84,7 @@ class AnimalSexTests: XCTestCase {
         let sex = AnimalSex.male
         let managed = sex.managedObject
 
-        try! realm.write {
+        try? realm.write {
             realm.add(managed)
         }
 

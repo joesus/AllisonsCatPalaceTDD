@@ -7,8 +7,8 @@
 //
 
 import CoreLocation
-import TestSwagger
 import FoundationSwagger
+import TestSwagger
 
 extension CLGeocoder {
 
@@ -74,4 +74,3 @@ extension CLGeocoder {
     }
 
 }
-

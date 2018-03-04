@@ -6,8 +6,8 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import XCTest
 @testable import AllisonsCatPalaceTDD
+import XCTest
 
 class AnimalBuilderTests: XCTestCase {
 
@@ -63,9 +63,12 @@ class AnimalBuilderTests: XCTestCase {
     // Partial Data (with Id)
     func testBuildingAnimalWithMissingName() {
         let externalData = SampleExternalAnimalData.wrap(animal: SampleExternalAnimalData.missingName)
-        let animalData = try! JSONSerialization.data(withJSONObject: externalData, options: [])
-        let response = try! JSONSerialization.jsonObject(with: animalData, options: []) as! PetFinderResponse
-        let animal = PetFinderAnimalBuilder.buildAnimal(from: response)
+        guard let animalData = try? JSONSerialization.data(withJSONObject: externalData, options: []),
+            let response = try? JSONSerialization.jsonObject(with: animalData, options: []) as? PetFinderResponse
+            else {
+                return XCTFail("Should be able to serialize external data and convert it to a pet finder response")
+        }
+        let animal = PetFinderAnimalBuilder.buildAnimal(from: response!)
         XCTAssertNil(animal, "Should not create animal if name is missing")
     }
 
@@ -90,7 +93,8 @@ class AnimalBuilderTests: XCTestCase {
     func testBuildingAnimalFromExternalAnimalWithSpecificGender() {
         var externalData = SampleExternalAnimalData.wrap(animal: SampleExternalAnimalData.neutered)
         var animal = PetFinderAnimalBuilder.buildAnimal(from: externalData)!
-        XCTAssertEqual(animal.sex, .unknown, "Only 'male' and 'female' should return known sexes, otherwise should return unknown")
+        XCTAssertEqual(animal.sex, .unknown,
+                       "Only 'male' and 'female' should return known sexes, otherwise should return unknown")
 
         externalData = SampleExternalAnimalData.wrap(animal: SampleExternalAnimalData.male)
         animal = PetFinderAnimalBuilder.buildAnimal(from: externalData)!
@@ -206,7 +210,9 @@ class AnimalBuilderTests: XCTestCase {
         XCTAssertEqual(animal.adoptionStatus, .adoptable, "Builder should set adoptability from valid data")
         XCTAssertEqual(animal.genotype?.species, .cat, "Builder should set species correctly")
         XCTAssertEqual(animal.genotype?.purity, .mixed, "Builder should set genetic purity correctly")
-        XCTAssertEqual(animal.genotype?.breeds ?? [], ["Domestic Short Hair (Black & White)", "Tabby (Orange)"], "Builder should set breeds correctly")
+        XCTAssertEqual(animal.genotype?.breeds ?? [],
+                       ["Domestic Short Hair (Black & White)", "Tabby (Orange)"],
+                       "Builder should set breeds correctly")
     }
 
 }

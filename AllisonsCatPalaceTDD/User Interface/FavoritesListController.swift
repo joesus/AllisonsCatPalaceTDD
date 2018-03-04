@@ -6,8 +6,8 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import UIKit
 import RealmSwift
+import UIKit
 
 class FavoritesListController: UITableViewController, RealmInjected {
     var animals = [Animal]() {
@@ -24,7 +24,7 @@ class FavoritesListController: UITableViewController, RealmInjected {
         guard let realm = realm else { return }
 
         animals = realm.objects(AnimalObject.self).flatMap { animalObject in
-            return Animal(managedObject: animalObject)
+            Animal(managedObject: animalObject)
         }
 
     }
@@ -71,7 +71,12 @@ class FavoritesListController: UITableViewController, RealmInjected {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCellEditingStyle,
+        forRowAt indexPath: IndexPath
+        ) {
+
         guard let validRealm = realm,
             editingStyle == .delete else {
 

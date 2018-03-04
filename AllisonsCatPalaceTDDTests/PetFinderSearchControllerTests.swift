@@ -39,7 +39,7 @@ class PetFinderSearchControllerTests: XCTestCase {
 
     func testResultsNotKnownToBeExhaustedByDefault() {
         XCTAssertFalse(context.resultsKnownToBeExhausted,
-                      "Context should assume more available results by default")
+                       "Context should assume more available results by default")
     }
 
     func testInitiatingSearch() {
@@ -101,7 +101,7 @@ class PetFinderSearchControllerTests: XCTestCase {
         FakeRegistry.invokeCompletionHandler(with: [SampleCat])
 
         XCTAssertTrue(context.resultsKnownToBeExhausted,
-                       "A partial page of results should mark future searches inadvisable")
+                      "A partial page of results should mark future searches inadvisable")
     }
 
     func testSubsequentPage() {

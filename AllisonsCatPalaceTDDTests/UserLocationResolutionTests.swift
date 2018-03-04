@@ -6,9 +6,9 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import XCTest
-import CoreLocation
 @testable import AllisonsCatPalaceTDD
+import CoreLocation
+import XCTest
 
 class UserLocationResolutionTests: XCTestCase {
 

@@ -13,6 +13,6 @@ enum UserLocationResolution {
     case allowed
     case disallowed
     case resolving
-    case resolved(location: CLPlacemark)
     case resolutionFailure(error: Error)
+    case resolved(zipCode: ZipCode, city: String?, state: String?)
 }

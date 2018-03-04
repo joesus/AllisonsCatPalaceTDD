@@ -59,11 +59,8 @@ class LocationController: UIViewController, RealmInjected {
     }
 
     private var searchParameters: PetFinderSearchParameters? {
-        guard case .resolved(let placemark) = userLocationResolution,
-            let postalCode = placemark.postalCode,
-            let zipCode = ZipCode(rawValue: postalCode)
-            else {
-                return nil
+        guard case .resolved(let zipCode, _, _) = userLocationResolution else {
+            return nil
         }
 
         return PetFinderSearchParameters(
@@ -251,12 +248,14 @@ class LocationController: UIViewController, RealmInjected {
     }
 
     private func configureResolvedLocationView() {
-        guard case .resolved(let location) = userLocationResolution else { return }
+        guard case let .resolved(zipCode, city, state) = userLocationResolution else { return }
 
         resolvedLocationView.configure(
-            city: location.locality,
-            state: location.administrativeArea,
-            zip: location.postalCode
+            locationName: ResolvedLocationView.SimplifiedLocationName(
+                zipCode: zipCode,
+                city: city,
+                state: state
+            )
         )
     }
 

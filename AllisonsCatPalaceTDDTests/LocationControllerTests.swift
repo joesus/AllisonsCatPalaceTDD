@@ -24,15 +24,15 @@ class LocationControllerTests: XCTestCase {
     var performSegueSpy: Spy?
     var openURLSpy: Spy?
     var navController: UINavigationController!
-    var placemark: MutablePlacemark = {
-        let mark = MutablePlacemark()
-        mark.postalCode = "80220"
-        return mark
-    }()
     var realm: Realm!
     var locationManager: CLLocationManager!
     var requestAuthorizationSpy: Spy?
     var requestLocationSpy: Spy?
+    let resolvedUserLocation = UserLocationResolution.resolved(
+        zipCode: SampleSearchParameters.zipCode,
+        city: nil,
+        state: "CO"
+    )
 
     override func setUp() {
         super.setUp()
@@ -385,7 +385,11 @@ class LocationControllerTests: XCTestCase {
 
     func testUserLocationResolutionRemainsResolved() {
         loadComponents()
-        let resolution = UserLocationResolution.resolved(location: SamplePlacemarks.denver)
+        let resolution = UserLocationResolution.resolved(
+            zipCode: SampleSearchParameters.zipCode,
+            city: nil,
+            state: nil
+        )
 
         controller.transition(to: resolution)
 
@@ -478,7 +482,7 @@ class LocationControllerTests: XCTestCase {
     func testRetryingLocationResolutionWithResolvedLocation() {
         loadComponents()
 
-        controller.transition(to: .resolved(location: SamplePlacemarks.denver))
+        controller.transition(to: resolvedUserLocation)
 
         controller.continueLocationResolution()
 
@@ -498,7 +502,7 @@ class LocationControllerTests: XCTestCase {
     func testRetryingLocationResolutionWithResolvedLocationWhenLocationUnavailable() {
         loadComponents()
 
-        controller.transition(to: .resolved(location: SamplePlacemarks.denver))
+        controller.transition(to: resolvedUserLocation)
 
         CLLocationManager.stubbedLocationServicesEnabled = false
 
@@ -793,7 +797,7 @@ class LocationControllerTests: XCTestCase {
 
     func testViewConfigurationForSuccessfulLocationResolution() {
         loadComponents()
-        controller.transition(to: .resolved(location: SamplePlacemarks.denver))
+        controller.transition(to: resolvedUserLocation)
 
         XCTAssertTrue(controller.resolvingLocationView.isHidden,
                       "Resolving location view should be hidden with a resolved location")
@@ -802,7 +806,7 @@ class LocationControllerTests: XCTestCase {
         XCTAssertTrue(controller.actionableMessageView.isHidden,
                       "Actionable message view should be hidden with a resolved location")
 
-        XCTAssertEqual(controller.resolvedLocationView.label.text, "Denver, CO",
+        XCTAssertEqual(controller.resolvedLocationView.label.text, "80202 (CO)",
                        "Resolving location label should be configured correctly for resolving resolution")
     }
 
@@ -996,7 +1000,7 @@ class LocationControllerTests: XCTestCase {
         XCTAssertEqual(controller.userLocationResolution, .resolving,
                        "User location resolution should be resolving when appearing as allowed")
 
-        controller.transition(to: .resolved(location: SamplePlacemarks.denver))
+        controller.transition(to: resolvedUserLocation)
 
         XCTAssertTrue(searchButton.isEnabled,
                       "Search button should be enabled when the user has a resolved location")
@@ -1144,8 +1148,8 @@ class LocationControllerTests: XCTestCase {
 
         XCTAssertEqual(
             controller.userLocationResolution,
-            .resolved(location: SamplePlacemarks.denver),
-            "Successful geocoding should update user location resolution with the first available placemark"
+            resolvedUserLocation,
+            "Successful geocoding should update user location resolution with the zip code from the first available placemark"
         )
         XCTAssertTrue(searchButton.isEnabled,
                       "Search button should be enabled if there is a resolved location")
@@ -1274,8 +1278,7 @@ class LocationControllerTests: XCTestCase {
         )
 
         let placemark = SamplePlacemarks.denver
-        let resolution = UserLocationResolution.resolved(location: placemark)
-        controller.transition(to: resolution)
+        controller.transition(to: resolvedUserLocation)
 
         controller.speciesSelectionControl.selectedSegmentIndex = 1
 
@@ -1308,6 +1311,7 @@ extension LocationControllerTests {
                        "Correct number of animals should be persisted", file: file, line: line)
     }
 }
+
 extension UserLocationResolution: Equatable {
 
     public static func == (lhs: UserLocationResolution, rhs: UserLocationResolution) -> Bool {
@@ -1321,8 +1325,8 @@ extension UserLocationResolution: Equatable {
         case (.resolutionFailure, .resolutionFailure):
             return true
 
-        case (.resolved(let leftPlacemark), .resolved(let rightPlacemark)):
-            return leftPlacemark == rightPlacemark
+        case (.resolved(let leftZipCode, _, _), .resolved(let rightZipCode, _, _)):
+            return leftZipCode == rightZipCode
 
         default:
             return false

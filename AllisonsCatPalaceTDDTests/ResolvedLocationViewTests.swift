@@ -27,31 +27,29 @@ class ResolvedLocationViewTests: XCTestCase {
         typealias DisplayableLocation = (
             city: String?,
             state: String?,
-            zip: String?
+            zip: ZipCode
         )
         typealias DisplayedLocation = (location: DisplayableLocation, displayedValue: String)
 
         let city = "Denver".displayableString!
         let state = "Colorado".displayableString!
-        let zip = "80220".displayableString!
+        let zip = ZipCode(rawValue: "80220")!
 
         let testValues: [DisplayedLocation] = [
-            ((city, nil, nil), city),
             ((city, state, zip), "\(city), \(state)"),
-            ((city, state, nil), "\(city), \(state)"),
-            ((city, nil, zip), "\(zip) (\(city))"),
-            ((nil, state, zip), "\(zip) (\(state))"),
-            ((nil, state, nil), state),
-            ((nil, nil, zip), zip),
-            ((nil, nil, nil), "Location Unknown")
+            ((city, nil, zip), "\(zip.rawValue) (\(city))"),
+            ((nil, state, zip), "\(zip.rawValue) (\(state))"),
+            ((nil, nil, zip), zip.rawValue)
         ]
 
         testValues.forEach { value in
-            view.configure(
+            let name = ResolvedLocationView.SimplifiedLocationName(
+                zipCode: value.location.zip,
                 city: value.location.city,
-                state: value.location.state,
-                zip: value.location.zip
+                state: value.location.state
             )
+
+            view.configure(locationName: name)
 
             XCTAssertEqual(label.text, value.displayedValue,
                            "Resolved location view's label should have different value depending on the input")

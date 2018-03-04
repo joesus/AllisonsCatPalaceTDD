@@ -18,8 +18,8 @@ class UserLocationResolutionTests: XCTestCase {
             .allowed,
             .disallowed,
             .resolving,
-            .resolutionFailure(error: SampleError())
             .resolved(zipCode: SampleSearchParameters.zipCode, city: nil, state: nil),
+            .resolutionFailure(error: .unknownError)
          ]
 
         possibleValues.forEach { value in

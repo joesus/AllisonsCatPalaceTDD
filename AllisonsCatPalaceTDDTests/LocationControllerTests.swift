@@ -402,8 +402,7 @@ class LocationControllerTests: XCTestCase {
     func testTransitionsFromFailureToDisallowedForLocationServicesUnavailable() {
         loadComponents()
 
-        let error = SampleError()
-        controller.transition(to: .resolutionFailure(error: error))
+        controller.transition(to: .resolutionFailure(error: .unknownError))
 
         CLLocationManager.stubbedLocationServicesEnabled = false
 
@@ -416,7 +415,7 @@ class LocationControllerTests: XCTestCase {
     func testTransitionsFromFailureToDisallowedForLocationPermissionsDenied() {
         loadComponents()
 
-        controller.transition(to: .resolutionFailure(error: SampleError()))
+        controller.transition(to: .resolutionFailure(error: .unknownError))
 
         CLLocationManager.stubbedAuthorizationStatus = .denied
 
@@ -429,7 +428,7 @@ class LocationControllerTests: XCTestCase {
     func testTransitionsFromFailureToResolvingWhenLocationAvailable() {
         loadComponents()
 
-        controller.transition(to: .resolutionFailure(error: SampleError()))
+        controller.transition(to: .resolutionFailure(error: .unknownError))
 
         controller.viewDidAppear(false)
 
@@ -462,7 +461,7 @@ class LocationControllerTests: XCTestCase {
     func testRetryingLocationResolutionAfterFailure() {
         loadComponents()
 
-        controller.transition(to: .resolutionFailure(error: SampleError()))
+        controller.transition(to: .resolutionFailure(error: .unknownError))
 
         controller.continueLocationResolution() // same as tapping the actionable message view's button
 
@@ -1021,7 +1020,7 @@ class LocationControllerTests: XCTestCase {
     func testTransitioningFromFailureToDisallowed() {
         loadComponents()
 
-        controller.transition(to: .resolutionFailure(error: SampleError()))
+        controller.transition(to: .resolutionFailure(error: .unknownError))
 
         CLLocationManager.stubbedLocationServicesEnabled = false
 
@@ -1046,7 +1045,7 @@ class LocationControllerTests: XCTestCase {
     func testTransitioningFromFailureToResolving() {
         loadComponents()
 
-        controller.transition(to: .resolutionFailure(error: SampleError()))
+        controller.transition(to: .resolutionFailure(error: .unknownError))
 
         controller.viewDidAppear(false)
 
@@ -1121,18 +1120,64 @@ class LocationControllerTests: XCTestCase {
             return XCTFail("Geocoder should be called with the last location received")
         }
 
-        handler(nil, LocationResolutionError.noLocationsFound)
+        handler(nil, SampleError())
 
         XCTAssertEqual(
             controller.userLocationResolution,
-            .resolutionFailure(error: LocationResolutionError.noLocationsFound),
+            .resolutionFailure(error: .unknownError),
             "Failure to geocode should update user location resolution"
         )
         XCTAssertFalse(searchButton.isEnabled,
                        "Search button should not be enabled if there is no resolved location")
     }
 
-    func testSuccessfulGeocoding() {
+    func testSuccessfulGeocodingWithMissingPostalCode() {
+        loadComponents()
+
+        controller.locationManager(
+            locationManager,
+            didUpdateLocations: [CLLocation(latitude: 0, longitude: 0)]
+        )
+
+        guard let handler = geocoder.reverseGeocodeLocationCompletionHandler else {
+            return XCTFail("Geocoder should be called with the last location received")
+        }
+
+        handler([SamplePlacemarks.middleOfTheOcean], nil)
+
+        XCTAssertEqual(
+            controller.userLocationResolution,
+            .resolutionFailure(error: .missingPostalCode),
+            "Geocoding without a postal code in the placemark should update user location resolution"
+        )
+        XCTAssertFalse(searchButton.isEnabled,
+                       "Search button should not be enabled if there is no available postal code")
+    }
+
+    func testSuccessfulGeocodingWithUnusablePostalCode() {
+        loadComponents()
+
+        controller.locationManager(
+            locationManager,
+            didUpdateLocations: [CLLocation(latitude: 0, longitude: 0)]
+        )
+
+        guard let handler = geocoder.reverseGeocodeLocationCompletionHandler else {
+            return XCTFail("Geocoder should be called with the last location received")
+        }
+
+        handler([SamplePlacemarks.vancouver], nil)
+
+        XCTAssertEqual(
+            controller.userLocationResolution,
+            .resolutionFailure(error: .invalidPostalCode),
+            "Geocoding with a postal code that cannot be parsed as a zip code should update user location resolution"
+        )
+        XCTAssertFalse(searchButton.isEnabled,
+                       "Search button should not be enabled if postal code cannot be parsed as a zip code")
+    }
+
+    func testSuccessfulGeocodingWithValidZipCode() {
         loadComponents()
 
         controller.locationManager(
@@ -1322,8 +1367,8 @@ extension UserLocationResolution: Equatable {
              (.resolving, .resolving):
             return true
 
-        case (.resolutionFailure, .resolutionFailure):
-            return true
+        case (.resolutionFailure(let leftError), .resolutionFailure(let rightError)):
+            return leftError == rightError
 
         case (.resolved(let leftZipCode, _, _), .resolved(let rightZipCode, _, _)):
             return leftZipCode == rightZipCode

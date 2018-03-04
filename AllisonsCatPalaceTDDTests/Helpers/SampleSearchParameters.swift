@@ -10,7 +10,7 @@
 import Foundation
 
 enum SampleSearchParameters {
-    static let zipCode = ZipCode(rawValue: "80220")!
+    static let zipCode = ZipCode(rawValue: "80202")!
     static let zipCodeQueryItem = URLQueryItem(
         name: PetFinderSearchParameters.QueryItemKeys.location,
         value: SampleSearchParameters.zipCode.rawValue

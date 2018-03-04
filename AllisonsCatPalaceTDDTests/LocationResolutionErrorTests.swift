@@ -12,37 +12,37 @@ import XCTest
 
 class LocationResolutionErrorTests: XCTestCase {
 
-    var error: LocationResolutionError!
-
     func testGeocodingErrorCases() {
-        error = .noLocationsFound
-        switch error! {
+        switch LocationResolutionError.noLocationsFound {
         case .noLocationsFound,
-             .unknownError:
+             .unknownError,
+             .missingPostalCode,
+             .invalidPostalCode:
             return
         }
     }
 
-    func testNoLocationsFound() {
-        error = .noLocationsFound
-        switch error! {
-        case .noLocationsFound:
-            XCTAssertEqual(error.message, "We can't find that zip code, did you enter it right?",
-                           "message for no locations found should be correct")
-            return
-        default:
-            XCTFail("error should be a noLocationsFound error")
-        }
+    func testErrorMessages() {
+        XCTAssertEqual(
+            LocationResolutionError.noLocationsFound.message,
+            "We were unable to find your location",
+            "The message for no locations found should be correct"
+        )
+        XCTAssertEqual(
+            LocationResolutionError.missingPostalCode.message,
+            "We were unable to find a postal code for your location",
+            "The message for a missing postal code should be correct"
+        )
+        XCTAssertEqual(
+            LocationResolutionError.invalidPostalCode.message,
+            "We were unable to use the postal code for your location",
+            "The message for an invalid postal code should be correct"
+        )
+        XCTAssertEqual(
+            LocationResolutionError.unknownError.message,
+            "We were unable to find your location",
+            "The message for an unknown error should be correct"
+        )
     }
 
-    func testUnknownError() {
-        error = .unknownError
-        switch error! {
-        case .unknownError:
-            XCTAssertEqual(error.message, "We misplaced our atlas, please try again.",
-                           "message for unknown error should be correct")
-        default:
-            XCTFail("error should be an unknownError error")
-        }
-    }
 }

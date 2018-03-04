@@ -173,7 +173,14 @@ class LocationController: UIViewController, RealmInjected {
         if segue.identifier == SearchWorkflow.SegueIdentifiers.performSearch,
             let destination = segue.destination as? AnimalCardsViewController {
 
-            destination.searchParameters = searchParameters
+            guard case .resolved(let zipCode, _, _) = userLocationResolution else {
+                fatalError("Should not be able to reach this without a valid location")
+            }
+
+            destination.searchCriteria = PetFinderSearchParameters(
+                zipCode: zipCode,
+                species: selectedSpecies
+            )
         }
     }
 
@@ -320,21 +327,43 @@ extension LocationController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
 
-        geocoder.reverseGeocodeLocation(location) {
-            [weak self] potentialPlacemarks, potentialError in
+        geocoder.reverseGeocodeLocation(
+            location,
+            completionHandler: self.handleGeocodingCompletion
+        )
+    }
 
-            if let error = potentialError {
-                self?.transition(to: .resolutionFailure(error: error))
-            }
-            else if let placemark = potentialPlacemarks?.first {
-                self?.transition(to: .resolved(location: placemark))
-            }
+    private func handleGeocodingCompletion(
+        _ potentialPlacemarks: [CLPlacemark]?,
+        _ potentialError: Error?
+        ) {
+
+        guard potentialError == nil else {
+            return transition(to: .resolutionFailure(error: .unknownError))
         }
 
+        guard let placemark = potentialPlacemarks?.first else {
+            return transition(to: .resolutionFailure(error: .noLocationsFound))
+        }
+
+        guard let postalCode = placemark.postalCode else {
+            return transition(to: .resolutionFailure(error: .missingPostalCode))
+        }
+
+        guard let zipCode = ZipCode(rawValue: postalCode) else {
+            return transition(to: .resolutionFailure(error: .invalidPostalCode))
+        }
+
+        let resolution = UserLocationResolution.resolved(
+            zipCode: zipCode,
+            city: placemark.locality,
+            state: placemark.administrativeArea
+        )
+        transition(to: resolution)
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        transition(to: .resolutionFailure(error: error))
+        transition(to: .resolutionFailure(error: .unknownError))
     }
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {

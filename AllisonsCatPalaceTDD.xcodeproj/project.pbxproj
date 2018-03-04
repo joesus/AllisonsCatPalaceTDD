@@ -52,6 +52,8 @@
 		F41A38801F897A6100AD2762 /* PaginationCursorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A387F1F897A6100AD2762 /* PaginationCursorTests.swift */; };
 		F41A38821F897B6A00AD2762 /* PaginationCursor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A38811F897B6A00AD2762 /* PaginationCursor.swift */; };
 		F41A388A1F8985E200AD2762 /* PetfinderUrlBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A38891F8985E200AD2762 /* PetfinderUrlBuilderTests.swift */; };
+		F41A817A204C905600ACD010 /* VancouverPlacemark in Resources */ = {isa = PBXBuildFile; fileRef = F41A8179204C905500ACD010 /* VancouverPlacemark */; };
+		F41A817C204C9C9F00ACD010 /* MiddleOfTheOceanPlacemark in Resources */ = {isa = PBXBuildFile; fileRef = F41A817B204C9C9F00ACD010 /* MiddleOfTheOceanPlacemark */; };
 		F4238FBD1FC1068C00046EB1 /* SegueTemplates.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4238FBC1FC1068C00046EB1 /* SegueTemplates.swift */; };
 		F42E16C81F929B8B00FDD9BE /* PetFinderSearchParametersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42E16C71F929B8B00FDD9BE /* PetFinderSearchParametersTests.swift */; };
 		F42E16CA1F929C5800FDD9BE /* ZipCodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42E16C91F929C5800FDD9BE /* ZipCodeTests.swift */; };
@@ -206,6 +208,8 @@
 		F41A387F1F897A6100AD2762 /* PaginationCursorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationCursorTests.swift; sourceTree = "<group>"; };
 		F41A38811F897B6A00AD2762 /* PaginationCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationCursor.swift; sourceTree = "<group>"; };
 		F41A38891F8985E200AD2762 /* PetfinderUrlBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetfinderUrlBuilderTests.swift; sourceTree = "<group>"; };
+		F41A8179204C905500ACD010 /* VancouverPlacemark */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = VancouverPlacemark; sourceTree = "<group>"; };
+		F41A817B204C9C9F00ACD010 /* MiddleOfTheOceanPlacemark */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = MiddleOfTheOceanPlacemark; sourceTree = "<group>"; };
 		F4238FBC1FC1068C00046EB1 /* SegueTemplates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueTemplates.swift; sourceTree = "<group>"; };
 		F42E16C71F929B8B00FDD9BE /* PetFinderSearchParametersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetFinderSearchParametersTests.swift; sourceTree = "<group>"; };
 		F42E16C91F929C5800FDD9BE /* ZipCodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZipCodeTests.swift; sourceTree = "<group>"; };
@@ -588,10 +592,12 @@
 		F4D7926A1FDDD3CF00D0876A /* SampleData */ = {
 			isa = PBXGroup;
 			children = (
+				F41A817B204C9C9F00ACD010 /* MiddleOfTheOceanPlacemark */,
 				F4D7926B1FDDD3CF00D0876A /* DenverPlacemark */,
 				F471ABB82014085800EF2B03 /* DetroitPlacemark */,
 				F4D7926F1FDDD91800D0876A /* SampleError.swift */,
 				F4D7926D1FDDD6FC00D0876A /* SamplePlacemarks.swift */,
+				F41A8179204C905500ACD010 /* VancouverPlacemark */,
 			);
 			path = SampleData;
 			sourceTree = "<group>";
@@ -703,7 +709,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4D7926C1FDDD3D000D0876A /* DenverPlacemark in Resources */,
+				F41A817C204C9C9F00ACD010 /* MiddleOfTheOceanPlacemark in Resources */,
 				F471ABB92014085900EF2B03 /* DetroitPlacemark in Resources */,
+				F41A817A204C905600ACD010 /* VancouverPlacemark in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

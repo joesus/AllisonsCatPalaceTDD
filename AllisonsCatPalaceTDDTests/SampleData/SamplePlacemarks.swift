@@ -11,6 +11,8 @@ import CoreLocation
 enum SamplePlacemarks {
     static let denver = loadPlacemark(named: "DenverPlacemark")
     static let detroit = loadPlacemark(named: "DetroitPlacemark")
+    static let vancouver = loadPlacemark(named: "VancouverPlacemark")
+    static let middleOfTheOcean = loadPlacemark(named: "MiddleOfTheOceanPlacemark")
 
     static func loadPlacemark(named filename: String) -> CLPlacemark {
         guard let url = Bundle(for: UserLocationResolutionTests.self)

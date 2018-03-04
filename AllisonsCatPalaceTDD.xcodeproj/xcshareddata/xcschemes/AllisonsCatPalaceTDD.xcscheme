@@ -38,11 +38,6 @@
                BlueprintName = "AllisonsCatPalaceTDDTests"
                ReferencedContainer = "container:AllisonsCatPalaceTDD.xcodeproj">
             </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "AnimalCardsViewControllerTests">
-               </Test>
-            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>

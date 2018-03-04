@@ -8,6 +8,7 @@ PODS:
   - Realm/Headers (2.10.0)
   - RealmSwift (2.10.0):
     - Realm (= 2.10.0)
+  - SwiftLint (0.24.2)
   - TestableCoreLocation (0.1.1):
     - TestSwagger
   - TestableUIKit (0.2.2):
@@ -18,6 +19,7 @@ PODS:
 DEPENDENCIES:
   - Koloda
   - RealmSwift
+  - SwiftLint
   - TestableCoreLocation
   - TestableUIKit
 
@@ -27,10 +29,11 @@ SPEC CHECKSUMS:
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
   Realm: 98b3a25643cf6b3e07d2b99fb43fe0eb9c801dec
   RealmSwift: 34073ad3a31232bbaf7c0db898c037940284cba2
+  SwiftLint: 2aa21b96c8d13396a051bc1cb659d2ce1e0075b0
   TestableCoreLocation: 143c59226e956756b7edf7902fce992366d98b97
   TestableUIKit: 677e7d18b0912757a92548eba2c2d1832b94c7ac
   TestSwagger: 10428263bd31debe64adc7c1444c7517e5a88548
 
-PODFILE CHECKSUM: bc475ec544436ca2c8fb9cc273ee9bd5f801ace0
+PODFILE CHECKSUM: a2511017c9d55ebd9da923cdc7019915e211dd30
 
 COCOAPODS: 1.4.0

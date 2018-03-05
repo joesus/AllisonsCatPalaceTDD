@@ -13,7 +13,7 @@ class PetFinderSearchController {
     private(set) var results = [Animal]()
     var resultsKnownToBeExhausted = false
     private let finderProxy: AnimalFinding.Type
-    private let criteria: PetFinderSearchParameters
+    let criteria: PetFinderSearchParameters
     var cursor: PaginationCursor
     private let completionHandler: ([Int]) -> Void
 

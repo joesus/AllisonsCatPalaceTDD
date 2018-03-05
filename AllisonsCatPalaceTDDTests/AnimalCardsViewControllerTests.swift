@@ -14,7 +14,7 @@ import TestableUIKit
 import XCTest
 
 class AnimalCardsViewControllerTests: XCTestCase {
-    var controller: AnimalCardsViewController!
+    var scene: AnimalCardsViewController!
     var deckView: KolodaView!
     var dataSource: KolodaViewDataSource!
     var realm: Realm!
@@ -28,98 +28,146 @@ class AnimalCardsViewControllerTests: XCTestCase {
 
         resetRealm(realm)
 
-        guard let vc = UIStoryboard(
+        let storyboard = UIStoryboard(
             name: "Main",
             bundle: Bundle(for: AnimalCardsViewController.self)
-            ).instantiateViewController(withIdentifier: "SearchResultsScene") as? AnimalCardsViewController
-            else {
-                return XCTFail("Should be able to instantiate animal cards view controller from main storyboard")
-        }
-        controller = vc
-        controller.registry = FakeRegistry.self
-        controller.loadViewIfNeeded()
+        )
 
-        deckView = controller.deckView
+        scene = storyboard.instantiateViewController(withIdentifier: "SearchResultsScene")
+            as? AnimalCardsViewController
+
+        scene.loadViewIfNeeded()
+
+        scene.searchCriteria = SampleSearchParameters.minimalSearchOptions
+        deckView = scene.deckView
         dataSource = deckView.dataSource
     }
 
-    func testHasNoAnimalsByDefault() {
-        XCTAssert(controller.animals.isEmpty, "AnimalCardsViewController should have no animals by default")
+    override func tearDown() {
+        FakeRegistry.reset()
+
+        super.tearDown()
     }
 
-    func testHasSearchParameters() {
-//        XCTAssertNil(scene.searchParameters,
-//                     "Scene should not have search parameters by default")
+    func testHasRegistry() {
+        XCTAssertTrue(scene.registry == PetFinderAnimalRegistry.self,
+                      "Scene should have a registry that defaults to the PetFinder registry")
     }
+
+    func testHasSearchCriteria() {
+        XCTAssertNotNil(scene.searchCriteria, "Scene should have the search criteria")
+    }
+
+    // MARK: - View Lifecycle Tests
 
     func testViewDidLoadCallsSuperViewDidLoad() {
-        UITableViewController.ViewDidLoadSpyController.createSpy(on: controller)!.spy {
-            controller.viewDidLoad()
-            XCTAssert(controller.superclassViewDidLoadCalled, "ViewDidLoad should call viewDidLoad on UIViewController")
+        UIViewController.ViewDidLoadSpyController.createSpy(on: scene)!.spy {
+            scene.viewDidLoad()
+            XCTAssertTrue(scene.superclassViewDidLoadCalled,
+                          "Scene should call its superclass implementations of `viewDidLoad`")
         }
     }
 
-    func testRequestsAnimalsOnViewDidLoad() {
+    func testViewDidAppearCallsSuperViewDidAppear() {
+        UIViewController.ViewDidAppearSpyController.createSpy(on: scene)!.spy {
+            scene.viewDidAppear(false)
+            XCTAssertTrue(scene.superclassViewDidAppearCalled,
+                          "Scene should call its superclass implementations of `viewDidAppear`")
+        }
+    }
+
+    func testInitiatesSearchOnInitialAppearance() {
+        scene.registry = FakeRegistry.self
+
+        scene.viewDidAppear(false)
+
         XCTAssertEqual(FakeRegistry.findAnimalsCallCount, 1,
-                       "Registry should be called when view loads")
+                       "Registry should be called when view appears")
+        XCTAssertEqual(
+            FakeRegistry.capturedSearchParameters?.zipCode,
+            SampleSearchParameters.zipCode,
+            "Correct search criteria should be passed to the registry"
+        )
     }
 
-    func testResetsRegistryOffsetOnViewDidLoad() {
-        FakeRegistry.offset = 20
+    func testSubsequentAppearanceDoesNotInvokeSearch() {
+        scene.registry = FakeRegistry.self
 
-        controller.viewDidLoad()
+        scene.viewDidAppear(false)
+        scene.viewDidAppear(false)
 
-        XCTAssertEqual(FakeRegistry.offset, 0,
-                       "Controller should reset registry offset on viewDidLoad")
+        XCTAssertEqual(FakeRegistry.findAnimalsCallCount, 1,
+                       "Registry should not be called on subsequent appearances")
     }
+
+    // MARK: - View Property Tests
 
     func testHasDeckView() {
-        XCTAssertNotNil(controller.deckView,
-                        "Controller should have a deck view to display cards")
+        scene.viewDidLoad()
+
+        XCTAssertNotNil(scene.deckView,
+                        "Scene should have a deck view to display cards")
+        XCTAssertTrue(deckView.dataSource === scene,
+                      "Scene is the data source for the deck view")
+        XCTAssertTrue(deckView.delegate === scene,
+                      "Scene is the delegate for the deck view")
     }
+
+    func testHasActivityIndicator() {
+        XCTAssertNotNil(scene.activityIndicator,
+                        "Scene should have an activity indicator")
+    }
+
+    // MARK: - Deck View Configuration
 
     func testDeckViewDragSpeed() {
         XCTAssertEqual(dataSource.kolodaSpeedThatCardShouldDrag(deckView), .default,
                        "Deck view should use default drag speed")
     }
 
-    func testDeckViewNumberOfCards() {
-        controller.animals = cats
-        XCTAssertEqual(dataSource.kolodaNumberOfCards(deckView), cats.count,
-                       "Deck view should have a card for each animal on the controller")
+    func testNumberOfCards() {
+        XCTAssertEqual(dataSource.kolodaNumberOfCards(deckView), 0,
+                       "Deck view should have no cards by default")
+
+        scene.registry = FakeRegistry.self
+        scene.viewDidAppear(false)
+
+        FakeRegistry.invokeCompletionHandler(with: Array(cats.prefix(17)))
+
+        XCTAssertEqual(dataSource.kolodaNumberOfCards(deckView), 17,
+                       "Deck view should have a card for each animal in the search results")
     }
 
-    func testDeckViewForCard() {
-        controller.animals = cats
+    func testCardForAnimal() {
+        scene.registry = FakeRegistry.self
+        scene.viewDidAppear(false)
+
+        FakeRegistry.invokeCompletionHandler(with: [cats.first!])
+
         guard let animalCardView = dataSource.koloda(deckView, viewForCardAt: 0) as? AnimalCardView else {
             return XCTFail("Deck view should provide animal card views")
         }
 
-        XCTAssertTrue(animalCardView.layer.masksToBounds,
-                      "Layer should mask to bounds")
-        XCTAssertTrue(animalCardView.layer.cornerRadius > 0,
-                      "Layer should have rounded cornders")
-        XCTAssertEqual(animalCardView.layer.borderWidth, 1.0,
-                       "Layer should have a border with correct width")
-        XCTAssertEqual(animalCardView.layer.borderColor, UIColor.black.cgColor,
-                       "Layer should have correct border color")
+        XCTAssertTrue(animalCardView.clipsToBounds,
+                      "Should clip to bounds")
+        XCTAssertEqual(animalCardView.cornerRadius, 5,
+                       "Should have rounded corners")
+        XCTAssertEqual(animalCardView.borderWidth, 1,
+                       "Should have a border with correct width")
+        XCTAssertEqual(animalCardView.borderColor, .black,
+                       "Should have correct border color")
     }
 
-    func testIsDeckViewDataSourceAndDelegate() {
-        XCTAssertTrue(deckView.dataSource === controller,
-                      "Controller is the data source for the deck view")
-        XCTAssertTrue(deckView.delegate === controller,
-                      "Controller is the delegate for the deck view")
+    func testSwipeThreshold() {
+        XCTAssertEqual(
+            deckView.delegate?.kolodaSwipeThresholdRatioMargin(deckView),
+            0.35,
+            "Deck view should have a comfortable swipe threshold"
+        )
     }
 
-    func testDeckViewSwipeThreshold() {
-        XCTAssertEqual(deckView.delegate?.kolodaSwipeThresholdRatioMargin(deckView),
-                       0.35,
-                       "Deck view should have a comfortable swipe threshold")
-    }
-
-    func testDeckViewForOverlay() {
-        controller.animals = cats
+    func testCardOverlay() {
+        scene.viewDidAppear(false)
 
         let frame = CGRect(x: 0, y: 0, width: 200, height: 200)
         deckView.frame = frame
@@ -128,10 +176,10 @@ class AnimalCardsViewControllerTests: XCTestCase {
             return XCTFail("Overlay for cards should be a swipe overlay view")
         }
 
-        XCTAssertTrue(overlay.layer.masksToBounds,
-                      "Overlay layer should mask to bounds")
-        XCTAssertEqual(overlay.layer.cornerRadius, frame.width / 10,
-                       "Overlay layer should have a rounded frame")
+        XCTAssertTrue(overlay.clipsToBounds,
+                      "Overlay should clip to bounds")
+        XCTAssertEqual(overlay.cornerRadius, 5,
+                       "Overlay should have rounded corners")
     }
 
     func testDeckViewDoesNotFetchMoreAnimalsWhenMoreThanTenRemaining() {
@@ -198,7 +246,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
         // loads cats from the mock registry - waiting for the tenth card to be loaded since it
         // will indicate that card images are being loaded before they are being displayed
         FakeRegistry.stubbedAnimals = cats
-        controller.viewDidLoad()
+        scene.viewDidLoad()
 
         let predicate = NSPredicate { _, _ in
             ImageProvider.cache.cachedResponse(for: URLRequest(url: urlToPreload)) != nil
@@ -214,7 +262,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
         cats[10].imageLocations = imageLocations
 
         FakeRegistry.stubbedAnimals = cats
-        controller.viewDidLoad()
+        scene.viewDidLoad()
 
         let predicate = NSPredicate { _, _ in
             ImageProvider.cache.cachedResponse(for: URLRequest(url: urlToPreload)) != nil
@@ -230,7 +278,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
         cats[10].imageLocations = imageLocations
 
         FakeRegistry.stubbedAnimals = cats
-        controller.viewDidLoad()
+        scene.viewDidLoad()
 
         let predicate = NSPredicate { _, _ in
             ImageProvider.cache.cachedResponse(for: URLRequest(url: urlToPreload)) != nil
@@ -244,7 +292,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
         var savedAnimals: [Animal]
 
         FakeRegistry.stubbedAnimals = cats
-        controller.viewDidLoad()
+        scene.viewDidLoad()
 
         savedAnimals = realm.objects(AnimalObject.self).flatMap { animalObject in
             Animal(managedObject: animalObject)
@@ -265,7 +313,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
 
     func testSwipingRightMultipleTimes() {
         FakeRegistry.stubbedAnimals = cats
-        controller.viewDidLoad()
+        scene.viewDidLoad()
 
         deckView.delegate?.koloda(deckView, didSwipeCardAt: 0, in: .right)
         deckView.delegate?.koloda(deckView, didSwipeCardAt: 1, in: .right)
@@ -282,7 +330,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
 
     func testSwipingRightMultipleTimesSameCard() {
         FakeRegistry.stubbedAnimals = cats
-        controller.viewDidLoad()
+        scene.viewDidLoad()
 
         let predicate = NSPredicate { _, _ in
             self.controller.animals.isEmpty
@@ -306,7 +354,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
 
     func testSwipingLeftDoesNotSaveToFavorites() {
         FakeRegistry.stubbedAnimals = cats
-        controller.viewDidLoad()
+        scene.viewDidLoad()
 
         deckView.delegate?.koloda(deckView, didSwipeCardAt: 0, in: .left)
 
@@ -319,8 +367,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
     }
 
     func testFavoritesButton() {
-        XCTAssertEqual(controller.navigationItem.rightBarButtonItem?.title,
-                       "Favorites",
+        XCTAssertEqual(scene.navigationItem.rightBarButtonItem?.title, "Favorites",
                        "Favorites button exists and has correct title")
     }
 
@@ -334,22 +381,19 @@ class AnimalCardsViewControllerTests: XCTestCase {
         }
 
         replaceRootViewController(with: navController) // add it to the window
-        navController.addChildViewController(controller) // make controller the top view controller
+        navController.addChildViewController(scene) // make controller the top view controller
 
         let predicate = NSPredicate { _, _ in
-            self.controller.performSegueCalled
+            self.scene.performSegueCalled
         }
         expectation(for: predicate, evaluatedWith: self, handler: nil)
 
-        UIViewController.PerformSegueSpyController.createSpy(on: controller)!.spy {
-            controller.performSegue(
-                withIdentifier: "showFavoritesListController",
-                sender: controller.navigationItem.rightBarButtonItem
-            )
+        UIViewController.PerformSegueSpyController.createSpy(on: scene)!.spy {
+            scene.performSegue(withIdentifier: "showFavoritesListController", sender: scene.navigationItem.rightBarButtonItem)
 
             waitForExpectations(timeout: 2, handler: nil)
 
-            XCTAssertEqual(controller.performSegueIdentifier, "showFavoritesListController",
+            XCTAssertEqual(scene.performSegueIdentifier, "showFavoritesListController",
                            "Segue identifier should identify the destination of the segue")
         }
     }

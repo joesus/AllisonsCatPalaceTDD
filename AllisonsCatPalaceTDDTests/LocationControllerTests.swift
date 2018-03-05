@@ -1329,16 +1329,19 @@ class LocationControllerTests: XCTestCase {
 
         controller.prepare(for: segue, sender: controller)
 
-        XCTAssertEqual(
-            destination.searchParameters.zipCode.rawValue,
-            placemark.postalCode,
-            "Segueing to an animal list scene should pass the expected zip code"
-        )
+        guard let criteria = destination.searchCriteria else {
+            return XCTFail("Segueing to an animal list scene should pass the search criteria")
+        }
 
         XCTAssertEqual(
-            destination.searchParameters.species,
+            criteria.zipCode.rawValue,
+            placemark.postalCode,
+            "The search controller's zip code should match the given placemark"
+        )
+        XCTAssertEqual(
+            criteria.species,
             .dog,
-            "Segueing to an animal list scene should pass the expected species or lack thereof"
+            "The search controller's species should match the selected species"
         )
     }
 

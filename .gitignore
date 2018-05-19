@@ -2,3 +2,5 @@
 *.xcworkspacedata
 *.xcscmblueprint
 Pods/
+/AllisonsCatPalaceTDD.xcworkspace/xcshareddata
+/AllisonsCatPalaceTDD.xcodeproj/project.xcworkspace/xcshareddata

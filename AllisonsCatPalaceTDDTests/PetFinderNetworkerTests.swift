@@ -1,4 +1,4 @@
-// swiftlint:disable force_try vertical_parameter_alignment_on_call
+// swiftlint:disable force_try
 //
 //  PetFinderNetworkerTests.swift
 //  AllisonsCatPalaceTDD

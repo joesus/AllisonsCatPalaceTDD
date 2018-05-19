@@ -12,12 +12,13 @@ class AnimalCardView: UIView {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
 
+    var imageProvider: ImageProviding.Type!
+
     func configure(with animal: Animal) {
-        if let imageUrl = animal.imageLocations.medium.first {
-            load(imageUrl)
-        } else if let imageUrl = animal.imageLocations.small.first {
-            load(imageUrl)
-        } else if let imageUrl = animal.imageLocations.large.first {
+        if let imageUrl = animal.imageLocations.medium.first ??
+            animal.imageLocations.small.first ??
+            animal.imageLocations.large.first {
+
             load(imageUrl)
         }
 
@@ -30,7 +31,7 @@ class AnimalCardView: UIView {
                 self?.imageView.image = image
             }
         } else {
-            ImageProvider.getImage(for: imageUrl) { potentialImage in
+            imageProvider.getImage(for: imageUrl) { potentialImage in
                 guard let image = potentialImage else { return }
 
                 DispatchQueue.main.async { [weak self] in

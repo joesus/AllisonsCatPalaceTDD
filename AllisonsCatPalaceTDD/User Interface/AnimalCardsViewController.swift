@@ -15,6 +15,7 @@ class AnimalCardsViewController: UIViewController {
     fileprivate var searchController: PetFinderSearchController!
     var searchCriteria: PetFinderSearchParameters!
     var registry: AnimalFinding.Type = PetFinderAnimalRegistry.self
+    var imageProvider: ImageProviding.Type!
 
     private var searchInitiated = false
 
@@ -62,6 +63,7 @@ extension AnimalCardsViewController: KolodaViewDataSource, KolodaViewDelegate {
                 fatalError("Unable to dequeue animal card view")
         }
 
+        card.imageProvider = imageProvider
         return card
     }
 

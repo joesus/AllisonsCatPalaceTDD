@@ -38,6 +38,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
 
         scene.loadViewIfNeeded()
 
+        scene.imageProvider = FakeImageProvider.self
         scene.searchCriteria = SampleSearchParameters.minimalSearchOptions
         deckView = scene.deckView
         dataSource = deckView.dataSource
@@ -232,10 +233,27 @@ class AnimalCardsViewControllerTests: XCTestCase {
 
         let predicate = NSPredicate { _, _ in
             !self.controller.activityIndicator.isAnimating
-        }
-        expectation(for: predicate, evaluatedWith: self, handler: nil)
+    func testHasImageProvider() {
+        XCTAssertTrue(scene.imageProvider == FakeImageProvider.self as ImageProviding.Type,
+                      "Scene should have a default image provider")
+    }
 
-        waitForExpectations(timeout: 3, handler: nil)
+    func testInjectionOfImageProviderToCardView() {
+        scene.registry = FakeRegistry.self
+        scene.viewDidAppear(false)
+
+        FakeRegistry.invokeCompletionHandler(with: [cats.first!])
+
+        guard let animalCardView = dataSource.koloda(deckView, viewForCardAt: 0) as? AnimalCardView else {
+            return XCTFail("Deck view should provide animal card views")
+        }
+
+        guard let imageProvider = animalCardView.imageProvider else {
+            return XCTFail("Card view should have an image provider")
+        }
+
+        XCTAssertTrue(imageProvider == FakeImageProvider.self,
+                      "Scene should inject the image provider for each card it creates")
     }
 
     func testLoadingCatsPrefetchesMediumSizedImages() {

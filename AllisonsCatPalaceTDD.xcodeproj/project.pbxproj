@@ -54,6 +54,7 @@
 		F41A388A1F8985E200AD2762 /* PetfinderUrlBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A38891F8985E200AD2762 /* PetfinderUrlBuilderTests.swift */; };
 		F41A817A204C905600ACD010 /* VancouverPlacemark in Resources */ = {isa = PBXBuildFile; fileRef = F41A8179204C905500ACD010 /* VancouverPlacemark */; };
 		F41A817C204C9C9F00ACD010 /* MiddleOfTheOceanPlacemark in Resources */ = {isa = PBXBuildFile; fileRef = F41A817B204C9C9F00ACD010 /* MiddleOfTheOceanPlacemark */; };
+		F41E0BF120B0CBC800778B53 /* FakeImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41E0BF020B0CBC800778B53 /* FakeImageProvider.swift */; };
 		F4238FBD1FC1068C00046EB1 /* SegueTemplates.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4238FBC1FC1068C00046EB1 /* SegueTemplates.swift */; };
 		F42E16C81F929B8B00FDD9BE /* PetFinderSearchParametersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42E16C71F929B8B00FDD9BE /* PetFinderSearchParametersTests.swift */; };
 		F42E16CA1F929C5800FDD9BE /* ZipCodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42E16C91F929C5800FDD9BE /* ZipCodeTests.swift */; };
@@ -210,6 +211,7 @@
 		F41A38891F8985E200AD2762 /* PetfinderUrlBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetfinderUrlBuilderTests.swift; sourceTree = "<group>"; };
 		F41A8179204C905500ACD010 /* VancouverPlacemark */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = VancouverPlacemark; sourceTree = "<group>"; };
 		F41A817B204C9C9F00ACD010 /* MiddleOfTheOceanPlacemark */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = MiddleOfTheOceanPlacemark; sourceTree = "<group>"; };
+		F41E0BF020B0CBC800778B53 /* FakeImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeImageProvider.swift; sourceTree = "<group>"; };
 		F4238FBC1FC1068C00046EB1 /* SegueTemplates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueTemplates.swift; sourceTree = "<group>"; };
 		F42E16C71F929B8B00FDD9BE /* PetFinderSearchParametersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetFinderSearchParametersTests.swift; sourceTree = "<group>"; };
 		F42E16C91F929C5800FDD9BE /* ZipCodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZipCodeTests.swift; sourceTree = "<group>"; };
@@ -475,6 +477,7 @@
 				27E823891E5A273D009B202A /* UIViewControllerSpies.swift */,
 				270A6AE41E3E70CD00B12D38 /* URLSessionDataTaskSpies.swift */,
 				270A6AE21E3E700C00B12D38 /* URLSessionSpies.swift */,
+				F41E0BF020B0CBC800778B53 /* FakeImageProvider.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -919,6 +922,7 @@
 				F46539C51EFF24720049E7FD /* AnimalSexTests.swift in Sources */,
 				F4E8BE851F2407CC00F680E2 /* DataTaskResumeStub.swift in Sources */,
 				F42E16C81F929B8B00FDD9BE /* PetFinderSearchParametersTests.swift in Sources */,
+				F41E0BF120B0CBC800778B53 /* FakeImageProvider.swift in Sources */,
 				F4764B391FAFB0D9007990B4 /* PetFinderSearchControllerTests.swift in Sources */,
 				F43632591F53B091004DF88A /* AnimalCardViewTests.swift in Sources */,
 				27E8238A1E5A273D009B202A /* UIViewControllerSpies.swift in Sources */,

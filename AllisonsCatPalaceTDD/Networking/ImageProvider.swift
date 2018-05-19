@@ -9,10 +9,14 @@
 import Foundation
 import UIKit
 
+protocol ImageProviding {
+    static func getImage(for: URL, completion: @escaping ImageCompletion)
+}
+
 // TODO: Retry image fetch for missing images on network availability changes
 typealias ImageCompletion = (UIImage?) -> Void
 
-enum ImageProvider {
+enum ImageProvider: ImageProviding {
     static let cache = URLCache.shared
     static var knownMissingImageUrls = Set<URL>()
     static var currentRequestUrls = Set<URL>()

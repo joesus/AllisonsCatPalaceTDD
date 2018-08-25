@@ -51,8 +51,8 @@ class LocationController: UIViewController, RealmInjected {
 
     var selectedSpecies: AnimalSpecies? {
         switch speciesSelectionControl.selectedSegmentIndex {
-        case 0: return .cat
-        case 1: return .dog
+        case 0: return PetfinderAnimalSpecies.cat
+        case 1: return PetfinderAnimalSpecies.dog
 
         default: return nil
         }

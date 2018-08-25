@@ -18,7 +18,7 @@ enum SampleSearchParameters {
 
     static let speciesQueryItem = URLQueryItem(
         name: PetFinderSearchParameters.QueryItemKeys.species,
-        value: AnimalSpecies.cat.rawValue
+        value: PetfinderAnimalSpecies.cat.description
     )
 
     static let breedQueryItem = URLQueryItem(
@@ -45,7 +45,7 @@ enum SampleSearchParameters {
 
     static let fullSearchOptions = PetFinderSearchParameters(
         zipCode: zipCode,
-        species: .cat,
+        species: PetfinderAnimalSpecies.cat,
         breed: "egyptian",
         size: .medium,
         age: .adult,

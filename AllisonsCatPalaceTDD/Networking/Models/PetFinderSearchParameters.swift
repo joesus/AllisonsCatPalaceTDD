@@ -8,7 +8,11 @@
 
 import Foundation
 
-struct PetFinderSearchParameters {
+protocol AnimalSearchParameters {
+    var species: AnimalSpecies? { get }
+}
+
+struct PetFinderSearchParameters: AnimalSearchParameters {
     let zipCode: ZipCode
     let species: AnimalSpecies?
     let breed: AnimalBreed?
@@ -41,7 +45,7 @@ struct PetFinderSearchParameters {
     }
 
     private var speciesQueryItem: URLQueryItem? {
-        guard let value = species?.rawValue else {
+        guard let value = species?.description else {
             return nil
         }
 

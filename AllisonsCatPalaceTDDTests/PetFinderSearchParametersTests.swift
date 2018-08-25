@@ -48,10 +48,10 @@ class PetFinderSearchParametersTests: XCTestCase {
     func testParametersMayIncludeSpecies() {
         let parameters = PetFinderSearchParameters(
             zipCode: SampleSearchParameters.zipCode,
-            species: .cat
+            species: PetfinderAnimalSpecies.cat
         )
-        XCTAssertEqual(parameters.species, .cat,
-                       "Parameters may include a species")
+        XCTAssertTrue(parameters.species == PetfinderAnimalSpecies.cat,
+                      "Parameters may include a species")
 
         let queryItems = Set(parameters.queryItems)
         let expected = Set(
@@ -165,8 +165,8 @@ class PetFinderSearchParametersTests: XCTestCase {
 
         XCTAssertEqual(parameters.zipCode, SampleSearchParameters.zipCode,
                        "Parameters should be created with provided zip code")
-        XCTAssertEqual(parameters.species, .cat,
-                       "Parameters should be created with provided species")
+        XCTAssertTrue(parameters.species == PetfinderAnimalSpecies.cat,
+                      "Parameters should be created with provided species")
         XCTAssertEqual(parameters.breed, "egyptian",
                        "Parameters should be created with provided breed")
         XCTAssertEqual(parameters.size, .medium,

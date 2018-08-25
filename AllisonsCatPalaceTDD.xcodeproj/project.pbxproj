@@ -86,8 +86,8 @@
 		F46539C31EFF1F2F0049E7FD /* AnimalAgeGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539C21EFF1F2F0049E7FD /* AnimalAgeGroups.swift */; };
 		F46539C51EFF24720049E7FD /* AnimalSexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539C41EFF24720049E7FD /* AnimalSexTests.swift */; };
 		F46539C71EFF25B10049E7FD /* AnimalSex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539C61EFF25B10049E7FD /* AnimalSex.swift */; };
-		F46539CB1EFF281D0049E7FD /* AnimalSpeciesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539CA1EFF281D0049E7FD /* AnimalSpeciesTests.swift */; };
-		F46539CD1EFF29A80049E7FD /* AnimalSpecies.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539CC1EFF29A80049E7FD /* AnimalSpecies.swift */; };
+		F46539CB1EFF281D0049E7FD /* PetfinderAnimalSpeciesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539CA1EFF281D0049E7FD /* PetfinderAnimalSpeciesTests.swift */; };
+		F46539CD1EFF29A80049E7FD /* PetfinderAnimalSpecies.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539CC1EFF29A80049E7FD /* PetfinderAnimalSpecies.swift */; };
 		F46539CF1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */; };
 		F46539D11EFF2F6D0049E7FD /* AnimalPhotoSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */; };
 		F471ABB72013F22700EF2B03 /* CLLocationManagerRequestLocationSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F471ABB62013F22700EF2B03 /* CLLocationManagerRequestLocationSpy.swift */; };
@@ -243,8 +243,8 @@
 		F46539C21EFF1F2F0049E7FD /* AnimalAgeGroups.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalAgeGroups.swift; sourceTree = "<group>"; };
 		F46539C41EFF24720049E7FD /* AnimalSexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalSexTests.swift; sourceTree = "<group>"; };
 		F46539C61EFF25B10049E7FD /* AnimalSex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalSex.swift; sourceTree = "<group>"; };
-		F46539CA1EFF281D0049E7FD /* AnimalSpeciesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalSpeciesTests.swift; sourceTree = "<group>"; };
-		F46539CC1EFF29A80049E7FD /* AnimalSpecies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalSpecies.swift; sourceTree = "<group>"; };
+		F46539CA1EFF281D0049E7FD /* PetfinderAnimalSpeciesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetfinderAnimalSpeciesTests.swift; sourceTree = "<group>"; };
+		F46539CC1EFF29A80049E7FD /* PetfinderAnimalSpecies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetfinderAnimalSpecies.swift; sourceTree = "<group>"; };
 		F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalPhotoSizeTests.swift; sourceTree = "<group>"; };
 		F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalPhotoSize.swift; sourceTree = "<group>"; };
 		F471ABB62013F22700EF2B03 /* CLLocationManagerRequestLocationSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationManagerRequestLocationSpy.swift; sourceTree = "<group>"; };
@@ -343,11 +343,11 @@
 				F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */,
 				F46539C61EFF25B10049E7FD /* AnimalSex.swift */,
 				F46539BE1EFF18FB0049E7FD /* AnimalSize.swift */,
-				F46539CC1EFF29A80049E7FD /* AnimalSpecies.swift */,
 				276C61BB1E2C183300225CF4 /* ExternalAnimal.swift */,
 				F43BC6A31F1AC9E400E025EB /* ExternalData.swift */,
 				F4AB68991F2D39F300CC4CC2 /* GeneticPurity.swift */,
 				F4AB68D71F328CF300CC4CC2 /* GenotypeBuilder.swift */,
+				F46539CC1EFF29A80049E7FD /* PetfinderAnimalSpecies.swift */,
 				F46539BA1EFF11430049E7FD /* PositiveInteger.swift */,
 				F494349A1FD499FC00B6EEA7 /* SpeciesSelectionIndex.swift */,
 				F4D792681FDDCE3000D0876A /* UserLocationResolution.swift */,
@@ -412,7 +412,7 @@
 				F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */,
 				F46539C41EFF24720049E7FD /* AnimalSexTests.swift */,
 				F46539BC1EFF136B0049E7FD /* AnimalSizeTests.swift */,
-				F46539CA1EFF281D0049E7FD /* AnimalSpeciesTests.swift */,
+				F46539CA1EFF281D0049E7FD /* PetfinderAnimalSpeciesTests.swift */,
 				276C61BF1E2C1AFF00225CF4 /* AnimalTests.swift */,
 				276C61B51E2C068900225CF4 /* AppDelegateTests.swift */,
 				F4B44C521FE720FE005D5A29 /* DisplayableStringTests.swift */,
@@ -904,7 +904,7 @@
 				F47D38F51FA5314A001DBD60 /* AnimalNetworking.swift in Sources */,
 				276C61C21E2C1C0E00225CF4 /* Animal.swift in Sources */,
 				F4543D9E1F43C28300F9CDE3 /* LocationController.swift in Sources */,
-				F46539CD1EFF29A80049E7FD /* AnimalSpecies.swift in Sources */,
+				F46539CD1EFF29A80049E7FD /* PetfinderAnimalSpecies.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -981,7 +981,7 @@
 				276C61C41E2C1D8600225CF4 /* AnimalBuilderTests.swift in Sources */,
 				F471ABB72013F22700EF2B03 /* CLLocationManagerRequestLocationSpy.swift in Sources */,
 				F41612581EB51EA600E3E6F6 /* AnimalNameCellTests.swift in Sources */,
-				F46539CB1EFF281D0049E7FD /* AnimalSpeciesTests.swift in Sources */,
+				F46539CB1EFF281D0049E7FD /* PetfinderAnimalSpeciesTests.swift in Sources */,
 				2700D3F51E885FE7004E77A1 /* AnimalDetailViewControllerTests.swift in Sources */,
 				270A6AF71E3EA9A000B12D38 /* SampleExternalAnimalData.swift in Sources */,
 				F4AEE784204220D700256AF9 /* DesignableViewPropertiesTests.swift in Sources */,

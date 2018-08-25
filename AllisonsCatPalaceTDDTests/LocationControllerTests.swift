@@ -1300,12 +1300,12 @@ class LocationControllerTests: XCTestCase {
     func testSceneIndicatesSpeciesSelection() {
         loadComponents()
 
-        XCTAssertEqual(controller.selectedSpecies, .cat,
-                       "The cat species should correspond to the first segment")
+        XCTAssertTrue(controller.selectedSpecies == PetfinderAnimalSpecies.cat,
+                      "The cat species should correspond to the first segment")
 
         controller.speciesSelectionControl.selectedSegmentIndex = 1
-        XCTAssertEqual(controller.selectedSpecies, .dog,
-                       "The dog species should correspond to the second segment")
+        XCTAssertTrue(controller.selectedSpecies == PetfinderAnimalSpecies.dog,
+                      "The dog species should correspond to the second segment")
 
         controller.speciesSelectionControl.selectedSegmentIndex = 2
         XCTAssertNil(controller.selectedSpecies,
@@ -1338,10 +1338,8 @@ class LocationControllerTests: XCTestCase {
             placemark.postalCode,
             "The search controller's zip code should match the given placemark"
         )
-        XCTAssertEqual(
-            criteria.species,
-            .dog,
-            "The search controller's species should match the selected species"
+        XCTAssertTrue(criteria.species == PetfinderAnimalSpecies.dog,
+                      "The search controller's species should match the selected species"
         )
     }
 

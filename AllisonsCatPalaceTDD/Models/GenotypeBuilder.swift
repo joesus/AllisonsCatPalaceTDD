@@ -19,7 +19,7 @@ final class GenotypeBuilder {
     static func buildGenotypeFromExternalGenotype(_ json: ExternalGenotype) -> AnimalGenotype? {
         guard let speciesContainer = json[ExternalAnimalKeys.GenotypeKeys.animal] as? JsonObject,
             let speciesString = speciesContainer[ExternalAnimalKeys.elementContentKey] as? String,
-            let species = AnimalSpecies(petFinderRawValue: speciesString) else {
+            let species = PetfinderAnimalSpecies(petFinderRawValue: speciesString) else {
                 return nil
         }
 

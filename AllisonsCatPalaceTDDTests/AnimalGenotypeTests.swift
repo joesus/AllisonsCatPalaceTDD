@@ -104,7 +104,7 @@ class AnimalGenotypeTests: XCTestCase {
         }
 
         let breedsData = NSKeyedArchiver.archivedData(withRootObject: SampleGenotypes.breeds)
-        XCTAssertEqual(validGenotype.species.rawValue, validGenotype.managedObject.species!.value,
+        XCTAssertEqual(validGenotype.species.rawValue, validGenotype.managedObject.species!.value.value,
                        "Managed object for genotype should store correct raw value for species")
         XCTAssertEqual(validGenotype.purity.rawValue, validGenotype.managedObject.purity!.value.value,
                        "Managed object for genotype should store correct raw value for genetic purity")

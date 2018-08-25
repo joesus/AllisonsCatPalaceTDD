@@ -12,19 +12,19 @@ import RealmSwift
 typealias AnimalBreed = String
 
 class AnimalGenotypeObject: Object {
-    dynamic var species: AnimalSpeciesObject?
+    dynamic var species: PetfinderAnimalSpeciesObject?
     dynamic var purity: GeneticPurityObject?
     dynamic var breeds = Data()
 }
 
 struct AnimalGenotype {
 
-    let species: AnimalSpecies
+    let species: PetfinderAnimalSpecies
     let purity: GeneticPurity
     let breeds: [AnimalBreed]
 
     init?(
-        species: AnimalSpecies,
+        species: PetfinderAnimalSpecies,
         purity: GeneticPurity,
         breeds: [AnimalBreed]
         ) {
@@ -54,7 +54,7 @@ extension AnimalGenotype: Persistable {
 
     init?(managedObject: ManagedObject) {
         guard let managedSpecies = managedObject.species,
-            let species = AnimalSpecies(managedObject: managedSpecies),
+            let species = PetfinderAnimalSpecies(managedObject: managedSpecies),
             let managedPurity = managedObject.purity,
             let purity = GeneticPurity(managedObject: managedPurity) else {
             return nil

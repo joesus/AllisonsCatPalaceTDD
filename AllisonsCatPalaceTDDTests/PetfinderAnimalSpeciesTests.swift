@@ -1,5 +1,5 @@
 //
-//  AnimalSpeciesTests.swift
+//  PetfinderAnimalSpeciesTests.swift
 //  AllisonsCatPalaceTDD
 //
 //  Created by Joe Susnick on 6/24/17.
@@ -10,7 +10,7 @@
 import RealmSwift
 import XCTest
 
-class AnimalSpeciesTests: XCTestCase {
+class PetfinderAnimalSpeciesTests: XCTestCase {
 
     var realm: Realm!
 
@@ -22,7 +22,7 @@ class AnimalSpeciesTests: XCTestCase {
     }
 
     func testInitializerWithEmptyString() {
-        XCTAssertNil(AnimalSpecies(petFinderRawValue: ""),
+        XCTAssertNil(PetfinderAnimalSpecies(petFinderRawValue: ""),
                      "Should not create animal species from empty string")
     }
 
@@ -30,56 +30,70 @@ class AnimalSpeciesTests: XCTestCase {
         let strings = ["dog", "cat", "DOG", "CAT"]
 
         strings.forEach { character in
-            XCTAssertNil(AnimalSpecies(petFinderRawValue: ""),
+            XCTAssertNil(PetfinderAnimalSpecies(petFinderRawValue: ""),
                          "\(character) should not create animal species")
         }
     }
 
     func testInitializerWithValidStrings() {
         ["Dog", "Cat", "BarnYard", "Bird", "Horse", "Rabbit", "Reptile", "Small&amp;Furry"].forEach { string in
-            XCTAssertNotNil(AnimalSpecies(petFinderRawValue: string),
+            XCTAssertNotNil(PetfinderAnimalSpecies(petFinderRawValue: string),
                             "\(string) should create an animal species")
         }
     }
 
     func testAllCases() {
-        switch AnimalSpecies.dog {
+        switch PetfinderAnimalSpecies.dog {
         case .cat, .dog, .barnYard, .bird, .horse, .rabbit, .reptile, .smallAndFurry:
             break
         }
     }
 
     func testManagedObject() {
-        XCTAssertNil(AnimalSpeciesObject().value,
-                     "AnimalSpeciesObject should have no value by default")
+        XCTAssertNil(PetfinderAnimalSpeciesObject().value.value,
+                     "PetfinderAnimalSpeciesObject should have no value by default")
 
-        let species = AnimalSpecies.cat
+        let species = PetfinderAnimalSpecies.cat
         let managed = species.managedObject
 
-        XCTAssertEqual(species.rawValue, managed.value,
+        XCTAssertEqual(species.rawValue, managed.value.value,
                        "Managed object should store correct raw value")
     }
 
     func testInitializingFromManagedObject() {
-        let species = AnimalSpecies.dog
+        let species = PetfinderAnimalSpecies.dog
         let managed = species.managedObject
-        let objectFromManaged = AnimalSpecies(managedObject: managed)
+        let objectFromManaged = PetfinderAnimalSpecies(managedObject: managed)
 
         XCTAssertEqual(objectFromManaged?.rawValue, species.rawValue)
     }
 
     func testSavingManagedObject() {
-        let original = AnimalSpecies.dog
+        let original = PetfinderAnimalSpecies.dog
         let managed = original.managedObject
 
         try? realm.write {
             realm.add(managed)
         }
 
-        let fetchedManagedObject = realm.objects(AnimalSpeciesObject.self).last!
+        let fetchedManagedObject = realm.objects(PetfinderAnimalSpeciesObject.self).last!
 
-        let originalValueFromFetched = AnimalSpecies(managedObject: fetchedManagedObject)
+        let originalValueFromFetched = PetfinderAnimalSpecies(managedObject: fetchedManagedObject)
 
         XCTAssertEqual(original.rawValue, originalValueFromFetched?.rawValue)
     }
+}
+
+func == (lhs: AnimalSpecies, rhs: PetfinderAnimalSpecies) -> Bool {
+    return lhs.description == rhs.description
+}
+
+func == (potentialLhs: AnimalSpecies?, potentialRhs: PetfinderAnimalSpecies?) -> Bool {
+    guard let lhs = potentialLhs,
+        let rhs = potentialRhs
+        else {
+            return false
+    }
+
+    return lhs == rhs
 }

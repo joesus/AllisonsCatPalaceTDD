@@ -164,5 +164,6 @@ extension AnimalCardViewTests {
         }
 
         animalCardView = view
+        animalCardView.imageProvider = ImageProvider.self
     }
 }

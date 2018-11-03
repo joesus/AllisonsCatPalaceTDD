@@ -1,22 +1,17 @@
 //
 //  ImageProvider.swift
-//  AllisonsCatPalaceTDD
+//  ImageProvider
 //
 //  Created by Joesus on 2/25/17.
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import Foundation
-import UIKit
-
-protocol ImageProviding {
-    static func getImage(for: URL, completion: @escaping ImageCompletion)
-}
+import ImageProviding
 
 // TODO: Retry image fetch for missing images on network availability changes
-typealias ImageCompletion = (UIImage?) -> Void
 
-enum ImageProvider: ImageProviding {
+public enum ImageProvider: ImageProviding {
+    static var session = URLSession.shared
     static let cache = URLCache.shared
     static var knownMissingImageUrls = Set<URL>()
     static var currentRequestUrls = Set<URL>()
@@ -29,7 +24,7 @@ enum ImageProvider: ImageProviding {
         return UIImage(data: response.data)
     }
 
-    static func getImage(for url: URL, completion: @escaping ImageCompletion) {
+    public static func getImage(for url: URL, completion: @escaping ImageCompletion) {
         guard !knownMissingImageUrls.contains(url),
             !currentRequestUrls.contains(url) else {
                 return completion(nil)
@@ -41,7 +36,7 @@ enum ImageProvider: ImageProviding {
         }
 
         let request = URLRequest(url: url)
-        let task = URLSession.shared.dataTask(with: request) { potentialData, potentialResponse, _ in
+        let task = session.dataTask(with: request) { potentialData, potentialResponse, _ in
 
             guard let response = potentialResponse as? HTTPURLResponse else {
                 currentRequestUrls.remove(url)

@@ -19,12 +19,9 @@
 		270A6AF51E3E9D3800B12D38 /* AnimalNetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270A6AF41E3E9D3800B12D38 /* AnimalNetworkError.swift */; };
 		270A6AF71E3EA9A000B12D38 /* SampleExternalAnimalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270A6AF61E3EA9A000B12D38 /* SampleExternalAnimalData.swift */; };
 		270FE1DA1E748E22006126B2 /* SampleCats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270FE1D91E748E22006126B2 /* SampleCats.swift */; };
-		270FE1DC1E749E0E006126B2 /* ImageProviderExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270FE1DB1E749E0E006126B2 /* ImageProviderExtensions.swift */; };
 		275D260F1E5106D800FAE334 /* PetFinderAnimalRegistryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D260E1E5106D800FAE334 /* PetFinderAnimalRegistryTests.swift */; };
 		275D26151E5125D100FAE334 /* FavoritesListControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D26141E5125D100FAE334 /* FavoritesListControllerTests.swift */; };
 		275D26171E512F5E00FAE334 /* FavoritesListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D26161E512F5E00FAE334 /* FavoritesListController.swift */; };
-		2767E37D1E62679600A7C5F9 /* ImageProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2767E37C1E62679600A7C5F9 /* ImageProviderTests.swift */; };
-		2767E37F1E6269B900A7C5F9 /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2767E37E1E6269B900A7C5F9 /* ImageProvider.swift */; };
 		276C61961E2C062200225CF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276C61951E2C062200225CF4 /* AppDelegate.swift */; };
 		276C619D1E2C062200225CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 276C619C1E2C062200225CF4 /* Assets.xcassets */; };
 		276C61A01E2C062200225CF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 276C619E1E2C062200225CF4 /* LaunchScreen.storyboard */; };
@@ -159,6 +156,20 @@
 			remoteGlobalIDString = F44FED18218E49000012C0EB;
 			remoteInfo = ImageProviding;
 		};
+		F44FED54218E4A5C0012C0EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F44FED4F218E4A5A0012C0EB /* ImageProvider.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F44FED35218E4A5A0012C0EB;
+			remoteInfo = ImageProvider;
+		};
+		F44FED56218E4A5C0012C0EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F44FED4F218E4A5A0012C0EB /* ImageProvider.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F44FED3E218E4A5A0012C0EB;
+			remoteInfo = ImageProviderTests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -174,13 +185,10 @@
 		270A6AF41E3E9D3800B12D38 /* AnimalNetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalNetworkError.swift; sourceTree = "<group>"; };
 		270A6AF61E3EA9A000B12D38 /* SampleExternalAnimalData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleExternalAnimalData.swift; sourceTree = "<group>"; };
 		270FE1D91E748E22006126B2 /* SampleCats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleCats.swift; sourceTree = "<group>"; };
-		270FE1DB1E749E0E006126B2 /* ImageProviderExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageProviderExtensions.swift; sourceTree = "<group>"; };
 		275D260E1E5106D800FAE334 /* PetFinderAnimalRegistryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetFinderAnimalRegistryTests.swift; sourceTree = "<group>"; };
 		275D26121E511B3400FAE334 /* PetFinderAnimalRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetFinderAnimalRegistry.swift; sourceTree = "<group>"; };
 		275D26141E5125D100FAE334 /* FavoritesListControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesListControllerTests.swift; sourceTree = "<group>"; };
 		275D26161E512F5E00FAE334 /* FavoritesListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesListController.swift; sourceTree = "<group>"; };
-		2767E37C1E62679600A7C5F9 /* ImageProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageProviderTests.swift; sourceTree = "<group>"; };
-		2767E37E1E6269B900A7C5F9 /* ImageProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
 		276C61921E2C062200225CF4 /* AllisonsCatPalaceTDD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AllisonsCatPalaceTDD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		276C61951E2C062200225CF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		276C619C1E2C062200225CF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -240,6 +248,7 @@
 		F43BC6A31F1AC9E400E025EB /* ExternalData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalData.swift; sourceTree = "<group>"; };
 		F44AEAD71FC717D500DF0A49 /* GestureRecognizerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureRecognizerHelper.swift; sourceTree = "<group>"; };
 		F44FED23218E49000012C0EB /* ImageProviding.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ImageProviding.xcodeproj; path = ImageProviding/ImageProviding.xcodeproj; sourceTree = "<group>"; };
+		F44FED4F218E4A5A0012C0EB /* ImageProvider.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ImageProvider.xcodeproj; path = ImageProvider/ImageProvider.xcodeproj; sourceTree = "<group>"; };
 		F4543D9B1F43C19F00F9CDE3 /* LocationControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationControllerTests.swift; sourceTree = "<group>"; };
 		F4543D9D1F43C28300F9CDE3 /* LocationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
 		F4543D9F1F43C42700F9CDE3 /* TextFieldVerifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldVerifiers.swift; sourceTree = "<group>"; };
@@ -430,7 +439,6 @@
 				F4AB68971F2D37FE00CC4CC2 /* GeneticPurityTests.swift */,
 				F4AB689D1F2D4D4D00CC4CC2 /* GenotypeBuilderTests.swift */,
 				277199151E35636A00930630 /* Helpers */,
-				2767E37C1E62679600A7C5F9 /* ImageProviderTests.swift */,
 				276C61AC1E2C062200225CF4 /* Info.plist */,
 				F4543D9B1F43C19F00F9CDE3 /* LocationControllerTests.swift */,
 				F4E82A3E1F507C470019F1AE /* LocationResolutionErrorTests.swift */,
@@ -468,7 +476,6 @@
 				F4E8BE841F2407CC00F680E2 /* DataTaskResumeStub.swift */,
 				F4764B3A1FAFB73B007990B4 /* FakeRegistry.swift */,
 				F44AEAD71FC717D500DF0A49 /* GestureRecognizerHelper.swift */,
-				270FE1DB1E749E0E006126B2 /* ImageProviderExtensions.swift */,
 				F494349C1FD4AFCC00B6EEA7 /* LocationServicesEnabledStub.swift */,
 				270A6AEE1E3E85BE00B12D38 /* NetworkTestingConstants.swift */,
 				F416125E1EB5481B00E3E6F6 /* PredicateHelper.swift */,
@@ -554,7 +561,6 @@
 			children = (
 				270A6AF41E3E9D3800B12D38 /* AnimalNetworkError.swift */,
 				F47D38F41FA5314A001DBD60 /* AnimalNetworking.swift */,
-				2767E37E1E6269B900A7C5F9 /* ImageProvider.swift */,
 				F4E82A401F507DEA0019F1AE /* LocationResolutionError.swift */,
 				F42E16CD1F92ACF600FDD9BE /* Models */,
 				F41A38811F897B6A00AD2762 /* PaginationCursor.swift */,
@@ -595,6 +601,7 @@
 		F44FED0D218E48C10012C0EB /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				F44FED4F218E4A5A0012C0EB /* ImageProvider.xcodeproj */,
 				F44FED23218E49000012C0EB /* ImageProviding.xcodeproj */,
 			);
 			path = Dependencies;
@@ -604,6 +611,15 @@
 			isa = PBXGroup;
 			children = (
 				F44FED28218E49010012C0EB /* ImageProviding.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F44FED50218E4A5A0012C0EB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F44FED55218E4A5C0012C0EB /* ImageProvider.framework */,
+				F44FED57218E4A5C0012C0EB /* ImageProviderTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -711,6 +727,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = F44FED50218E4A5A0012C0EB /* Products */;
+					ProjectRef = F44FED4F218E4A5A0012C0EB /* ImageProvider.xcodeproj */;
+				},
+				{
 					ProductGroup = F44FED24218E49000012C0EB /* Products */;
 					ProjectRef = F44FED23218E49000012C0EB /* ImageProviding.xcodeproj */;
 				},
@@ -729,6 +749,20 @@
 			fileType = wrapper.framework;
 			path = ImageProviding.framework;
 			remoteRef = F44FED27218E49010012C0EB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F44FED55218E4A5C0012C0EB /* ImageProvider.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ImageProvider.framework;
+			remoteRef = F44FED54218E4A5C0012C0EB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F44FED57218E4A5C0012C0EB /* ImageProviderTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ImageProviderTests.xctest;
+			remoteRef = F44FED56218E4A5C0012C0EB /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -816,7 +850,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/SwiftLint/swiftlint\"";
+			shellScript = "\"${SRCROOT}/Pods/SwiftLint/swiftlint\"\n";
 		};
 		4F2DA9DB8157F35D616F85AC /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -902,7 +936,6 @@
 				270A6AED1E3E7F7800B12D38 /* Result.swift in Sources */,
 				F41A38821F897B6A00AD2762 /* PaginationCursor.swift in Sources */,
 				F4D792691FDDCE3000D0876A /* UserLocationResolution.swift in Sources */,
-				2767E37F1E6269B900A7C5F9 /* ImageProvider.swift in Sources */,
 				F436324D1F536A73004DF88A /* AnimalCardsViewController.swift in Sources */,
 				F4D792741FDF5C3200D0876A /* ResolvingLocationView.swift in Sources */,
 				276C61961E2C062200225CF4 /* AppDelegate.swift in Sources */,
@@ -989,7 +1022,6 @@
 				277199121E33F45B00930630 /* PetFinderNetworkerTests.swift in Sources */,
 				F41612611EB54DB000E3E6F6 /* UITestingHelper.swift in Sources */,
 				270A6AEF1E3E85BE00B12D38 /* NetworkTestingConstants.swift in Sources */,
-				2767E37D1E62679600A7C5F9 /* ImageProviderTests.swift in Sources */,
 				F471ABBB20140FD800EF2B03 /* CollectionExtensions.swift in Sources */,
 				F43BC69C1F1A9CF700E025EB /* AnimalImageLocationsTests.swift in Sources */,
 				F4543D9C1F43C19F00F9CDE3 /* LocationControllerTests.swift in Sources */,
@@ -1001,7 +1033,6 @@
 				F4D792781FDF655F00D0876A /* ResolvedLocationViewTests.swift in Sources */,
 				27E823971E5A5115009B202A /* MainStoryboardTests.swift in Sources */,
 				F4D792721FDF58B700D0876A /* ResolvingLocationViewTests.swift in Sources */,
-				270FE1DC1E749E0E006126B2 /* ImageProviderExtensions.swift in Sources */,
 				275D26151E5125D100FAE334 /* FavoritesListControllerTests.swift in Sources */,
 				F494349F1FD4B3D700B6EEA7 /* AuthorizationStatusStub.swift in Sources */,
 				270FE1DA1E748E22006126B2 /* SampleCats.swift in Sources */,

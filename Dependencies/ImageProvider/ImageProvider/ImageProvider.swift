@@ -16,7 +16,7 @@ public enum ImageProvider: ImageProviding {
     static var knownMissingImageUrls = Set<URL>()
     static var currentRequestUrls = Set<URL>()
 
-    static func imageForUrl(_ url: URL) -> UIImage? {
+    public static func image(for url: URL) -> UIImage? {
         guard let response = cache.cachedResponse(for: URLRequest(url: url)) else {
             return nil
         }
@@ -30,7 +30,7 @@ public enum ImageProvider: ImageProviding {
                 return completion(nil)
         }
 
-        if let image = imageForUrl(url) {
+        if let image = image(for: url) {
             completion(image)
             return
         }

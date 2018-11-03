@@ -10,6 +10,7 @@ import UIKit
 
 public protocol ImageProviding {
     static func getImage(for: URL, completion: @escaping ImageCompletion)
+    static func image(for: URL) -> UIImage?
 }
 
 public typealias ImageCompletion = (UIImage?) -> Void

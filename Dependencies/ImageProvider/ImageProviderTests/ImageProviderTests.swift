@@ -131,12 +131,12 @@ class ImageProviderTests: XCTestCase {
             for: URLRequest(url: url)
         )
 
-        XCTAssertEqual(UIImagePNGRepresentation(ImageProvider.imageForUrl(url)!), ImageProviderTests.imageData,
+        XCTAssertEqual(UIImagePNGRepresentation(ImageProvider.image(for: url)!), ImageProviderTests.imageData,
                        "imageForUrl should return an image if there is a cached image")
     }
 
     func testImageForUrlReturnsNoImageIfNoCachedImage() {
-        XCTAssertNil(ImageProvider.imageForUrl(url),
+        XCTAssertNil(ImageProvider.image(for: url),
                      "imageForUrl should return nil when no cached images")
     }
 

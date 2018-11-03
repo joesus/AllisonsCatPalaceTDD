@@ -152,6 +152,13 @@
 			remoteGlobalIDString = 276C61911E2C062200225CF4;
 			remoteInfo = AllisonsCatPalaceTDD;
 		};
+		F44FED27218E49010012C0EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F44FED23218E49000012C0EB /* ImageProviding.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F44FED18218E49000012C0EB;
+			remoteInfo = ImageProviding;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -232,6 +239,7 @@
 		F43BC6A11F1AA8A400E025EB /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		F43BC6A31F1AC9E400E025EB /* ExternalData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalData.swift; sourceTree = "<group>"; };
 		F44AEAD71FC717D500DF0A49 /* GestureRecognizerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureRecognizerHelper.swift; sourceTree = "<group>"; };
+		F44FED23218E49000012C0EB /* ImageProviding.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ImageProviding.xcodeproj; path = ImageProviding/ImageProviding.xcodeproj; sourceTree = "<group>"; };
 		F4543D9B1F43C19F00F9CDE3 /* LocationControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationControllerTests.swift; sourceTree = "<group>"; };
 		F4543D9D1F43C28300F9CDE3 /* LocationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
 		F4543D9F1F43C42700F9CDE3 /* TextFieldVerifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldVerifiers.swift; sourceTree = "<group>"; };
@@ -359,6 +367,7 @@
 		276C61891E2C062200225CF4 = {
 			isa = PBXGroup;
 			children = (
+				F44FED0D218E48C10012C0EB /* Dependencies */,
 				276C61941E2C062200225CF4 /* AllisonsCatPalaceTDD */,
 				276C61A91E2C062200225CF4 /* AllisonsCatPalaceTDDTests */,
 				DF6C4F3818B80176C43FE384 /* Frameworks */,
@@ -583,6 +592,22 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		F44FED0D218E48C10012C0EB /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				F44FED23218E49000012C0EB /* ImageProviding.xcodeproj */,
+			);
+			path = Dependencies;
+			sourceTree = "<group>";
+		};
+		F44FED24218E49000012C0EB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F44FED28218E49010012C0EB /* ImageProviding.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		F4B68884203108DD00F3184E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -684,6 +709,12 @@
 			mainGroup = 276C61891E2C062200225CF4;
 			productRefGroup = 276C61931E2C062200225CF4 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F44FED24218E49000012C0EB /* Products */;
+					ProjectRef = F44FED23218E49000012C0EB /* ImageProviding.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				276C61911E2C062200225CF4 /* AllisonsCatPalaceTDD */,
@@ -691,6 +722,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F44FED28218E49010012C0EB /* ImageProviding.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ImageProviding.framework;
+			remoteRef = F44FED27218E49010012C0EB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		276C61901E2C062200225CF4 /* Resources */ = {

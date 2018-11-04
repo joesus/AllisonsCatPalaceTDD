@@ -17,7 +17,7 @@ class AnimalDetailHeaderView: UIView {
             guard let url = animal?.imageLocations.large.first else {
                 return
             }
-            ImageProvider.getImage(for: url) { image in
+            Dependencies.imageProvider.getImage(for: url) { image in
                 DispatchQueue.main.async {
                     self.imageView.image = image
                     self.setNeedsLayout()

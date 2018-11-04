@@ -7,6 +7,7 @@
 //
 
 @testable import AllisonsCatPalaceTDD
+import ImageProviding
 import Koloda
 import RealmSwift
 import TestableUIKit
@@ -22,7 +23,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
         super.setUp()
 
         FakeRegistry.reset() //Clears call counts and stored animals between tests
-        ImageProvider.reset()
+        Dependencies.imageProvider = FakeImageProvider.self
         realm = realmForTest(withName: name!)
 
         resetRealm(realm)
@@ -282,7 +283,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
         scene.viewDidLoad()
 
         let predicate = NSPredicate { _, _ in
-            ImageProvider.cache.cachedResponse(for: URLRequest(url: urlToPreload)) != nil
+            Dependencies.imageProvider.image(for: urlToPreload) != nil
         }
         expectation(for: predicate, evaluatedWith: self, handler: nil)
 
@@ -298,7 +299,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
         scene.viewDidLoad()
 
         let predicate = NSPredicate { _, _ in
-            ImageProvider.cache.cachedResponse(for: URLRequest(url: urlToPreload)) != nil
+            Dependencies.imageProvider.image(for: urlToPreload) != nil
         }
         expectation(for: predicate, evaluatedWith: self, handler: nil)
 

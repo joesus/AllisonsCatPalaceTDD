@@ -10,7 +10,7 @@
 import XCTest
 
 class PetFinderSearchParametersTests: XCTestCase {
-
+ 
     func testSearchParameterKeys() {
         XCTAssertEqual(PetFinderSearchParameters.QueryItemKeys.location, "location",
                        "There should be a defined name for each key")

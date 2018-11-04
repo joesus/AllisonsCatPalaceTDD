@@ -35,7 +35,7 @@ class FavoritesListDataSourceTests: XCTestCase {
         realm = realmForTest(withName: name!)
         resetRealm(realm)
         InjectionMap.realm = realm
-        ImageProvider.reset()
+        Dependencies.imageProvider = FakeImageProvider.self
         loadComponents()
         reloadRowsSpy = UITableView.ReloadRowsSpyController.createSpy(on: tableView)
         reloadRowsSpy?.beginSpying()
@@ -44,7 +44,7 @@ class FavoritesListDataSourceTests: XCTestCase {
     }
 
     override func tearDown() {
-        ImageProvider.reset()
+        Dependencies.imageProvider = FakeImageProvider.self
         URLSession.endSpyingOnDataTaskCreation()
         URLSessionDataTask.endSpyingOnResume()
         reloadRowsSpy?.endSpying()
@@ -126,18 +126,15 @@ class FavoritesListDataSourceTests: XCTestCase {
 
     func testCatCellUsesCachedImageIfAvailable() {
         controller.animals.append(cat)
-        let thumbnailUrl = cat.imageLocations.small.first!
-        let response = URLResponse(url: thumbnailUrl, mimeType: nil, expectedContentLength: 1, textEncodingName: nil)
-        ImageProvider.cache.storeCachedResponse(
-            CachedURLResponse(response: response, data: imageData!),
-            for: URLRequest(url: thumbnailUrl)
-        )
+
+        Dependencies.imageProvider = FakeImageProvider.self
+        FakeImageProvider.cachedImage = #imageLiteral(resourceName: "testCatImage.jpeg")
 
         // Need to force it to load the cell at that IndexPath
         _ = tableView.dataSource?.tableView(tableView, cellForRowAt: firstCatIndexPath)
 
         let cell = tableView.cellForRow(at: firstCatIndexPath)
-        XCTAssertEqual(UIImagePNGRepresentation((cell!.imageView!.image)!), imageData,
+        XCTAssertEqual(cell!.imageView!.image, #imageLiteral(resourceName: "testCatImage.jpeg"),
                        "When available the image should populate from the cache")
     }
 

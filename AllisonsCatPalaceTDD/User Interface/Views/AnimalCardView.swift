@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ImageProviding
 
 class AnimalCardView: UIView {
     @IBOutlet weak var imageView: UIImageView!
@@ -26,11 +27,12 @@ class AnimalCardView: UIView {
     }
 
     private func load(_ imageUrl: URL) {
-        if let image = ImageProvider.imageForUrl(imageUrl) {
+        if let image = Dependencies.imageProvider.image(for: imageUrl) {
             DispatchQueue.main.async { [weak self] in
                 self?.imageView.image = image
             }
-        } else {
+        }
+        else {
             imageProvider.getImage(for: imageUrl) { potentialImage in
                 guard let image = potentialImage else { return }
 

@@ -7,6 +7,12 @@
 //
 
 import UIKit
+import ImageProvider
+import ImageProviding
+
+struct Dependencies {
+    static var imageProvider: ImageProviding.Type = ImageProvider.self
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

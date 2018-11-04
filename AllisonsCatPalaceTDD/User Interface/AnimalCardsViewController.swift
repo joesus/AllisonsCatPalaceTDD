@@ -7,6 +7,7 @@
 //
 
 import Koloda
+import ImageProviding
 
 class AnimalCardsViewController: UIViewController {
     @IBOutlet weak var deckView: KolodaView!

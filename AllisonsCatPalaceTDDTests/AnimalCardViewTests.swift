@@ -21,7 +21,7 @@ class AnimalCardViewTests: XCTestCase {
 
         URLSessionDataTask.beginSpyingOnResume()
         URLSession.beginSpyingOnDataTaskCreation()
-        ImageProvider.reset()
+        Dependencies.imageProvider = FakeImageProvider.self
 
         setupComponents()
     }
@@ -29,7 +29,7 @@ class AnimalCardViewTests: XCTestCase {
     override func tearDown() {
         URLSessionDataTask.endSpyingOnResume()
         URLSession.endSpyingOnDataTaskCreation()
-        ImageProvider.reset()
+        Dependencies.imageProvider = FakeImageProvider.self
 
         super.tearDown()
     }
@@ -57,33 +57,19 @@ class AnimalCardViewTests: XCTestCase {
 
     func testConfiguringUsesCacheIfAvailable() {
         let cat = cats.first!
-        let url = cat.imageLocations.medium.first!
-        let imageData = UIImagePNGRepresentation(#imageLiteral(resourceName: "testCat"))
 
-        let response = URLResponse(url: url, mimeType: nil, expectedContentLength: 1, textEncodingName: nil)
-
-        ImageProvider.cache.storeCachedResponse(
-            CachedURLResponse(response: response, data: imageData!),
-            for: URLRequest(url: url)
-        )
+        Dependencies.imageProvider = FakeImageProvider.self
+        FakeImageProvider.cachedImage = #imageLiteral(resourceName: "testCat")
 
         animalCardView.configure(with: cat)
 
         let predicate = NSPredicate { _, _ in
-            guard let image = self.animalCardView.imageView.image else {
-                return false
-            }
-
-            return UIImagePNGRepresentation(image) == UIImagePNGRepresentation(#imageLiteral(resourceName: "testCat"))
+            return self.animalCardView.imageView.image == #imageLiteral(resourceName: "testCat")
         }
 
         expectation(for: predicate, evaluatedWith: [:], handler: nil)
 
         waitForExpectations(timeout: 3, handler: nil)
-
-        // can assume it's from cache because of no data task
-        XCTAssertNil(URLSession.shared.lastCreatedDataTask,
-                     "No data task should be created for a cached request")
     }
 
     func testConfiguringFetchesFirstMediumImageIfNothingCached() {
@@ -164,6 +150,6 @@ extension AnimalCardViewTests {
         }
 
         animalCardView = view
-        animalCardView.imageProvider = ImageProvider.self
+        animalCardView.imageProvider = Dependencies.imageProvider
     }
 }

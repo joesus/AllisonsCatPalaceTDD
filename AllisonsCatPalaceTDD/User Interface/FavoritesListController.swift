@@ -52,11 +52,11 @@ class FavoritesListController: UITableViewController, RealmInjected {
             return cell
         }
 
-        if let image = ImageProvider.imageForUrl(imageUrl) {
+        if let image = Dependencies.imageProvider.image(for: imageUrl) {
             cell.imageView?.image = image
         }
         else {
-            ImageProvider.getImage(for: imageUrl) { potentialImage in
+            Dependencies.imageProvider.getImage(for: imageUrl) { potentialImage in
                 guard potentialImage != nil else { return }
 
                 DispatchQueue.main.async {

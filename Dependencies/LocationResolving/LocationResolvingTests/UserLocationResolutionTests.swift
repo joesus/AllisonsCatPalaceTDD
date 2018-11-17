@@ -6,11 +6,13 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-@testable import AllisonsCatPalaceTDD
+import LocationResolving
 import CoreLocation
 import XCTest
 
 class UserLocationResolutionTests: XCTestCase {
+
+    let placemark = SamplePlacemarks.denver
 
     func testAllCases() {
         let possibleValues: [UserLocationResolution] = [
@@ -18,7 +20,7 @@ class UserLocationResolutionTests: XCTestCase {
             .allowed,
             .disallowed,
             .resolving,
-            .resolved(zipCode: SampleSearchParameters.zipCode, city: nil, state: nil),
+            .resolved(placemark: placemark),
             .resolutionFailure(error: .unknownError)
          ]
 

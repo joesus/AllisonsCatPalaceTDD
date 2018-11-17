@@ -11,6 +11,13 @@
 		F44E5F0F21A0BE8D00DA391D /* LocationResolving.h in Headers */ = {isa = PBXBuildFile; fileRef = F44E5F0121A0BE8D00DA391D /* LocationResolving.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F44E5F3621A0BF4B00DA391D /* LocationResolutionErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F3521A0BF4A00DA391D /* LocationResolutionErrorTests.swift */; };
 		F44E5F3821A0BFCD00DA391D /* LocationResolutionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F3721A0BFCC00DA391D /* LocationResolutionError.swift */; };
+		F44E5F3A21A0C23A00DA391D /* UserLocationResolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F3921A0C23900DA391D /* UserLocationResolutionTests.swift */; };
+		F44E5F3C21A0C24200DA391D /* UserLocationResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F3B21A0C24200DA391D /* UserLocationResolution.swift */; };
+		F44E5F4021A0C41E00DA391D /* SamplePlacemarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F3E21A0C41E00DA391D /* SamplePlacemarks.swift */; };
+		F44E5F4121A0C41E00DA391D /* DenverPlacemark in Resources */ = {isa = PBXBuildFile; fileRef = F44E5F3F21A0C41E00DA391D /* DenverPlacemark */; };
+		F44E5F4321A0CED500DA391D /* LocationResolving.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F4221A0CED500DA391D /* LocationResolving.swift */; };
+		F44E5F4521A0D04C00DA391D /* LocationUpdateAvailabilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F4421A0D04C00DA391D /* LocationUpdateAvailabilityTests.swift */; };
+		F44E5F4721A0D19E00DA391D /* LocationUpdateAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F4621A0D19E00DA391D /* LocationUpdateAvailability.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +38,13 @@
 		F44E5F0E21A0BE8D00DA391D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F44E5F3521A0BF4A00DA391D /* LocationResolutionErrorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationResolutionErrorTests.swift; sourceTree = "<group>"; };
 		F44E5F3721A0BFCC00DA391D /* LocationResolutionError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationResolutionError.swift; sourceTree = "<group>"; };
+		F44E5F3921A0C23900DA391D /* UserLocationResolutionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocationResolutionTests.swift; sourceTree = "<group>"; };
+		F44E5F3B21A0C24200DA391D /* UserLocationResolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocationResolution.swift; sourceTree = "<group>"; };
+		F44E5F3E21A0C41E00DA391D /* SamplePlacemarks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SamplePlacemarks.swift; sourceTree = "<group>"; };
+		F44E5F3F21A0C41E00DA391D /* DenverPlacemark */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = DenverPlacemark; sourceTree = "<group>"; };
+		F44E5F4221A0CED500DA391D /* LocationResolving.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationResolving.swift; sourceTree = "<group>"; };
+		F44E5F4421A0D04C00DA391D /* LocationUpdateAvailabilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUpdateAvailabilityTests.swift; sourceTree = "<group>"; };
+		F44E5F4621A0D19E00DA391D /* LocationUpdateAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUpdateAvailability.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,9 +87,12 @@
 		F44E5F0021A0BE8D00DA391D /* LocationResolving */ = {
 			isa = PBXGroup;
 			children = (
+				F44E5F0221A0BE8D00DA391D /* Info.plist */,
 				F44E5F3721A0BFCC00DA391D /* LocationResolutionError.swift */,
 				F44E5F0121A0BE8D00DA391D /* LocationResolving.h */,
-				F44E5F0221A0BE8D00DA391D /* Info.plist */,
+				F44E5F4221A0CED500DA391D /* LocationResolving.swift */,
+				F44E5F4621A0D19E00DA391D /* LocationUpdateAvailability.swift */,
+				F44E5F3B21A0C24200DA391D /* UserLocationResolution.swift */,
 			);
 			path = LocationResolving;
 			sourceTree = "<group>";
@@ -83,10 +100,23 @@
 		F44E5F0B21A0BE8D00DA391D /* LocationResolvingTests */ = {
 			isa = PBXGroup;
 			children = (
-				F44E5F3521A0BF4A00DA391D /* LocationResolutionErrorTests.swift */,
 				F44E5F0E21A0BE8D00DA391D /* Info.plist */,
+				F44E5F3521A0BF4A00DA391D /* LocationResolutionErrorTests.swift */,
+				F44E5F4421A0D04C00DA391D /* LocationUpdateAvailabilityTests.swift */,
+				F44E5F3D21A0C41E00DA391D /* SampleData */,
+				F44E5F3921A0C23900DA391D /* UserLocationResolutionTests.swift */,
 			);
 			path = LocationResolvingTests;
+			sourceTree = "<group>";
+		};
+		F44E5F3D21A0C41E00DA391D /* SampleData */ = {
+			isa = PBXGroup;
+			children = (
+				F44E5F3E21A0C41E00DA391D /* SamplePlacemarks.swift */,
+				F44E5F3F21A0C41E00DA391D /* DenverPlacemark */,
+			);
+			name = SampleData;
+			path = ../../AnimalProviding/AnimalProvidingTests/SampleData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,6 +219,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F44E5F4121A0C41E00DA391D /* DenverPlacemark in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,7 +230,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F44E5F4721A0D19E00DA391D /* LocationUpdateAvailability.swift in Sources */,
+				F44E5F4321A0CED500DA391D /* LocationResolving.swift in Sources */,
 				F44E5F3821A0BFCD00DA391D /* LocationResolutionError.swift in Sources */,
+				F44E5F3C21A0C24200DA391D /* UserLocationResolution.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,6 +242,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F44E5F3621A0BF4B00DA391D /* LocationResolutionErrorTests.swift in Sources */,
+				F44E5F3A21A0C23A00DA391D /* UserLocationResolutionTests.swift in Sources */,
+				F44E5F4521A0D04C00DA391D /* LocationUpdateAvailabilityTests.swift in Sources */,
+				F44E5F4021A0C41E00DA391D /* SamplePlacemarks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,7 +311,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -332,7 +369,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

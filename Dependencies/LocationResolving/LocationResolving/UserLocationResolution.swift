@@ -8,11 +8,11 @@
 
 import CoreLocation
 
-enum UserLocationResolution {
+public enum UserLocationResolution {
     case unknown
     case allowed
     case disallowed
     case resolving
-    case resolved(zipCode: ZipCode, city: String?, state: String?)
+    case resolved(placemark: CLPlacemark)
     case resolutionFailure(error: LocationResolutionError)
 }

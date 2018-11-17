@@ -121,8 +121,6 @@
 		F4BE6C991F584CFE00480671 /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BE6C981F584CFE00480671 /* Persistable.swift */; };
 		F4BE6C9B1F59C00900480671 /* RealmHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BE6C9A1F59C00900480671 /* RealmHelpers.swift */; };
 		F4C52A941FAFA3D5002AD597 /* PetFinderAnimalRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275D26121E511B3400FAE334 /* PetFinderAnimalRegistry.swift */; };
-		F4D792671FDDCC1800D0876A /* UserLocationResolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D792661FDDCC1800D0876A /* UserLocationResolutionTests.swift */; };
-		F4D792691FDDCE3000D0876A /* UserLocationResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D792681FDDCE3000D0876A /* UserLocationResolution.swift */; };
 		F4D7926C1FDDD3D000D0876A /* DenverPlacemark in Resources */ = {isa = PBXBuildFile; fileRef = F4D7926B1FDDD3CF00D0876A /* DenverPlacemark */; };
 		F4D7926E1FDDD6FC00D0876A /* SamplePlacemarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D7926D1FDDD6FC00D0876A /* SamplePlacemarks.swift */; };
 		F4D792701FDDD91800D0876A /* SampleError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D7926F1FDDD91800D0876A /* SampleError.swift */; };
@@ -383,8 +381,6 @@
 		F4B688852031090000F3184E /* CollectionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensions.swift; sourceTree = "<group>"; };
 		F4BE6C981F584CFE00480671 /* Persistable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
 		F4BE6C9A1F59C00900480671 /* RealmHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmHelpers.swift; sourceTree = "<group>"; };
-		F4D792661FDDCC1800D0876A /* UserLocationResolutionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationResolutionTests.swift; sourceTree = "<group>"; };
-		F4D792681FDDCE3000D0876A /* UserLocationResolution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationResolution.swift; sourceTree = "<group>"; };
 		F4D7926B1FDDD3CF00D0876A /* DenverPlacemark */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = DenverPlacemark; sourceTree = "<group>"; };
 		F4D7926D1FDDD6FC00D0876A /* SamplePlacemarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamplePlacemarks.swift; sourceTree = "<group>"; };
 		F4D7926F1FDDD91800D0876A /* SampleError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleError.swift; sourceTree = "<group>"; };
@@ -451,7 +447,6 @@
 				F46539CC1EFF29A80049E7FD /* PetfinderAnimalSpecies.swift */,
 				F46539BA1EFF11430049E7FD /* PositiveInteger.swift */,
 				F494349A1FD499FC00B6EEA7 /* SpeciesSelectionIndex.swift */,
-				F4D792681FDDCE3000D0876A /* UserLocationResolution.swift */,
 				F42E16CB1F92A47700FDD9BE /* ZipCode.swift */,
 			);
 			path = Models;
@@ -460,9 +455,9 @@
 		276C61891E2C062200225CF4 = {
 			isa = PBXGroup;
 			children = (
-				F44FED0D218E48C10012C0EB /* Dependencies */,
 				276C61941E2C062200225CF4 /* AllisonsCatPalaceTDD */,
 				276C61A91E2C062200225CF4 /* AllisonsCatPalaceTDDTests */,
+				F44FED0D218E48C10012C0EB /* Dependencies */,
 				DF6C4F3818B80176C43FE384 /* Frameworks */,
 				1504518299AACDE0795BE59E /* Pods */,
 				276C61931E2C062200225CF4 /* Products */,
@@ -481,17 +476,17 @@
 		276C61941E2C062200225CF4 /* AllisonsCatPalaceTDD */ = {
 			isa = PBXGroup;
 			children = (
-				276C61951E2C062200225CF4 /* AppDelegate.swift */,
 				F416125B1EB5202700E3E6F6 /* Cells */,
-				F4B44C541FE72612005D5A29 /* DisplayableString.swift */,
 				F4B68884203108DD00F3184E /* Extensions */,
-				276C61A11E2C062200225CF4 /* Info.plist */,
 				2719FBED1E7F137300D3D79A /* Models */,
 				F41A38861F89844300AD2762 /* Networking */,
 				F41A38851F8983F200AD2762 /* Persistence */,
 				F41A38881F89852500AD2762 /* Resources */,
 				F41A38871F89846C00AD2762 /* System */,
 				F41A38831F89838800AD2762 /* User Interface */,
+				276C61951E2C062200225CF4 /* AppDelegate.swift */,
+				F4B44C541FE72612005D5A29 /* DisplayableString.swift */,
+				276C61A11E2C062200225CF4 /* Info.plist */,
 			);
 			path = AllisonsCatPalaceTDD;
 			sourceTree = "<group>";
@@ -499,12 +494,13 @@
 		276C61A91E2C062200225CF4 /* AllisonsCatPalaceTDDTests */ = {
 			isa = PBXGroup;
 			children = (
-				F4AEE783204220D700256AF9 /* DesignableViewPropertiesTests.swift */,
+				277199151E35636A00930630 /* Helpers */,
+				F4D7926A1FDDD3CF00D0876A /* SampleData */,
 				F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */,
 				F46539C01EFF1E690049E7FD /* AnimalAgeGroupTests.swift */,
 				276C61C31E2C1D8600225CF4 /* AnimalBuilderTests.swift */,
-				F436325A1F54DF58004DF88A /* AnimalCardsViewControllerTests.swift */,
 				F43632581F53B091004DF88A /* AnimalCardViewTests.swift */,
+				F436325A1F54DF58004DF88A /* AnimalCardsViewControllerTests.swift */,
 				F4FB8EE21F410EAC006767AE /* AnimalDetailHeaderViewTests.swift */,
 				2700D3F41E885FE7004E77A1 /* AnimalDetailViewControllerTests.swift */,
 				F4AB68951F2D352700CC4CC2 /* AnimalGenotypeTests.swift */,
@@ -514,15 +510,14 @@
 				F46539CE1EFF2BEE0049E7FD /* AnimalPhotoSizeTests.swift */,
 				F46539C41EFF24720049E7FD /* AnimalSexTests.swift */,
 				F46539BC1EFF136B0049E7FD /* AnimalSizeTests.swift */,
-				F46539CA1EFF281D0049E7FD /* PetfinderAnimalSpeciesTests.swift */,
 				276C61BF1E2C1AFF00225CF4 /* AnimalTests.swift */,
 				276C61B51E2C068900225CF4 /* AppDelegateTests.swift */,
+				F4AEE783204220D700256AF9 /* DesignableViewPropertiesTests.swift */,
 				F4B44C521FE720FE005D5A29 /* DisplayableStringTests.swift */,
 				275D26141E5125D100FAE334 /* FavoritesListControllerTests.swift */,
 				27E823921E5A43AB009B202A /* FavoritesListDataSourceTests.swift */,
 				F4AB68971F2D37FE00CC4CC2 /* GeneticPurityTests.swift */,
 				F4AB689D1F2D4D4D00CC4CC2 /* GenotypeBuilderTests.swift */,
-				277199151E35636A00930630 /* Helpers */,
 				276C61AC1E2C062200225CF4 /* Info.plist */,
 				F4543D9B1F43C19F00F9CDE3 /* LocationControllerTests.swift */,
 				27E823961E5A5115009B202A /* MainStoryboardTests.swift */,
@@ -533,16 +528,15 @@
 				F47D38F01FA51DB7001DBD60 /* PetFinderRecordLengthTests.swift */,
 				F4764B381FAFB0D9007990B4 /* PetFinderSearchControllerTests.swift */,
 				F42E16C71F929B8B00FDD9BE /* PetFinderSearchParametersTests.swift */,
+				F46539CA1EFF281D0049E7FD /* PetfinderAnimalSpeciesTests.swift */,
 				F41A38891F8985E200AD2762 /* PetfinderUrlBuilderTests.swift */,
 				F46539B81EFF0F580049E7FD /* PositiveIntegerTests.swift */,
 				F4D792771FDF655F00D0876A /* ResolvedLocationViewTests.swift */,
 				F4D792711FDF58B700D0876A /* ResolvingLocationViewTests.swift */,
 				270A6AEA1E3E7DB000B12D38 /* ResultTests.swift */,
-				F4D7926A1FDDD3CF00D0876A /* SampleData */,
 				F43BC69F1F1AA5AD00E025EB /* SequenceRemovingDuplicatesTests.swift */,
 				F49434981FD4983A00B6EEA7 /* SpeciesSelectionIndexTests.swift */,
 				F43632561F53A4B3004DF88A /* SwipeOverlayViewTests.swift */,
-				F4D792661FDDCC1800D0876A /* UserLocationResolutionTests.swift */,
 				F42E16C91F929C5800FDD9BE /* ZipCodeTests.swift */,
 			);
 			path = AllisonsCatPalaceTDDTests;
@@ -557,6 +551,7 @@
 				F471ABB62013F22700EF2B03 /* CLLocationManagerRequestLocationSpy.swift */,
 				F471ABBA20140FD800EF2B03 /* CollectionExtensions.swift */,
 				F4E8BE841F2407CC00F680E2 /* DataTaskResumeStub.swift */,
+				F41E0BF020B0CBC800778B53 /* FakeImageProvider.swift */,
 				F4764B3A1FAFB73B007990B4 /* FakeRegistry.swift */,
 				F44AEAD71FC717D500DF0A49 /* GestureRecognizerHelper.swift */,
 				F494349C1FD4AFCC00B6EEA7 /* LocationServicesEnabledStub.swift */,
@@ -576,7 +571,6 @@
 				27E823891E5A273D009B202A /* UIViewControllerSpies.swift */,
 				270A6AE41E3E70CD00B12D38 /* URLSessionDataTaskSpies.swift */,
 				270A6AE21E3E700C00B12D38 /* URLSessionSpies.swift */,
-				F41E0BF020B0CBC800778B53 /* FakeImageProvider.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -642,9 +636,9 @@
 		F41A38861F89844300AD2762 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				F42E16CD1F92ACF600FDD9BE /* Models */,
 				270A6AF41E3E9D3800B12D38 /* AnimalNetworkError.swift */,
 				F47D38F41FA5314A001DBD60 /* AnimalNetworking.swift */,
-				F42E16CD1F92ACF600FDD9BE /* Models */,
 				F41A38811F897B6A00AD2762 /* PaginationCursor.swift */,
 				275D26121E511B3400FAE334 /* PetFinderAnimalRegistry.swift */,
 				277199131E34002300930630 /* PetFinderNetworker.swift */,
@@ -758,9 +752,9 @@
 		F4D7926A1FDDD3CF00D0876A /* SampleData */ = {
 			isa = PBXGroup;
 			children = (
-				F41A817B204C9C9F00ACD010 /* MiddleOfTheOceanPlacemark */,
 				F4D7926B1FDDD3CF00D0876A /* DenverPlacemark */,
 				F471ABB82014085800EF2B03 /* DetroitPlacemark */,
+				F41A817B204C9C9F00ACD010 /* MiddleOfTheOceanPlacemark */,
 				F4D7926F1FDDD91800D0876A /* SampleError.swift */,
 				F4D7926D1FDDD6FC00D0876A /* SamplePlacemarks.swift */,
 				F41A8179204C905500ACD010 /* VancouverPlacemark */,
@@ -1133,7 +1127,6 @@
 				F436324F1F5371AB004DF88A /* SwipeOverlayView.swift in Sources */,
 				270A6AED1E3E7F7800B12D38 /* Result.swift in Sources */,
 				F41A38821F897B6A00AD2762 /* PaginationCursor.swift in Sources */,
-				F4D792691FDDCE3000D0876A /* UserLocationResolution.swift in Sources */,
 				F436324D1F536A73004DF88A /* AnimalCardsViewController.swift in Sources */,
 				F4D792741FDF5C3200D0876A /* ResolvingLocationView.swift in Sources */,
 				276C61961E2C062200225CF4 /* AppDelegate.swift in Sources */,
@@ -1186,7 +1179,6 @@
 				F4FB8EE31F410EAC006767AE /* AnimalDetailHeaderViewTests.swift in Sources */,
 				F4BE6C9B1F59C00900480671 /* RealmHelpers.swift in Sources */,
 				F4AB68921F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift in Sources */,
-				F4D792671FDDCC1800D0876A /* UserLocationResolutionTests.swift in Sources */,
 				276C61B61E2C068900225CF4 /* AppDelegateTests.swift in Sources */,
 				F49434A51FD4BE2E00B6EEA7 /* UIAlertActionInitializerSpy.swift in Sources */,
 				F4D792701FDDD91800D0876A /* SampleError.swift in Sources */,

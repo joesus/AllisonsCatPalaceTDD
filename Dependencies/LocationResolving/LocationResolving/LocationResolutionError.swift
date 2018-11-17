@@ -8,10 +8,10 @@
 
 import Foundation
 
-enum LocationResolutionError: Error {
+public enum LocationResolutionError: Error {
     case noLocationsFound, unknownError, missingPostalCode, invalidPostalCode
 
-    var message: String {
+    public var message: String {
         switch self {
         case .noLocationsFound, .unknownError:
             return "We were unable to find your location"

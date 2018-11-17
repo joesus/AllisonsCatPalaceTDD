@@ -7,8 +7,7 @@
 //
 
 import XCTest
-
-@testable import AllisonsCatPalaceTDD
+@testable import LocationResolving
 
 class LocationResolutionErrorTests: XCTestCase {
 

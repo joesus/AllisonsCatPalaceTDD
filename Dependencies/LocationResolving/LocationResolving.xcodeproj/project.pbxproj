@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		F44E5F0821A0BE8D00DA391D /* LocationResolving.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44E5EFE21A0BE8D00DA391D /* LocationResolving.framework */; };
-		F44E5F0D21A0BE8D00DA391D /* LocationResolvingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F0C21A0BE8D00DA391D /* LocationResolvingTests.swift */; };
 		F44E5F0F21A0BE8D00DA391D /* LocationResolving.h in Headers */ = {isa = PBXBuildFile; fileRef = F44E5F0121A0BE8D00DA391D /* LocationResolving.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F44E5F3621A0BF4B00DA391D /* LocationResolutionErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F3521A0BF4A00DA391D /* LocationResolutionErrorTests.swift */; };
+		F44E5F3821A0BFCD00DA391D /* LocationResolutionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F3721A0BFCC00DA391D /* LocationResolutionError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,8 +28,9 @@
 		F44E5F0121A0BE8D00DA391D /* LocationResolving.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationResolving.h; sourceTree = "<group>"; };
 		F44E5F0221A0BE8D00DA391D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F44E5F0721A0BE8D00DA391D /* LocationResolvingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LocationResolvingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F44E5F0C21A0BE8D00DA391D /* LocationResolvingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationResolvingTests.swift; sourceTree = "<group>"; };
 		F44E5F0E21A0BE8D00DA391D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F44E5F3521A0BF4A00DA391D /* LocationResolutionErrorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationResolutionErrorTests.swift; sourceTree = "<group>"; };
+		F44E5F3721A0BFCC00DA391D /* LocationResolutionError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationResolutionError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 		F44E5F0021A0BE8D00DA391D /* LocationResolving */ = {
 			isa = PBXGroup;
 			children = (
+				F44E5F3721A0BFCC00DA391D /* LocationResolutionError.swift */,
 				F44E5F0121A0BE8D00DA391D /* LocationResolving.h */,
 				F44E5F0221A0BE8D00DA391D /* Info.plist */,
 			);
@@ -80,7 +83,7 @@
 		F44E5F0B21A0BE8D00DA391D /* LocationResolvingTests */ = {
 			isa = PBXGroup;
 			children = (
-				F44E5F0C21A0BE8D00DA391D /* LocationResolvingTests.swift */,
+				F44E5F3521A0BF4A00DA391D /* LocationResolutionErrorTests.swift */,
 				F44E5F0E21A0BE8D00DA391D /* Info.plist */,
 			);
 			path = LocationResolvingTests;
@@ -148,9 +151,11 @@
 				TargetAttributes = {
 					F44E5EFD21A0BE8D00DA391D = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1000;
 					};
 					F44E5F0621A0BE8D00DA391D = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -194,6 +199,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F44E5F3821A0BFCD00DA391D /* LocationResolutionError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,7 +207,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F44E5F0D21A0BE8D00DA391D /* LocationResolvingTests.swift in Sources */,
+				F44E5F3621A0BF4B00DA391D /* LocationResolutionErrorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +347,7 @@
 		F44E5F1321A0BE8D00DA391D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -358,6 +365,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.joesus.LocationResolving;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -366,6 +374,7 @@
 		F44E5F1421A0BE8D00DA391D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -391,6 +400,8 @@
 		F44E5F1621A0BE8D00DA391D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NEL58AT86X;
 				INFOPLIST_FILE = LocationResolvingTests/Info.plist;
@@ -401,6 +412,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.joesus.LocationResolvingTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -409,6 +421,8 @@
 		F44E5F1721A0BE8D00DA391D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NEL58AT86X;
 				INFOPLIST_FILE = LocationResolvingTests/Info.plist;

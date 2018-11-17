@@ -8,7 +8,7 @@
 
 import CoreLocation
 
-public enum UserLocationResolution {
+public enum UserLocationResolution: Equatable {
     case unknown
     case allowed
     case disallowed

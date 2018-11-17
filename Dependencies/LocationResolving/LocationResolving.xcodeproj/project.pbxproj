@@ -13,11 +13,12 @@
 		F44E5F3821A0BFCD00DA391D /* LocationResolutionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F3721A0BFCC00DA391D /* LocationResolutionError.swift */; };
 		F44E5F3A21A0C23A00DA391D /* UserLocationResolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F3921A0C23900DA391D /* UserLocationResolutionTests.swift */; };
 		F44E5F3C21A0C24200DA391D /* UserLocationResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F3B21A0C24200DA391D /* UserLocationResolution.swift */; };
-		F44E5F4021A0C41E00DA391D /* SamplePlacemarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F3E21A0C41E00DA391D /* SamplePlacemarks.swift */; };
-		F44E5F4121A0C41E00DA391D /* DenverPlacemark in Resources */ = {isa = PBXBuildFile; fileRef = F44E5F3F21A0C41E00DA391D /* DenverPlacemark */; };
 		F44E5F4321A0CED500DA391D /* LocationResolving.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F4221A0CED500DA391D /* LocationResolving.swift */; };
 		F44E5F4521A0D04C00DA391D /* LocationUpdateAvailabilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F4421A0D04C00DA391D /* LocationUpdateAvailabilityTests.swift */; };
 		F44E5F4721A0D19E00DA391D /* LocationUpdateAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F4621A0D19E00DA391D /* LocationUpdateAvailability.swift */; };
+		F44E5F6A21A0DBE400DA391D /* VancouverPlacemark in Resources */ = {isa = PBXBuildFile; fileRef = F44E5F6421A0DBE400DA391D /* VancouverPlacemark */; };
+		F44E5F6D21A0DBE400DA391D /* SamplePlacemarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F6721A0DBE400DA391D /* SamplePlacemarks.swift */; };
+		F44E5F6F21A0DBE400DA391D /* DenverPlacemark in Resources */ = {isa = PBXBuildFile; fileRef = F44E5F6921A0DBE400DA391D /* DenverPlacemark */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,11 +41,12 @@
 		F44E5F3721A0BFCC00DA391D /* LocationResolutionError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationResolutionError.swift; sourceTree = "<group>"; };
 		F44E5F3921A0C23900DA391D /* UserLocationResolutionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocationResolutionTests.swift; sourceTree = "<group>"; };
 		F44E5F3B21A0C24200DA391D /* UserLocationResolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocationResolution.swift; sourceTree = "<group>"; };
-		F44E5F3E21A0C41E00DA391D /* SamplePlacemarks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SamplePlacemarks.swift; sourceTree = "<group>"; };
-		F44E5F3F21A0C41E00DA391D /* DenverPlacemark */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = DenverPlacemark; sourceTree = "<group>"; };
 		F44E5F4221A0CED500DA391D /* LocationResolving.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationResolving.swift; sourceTree = "<group>"; };
 		F44E5F4421A0D04C00DA391D /* LocationUpdateAvailabilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUpdateAvailabilityTests.swift; sourceTree = "<group>"; };
 		F44E5F4621A0D19E00DA391D /* LocationUpdateAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUpdateAvailability.swift; sourceTree = "<group>"; };
+		F44E5F6421A0DBE400DA391D /* VancouverPlacemark */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = VancouverPlacemark; sourceTree = "<group>"; };
+		F44E5F6721A0DBE400DA391D /* SamplePlacemarks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SamplePlacemarks.swift; sourceTree = "<group>"; };
+		F44E5F6921A0DBE400DA391D /* DenverPlacemark */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = DenverPlacemark; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,22 +103,22 @@
 			isa = PBXGroup;
 			children = (
 				F44E5F0E21A0BE8D00DA391D /* Info.plist */,
+				F44E5F6321A0DBE400DA391D /* SampleData */,
 				F44E5F3521A0BF4A00DA391D /* LocationResolutionErrorTests.swift */,
 				F44E5F4421A0D04C00DA391D /* LocationUpdateAvailabilityTests.swift */,
-				F44E5F3D21A0C41E00DA391D /* SampleData */,
 				F44E5F3921A0C23900DA391D /* UserLocationResolutionTests.swift */,
 			);
 			path = LocationResolvingTests;
 			sourceTree = "<group>";
 		};
-		F44E5F3D21A0C41E00DA391D /* SampleData */ = {
+		F44E5F6321A0DBE400DA391D /* SampleData */ = {
 			isa = PBXGroup;
 			children = (
-				F44E5F3E21A0C41E00DA391D /* SamplePlacemarks.swift */,
-				F44E5F3F21A0C41E00DA391D /* DenverPlacemark */,
+				F44E5F6421A0DBE400DA391D /* VancouverPlacemark */,
+				F44E5F6721A0DBE400DA391D /* SamplePlacemarks.swift */,
+				F44E5F6921A0DBE400DA391D /* DenverPlacemark */,
 			);
-			name = SampleData;
-			path = ../../AnimalProviding/AnimalProvidingTests/SampleData;
+			path = SampleData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,7 +221,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F44E5F4121A0C41E00DA391D /* DenverPlacemark in Resources */,
+				F44E5F6A21A0DBE400DA391D /* VancouverPlacemark in Resources */,
+				F44E5F6F21A0DBE400DA391D /* DenverPlacemark in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,8 +246,8 @@
 			files = (
 				F44E5F3621A0BF4B00DA391D /* LocationResolutionErrorTests.swift in Sources */,
 				F44E5F3A21A0C23A00DA391D /* UserLocationResolutionTests.swift in Sources */,
+				F44E5F6D21A0DBE400DA391D /* SamplePlacemarks.swift in Sources */,
 				F44E5F4521A0D04C00DA391D /* LocationUpdateAvailabilityTests.swift in Sources */,
-				F44E5F4021A0C41E00DA391D /* SamplePlacemarks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

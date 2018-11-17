@@ -44,4 +44,16 @@ class LocationResolutionErrorTests: XCTestCase {
         )
     }
 
+    func testEquality() {
+        let errors = [
+            LocationResolutionError.noLocationsFound,
+            .unknownError,
+            .missingPostalCode,
+            .invalidPostalCode
+        ]
+
+        XCTAssertEqual(errors, errors,
+                       "Synthesized equatability should be used")
+    }
+
 }

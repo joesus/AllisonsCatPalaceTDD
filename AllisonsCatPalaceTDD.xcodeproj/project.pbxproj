@@ -205,6 +205,20 @@
 			remoteGlobalIDString = F44FED17218E49000012C0EB;
 			remoteInfo = ImageProviding;
 		};
+		F44E5E8D21A0BB4C00DA391D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F44E5E8921A0BB4C00DA391D /* LocationResolving.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F44E5E7E21A0BB3700DA391D;
+			remoteInfo = LocationResolving;
+		};
+		F44E5E8F21A0BB6300DA391D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F44E5E8921A0BB4C00DA391D /* LocationResolving.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F44E5E7D21A0BB3700DA391D;
+			remoteInfo = LocationResolving;
+		};
 		F44FED27218E49010012C0EB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F44FED23218E49000012C0EB /* ImageProviding.xcodeproj */;
@@ -305,6 +319,7 @@
 		F44AEAD71FC717D500DF0A49 /* GestureRecognizerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureRecognizerHelper.swift; sourceTree = "<group>"; };
 		F44E5E5621A0B74700DA391D /* AnimalData.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AnimalData.xcodeproj; path = AnimalData/AnimalData.xcodeproj; sourceTree = "<group>"; };
 		F44E5E6221A0B75200DA391D /* AnimalProviding.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AnimalProviding.xcodeproj; path = AnimalProviding/AnimalProviding.xcodeproj; sourceTree = "<group>"; };
+		F44E5E8921A0BB4C00DA391D /* LocationResolving.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LocationResolving.xcodeproj; path = LocationResolving/LocationResolving.xcodeproj; sourceTree = "<group>"; };
 		F44FED23218E49000012C0EB /* ImageProviding.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ImageProviding.xcodeproj; path = ImageProviding/ImageProviding.xcodeproj; sourceTree = "<group>"; };
 		F44FED4F218E4A5A0012C0EB /* ImageProvider.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ImageProvider.xcodeproj; path = ImageProvider/ImageProvider.xcodeproj; sourceTree = "<group>"; };
 		F4543D9B1F43C19F00F9CDE3 /* LocationControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationControllerTests.swift; sourceTree = "<group>"; };
@@ -674,6 +689,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		F44E5E8A21A0BB4C00DA391D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F44E5E8E21A0BB4C00DA391D /* LocationResolving.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		F44FED0D218E48C10012C0EB /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
@@ -681,6 +704,7 @@
 				F44E5E6221A0B75200DA391D /* AnimalProviding.xcodeproj */,
 				F44FED4F218E4A5A0012C0EB /* ImageProvider.xcodeproj */,
 				F44FED23218E49000012C0EB /* ImageProviding.xcodeproj */,
+				F44E5E8921A0BB4C00DA391D /* LocationResolving.xcodeproj */,
 			);
 			path = Dependencies;
 			sourceTree = "<group>";
@@ -742,6 +766,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				F44E5E9021A0BB6300DA391D /* PBXTargetDependency */,
 				F44E5E7121A0B7BD00DA391D /* PBXTargetDependency */,
 				F44E5E7321A0B7BD00DA391D /* PBXTargetDependency */,
 				F44E5E6F21A0B7B400DA391D /* PBXTargetDependency */,
@@ -824,6 +849,10 @@
 					ProductGroup = F44FED24218E49000012C0EB /* Products */;
 					ProjectRef = F44FED23218E49000012C0EB /* ImageProviding.xcodeproj */;
 				},
+				{
+					ProductGroup = F44E5E8A21A0BB4C00DA391D /* Products */;
+					ProjectRef = F44E5E8921A0BB4C00DA391D /* LocationResolving.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -860,6 +889,13 @@
 			fileType = wrapper.cfbundle;
 			path = AnimalProvidingTests.xctest;
 			remoteRef = F44E5E6A21A0B75200DA391D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F44E5E8E21A0BB4C00DA391D /* LocationResolving.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = LocationResolving.framework;
+			remoteRef = F44E5E8D21A0BB4C00DA391D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		F44FED28218E49010012C0EB /* ImageProviding.framework */ = {
@@ -1206,6 +1242,11 @@
 			name = ImageProviding;
 			targetProxy = F44E5E7221A0B7BD00DA391D /* PBXContainerItemProxy */;
 		};
+		F44E5E9021A0BB6300DA391D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LocationResolving;
+			targetProxy = F44E5E8F21A0BB6300DA391D /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -1268,6 +1309,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1311,6 +1353,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};

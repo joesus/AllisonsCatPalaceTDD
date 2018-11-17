@@ -163,12 +163,33 @@
 			remoteGlobalIDString = F42EDAD8213350ED0093842D;
 			remoteInfo = AnimalDataTests;
 		};
+		F44E5E6821A0B75200DA391D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F44E5E6221A0B75200DA391D /* AnimalProviding.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F42EDAFE213357BA0093842D;
+			remoteInfo = AnimalProviding;
+		};
+		F44E5E6A21A0B75200DA391D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F44E5E6221A0B75200DA391D /* AnimalProviding.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F42EDB07213357BA0093842D;
+			remoteInfo = AnimalProvidingTests;
+		};
 		F44E5E6C21A0B7AD00DA391D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F44E5E5621A0B74700DA391D /* AnimalData.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = F42EDACE213350ED0093842D;
 			remoteInfo = AnimalData;
+		};
+		F44E5E6E21A0B7B400DA391D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F44E5E6221A0B75200DA391D /* AnimalProviding.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F42EDAFD213357BA0093842D;
+			remoteInfo = AnimalProviding;
 		};
 		F44FED27218E49010012C0EB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -269,6 +290,7 @@
 		F43BC6A31F1AC9E400E025EB /* ExternalData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalData.swift; sourceTree = "<group>"; };
 		F44AEAD71FC717D500DF0A49 /* GestureRecognizerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureRecognizerHelper.swift; sourceTree = "<group>"; };
 		F44E5E5621A0B74700DA391D /* AnimalData.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AnimalData.xcodeproj; path = AnimalData/AnimalData.xcodeproj; sourceTree = "<group>"; };
+		F44E5E6221A0B75200DA391D /* AnimalProviding.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AnimalProviding.xcodeproj; path = AnimalProviding/AnimalProviding.xcodeproj; sourceTree = "<group>"; };
 		F44FED23218E49000012C0EB /* ImageProviding.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ImageProviding.xcodeproj; path = ImageProviding/ImageProviding.xcodeproj; sourceTree = "<group>"; };
 		F44FED4F218E4A5A0012C0EB /* ImageProvider.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ImageProvider.xcodeproj; path = ImageProvider/ImageProvider.xcodeproj; sourceTree = "<group>"; };
 		F4543D9B1F43C19F00F9CDE3 /* LocationControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationControllerTests.swift; sourceTree = "<group>"; };
@@ -629,10 +651,20 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		F44E5E6321A0B75200DA391D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F44E5E6921A0B75200DA391D /* AnimalProviding.framework */,
+				F44E5E6B21A0B75200DA391D /* AnimalProvidingTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		F44FED0D218E48C10012C0EB /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
 				F44E5E5621A0B74700DA391D /* AnimalData.xcodeproj */,
+				F44E5E6221A0B75200DA391D /* AnimalProviding.xcodeproj */,
 				F44FED4F218E4A5A0012C0EB /* ImageProvider.xcodeproj */,
 				F44FED23218E49000012C0EB /* ImageProviding.xcodeproj */,
 			);
@@ -697,6 +729,7 @@
 			);
 			dependencies = (
 				F44E5E6F21A0B7B400DA391D /* PBXTargetDependency */,
+				F44E5E6D21A0B7AD00DA391D /* PBXTargetDependency */,
 			);
 			name = AllisonsCatPalaceTDD;
 			productName = AllisonsCatPalaceTDD;
@@ -768,6 +801,10 @@
 					ProjectRef = F44FED4F218E4A5A0012C0EB /* ImageProvider.xcodeproj */;
 				},
 				{
+					ProductGroup = F44E5E6321A0B75200DA391D /* Products */;
+					ProjectRef = F44E5E6221A0B75200DA391D /* AnimalProviding.xcodeproj */;
+				},
+				{
 					ProductGroup = F44FED24218E49000012C0EB /* Products */;
 					ProjectRef = F44FED23218E49000012C0EB /* ImageProviding.xcodeproj */;
 				},
@@ -793,6 +830,20 @@
 			fileType = wrapper.cfbundle;
 			path = AnimalDataTests.xctest;
 			remoteRef = F44E5E5D21A0B74800DA391D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F44E5E6921A0B75200DA391D /* AnimalProviding.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AnimalProviding.framework;
+			remoteRef = F44E5E6821A0B75200DA391D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F44E5E6B21A0B75200DA391D /* AnimalProvidingTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AnimalProvidingTests.xctest;
+			remoteRef = F44E5E6A21A0B75200DA391D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		F44FED28218E49010012C0EB /* ImageProviding.framework */ = {
@@ -1123,6 +1174,11 @@
 			isa = PBXTargetDependency;
 			name = AnimalData;
 			targetProxy = F44E5E6C21A0B7AD00DA391D /* PBXContainerItemProxy */;
+		};
+		F44E5E6F21A0B7B400DA391D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AnimalProviding;
+			targetProxy = F44E5E6E21A0B7B400DA391D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

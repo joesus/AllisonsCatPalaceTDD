@@ -26,27 +26,6 @@
 			remoteGlobalIDString = F42EDAFD213357BA0093842D;
 			remoteInfo = AnimalSearchModule;
 		};
-		F44E5E5021A0B6F000DA391D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F44E5E4B21A0B6EF00DA391D /* AnimalData.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F42EDACF213350ED0093842D;
-			remoteInfo = AnimalData;
-		};
-		F44E5E5221A0B6F000DA391D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F44E5E4B21A0B6EF00DA391D /* AnimalData.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F42EDAD8213350ED0093842D;
-			remoteInfo = AnimalDataTests;
-		};
-		F44E5E5421A0B70600DA391D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F44E5E4B21A0B6EF00DA391D /* AnimalData.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = F42EDACE213350ED0093842D;
-			remoteInfo = AnimalData;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -62,7 +41,6 @@
 		F42EDB30213361A90093842D /* SearchServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchServiceFactory.swift; sourceTree = "<group>"; };
 		F42EDB5D2133692D0093842D /* SamplePlacemarks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SamplePlacemarks.swift; sourceTree = "<group>"; };
 		F42EDB602133695A0093842D /* DenverPlacemark */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = DenverPlacemark; sourceTree = "<group>"; };
-		F44E5E4B21A0B6EF00DA391D /* AnimalData.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AnimalData.xcodeproj; path = ../AnimalData/AnimalData.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +65,6 @@
 		F42EDAF4213357BA0093842D = {
 			isa = PBXGroup;
 			children = (
-				F44E5E4B21A0B6EF00DA391D /* AnimalData.xcodeproj */,
 				F42EDB00213357BA0093842D /* AnimalProviding */,
 				F42EDB0B213357BA0093842D /* AnimalProvidingTests */,
 				F42EDAFF213357BA0093842D /* Products */,
@@ -143,15 +120,6 @@
 			path = SampleData;
 			sourceTree = "<group>";
 		};
-		F44E5E4C21A0B6EF00DA391D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F44E5E5121A0B6F000DA391D /* AnimalData.framework */,
-				F44E5E5321A0B6F000DA391D /* AnimalDataTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -195,7 +163,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				F44E5E5521A0B70600DA391D /* PBXTargetDependency */,
 				F42EDB0A213357BA0093842D /* PBXTargetDependency */,
 			);
 			name = AnimalProvidingTests;
@@ -233,12 +200,6 @@
 			mainGroup = F42EDAF4213357BA0093842D;
 			productRefGroup = F42EDAFF213357BA0093842D /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = F44E5E4C21A0B6EF00DA391D /* Products */;
-					ProjectRef = F44E5E4B21A0B6EF00DA391D /* AnimalData.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				F42EDAFD213357BA0093842D /* AnimalProviding */,
@@ -246,23 +207,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		F44E5E5121A0B6F000DA391D /* AnimalData.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AnimalData.framework;
-			remoteRef = F44E5E5021A0B6F000DA391D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F44E5E5321A0B6F000DA391D /* AnimalDataTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = AnimalDataTests.xctest;
-			remoteRef = F44E5E5221A0B6F000DA391D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		F42EDAFC213357BA0093842D /* Resources */ = {
@@ -310,11 +254,6 @@
 			isa = PBXTargetDependency;
 			target = F42EDAFD213357BA0093842D /* AnimalProviding */;
 			targetProxy = F42EDB09213357BA0093842D /* PBXContainerItemProxy */;
-		};
-		F44E5E5521A0B70600DA391D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AnimalData;
-			targetProxy = F44E5E5421A0B70600DA391D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

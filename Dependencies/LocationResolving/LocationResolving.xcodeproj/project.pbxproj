@@ -7,73 +7,107 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F44E5E8321A0BB3700DA391D /* LocationResolving.h in Headers */ = {isa = PBXBuildFile; fileRef = F44E5E8121A0BB3700DA391D /* LocationResolving.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F44E5F0821A0BE8D00DA391D /* LocationResolving.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44E5EFE21A0BE8D00DA391D /* LocationResolving.framework */; };
+		F44E5F0D21A0BE8D00DA391D /* LocationResolvingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F0C21A0BE8D00DA391D /* LocationResolvingTests.swift */; };
+		F44E5F0F21A0BE8D00DA391D /* LocationResolving.h in Headers */ = {isa = PBXBuildFile; fileRef = F44E5F0121A0BE8D00DA391D /* LocationResolving.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		F44E5F0921A0BE8D00DA391D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F44E5EF521A0BE8D00DA391D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F44E5EFD21A0BE8D00DA391D;
+			remoteInfo = LocationResolving;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		F44E5E7E21A0BB3700DA391D /* LocationResolving.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LocationResolving.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F44E5E8121A0BB3700DA391D /* LocationResolving.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationResolving.h; sourceTree = "<group>"; };
-		F44E5E8221A0BB3700DA391D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F44E5EFE21A0BE8D00DA391D /* LocationResolving.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LocationResolving.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F44E5F0121A0BE8D00DA391D /* LocationResolving.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationResolving.h; sourceTree = "<group>"; };
+		F44E5F0221A0BE8D00DA391D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F44E5F0721A0BE8D00DA391D /* LocationResolvingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LocationResolvingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F44E5F0C21A0BE8D00DA391D /* LocationResolvingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationResolvingTests.swift; sourceTree = "<group>"; };
+		F44E5F0E21A0BE8D00DA391D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		F44E5E7B21A0BB3700DA391D /* Frameworks */ = {
+		F44E5EFB21A0BE8D00DA391D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F44E5F0421A0BE8D00DA391D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F44E5F0821A0BE8D00DA391D /* LocationResolving.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F44E5E7421A0BB3700DA391D = {
+		F44E5EF421A0BE8D00DA391D = {
 			isa = PBXGroup;
 			children = (
-				F44E5E8021A0BB3700DA391D /* LocationResolving */,
-				F44E5E7F21A0BB3700DA391D /* Products */,
+				F44E5F0021A0BE8D00DA391D /* LocationResolving */,
+				F44E5F0B21A0BE8D00DA391D /* LocationResolvingTests */,
+				F44E5EFF21A0BE8D00DA391D /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		F44E5E7F21A0BB3700DA391D /* Products */ = {
+		F44E5EFF21A0BE8D00DA391D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F44E5E7E21A0BB3700DA391D /* LocationResolving.framework */,
+				F44E5EFE21A0BE8D00DA391D /* LocationResolving.framework */,
+				F44E5F0721A0BE8D00DA391D /* LocationResolvingTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F44E5E8021A0BB3700DA391D /* LocationResolving */ = {
+		F44E5F0021A0BE8D00DA391D /* LocationResolving */ = {
 			isa = PBXGroup;
 			children = (
-				F44E5E8121A0BB3700DA391D /* LocationResolving.h */,
-				F44E5E8221A0BB3700DA391D /* Info.plist */,
+				F44E5F0121A0BE8D00DA391D /* LocationResolving.h */,
+				F44E5F0221A0BE8D00DA391D /* Info.plist */,
 			);
 			path = LocationResolving;
+			sourceTree = "<group>";
+		};
+		F44E5F0B21A0BE8D00DA391D /* LocationResolvingTests */ = {
+			isa = PBXGroup;
+			children = (
+				F44E5F0C21A0BE8D00DA391D /* LocationResolvingTests.swift */,
+				F44E5F0E21A0BE8D00DA391D /* Info.plist */,
+			);
+			path = LocationResolvingTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		F44E5E7921A0BB3700DA391D /* Headers */ = {
+		F44E5EF921A0BE8D00DA391D /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F44E5E8321A0BB3700DA391D /* LocationResolving.h in Headers */,
+				F44E5F0F21A0BE8D00DA391D /* LocationResolving.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		F44E5E7D21A0BB3700DA391D /* LocationResolving */ = {
+		F44E5EFD21A0BE8D00DA391D /* LocationResolving */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F44E5E8621A0BB3700DA391D /* Build configuration list for PBXNativeTarget "LocationResolving" */;
+			buildConfigurationList = F44E5F1221A0BE8D00DA391D /* Build configuration list for PBXNativeTarget "LocationResolving" */;
 			buildPhases = (
-				F44E5E7921A0BB3700DA391D /* Headers */,
-				F44E5E7A21A0BB3700DA391D /* Sources */,
-				F44E5E7B21A0BB3700DA391D /* Frameworks */,
-				F44E5E7C21A0BB3700DA391D /* Resources */,
+				F44E5EF921A0BE8D00DA391D /* Headers */,
+				F44E5EFA21A0BE8D00DA391D /* Sources */,
+				F44E5EFB21A0BE8D00DA391D /* Frameworks */,
+				F44E5EFC21A0BE8D00DA391D /* Resources */,
 			);
 			buildRules = (
 			);
@@ -81,42 +115,72 @@
 			);
 			name = LocationResolving;
 			productName = LocationResolving;
-			productReference = F44E5E7E21A0BB3700DA391D /* LocationResolving.framework */;
+			productReference = F44E5EFE21A0BE8D00DA391D /* LocationResolving.framework */;
 			productType = "com.apple.product-type.framework";
+		};
+		F44E5F0621A0BE8D00DA391D /* LocationResolvingTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F44E5F1521A0BE8D00DA391D /* Build configuration list for PBXNativeTarget "LocationResolvingTests" */;
+			buildPhases = (
+				F44E5F0321A0BE8D00DA391D /* Sources */,
+				F44E5F0421A0BE8D00DA391D /* Frameworks */,
+				F44E5F0521A0BE8D00DA391D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F44E5F0A21A0BE8D00DA391D /* PBXTargetDependency */,
+			);
+			name = LocationResolvingTests;
+			productName = LocationResolvingTests;
+			productReference = F44E5F0721A0BE8D00DA391D /* LocationResolvingTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		F44E5E7521A0BB3700DA391D /* Project object */ = {
+		F44E5EF521A0BE8D00DA391D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Joe Susnick";
 				TargetAttributes = {
-					F44E5E7D21A0BB3700DA391D = {
+					F44E5EFD21A0BE8D00DA391D = {
+						CreatedOnToolsVersion = 10.0;
+					};
+					F44E5F0621A0BE8D00DA391D = {
 						CreatedOnToolsVersion = 10.0;
 					};
 				};
 			};
-			buildConfigurationList = F44E5E7821A0BB3700DA391D /* Build configuration list for PBXProject "LocationResolving" */;
+			buildConfigurationList = F44E5EF821A0BE8D00DA391D /* Build configuration list for PBXProject "LocationResolving" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = F44E5E7421A0BB3700DA391D;
-			productRefGroup = F44E5E7F21A0BB3700DA391D /* Products */;
+			mainGroup = F44E5EF421A0BE8D00DA391D;
+			productRefGroup = F44E5EFF21A0BE8D00DA391D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F44E5E7D21A0BB3700DA391D /* LocationResolving */,
+				F44E5EFD21A0BE8D00DA391D /* LocationResolving */,
+				F44E5F0621A0BE8D00DA391D /* LocationResolvingTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		F44E5E7C21A0BB3700DA391D /* Resources */ = {
+		F44E5EFC21A0BE8D00DA391D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F44E5F0521A0BE8D00DA391D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -126,17 +190,33 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		F44E5E7A21A0BB3700DA391D /* Sources */ = {
+		F44E5EFA21A0BE8D00DA391D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F44E5F0321A0BE8D00DA391D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F44E5F0D21A0BE8D00DA391D /* LocationResolvingTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		F44E5F0A21A0BE8D00DA391D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F44E5EFD21A0BE8D00DA391D /* LocationResolving */;
+			targetProxy = F44E5F0921A0BE8D00DA391D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
-		F44E5E8421A0BB3700DA391D /* Debug */ = {
+		F44E5F1021A0BE8D00DA391D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -200,7 +280,7 @@
 			};
 			name = Debug;
 		};
-		F44E5E8521A0BB3700DA391D /* Release */ = {
+		F44E5F1121A0BE8D00DA391D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -258,7 +338,7 @@
 			};
 			name = Release;
 		};
-		F44E5E8721A0BB3700DA391D /* Debug */ = {
+		F44E5F1321A0BE8D00DA391D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
@@ -283,7 +363,7 @@
 			};
 			name = Debug;
 		};
-		F44E5E8821A0BB3700DA391D /* Release */ = {
+		F44E5F1421A0BE8D00DA391D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
@@ -308,28 +388,73 @@
 			};
 			name = Release;
 		};
+		F44E5F1621A0BE8D00DA391D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NEL58AT86X;
+				INFOPLIST_FILE = LocationResolvingTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.joesus.LocationResolvingTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F44E5F1721A0BE8D00DA391D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NEL58AT86X;
+				INFOPLIST_FILE = LocationResolvingTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.joesus.LocationResolvingTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F44E5E7821A0BB3700DA391D /* Build configuration list for PBXProject "LocationResolving" */ = {
+		F44E5EF821A0BE8D00DA391D /* Build configuration list for PBXProject "LocationResolving" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F44E5E8421A0BB3700DA391D /* Debug */,
-				F44E5E8521A0BB3700DA391D /* Release */,
+				F44E5F1021A0BE8D00DA391D /* Debug */,
+				F44E5F1121A0BE8D00DA391D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F44E5E8621A0BB3700DA391D /* Build configuration list for PBXNativeTarget "LocationResolving" */ = {
+		F44E5F1221A0BE8D00DA391D /* Build configuration list for PBXNativeTarget "LocationResolving" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F44E5E8721A0BB3700DA391D /* Debug */,
-				F44E5E8821A0BB3700DA391D /* Release */,
+				F44E5F1321A0BE8D00DA391D /* Debug */,
+				F44E5F1421A0BE8D00DA391D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F44E5F1521A0BE8D00DA391D /* Build configuration list for PBXNativeTarget "LocationResolvingTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F44E5F1621A0BE8D00DA391D /* Debug */,
+				F44E5F1721A0BE8D00DA391D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = F44E5E7521A0BB3700DA391D /* Project object */;
+	rootObject = F44E5EF521A0BE8D00DA391D /* Project object */;
 }

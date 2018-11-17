@@ -191,6 +191,20 @@
 			remoteGlobalIDString = F42EDAFD213357BA0093842D;
 			remoteInfo = AnimalProviding;
 		};
+		F44E5E7021A0B7BD00DA391D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F44FED4F218E4A5A0012C0EB /* ImageProvider.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F44FED34218E4A5A0012C0EB;
+			remoteInfo = ImageProvider;
+		};
+		F44E5E7221A0B7BD00DA391D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F44FED23218E49000012C0EB /* ImageProviding.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F44FED17218E49000012C0EB;
+			remoteInfo = ImageProviding;
+		};
 		F44FED27218E49010012C0EB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F44FED23218E49000012C0EB /* ImageProviding.xcodeproj */;
@@ -728,6 +742,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				F44E5E7121A0B7BD00DA391D /* PBXTargetDependency */,
+				F44E5E7321A0B7BD00DA391D /* PBXTargetDependency */,
 				F44E5E6F21A0B7B400DA391D /* PBXTargetDependency */,
 				F44E5E6D21A0B7AD00DA391D /* PBXTargetDependency */,
 			);
@@ -797,12 +813,12 @@
 					ProjectRef = F44E5E5621A0B74700DA391D /* AnimalData.xcodeproj */;
 				},
 				{
-					ProductGroup = F44FED50218E4A5A0012C0EB /* Products */;
-					ProjectRef = F44FED4F218E4A5A0012C0EB /* ImageProvider.xcodeproj */;
-				},
-				{
 					ProductGroup = F44E5E6321A0B75200DA391D /* Products */;
 					ProjectRef = F44E5E6221A0B75200DA391D /* AnimalProviding.xcodeproj */;
+				},
+				{
+					ProductGroup = F44FED50218E4A5A0012C0EB /* Products */;
+					ProjectRef = F44FED4F218E4A5A0012C0EB /* ImageProvider.xcodeproj */;
 				},
 				{
 					ProductGroup = F44FED24218E49000012C0EB /* Products */;
@@ -1179,6 +1195,16 @@
 			isa = PBXTargetDependency;
 			name = AnimalProviding;
 			targetProxy = F44E5E6E21A0B7B400DA391D /* PBXContainerItemProxy */;
+		};
+		F44E5E7121A0B7BD00DA391D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ImageProvider;
+			targetProxy = F44E5E7021A0B7BD00DA391D /* PBXContainerItemProxy */;
+		};
+		F44E5E7321A0B7BD00DA391D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ImageProviding;
+			targetProxy = F44E5E7221A0B7BD00DA391D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

@@ -79,4 +79,61 @@ class UserLocationResolutionTests: XCTestCase {
             "Resolution failures with different errors should not be considered equal"
         )
     }
+
+    func testError() {
+        let possibleValues: [UserLocationResolution] = [
+            .unknown,
+            .allowed,
+            .disallowed,
+            .resolving,
+            .resolved(placemark: placemark),
+            .resolutionFailed(error: .unknown)
+        ]
+
+        possibleValues.forEach { value in
+            switch value {
+            case .unknown,
+                 .allowed,
+                 .disallowed,
+                 .resolving,
+                 .resolved:
+
+                XCTAssertNil(value.error,
+                             "Resolution states that do not have an associated error should not provide an error")
+
+            case .resolutionFailed(let error):
+                XCTAssertEqual(value.error, error,
+                               "Resolution failures should provide their associated error")
+            }
+        }
+    }
+
+    func testPlacemark() {
+        let possibleValues: [UserLocationResolution] = [
+            .unknown,
+            .allowed,
+            .disallowed,
+            .resolving,
+            .resolved(placemark: placemark),
+            .resolutionFailed(error: .unknown)
+        ]
+
+        possibleValues.forEach { value in
+            switch value {
+            case .unknown,
+                 .allowed,
+                 .disallowed,
+                 .resolving,
+                 .resolutionFailed:
+
+                XCTAssertNil(value.placemark,
+                             "Resolution states that do not have an associated placemark should not provide a placemark")
+
+            case .resolved(let placemark):
+                XCTAssertEqual(value.placemark, placemark,
+                               "Resolution success should provide its associated placemark")
+            }
+        }
+
+    }
 }

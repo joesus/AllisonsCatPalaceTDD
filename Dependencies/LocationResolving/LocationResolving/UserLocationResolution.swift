@@ -15,4 +15,20 @@ public enum UserLocationResolution: Equatable {
     case resolving
     case resolved(placemark: CLPlacemark)
     case resolutionFailed(error: LocationResolutionError)
+
+    public var error: LocationResolutionError? {
+        guard case .resolutionFailed(let error) = self else {
+            return nil
+        }
+
+        return error
+    }
+
+    public var placemark: CLPlacemark? {
+        guard case .resolved(let placemark) = self else {
+            return nil
+        }
+
+        return placemark
+    }
 }

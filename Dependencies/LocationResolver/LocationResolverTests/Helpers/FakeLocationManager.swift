@@ -22,6 +22,21 @@ class FakeLocationManager: NSObject, LocationManaging {
         return stubbedAuthorizationStatus
     }
 
+    var requestWhenInUseAuthorizationCalled = false
+    func requestWhenInUseAuthorization() {
+        requestWhenInUseAuthorizationCalled = true
+    }
+
+    var requestAlwaysAuthorizationCalled = false
+    func requestAlwaysAuthorization() {
+        requestAlwaysAuthorizationCalled = true
+    }
+
+    var requestLocationCalled = false
+    func requestLocation() {
+        requestLocationCalled = true
+    }
+
     class func reset() {
         stubbedLocationServicesEnabled = true
         stubbedAuthorizationStatus = .notDetermined

@@ -12,9 +12,10 @@ import LocationResolving
 public class LocationResolver: NSObject, LocationResolving {
 
     var locationManager: LocationManaging!
+    private var resolvedLocationHandler: ((UserLocationResolution) -> Void)?
 
     public var userLocationResolution: UserLocationResolution {
-        if !type(of: locationManager).locationServicesEnabled() {
+        guard type(of: locationManager).locationServicesEnabled() else {
             return .disallowed
         }
 
@@ -34,10 +35,21 @@ public class LocationResolver: NSObject, LocationResolving {
     }
 
     public func requestLocationAuthorization(for availability: LocationUpdateAvailability) {
-        // TODO
+        guard type(of: locationManager).locationServicesEnabled(),
+            type(of: locationManager).authorizationStatus() == .notDetermined
+            else {
+                return
+        }
+
+        switch availability {
+        case .whenInUse: locationManager.requestWhenInUseAuthorization()
+        case .always: locationManager.requestAlwaysAuthorization()
+        }
     }
 
-    public func resolveUserLocation(completion: (UserLocationResolution) -> Void) {
+    public func resolveUserLocation(completion: @escaping (UserLocationResolution) -> Void) {
+        resolvedLocationHandler = completion
+        locationManager.requestLocation()
         // TODO
     }
 
@@ -51,5 +63,9 @@ public class LocationResolver: NSObject, LocationResolving {
 }
 
 extension LocationResolver: CLLocationManagerDelegate {
-
+    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        // geocode {
+        //     capturedHandler
+        // }
+    }
 }

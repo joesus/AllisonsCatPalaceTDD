@@ -12,7 +12,7 @@ public protocol LocationResolving {
     var userLocationResolution: UserLocationResolution { get }
 
     func requestLocationAuthorization(for availability: LocationUpdateAvailability)
-    func resolveUserLocation(completion: (UserLocationResolution) -> Void)
+    func resolveUserLocation(completion: @escaping (UserLocationResolution) -> Void)
     func findPlacemark(for: String, completion: (CLPlacemark?) -> Void)
     func cancelAllRequests()
 }

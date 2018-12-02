@@ -82,5 +82,72 @@ class LocationResolverTests: XCTestCase {
                        "Resolver should have a user location resolution with an initial state of allowed if location services are enabled and authorized to the max")
     }
 
+    // MARK: Requesting Authorization
+
+    func testRequestingAuthorizationWhenServicesDisabled() {
+        FakeLocationManager.stubbedLocationServicesEnabled = false
+
+        let possibleAuthorizations = [
+            CLAuthorizationStatus.notDetermined,
+            .denied,
+            .restricted,
+            .authorizedWhenInUse,
+            .authorizedAlways
+        ]
+
+        possibleAuthorizations.forEach { status in
+            FakeLocationManager.stubbedAuthorizationStatus = status
+
+            resolver.requestLocationAuthorization(for: .whenInUse)
+
+            XCTAssertFalse(fakeLocationManager.requestWhenInUseAuthorizationCalled,
+                           "Location manager should never request authorization with location services disabled")
+        }
+    }
+
+    func testRequestingAuthorizationWhenServicesEnabled() {
+        let possibleAuthorizations = [
+            CLAuthorizationStatus.denied,
+            .restricted,
+            .authorizedWhenInUse,
+            .authorizedAlways
+        ]
+
+        possibleAuthorizations.forEach { status in
+            FakeLocationManager.stubbedAuthorizationStatus = status
+
+            resolver.requestLocationAuthorization(for: .whenInUse)
+
+            XCTAssertFalse(fakeLocationManager.requestWhenInUseAuthorizationCalled,
+                           "Location manager should never request authorization when status is determined")
+        }
+    }
+
+    func testRequestingWhenInUseAuthorizationWhenNotDetermined() {
+        FakeLocationManager.stubbedAuthorizationStatus = .notDetermined
+
+        resolver.requestLocationAuthorization(for: .whenInUse)
+
+        XCTAssertTrue(fakeLocationManager.requestWhenInUseAuthorizationCalled,
+                      "Location manager should request when in use authorization if status is not determined")
+    }
+
+    func testRequestingAlwaysAuthorizationWhenNotDetermined() {
+        FakeLocationManager.stubbedAuthorizationStatus = .notDetermined
+
+        resolver.requestLocationAuthorization(for: .always)
+
+        XCTAssertTrue(fakeLocationManager.requestAlwaysAuthorizationCalled,
+                      "Location manager should request always authorization if status is not determined")
+    }
+
+    // MARK: - Requesting Location
+
+    func testRequestingLocationUtilizesLocationManager() {
+        resolver.resolveUserLocation { _ in }
+
+        XCTAssertTrue(fakeLocationManager.requestLocationCalled,
+                      "Requests for location should be routed through the location manager")
+    }
 
 }

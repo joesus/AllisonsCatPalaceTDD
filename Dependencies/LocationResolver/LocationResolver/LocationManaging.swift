@@ -13,6 +13,11 @@ protocol LocationManaging {
 
     static func locationServicesEnabled() -> Bool
     static func authorizationStatus() -> CLAuthorizationStatus
+
+    func requestWhenInUseAuthorization()
+    func requestAlwaysAuthorization()
+
+    func requestLocation()
 }
 
 extension CLLocationManager: LocationManaging {}

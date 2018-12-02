@@ -21,7 +21,7 @@ class UserLocationResolutionTests: XCTestCase {
             .disallowed,
             .resolving,
             .resolved(placemark: placemark),
-            .resolutionFailure(error: .unknownError)
+            .resolutionFailed(error: .unknown)
         ]
 
         possibleValues.forEach { value in
@@ -31,7 +31,7 @@ class UserLocationResolutionTests: XCTestCase {
                  .disallowed,
                  .resolving,
                  .resolved,
-                 .resolutionFailure:
+                 .resolutionFailed:
                 break
             }
         }
@@ -44,7 +44,7 @@ class UserLocationResolutionTests: XCTestCase {
             .disallowed,
             .resolving,
             .resolved(placemark: placemark),
-            .resolutionFailure(error: .unknownError)
+            .resolutionFailed(error: .unknown)
         ]
 
         let secondSet: [UserLocationResolution] = [
@@ -53,7 +53,7 @@ class UserLocationResolutionTests: XCTestCase {
             .disallowed,
             .resolving,
             .resolved(placemark: placemark),
-            .resolutionFailure(error: .unknownError)
+            .resolutionFailed(error: .unknown)
         ]
 
         zip(firstSet, secondSet).forEach { pair in
@@ -74,8 +74,8 @@ class UserLocationResolutionTests: XCTestCase {
 
     func testFailureInequality() {
         XCTAssertNotEqual(
-            UserLocationResolution.resolutionFailure(error: .noLocationsFound),
-            .resolutionFailure(error: .unknownError),
+            UserLocationResolution.resolutionFailed(error: .noLocationsFound),
+            .resolutionFailed(error: .unknown),
             "Resolution failures with different errors should not be considered equal"
         )
     }

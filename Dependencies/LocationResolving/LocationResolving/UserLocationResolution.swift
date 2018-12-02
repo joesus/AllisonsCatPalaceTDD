@@ -14,5 +14,5 @@ public enum UserLocationResolution: Equatable {
     case disallowed
     case resolving
     case resolved(placemark: CLPlacemark)
-    case resolutionFailure(error: LocationResolutionError)
+    case resolutionFailed(error: LocationResolutionError)
 }

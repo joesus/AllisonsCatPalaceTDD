@@ -9,18 +9,14 @@
 import Foundation
 
 public enum LocationResolutionError: Error {
-    case noLocationsFound, unknownError, missingPostalCode, invalidPostalCode
+    case noLocationsFound, requestInProgress, unknown
 
-    public var message: String {
+    public var userFacingMessage: String {
         switch self {
-        case .noLocationsFound, .unknownError:
+        case .noLocationsFound, .unknown:
             return "We were unable to find your location"
-
-        case .missingPostalCode:
-            return "We were unable to find a postal code for your location"
-
-        case .invalidPostalCode:
-            return "We were unable to use the postal code for your location"
+        case .requestInProgress:
+            return "Finding your location"
         }
     }
 }

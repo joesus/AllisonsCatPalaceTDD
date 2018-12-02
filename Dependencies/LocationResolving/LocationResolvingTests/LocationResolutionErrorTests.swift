@@ -14,31 +14,25 @@ class LocationResolutionErrorTests: XCTestCase {
     func testGeocodingErrorCases() {
         switch LocationResolutionError.noLocationsFound {
         case .noLocationsFound,
-             .unknownError,
-             .missingPostalCode,
-             .invalidPostalCode:
+             .requestInProgress,
+             .unknown:
             return
         }
     }
 
     func testErrorMessages() {
         XCTAssertEqual(
-            LocationResolutionError.noLocationsFound.message,
+            LocationResolutionError.noLocationsFound.userFacingMessage,
             "We were unable to find your location",
             "The message for no locations found should be correct"
         )
         XCTAssertEqual(
-            LocationResolutionError.missingPostalCode.message,
-            "We were unable to find a postal code for your location",
-            "The message for a missing postal code should be correct"
+            LocationResolutionError.requestInProgress.userFacingMessage,
+            "Finding your location",
+            "The message for an unknown error should be correct"
         )
         XCTAssertEqual(
-            LocationResolutionError.invalidPostalCode.message,
-            "We were unable to use the postal code for your location",
-            "The message for an invalid postal code should be correct"
-        )
-        XCTAssertEqual(
-            LocationResolutionError.unknownError.message,
+            LocationResolutionError.unknown.userFacingMessage,
             "We were unable to find your location",
             "The message for an unknown error should be correct"
         )
@@ -47,9 +41,8 @@ class LocationResolutionErrorTests: XCTestCase {
     func testEquality() {
         let errors = [
             LocationResolutionError.noLocationsFound,
-            .unknownError,
-            .missingPostalCode,
-            .invalidPostalCode
+            .requestInProgress,
+            .unknown
         ]
 
         XCTAssertEqual(errors, errors,

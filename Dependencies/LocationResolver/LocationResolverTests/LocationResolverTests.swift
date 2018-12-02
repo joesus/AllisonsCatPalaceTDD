@@ -7,28 +7,80 @@
 //
 
 import XCTest
+import CoreLocation
 @testable import LocationResolver
+import LocationResolving
 
 class LocationResolverTests: XCTestCase {
 
+    var resolver: LocationResolver!
+    let fakeLocationManager = FakeLocationManager()
+
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        super.setUp()
+
+        resolver = LocationResolver(locationManager: fakeLocationManager)
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        FakeLocationManager.reset()
+
+        super.tearDown()
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testInitialResolutionState() {
+        resolver = LocationResolver()
+
+        XCTAssertEqual(resolver.userLocationResolution, .unknown,
+                       "The initial user location resolution for a new location resolver should be unknown")
     }
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testHasLocationManager() {
+        resolver = LocationResolver()
+
+        guard let locationManager = resolver.locationManager as? CLLocationManager else {
+            return XCTFail("Resolver should have a location manager with a default concrete type provided by Core Location")
         }
+
+        XCTAssertTrue(locationManager.delegate === resolver,
+                      "Resolver should be the delegate for its location manager")
     }
+
+    // Mark: Initial State
+    func testUserLocationResolutionForDisabledLocationServices() {
+        FakeLocationManager.stubbedLocationServicesEnabled = false
+
+        XCTAssertEqual(resolver.userLocationResolution, .disallowed,
+                       "Resolver should have a user location resolution with an initial state of disallowed if location services are disabled")
+    }
+
+    func testUserLocationResolutionForFirstLaunch() {
+        FakeLocationManager.stubbedAuthorizationStatus = .notDetermined
+
+        XCTAssertEqual(resolver.userLocationResolution, .unknown,
+                       "Resolver should have a user location resolution with an initial state of unknown when location services are enabled but authorization status is unknown")
+    }
+
+    func testUserLocationResolutionForUnauthorizedPermissions() {
+        FakeLocationManager.stubbedAuthorizationStatus = .denied
+
+        XCTAssertEqual(resolver.userLocationResolution, .disallowed,
+                       "Resolver should have a user location resolution with an initial state of disallowed if location services authorization has been denied")
+    }
+
+    func testUserLocationResolutionForEnabledAndAuthorizedLocationServices() {
+        FakeLocationManager.stubbedAuthorizationStatus = .authorizedWhenInUse
+
+        XCTAssertEqual(resolver.userLocationResolution, .allowed,
+                       "Resolver should have a user location resolution with an initial state of allowed if location services are enabled and authorized")
+    }
+
+    func testUserLocationResolutionForEnabledAndOverAuthorizedLocationServices() {
+        FakeLocationManager.stubbedAuthorizationStatus = .authorizedAlways
+
+        XCTAssertEqual(resolver.userLocationResolution, .allowed,
+                       "Resolver should have a user location resolution with an initial state of allowed if location services are enabled and authorized to the max")
+    }
+
 
 }

@@ -10,6 +10,9 @@
 		F44E5ED521A0BE3200DA391D /* LocationResolver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44E5ECB21A0BE3100DA391D /* LocationResolver.framework */; };
 		F44E5EDA21A0BE3200DA391D /* LocationResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5ED921A0BE3200DA391D /* LocationResolverTests.swift */; };
 		F44E5EDC21A0BE3200DA391D /* LocationResolver.h in Headers */ = {isa = PBXBuildFile; fileRef = F44E5ECE21A0BE3100DA391D /* LocationResolver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F44E5F4C21A0D4BF00DA391D /* FakeLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F4B21A0D4BF00DA391D /* FakeLocationManager.swift */; };
+		F44E5F4D21A0D4C700DA391D /* LocationManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F4821A0D49500DA391D /* LocationManaging.swift */; };
+		F44E5F4F21A0D6F800DA391D /* LocationResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F4E21A0D6F800DA391D /* LocationResolver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +32,9 @@
 		F44E5ED421A0BE3200DA391D /* LocationResolverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LocationResolverTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F44E5ED921A0BE3200DA391D /* LocationResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationResolverTests.swift; sourceTree = "<group>"; };
 		F44E5EDB21A0BE3200DA391D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F44E5F4821A0D49500DA391D /* LocationManaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManaging.swift; sourceTree = "<group>"; };
+		F44E5F4B21A0D4BF00DA391D /* FakeLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeLocationManager.swift; sourceTree = "<group>"; };
+		F44E5F4E21A0D6F800DA391D /* LocationResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationResolver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,8 +77,10 @@
 		F44E5ECD21A0BE3100DA391D /* LocationResolver */ = {
 			isa = PBXGroup;
 			children = (
+				F44E5F4821A0D49500DA391D /* LocationManaging.swift */,
 				F44E5ECE21A0BE3100DA391D /* LocationResolver.h */,
 				F44E5ECF21A0BE3100DA391D /* Info.plist */,
+				F44E5F4E21A0D6F800DA391D /* LocationResolver.swift */,
 			);
 			path = LocationResolver;
 			sourceTree = "<group>";
@@ -80,10 +88,19 @@
 		F44E5ED821A0BE3200DA391D /* LocationResolverTests */ = {
 			isa = PBXGroup;
 			children = (
-				F44E5ED921A0BE3200DA391D /* LocationResolverTests.swift */,
+				F44E5F4A21A0D49A00DA391D /* Helpers */,
 				F44E5EDB21A0BE3200DA391D /* Info.plist */,
+				F44E5ED921A0BE3200DA391D /* LocationResolverTests.swift */,
 			);
 			path = LocationResolverTests;
+			sourceTree = "<group>";
+		};
+		F44E5F4A21A0D49A00DA391D /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F44E5F4B21A0D4BF00DA391D /* FakeLocationManager.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,6 +211,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F44E5F4F21A0D6F800DA391D /* LocationResolver.swift in Sources */,
+				F44E5F4D21A0D4C700DA391D /* LocationManaging.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F44E5EDA21A0BE3200DA391D /* LocationResolverTests.swift in Sources */,
+				F44E5F4C21A0D4BF00DA391D /* FakeLocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,6 +411,7 @@
 		F44E5EE321A0BE3200DA391D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NEL58AT86X;
 				INFOPLIST_FILE = LocationResolverTests/Info.plist;
@@ -409,6 +430,7 @@
 		F44E5EE421A0BE3200DA391D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NEL58AT86X;
 				INFOPLIST_FILE = LocationResolverTests/Info.plist;

@@ -32,9 +32,9 @@ class FakeLocationManager: NSObject, LocationManaging {
         requestAlwaysAuthorizationCalled = true
     }
 
-    var requestLocationCalled = false
+    var requestLocationCallCount = 0
     func requestLocation() {
-        requestLocationCalled = true
+        requestLocationCallCount += 1
     }
 
     class func reset() {

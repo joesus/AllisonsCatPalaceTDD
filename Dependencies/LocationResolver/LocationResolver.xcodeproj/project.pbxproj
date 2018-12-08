@@ -14,6 +14,7 @@
 		F44E5F4D21A0D4C700DA391D /* LocationManaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F4821A0D49500DA391D /* LocationManaging.swift */; };
 		F44E5F4F21A0D6F800DA391D /* LocationResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F4E21A0D6F800DA391D /* LocationResolver.swift */; };
 		F4878D9E21B4861A00078E20 /* LocationResolving.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4878D9D21B4861A00078E20 /* LocationResolving.framework */; };
+		F4878DA221B48D9A00078E20 /* Geocoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4878DA121B48D9A00078E20 /* Geocoding.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +38,7 @@
 		F44E5F4B21A0D4BF00DA391D /* FakeLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeLocationManager.swift; sourceTree = "<group>"; };
 		F44E5F4E21A0D6F800DA391D /* LocationResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationResolver.swift; sourceTree = "<group>"; };
 		F4878D9D21B4861A00078E20 /* LocationResolving.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LocationResolving.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4878DA121B48D9A00078E20 /* Geocoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geocoding.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 		F44E5ECD21A0BE3100DA391D /* LocationResolver */ = {
 			isa = PBXGroup;
 			children = (
+				F4878DA121B48D9A00078E20 /* Geocoding.swift */,
 				F44E5F4821A0D49500DA391D /* LocationManaging.swift */,
 				F44E5ECE21A0BE3100DA391D /* LocationResolver.h */,
 				F44E5ECF21A0BE3100DA391D /* Info.plist */,
@@ -224,6 +227,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F44E5F4F21A0D6F800DA391D /* LocationResolver.swift in Sources */,
+				F4878DA221B48D9A00078E20 /* Geocoding.swift in Sources */,
 				F44E5F4D21A0D4C700DA391D /* LocationManaging.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

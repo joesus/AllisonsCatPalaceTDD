@@ -314,6 +314,71 @@ class LocationResolverTests: XCTestCase {
                        "Geocoding closure should not be persisted between requests.")
     }
 
+    func testFindingPlacemarkWithValidStringUsesGeocoder() {
+        let locationString = "ohio"
+        resolver.findPlacemark(for: locationString) { _ in }
+
+        XCTAssertEqual(locationString, fakeGeocoder.stringToGeocode,
+                       "Finding a placemark with a string should pass the string to its geocoder")
+    }
+
+    func testHandlingGeocodeError() {
+        let resolvedExpectation = expectation(description: name)
+
+        resolver.findPlacemark(for: "foo") { potentialPlacemark in
+            XCTAssertNil(potentialPlacemark,
+                         "No placemark should be returned when geocoding results in an error")
+            resolvedExpectation.fulfill()
+        }
+
+        fakeGeocoder.capturedCompletionHandler?(nil, SampleError())
+
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+
+    func testHandlingNilPlacemarks() {
+        let resolvedExpectation = expectation(description: name)
+
+        resolver.findPlacemark(for: "foo") { potentialPlacemark in
+            XCTAssertNil(potentialPlacemark,
+                         "No placemark should be returned when geocoding results in a nil placemark")
+            resolvedExpectation.fulfill()
+        }
+
+        fakeGeocoder.capturedCompletionHandler?(nil, nil)
+
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+
+    func testHandlingEmptyPlacemarks() {
+        let resolvedExpectation = expectation(description: name)
+
+        resolver.findPlacemark(for: "foo") { potentialPlacemark in
+            XCTAssertNil(potentialPlacemark,
+                         "No placemark should be returned when geocoding results in an empty list of placemarks")
+            resolvedExpectation.fulfill()
+        }
+
+        fakeGeocoder.capturedCompletionHandler?([], nil)
+
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+
+    func testHandlingSuccessfulGeocoding() {
+        let resolvedExpectation = expectation(description: name)
+
+        resolver.findPlacemark(for: "foo") { potentialPlacemark in
+            XCTAssertEqual(SamplePlacemarks.denver, potentialPlacemark,
+                           "Finding a placemark should use the first placemark returned by the geocoder")
+            resolvedExpectation.fulfill()
+        }
+
+        fakeGeocoder.capturedCompletionHandler?(
+            [SamplePlacemarks.denver, SamplePlacemarks.detroit],
+            nil
+        )
+
+        waitForExpectations(timeout: 1, handler: nil)
     }
 
 }

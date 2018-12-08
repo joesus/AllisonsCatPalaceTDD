@@ -57,13 +57,17 @@ public class LocationResolver: NSObject, LocationResolving {
         locationManager.requestLocation()
     }
 
-    public func findPlacemark(for: String, completion: (CLPlacemark?) -> Void) {
-        // TODO
+    public func findPlacemark(for searchTerm: String, completion: @escaping (CLPlacemark?) -> Void) {
+        geocoder.geocodeAddressString(searchTerm) { potentialPlacemarks, potentialError in
+            var placemark: CLPlacemark?
+            defer { completion(placemark) }
+
+            guard potentialError == nil else { return }
+
+            placemark = potentialPlacemarks?.first
+        }
     }
 
-    public func cancelAllRequests() {
-        // TODO
-    }
 }
 
 extension LocationResolver: CLLocationManagerDelegate {

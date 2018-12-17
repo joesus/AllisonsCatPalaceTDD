@@ -25,6 +25,7 @@ opt_in_rules:
 
 disabled_rules:
   - closure_parameter_position
+  - identifier_name
   - statement_position
   - todo
 

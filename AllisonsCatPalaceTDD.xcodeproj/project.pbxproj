@@ -103,6 +103,10 @@
 		F49434A21FD4BB8F00B6EEA7 /* UIApplicationOpenUrlSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49434A01FD4BB8E00B6EEA7 /* UIApplicationOpenUrlSpy.swift */; };
 		F49434A31FD4BB8F00B6EEA7 /* UIApplicationCanOpenUrlStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49434A11FD4BB8F00B6EEA7 /* UIApplicationCanOpenUrlStub.swift */; };
 		F49434A51FD4BE2E00B6EEA7 /* UIAlertActionInitializerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49434A41FD4BE2E00B6EEA7 /* UIAlertActionInitializerSpy.swift */; };
+		F4A53BAE21C710990052D5C3 /* DisplayableLocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A53BAD21C710990052D5C3 /* DisplayableLocationTests.swift */; };
+		F4A53BB021C713950052D5C3 /* DisplayablePlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A53BAF21C713950052D5C3 /* DisplayablePlacemark.swift */; };
+		F4A53BB221C7187B0052D5C3 /* DisplayableLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A53BB121C7187B0052D5C3 /* DisplayableLocation.swift */; };
+		F4A53BB421C71DFA0052D5C3 /* TestDisplayablePlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A53BB321C71DFA0052D5C3 /* TestDisplayablePlacemark.swift */; };
 		F4AB68921F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */; };
 		F4AB68941F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68931F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift */; };
 		F4AB68961F2D352700CC4CC2 /* AnimalGenotypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AB68951F2D352700CC4CC2 /* AnimalGenotypeTests.swift */; };
@@ -364,6 +368,10 @@
 		F49434A01FD4BB8E00B6EEA7 /* UIApplicationOpenUrlSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationOpenUrlSpy.swift; sourceTree = "<group>"; };
 		F49434A11FD4BB8F00B6EEA7 /* UIApplicationCanOpenUrlStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationCanOpenUrlStub.swift; sourceTree = "<group>"; };
 		F49434A41FD4BE2E00B6EEA7 /* UIAlertActionInitializerSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertActionInitializerSpy.swift; sourceTree = "<group>"; };
+		F4A53BAD21C710990052D5C3 /* DisplayableLocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayableLocationTests.swift; sourceTree = "<group>"; };
+		F4A53BAF21C713950052D5C3 /* DisplayablePlacemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayablePlacemark.swift; sourceTree = "<group>"; };
+		F4A53BB121C7187B0052D5C3 /* DisplayableLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayableLocation.swift; sourceTree = "<group>"; };
+		F4A53BB321C71DFA0052D5C3 /* TestDisplayablePlacemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDisplayablePlacemark.swift; sourceTree = "<group>"; };
 		F4AB68911F2D293E00CC4CC2 /* AnimalAdoptionStatusTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalAdoptionStatusTests.swift; sourceTree = "<group>"; };
 		F4AB68931F2D2CA200CC4CC2 /* AnimalAdoptionStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalAdoptionStatus.swift; sourceTree = "<group>"; };
 		F4AB68951F2D352700CC4CC2 /* AnimalGenotypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalGenotypeTests.swift; sourceTree = "<group>"; };
@@ -440,6 +448,7 @@
 				F46539D01EFF2F6D0049E7FD /* AnimalPhotoSize.swift */,
 				F46539C61EFF25B10049E7FD /* AnimalSex.swift */,
 				F46539BE1EFF18FB0049E7FD /* AnimalSize.swift */,
+				F4A53BAF21C713950052D5C3 /* DisplayablePlacemark.swift */,
 				276C61BB1E2C183300225CF4 /* ExternalAnimal.swift */,
 				F43BC6A31F1AC9E400E025EB /* ExternalData.swift */,
 				F4AB68991F2D39F300CC4CC2 /* GeneticPurity.swift */,
@@ -448,6 +457,7 @@
 				F46539BA1EFF11430049E7FD /* PositiveInteger.swift */,
 				F494349A1FD499FC00B6EEA7 /* SpeciesSelectionIndex.swift */,
 				F42E16CB1F92A47700FDD9BE /* ZipCode.swift */,
+				F4A53BB121C7187B0052D5C3 /* DisplayableLocation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -513,6 +523,7 @@
 				276C61BF1E2C1AFF00225CF4 /* AnimalTests.swift */,
 				276C61B51E2C068900225CF4 /* AppDelegateTests.swift */,
 				F4AEE783204220D700256AF9 /* DesignableViewPropertiesTests.swift */,
+				F4A53BAD21C710990052D5C3 /* DisplayableLocationTests.swift */,
 				F4B44C521FE720FE005D5A29 /* DisplayableStringTests.swift */,
 				275D26141E5125D100FAE334 /* FavoritesListControllerTests.swift */,
 				27E823921E5A43AB009B202A /* FavoritesListDataSourceTests.swift */,
@@ -571,6 +582,7 @@
 				27E823891E5A273D009B202A /* UIViewControllerSpies.swift */,
 				270A6AE41E3E70CD00B12D38 /* URLSessionDataTaskSpies.swift */,
 				270A6AE21E3E700C00B12D38 /* URLSessionSpies.swift */,
+				F4A53BB321C71DFA0052D5C3 /* TestDisplayablePlacemark.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1125,6 +1137,7 @@
 			files = (
 				F4B688832030F8A400F3184E /* SearchWorkflow.swift in Sources */,
 				F436324F1F5371AB004DF88A /* SwipeOverlayView.swift in Sources */,
+				F4A53BB221C7187B0052D5C3 /* DisplayableLocation.swift in Sources */,
 				270A6AED1E3E7F7800B12D38 /* Result.swift in Sources */,
 				F41A38821F897B6A00AD2762 /* PaginationCursor.swift in Sources */,
 				F436324D1F536A73004DF88A /* AnimalCardsViewController.swift in Sources */,
@@ -1132,6 +1145,7 @@
 				276C61961E2C062200225CF4 /* AppDelegate.swift in Sources */,
 				F416125D1EB520D300E3E6F6 /* CatNameCell.swift in Sources */,
 				F4FB8EE11F410E1B006767AE /* AnimalDetailHeaderView.swift in Sources */,
+				F4A53BB021C713950052D5C3 /* DisplayablePlacemark.swift in Sources */,
 				270A6AF51E3E9D3800B12D38 /* AnimalNetworkError.swift in Sources */,
 				F4BE6C991F584CFE00480671 /* Persistable.swift in Sources */,
 				F43BC6A21F1AA8A400E025EB /* ArrayExtensions.swift in Sources */,
@@ -1207,6 +1221,7 @@
 				F41A38801F897A6100AD2762 /* PaginationCursorTests.swift in Sources */,
 				F4E68C1D1FA4FD3700EB30D5 /* PetFinderPaginationCursorTests.swift in Sources */,
 				270A6AE31E3E700C00B12D38 /* URLSessionSpies.swift in Sources */,
+				F4A53BAE21C710990052D5C3 /* DisplayableLocationTests.swift in Sources */,
 				F46539B91EFF0F580049E7FD /* PositiveIntegerTests.swift in Sources */,
 				277199121E33F45B00930630 /* PetFinderNetworkerTests.swift in Sources */,
 				F41612611EB54DB000E3E6F6 /* UITestingHelper.swift in Sources */,
@@ -1227,6 +1242,7 @@
 				270FE1DA1E748E22006126B2 /* SampleCats.swift in Sources */,
 				F4764B3B1FAFB73B007990B4 /* FakeRegistry.swift in Sources */,
 				F47D38F11FA51DB7001DBD60 /* PetFinderRecordLengthTests.swift in Sources */,
+				F4A53BB421C71DFA0052D5C3 /* TestDisplayablePlacemark.swift in Sources */,
 				F4AB68A01F2D4E0400CC4CC2 /* SampleExternalGenotypeData.swift in Sources */,
 				27E823931E5A43AB009B202A /* FavoritesListDataSourceTests.swift in Sources */,
 				F41A388A1F8985E200AD2762 /* PetfinderUrlBuilderTests.swift in Sources */,

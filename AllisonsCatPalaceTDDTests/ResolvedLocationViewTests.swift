@@ -24,36 +24,16 @@ class ResolvedLocationViewTests: XCTestCase {
     }
 
     func testConfiguringWithLocationData() {
-        typealias DisplayableLocation = (
-            city: String?,
-            state: String?,
-            zip: ZipCode
+        let placemark = TestDisplayablePlacemark(
+            postalCode: "12345",
+            locality: "foo",
+            administrativeArea: "bar"
         )
-        typealias DisplayedLocation = (location: DisplayableLocation, displayedValue: String)
+        let location = DisplayableLocation(placemark: placemark)
+        view.configure(location: location)
 
-        let city = "Denver".displayableString!
-        let state = "Colorado".displayableString!
-        let zip = ZipCode(rawValue: "80220")!
-
-        let testValues: [DisplayedLocation] = [
-            ((city, state, zip), "\(city), \(state)"),
-            ((city, nil, zip), "\(zip.rawValue) (\(city))"),
-            ((nil, state, zip), "\(zip.rawValue) (\(state))"),
-            ((nil, nil, zip), zip.rawValue)
-        ]
-
-        testValues.forEach { value in
-            let name = ResolvedLocationView.SimplifiedLocationName(
-                zipCode: value.location.zip,
-                city: value.location.city,
-                state: value.location.state
-            )
-
-            view.configure(locationName: name)
-
-            XCTAssertEqual(label.text, value.displayedValue,
-                           "Resolved location view's label should have different value depending on the input")
-        }
+        XCTAssertEqual(label.text, location.displayableString,
+                       "The label's value should be taken from the location's displayable string")
     }
 
 }

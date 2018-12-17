@@ -105,6 +105,8 @@
 		F49434A31FD4BB8F00B6EEA7 /* UIApplicationCanOpenUrlStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49434A11FD4BB8F00B6EEA7 /* UIApplicationCanOpenUrlStub.swift */; };
 		F49434A51FD4BE2E00B6EEA7 /* UIAlertActionInitializerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49434A41FD4BE2E00B6EEA7 /* UIAlertActionInitializerSpy.swift */; };
 		F49A9CF221C6EC380071C348 /* AnimalData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44E5E5C21A0B74800DA391D /* AnimalData.framework */; };
+		F4A53BA321C6F14A0052D5C3 /* LocationResolutionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A53BA221C6F14A0052D5C3 /* LocationResolutionController.swift */; };
+		F4A53BAA21C6F3240052D5C3 /* LocationResolutionControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A53BA921C6F3240052D5C3 /* LocationResolutionControllerTests.swift */; };
 		F4A53BAE21C710990052D5C3 /* DisplayableLocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A53BAD21C710990052D5C3 /* DisplayableLocationTests.swift */; };
 		F4A53BB021C713950052D5C3 /* DisplayablePlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A53BAF21C713950052D5C3 /* DisplayablePlacemark.swift */; };
 		F4A53BB221C7187B0052D5C3 /* DisplayableLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A53BB121C7187B0052D5C3 /* DisplayableLocation.swift */; };
@@ -384,6 +386,8 @@
 		F49434A01FD4BB8E00B6EEA7 /* UIApplicationOpenUrlSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationOpenUrlSpy.swift; sourceTree = "<group>"; };
 		F49434A11FD4BB8F00B6EEA7 /* UIApplicationCanOpenUrlStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplicationCanOpenUrlStub.swift; sourceTree = "<group>"; };
 		F49434A41FD4BE2E00B6EEA7 /* UIAlertActionInitializerSpy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertActionInitializerSpy.swift; sourceTree = "<group>"; };
+		F4A53BA221C6F14A0052D5C3 /* LocationResolutionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationResolutionController.swift; sourceTree = "<group>"; };
+		F4A53BA921C6F3240052D5C3 /* LocationResolutionControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationResolutionControllerTests.swift; sourceTree = "<group>"; };
 		F4A53BAD21C710990052D5C3 /* DisplayableLocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayableLocationTests.swift; sourceTree = "<group>"; };
 		F4A53BAF21C713950052D5C3 /* DisplayablePlacemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayablePlacemark.swift; sourceTree = "<group>"; };
 		F4A53BB121C7187B0052D5C3 /* DisplayableLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayableLocation.swift; sourceTree = "<group>"; };
@@ -549,6 +553,7 @@
 				F4AB689D1F2D4D4D00CC4CC2 /* GenotypeBuilderTests.swift */,
 				276C61AC1E2C062200225CF4 /* Info.plist */,
 				F4543D9B1F43C19F00F9CDE3 /* LocationControllerTests.swift */,
+				F4A53BA921C6F3240052D5C3 /* LocationResolutionControllerTests.swift */,
 				27E823961E5A5115009B202A /* MainStoryboardTests.swift */,
 				F41A387F1F897A6100AD2762 /* PaginationCursorTests.swift */,
 				275D260E1E5106D800FAE334 /* PetFinderAnimalRegistryTests.swift */,
@@ -633,6 +638,7 @@
 				275D26161E512F5E00FAE334 /* FavoritesListController.swift */,
 				276C619E1E2C062200225CF4 /* LaunchScreen.storyboard */,
 				F4543D9D1F43C28300F9CDE3 /* LocationController.swift */,
+				F4A53BA221C6F14A0052D5C3 /* LocationResolutionController.swift */,
 				276C61B71E2C0A1900225CF4 /* Main.storyboard */,
 				F4B688822030F8A400F3184E /* SearchWorkflow.swift */,
 			);
@@ -1200,6 +1206,7 @@
 				F4AB689C1F2D405400CC4CC2 /* AnimalGenotype.swift in Sources */,
 				F46539BF1EFF18FB0049E7FD /* AnimalSize.swift in Sources */,
 				F47D38F51FA5314A001DBD60 /* AnimalNetworking.swift in Sources */,
+				F4A53BA321C6F14A0052D5C3 /* LocationResolutionController.swift in Sources */,
 				276C61C21E2C1C0E00225CF4 /* Animal.swift in Sources */,
 				F4543D9E1F43C28300F9CDE3 /* LocationController.swift in Sources */,
 				F46539CD1EFF29A80049E7FD /* PetfinderAnimalSpecies.swift in Sources */,
@@ -1255,6 +1262,7 @@
 				F402B15A201D1343004074E1 /* CLGeocoderIsGeocodingStub.swift in Sources */,
 				F4238FBD1FC1068C00046EB1 /* SegueTemplates.swift in Sources */,
 				F4D792781FDF655F00D0876A /* ResolvedLocationViewTests.swift in Sources */,
+				F4A53BAA21C6F3240052D5C3 /* LocationResolutionControllerTests.swift in Sources */,
 				27E823971E5A5115009B202A /* MainStoryboardTests.swift in Sources */,
 				F4D792721FDF58B700D0876A /* ResolvingLocationViewTests.swift in Sources */,
 				275D26151E5125D100FAE334 /* FavoritesListControllerTests.swift in Sources */,

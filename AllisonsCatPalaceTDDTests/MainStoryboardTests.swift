@@ -30,6 +30,12 @@ class MainStoryboardTests: XCTestCase {
         )
     }
 
+    func testLocationResolutionScene() {
+        let scene = storyboard.instantiateViewController(withIdentifier: "LocationResolutionScene")
+        XCTAssert(scene is LocationResolutionController,
+                  "Should be able to instantiate location resolution scene from storyboard")
+    }
+
     func testFavoritesListController() {
         let favoritesListController = storyboard.instantiateViewController(withIdentifier: "FavoritesScene")
         XCTAssert(favoritesListController is FavoritesListController,

@@ -95,6 +95,7 @@
 		F47D38F11FA51DB7001DBD60 /* PetFinderRecordLengthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D38F01FA51DB7001DBD60 /* PetFinderRecordLengthTests.swift */; };
 		F47D38F31FA51EC0001DBD60 /* PetFinderRecordLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D38F21FA51EC0001DBD60 /* PetFinderRecordLength.swift */; };
 		F47D38F51FA5314A001DBD60 /* AnimalNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D38F41FA5314A001DBD60 /* AnimalNetworking.swift */; };
+		F4878DBB21BC8B6600078E20 /* LocationResolving.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44E5F3121A0BEAA00DA391D /* LocationResolving.framework */; };
 		F48AAD591F87207B00BC8081 /* RealmInterfacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48AAD581F87207B00BC8081 /* RealmInterfacing.swift */; };
 		F49434991FD4983A00B6EEA7 /* SpeciesSelectionIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49434981FD4983A00B6EEA7 /* SpeciesSelectionIndexTests.swift */; };
 		F494349B1FD499FC00B6EEA7 /* SpeciesSelectionIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F494349A1FD499FC00B6EEA7 /* SpeciesSelectionIndex.swift */; };
@@ -103,6 +104,7 @@
 		F49434A21FD4BB8F00B6EEA7 /* UIApplicationOpenUrlSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49434A01FD4BB8E00B6EEA7 /* UIApplicationOpenUrlSpy.swift */; };
 		F49434A31FD4BB8F00B6EEA7 /* UIApplicationCanOpenUrlStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49434A11FD4BB8F00B6EEA7 /* UIApplicationCanOpenUrlStub.swift */; };
 		F49434A51FD4BE2E00B6EEA7 /* UIAlertActionInitializerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49434A41FD4BE2E00B6EEA7 /* UIAlertActionInitializerSpy.swift */; };
+		F49A9CF221C6EC380071C348 /* AnimalData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44E5E5C21A0B74800DA391D /* AnimalData.framework */; };
 		F4A53BAE21C710990052D5C3 /* DisplayableLocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A53BAD21C710990052D5C3 /* DisplayableLocationTests.swift */; };
 		F4A53BB021C713950052D5C3 /* DisplayablePlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A53BAF21C713950052D5C3 /* DisplayablePlacemark.swift */; };
 		F4A53BB221C7187B0052D5C3 /* DisplayableLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A53BB121C7187B0052D5C3 /* DisplayableLocation.swift */; };
@@ -253,6 +255,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = F44FED3E218E4A5A0012C0EB;
 			remoteInfo = ImageProviderTests;
+		};
+		F49A9CEE21C6EC010071C348 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F44E5F2B21A0BEAA00DA391D /* LocationResolving.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F44E5EFD21A0BE8D00DA391D;
+			remoteInfo = LocationResolving;
+		};
+		F49A9CF021C6EC040071C348 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F44E5EEB21A0BE5000DA391D /* LocationResolver.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F44E5ECA21A0BE3100DA391D;
+			remoteInfo = LocationResolver;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -410,6 +426,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F49A9CF221C6EC380071C348 /* AnimalData.framework in Frameworks */,
+				F4878DBB21BC8B6600078E20 /* LocationResolving.framework in Frameworks */,
 				F1F9EA499B210CE9275EF938 /* Pods_AllisonsCatPalaceTDD.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -792,10 +810,12 @@
 			buildRules = (
 			);
 			dependencies = (
+				F44E5E6D21A0B7AD00DA391D /* PBXTargetDependency */,
+				F49A9CF121C6EC040071C348 /* PBXTargetDependency */,
+				F49A9CEF21C6EC010071C348 /* PBXTargetDependency */,
 				F44E5E7121A0B7BD00DA391D /* PBXTargetDependency */,
 				F44E5E7321A0B7BD00DA391D /* PBXTargetDependency */,
 				F44E5E6F21A0B7B400DA391D /* PBXTargetDependency */,
-				F44E5E6D21A0B7AD00DA391D /* PBXTargetDependency */,
 			);
 			name = AllisonsCatPalaceTDD;
 			productName = AllisonsCatPalaceTDD;
@@ -1291,6 +1311,16 @@
 			isa = PBXTargetDependency;
 			name = ImageProviding;
 			targetProxy = F44E5E7221A0B7BD00DA391D /* PBXContainerItemProxy */;
+		};
+		F49A9CEF21C6EC010071C348 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LocationResolving;
+			targetProxy = F49A9CEE21C6EC010071C348 /* PBXContainerItemProxy */;
+		};
+		F49A9CF121C6EC040071C348 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LocationResolver;
+			targetProxy = F49A9CF021C6EC040071C348 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

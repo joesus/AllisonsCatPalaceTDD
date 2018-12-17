@@ -14,8 +14,9 @@
 		F42EDB2D21335BF50093842D /* SearchServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42EDB2C21335BF50093842D /* SearchServiceTests.swift */; };
 		F42EDB2F21335C6A0093842D /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42EDB2E21335C6A0093842D /* SearchService.swift */; };
 		F42EDB31213361A90093842D /* SearchServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42EDB30213361A90093842D /* SearchServiceFactory.swift */; };
-		F42EDB5F2133692D0093842D /* SamplePlacemarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42EDB5D2133692D0093842D /* SamplePlacemarks.swift */; };
 		F42EDB612133695A0093842D /* DenverPlacemark in Resources */ = {isa = PBXBuildFile; fileRef = F42EDB602133695A0093842D /* DenverPlacemark */; };
+		F49A9CF321C6EDB10071C348 /* SamplePlacemarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42EDB5D2133692D0093842D /* SamplePlacemarks.swift */; };
+		F4A53BA121C6EF390052D5C3 /* AnimalData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A53BA021C6EF390052D5C3 /* AnimalData.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,7 @@
 		F42EDB30213361A90093842D /* SearchServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchServiceFactory.swift; sourceTree = "<group>"; };
 		F42EDB5D2133692D0093842D /* SamplePlacemarks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SamplePlacemarks.swift; sourceTree = "<group>"; };
 		F42EDB602133695A0093842D /* DenverPlacemark */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = DenverPlacemark; sourceTree = "<group>"; };
+		F4A53BA021C6EF390052D5C3 /* AnimalData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AnimalData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4A53BA121C6EF390052D5C3 /* AnimalData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +110,7 @@
 		F42EDB2821335A330093842D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F4A53BA021C6EF390052D5C3 /* AnimalData.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -243,7 +247,7 @@
 			files = (
 				F42EDB192133585A0093842D /* SearchParametersTests.swift in Sources */,
 				F42EDB2D21335BF50093842D /* SearchServiceTests.swift in Sources */,
-				F42EDB5F2133692D0093842D /* SamplePlacemarks.swift in Sources */,
+				F49A9CF321C6EDB10071C348 /* SamplePlacemarks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

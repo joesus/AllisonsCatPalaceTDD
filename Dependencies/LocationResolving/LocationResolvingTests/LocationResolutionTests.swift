@@ -16,8 +16,8 @@ class LocationResolutionTests: XCTestCase {
 
     func testAllCases() {
         let possibleValues: [LocationResolution] = [
-            .resolved(placemark: placemark),
-            .resolutionFailed(error: .unknown)
+        .resolved(placemark: placemark, date: Date()),
+        .resolutionFailed(error: .unknown, date: Date())
         ]
 
         possibleValues.forEach { value in
@@ -28,45 +28,10 @@ class LocationResolutionTests: XCTestCase {
         }
     }
 
-    func testEquatability() {
-        let firstSet: [LocationResolution] = [
-            .resolved(placemark: placemark),
-            .resolutionFailed(error: .unknown)
-        ]
-
-        let secondSet: [LocationResolution] = [
-            .resolved(placemark: placemark),
-            .resolutionFailed(error: .unknown)
-        ]
-
-        zip(firstSet, secondSet).forEach { pair in
-            let (firstState, secondState) = pair
-
-            XCTAssertEqual(firstState, secondState,
-                           "\(firstState) should equal \(secondState)")
-        }
-    }
-
-    func testResolvedInequality() {
-        XCTAssertNotEqual(
-            LocationResolution.resolved(placemark: placemark),
-            .resolved(placemark: SamplePlacemarks.vancouver),
-            "Resolved location with differing placemarks should not be considered equal"
-        )
-    }
-
-    func testFailureInequality() {
-        XCTAssertNotEqual(
-            LocationResolution.resolutionFailed(error: .noLocationsFound),
-            .resolutionFailed(error: .unknown),
-            "Resolution failures with different errors should not be considered equal"
-        )
-    }
-
     func testError() {
         let possibleValues: [LocationResolution] = [
-            .resolved(placemark: placemark),
-            .resolutionFailed(error: .unknown)
+            .resolved(placemark: placemark, date: Date()),
+            .resolutionFailed(error: .unknown, date: Date())
         ]
 
         possibleValues.forEach { value in
@@ -75,7 +40,7 @@ class LocationResolutionTests: XCTestCase {
                 XCTAssertNil(value.error,
                              "Resolution states that do not have an associated error should not provide an error")
 
-            case .resolutionFailed(let error):
+            case .resolutionFailed(let error, _):
                 XCTAssertEqual(value.error, error,
                                "Resolution failures should provide their associated error")
             }
@@ -84,8 +49,8 @@ class LocationResolutionTests: XCTestCase {
 
     func testPlacemark() {
         let possibleValues: [LocationResolution] = [
-            .resolved(placemark: placemark),
-            .resolutionFailed(error: .unknown)
+            .resolved(placemark: placemark, date: Date()),
+            .resolutionFailed(error: .unknown, date: Date())
         ]
 
         possibleValues.forEach { value in
@@ -94,11 +59,31 @@ class LocationResolutionTests: XCTestCase {
                 XCTAssertNil(value.placemark,
                              "Resolution states that do not have an associated placemark should not provide a placemark")
 
-            case .resolved(let placemark):
+            case .resolved(let placemark, _):
                 XCTAssertEqual(value.placemark, placemark,
                                "Resolution success should provide its associated placemark")
             }
         }
-
     }
+
+    func testDate() {
+        let date = Date()
+        let possibleValues: [LocationResolution] = [
+            .resolved(placemark: placemark, date: date),
+            .resolutionFailed(error: .unknown, date: date)
+        ]
+
+        possibleValues.forEach { value in
+            switch value {
+            case .resolutionFailed(_, let date):
+                XCTAssertEqual(value.date, date,
+                               "Resolution failure should provide its time of failure")
+
+            case .resolved(_, let date):
+                XCTAssertEqual(value.date, date,
+                               "Resolution success should provide its time of success")
+            }
+        }
+    }
+
 }

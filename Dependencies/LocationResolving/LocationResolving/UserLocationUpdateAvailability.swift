@@ -1,5 +1,5 @@
 //
-//  LocationUpdateAvailability.swift
+//  UserLocationUpdateAvailability.swift
 //  LocationResolving
 //
 //  Created by Joe Susnick on 11/17/18.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-public enum LocationUpdateAvailability {
+public enum UserLocationUpdateAvailability {
     case always, whenInUse
 }

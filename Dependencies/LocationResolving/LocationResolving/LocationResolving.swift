@@ -8,10 +8,17 @@
 
 import CoreLocation
 
-public protocol LocationResolving {
-    var userLocationResolution: LocationResolution { get }
+public protocol LocationResolutionDelegate: class {
+    func didResolveLocation(_ location: LocationResolution)
+}
 
-    func requestLocationAuthorization(for availability: LocationUpdateAvailability)
-    func resolveUserLocation(completion: @escaping (LocationResolution) -> Void)
-    func findPlacemark(for: String, completion: @escaping (CLPlacemark?) -> Void)
+public protocol LocationResolving {
+    var delegate: LocationResolutionDelegate? { get set }
+
+    var userLocationResolvability: UserLocationResolvability { get }
+    var locationResolution: LocationResolution? { get }
+
+    func requestUserLocationAuthorization(for availability: UserLocationUpdateAvailability)
+    func resolveUserLocation()
+    func findPlacemark(for: String)
 }

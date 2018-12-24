@@ -14,8 +14,8 @@
 		F44E5F3A21A0C23A00DA391D /* LocationResolutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F3921A0C23900DA391D /* LocationResolutionTests.swift */; };
 		F44E5F3C21A0C24200DA391D /* LocationResolution.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F3B21A0C24200DA391D /* LocationResolution.swift */; };
 		F44E5F4321A0CED500DA391D /* LocationResolving.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F4221A0CED500DA391D /* LocationResolving.swift */; };
-		F44E5F4521A0D04C00DA391D /* LocationUpdateAvailabilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F4421A0D04C00DA391D /* LocationUpdateAvailabilityTests.swift */; };
-		F44E5F4721A0D19E00DA391D /* LocationUpdateAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F4621A0D19E00DA391D /* LocationUpdateAvailability.swift */; };
+		F44E5F4521A0D04C00DA391D /* UserLocationUpdateAvailabilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F4421A0D04C00DA391D /* UserLocationUpdateAvailabilityTests.swift */; };
+		F44E5F4721A0D19E00DA391D /* UserLocationUpdateAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F4621A0D19E00DA391D /* UserLocationUpdateAvailability.swift */; };
 		F44E5F6A21A0DBE400DA391D /* VancouverPlacemark in Resources */ = {isa = PBXBuildFile; fileRef = F44E5F6421A0DBE400DA391D /* VancouverPlacemark */; };
 		F44E5F6D21A0DBE400DA391D /* SamplePlacemarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E5F6721A0DBE400DA391D /* SamplePlacemarks.swift */; };
 		F44E5F6F21A0DBE400DA391D /* DenverPlacemark in Resources */ = {isa = PBXBuildFile; fileRef = F44E5F6921A0DBE400DA391D /* DenverPlacemark */; };
@@ -44,8 +44,8 @@
 		F44E5F3921A0C23900DA391D /* LocationResolutionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationResolutionTests.swift; sourceTree = "<group>"; };
 		F44E5F3B21A0C24200DA391D /* LocationResolution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationResolution.swift; sourceTree = "<group>"; };
 		F44E5F4221A0CED500DA391D /* LocationResolving.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationResolving.swift; sourceTree = "<group>"; };
-		F44E5F4421A0D04C00DA391D /* LocationUpdateAvailabilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUpdateAvailabilityTests.swift; sourceTree = "<group>"; };
-		F44E5F4621A0D19E00DA391D /* LocationUpdateAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUpdateAvailability.swift; sourceTree = "<group>"; };
+		F44E5F4421A0D04C00DA391D /* UserLocationUpdateAvailabilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationUpdateAvailabilityTests.swift; sourceTree = "<group>"; };
+		F44E5F4621A0D19E00DA391D /* UserLocationUpdateAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationUpdateAvailability.swift; sourceTree = "<group>"; };
 		F44E5F6421A0DBE400DA391D /* VancouverPlacemark */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = VancouverPlacemark; sourceTree = "<group>"; };
 		F44E5F6721A0DBE400DA391D /* SamplePlacemarks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SamplePlacemarks.swift; sourceTree = "<group>"; };
 		F44E5F6921A0DBE400DA391D /* DenverPlacemark */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = DenverPlacemark; sourceTree = "<group>"; };
@@ -98,8 +98,8 @@
 				F44E5F3721A0BFCC00DA391D /* LocationResolutionError.swift */,
 				F44E5F0121A0BE8D00DA391D /* LocationResolving.h */,
 				F44E5F4221A0CED500DA391D /* LocationResolving.swift */,
-				F44E5F4621A0D19E00DA391D /* LocationUpdateAvailability.swift */,
 				F4F99C6521D19049001B64A1 /* UserLocationResolvability.swift */,
+				F44E5F4621A0D19E00DA391D /* UserLocationUpdateAvailability.swift */,
 			);
 			path = LocationResolving;
 			sourceTree = "<group>";
@@ -107,12 +107,12 @@
 		F44E5F0B21A0BE8D00DA391D /* LocationResolvingTests */ = {
 			isa = PBXGroup;
 			children = (
-				F4F99C6321D18F38001B64A1 /* UserLocationResolvabilityTests.swift */,
 				F44E5F0E21A0BE8D00DA391D /* Info.plist */,
-				F44E5F6321A0DBE400DA391D /* SampleData */,
 				F44E5F3521A0BF4A00DA391D /* LocationResolutionErrorTests.swift */,
-				F44E5F4421A0D04C00DA391D /* LocationUpdateAvailabilityTests.swift */,
 				F44E5F3921A0C23900DA391D /* LocationResolutionTests.swift */,
+				F44E5F6321A0DBE400DA391D /* SampleData */,
+				F4F99C6321D18F38001B64A1 /* UserLocationResolvabilityTests.swift */,
+				F44E5F4421A0D04C00DA391D /* UserLocationUpdateAvailabilityTests.swift */,
 			);
 			path = LocationResolvingTests;
 			sourceTree = "<group>";
@@ -239,7 +239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F44E5F4721A0D19E00DA391D /* LocationUpdateAvailability.swift in Sources */,
+				F44E5F4721A0D19E00DA391D /* UserLocationUpdateAvailability.swift in Sources */,
 				F44E5F4321A0CED500DA391D /* LocationResolving.swift in Sources */,
 				F4F99C6621D19049001B64A1 /* UserLocationResolvability.swift in Sources */,
 				F44E5F3821A0BFCD00DA391D /* LocationResolutionError.swift in Sources */,
@@ -255,7 +255,7 @@
 				F44E5F3A21A0C23A00DA391D /* LocationResolutionTests.swift in Sources */,
 				F4F99C6421D18F38001B64A1 /* UserLocationResolvabilityTests.swift in Sources */,
 				F44E5F6D21A0DBE400DA391D /* SamplePlacemarks.swift in Sources */,
-				F44E5F4521A0D04C00DA391D /* LocationUpdateAvailabilityTests.swift in Sources */,
+				F44E5F4521A0D04C00DA391D /* UserLocationUpdateAvailabilityTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

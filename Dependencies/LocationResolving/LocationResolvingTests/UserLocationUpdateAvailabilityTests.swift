@@ -9,10 +9,10 @@
 import XCTest
 import LocationResolving
 
-class LocationUpdateAvailabilityTests: XCTestCase {
+class UserLocationUpdateAvailabilityTests: XCTestCase {
 
     func testAllCases() {
-        switch LocationUpdateAvailability.whenInUse {
+        switch UserLocationUpdateAvailability.whenInUse {
         case .always,
              .whenInUse:
             return

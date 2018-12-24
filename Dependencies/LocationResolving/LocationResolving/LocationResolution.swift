@@ -9,11 +9,11 @@
 import CoreLocation
 
 public enum LocationResolution: Equatable {
-    case resolved(placemark: CLPlacemark)
-    case resolutionFailed(error: LocationResolutionError)
+    case resolved(placemark: CLPlacemark, date: Date)
+    case resolutionFailed(error: LocationResolutionError, date: Date)
 
     public var error: LocationResolutionError? {
-        guard case .resolutionFailed(let error) = self else {
+        guard case .resolutionFailed(let error, _) = self else {
             return nil
         }
 
@@ -21,10 +21,17 @@ public enum LocationResolution: Equatable {
     }
 
     public var placemark: CLPlacemark? {
-        guard case .resolved(let placemark) = self else {
+        guard case .resolved(let placemark, _) = self else {
             return nil
         }
 
         return placemark
+    }
+
+    public var date: Date {
+        switch self {
+        case .resolved(_, let date): return date
+        case .resolutionFailed(_, let date): return date
+        }
     }
 }

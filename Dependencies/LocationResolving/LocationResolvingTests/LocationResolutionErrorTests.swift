@@ -14,7 +14,6 @@ class LocationResolutionErrorTests: XCTestCase {
     func testGeocodingErrorCases() {
         switch LocationResolutionError.noLocationsFound {
         case .noLocationsFound,
-             .requestInProgress,
              .unknown:
             return
         }
@@ -27,11 +26,6 @@ class LocationResolutionErrorTests: XCTestCase {
             "The message for no locations found should be correct"
         )
         XCTAssertEqual(
-            LocationResolutionError.requestInProgress.userFacingMessage,
-            "Finding your location",
-            "The message for an unknown error should be correct"
-        )
-        XCTAssertEqual(
             LocationResolutionError.unknown.userFacingMessage,
             "We were unable to find your location",
             "The message for an unknown error should be correct"
@@ -41,7 +35,6 @@ class LocationResolutionErrorTests: XCTestCase {
     func testEquality() {
         let errors = [
             LocationResolutionError.noLocationsFound,
-            .requestInProgress,
             .unknown
         ]
 

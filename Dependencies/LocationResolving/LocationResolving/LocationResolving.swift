@@ -9,9 +9,9 @@
 import CoreLocation
 
 public protocol LocationResolving {
-    var userLocationResolution: UserLocationResolution { get }
+    var userLocationResolution: LocationResolution { get }
 
     func requestLocationAuthorization(for availability: LocationUpdateAvailability)
-    func resolveUserLocation(completion: @escaping (UserLocationResolution) -> Void)
+    func resolveUserLocation(completion: @escaping (LocationResolution) -> Void)
     func findPlacemark(for: String, completion: @escaping (CLPlacemark?) -> Void)
 }

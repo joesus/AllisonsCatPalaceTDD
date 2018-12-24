@@ -9,14 +9,12 @@
 import Foundation
 
 public enum LocationResolutionError: Error {
-    case noLocationsFound, requestInProgress, unknown
+    case noLocationsFound, unknown
 
     public var userFacingMessage: String {
         switch self {
         case .noLocationsFound, .unknown:
             return "We were unable to find your location"
-        case .requestInProgress:
-            return "Finding your location"
         }
     }
 }

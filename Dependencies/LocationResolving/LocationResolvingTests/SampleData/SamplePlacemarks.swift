@@ -13,7 +13,7 @@ enum SamplePlacemarks {
     static let vancouver = loadPlacemark(named: "VancouverPlacemark")
 
     static func loadPlacemark(named filename: String) -> CLPlacemark {
-        guard let url = Bundle(for: UserLocationResolutionTests.self)
+        guard let url = Bundle(for: LocationResolutionTests.self)
             .url(forResource: filename, withExtension: nil),
             let placemark = NSKeyedUnarchiver.unarchiveObject(withFile: url.path)
                 as? CLPlacemark

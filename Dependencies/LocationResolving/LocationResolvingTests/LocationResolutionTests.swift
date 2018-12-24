@@ -1,6 +1,6 @@
 //
-//  UserLocationResolutionTests.swift
-//  AllisonsCatPalaceTDDTests
+//  LocationResolutionTests.swift
+//  LocationResolvingTests
 //
 //  Created by Joe Susnick on 12/10/17.
 //  Copyright © 2017 Joesus. All rights reserved.
@@ -10,48 +10,31 @@ import LocationResolving
 import CoreLocation
 import XCTest
 
-class UserLocationResolutionTests: XCTestCase {
+class LocationResolutionTests: XCTestCase {
 
     let placemark = SamplePlacemarks.denver
 
     func testAllCases() {
-        let possibleValues: [UserLocationResolution] = [
-            .unknown,
-            .allowed,
-            .disallowed,
-            .resolving,
+        let possibleValues: [LocationResolution] = [
             .resolved(placemark: placemark),
             .resolutionFailed(error: .unknown)
         ]
 
         possibleValues.forEach { value in
             switch value {
-            case .unknown,
-                 .allowed,
-                 .disallowed,
-                 .resolving,
-                 .resolved,
-                 .resolutionFailed:
+            case .resolved, .resolutionFailed:
                 break
             }
         }
     }
 
     func testEquatability() {
-        let firstSet: [UserLocationResolution] = [
-            .unknown,
-            .allowed,
-            .disallowed,
-            .resolving,
+        let firstSet: [LocationResolution] = [
             .resolved(placemark: placemark),
             .resolutionFailed(error: .unknown)
         ]
 
-        let secondSet: [UserLocationResolution] = [
-            .unknown,
-            .allowed,
-            .disallowed,
-            .resolving,
+        let secondSet: [LocationResolution] = [
             .resolved(placemark: placemark),
             .resolutionFailed(error: .unknown)
         ]
@@ -66,7 +49,7 @@ class UserLocationResolutionTests: XCTestCase {
 
     func testResolvedInequality() {
         XCTAssertNotEqual(
-            UserLocationResolution.resolved(placemark: placemark),
+            LocationResolution.resolved(placemark: placemark),
             .resolved(placemark: SamplePlacemarks.vancouver),
             "Resolved location with differing placemarks should not be considered equal"
         )
@@ -74,30 +57,21 @@ class UserLocationResolutionTests: XCTestCase {
 
     func testFailureInequality() {
         XCTAssertNotEqual(
-            UserLocationResolution.resolutionFailed(error: .noLocationsFound),
+            LocationResolution.resolutionFailed(error: .noLocationsFound),
             .resolutionFailed(error: .unknown),
             "Resolution failures with different errors should not be considered equal"
         )
     }
 
     func testError() {
-        let possibleValues: [UserLocationResolution] = [
-            .unknown,
-            .allowed,
-            .disallowed,
-            .resolving,
+        let possibleValues: [LocationResolution] = [
             .resolved(placemark: placemark),
             .resolutionFailed(error: .unknown)
         ]
 
         possibleValues.forEach { value in
             switch value {
-            case .unknown,
-                 .allowed,
-                 .disallowed,
-                 .resolving,
-                 .resolved:
-
+            case .resolved:
                 XCTAssertNil(value.error,
                              "Resolution states that do not have an associated error should not provide an error")
 
@@ -109,23 +83,14 @@ class UserLocationResolutionTests: XCTestCase {
     }
 
     func testPlacemark() {
-        let possibleValues: [UserLocationResolution] = [
-            .unknown,
-            .allowed,
-            .disallowed,
-            .resolving,
+        let possibleValues: [LocationResolution] = [
             .resolved(placemark: placemark),
             .resolutionFailed(error: .unknown)
         ]
 
         possibleValues.forEach { value in
             switch value {
-            case .unknown,
-                 .allowed,
-                 .disallowed,
-                 .resolving,
-                 .resolutionFailed:
-
+            case .resolutionFailed:
                 XCTAssertNil(value.placemark,
                              "Resolution states that do not have an associated placemark should not provide a placemark")
 

@@ -13,10 +13,12 @@ class FakeGeocoder: Geocoding {
 
     var capturedCompletionHandler: CLGeocodeCompletionHandler?
 
+    var geocodeAddressStringCallCount = 0
     var stringToGeocode: String?
     func geocodeAddressString(_ addressString: String, completionHandler: @escaping CLGeocodeCompletionHandler) {
         stringToGeocode = addressString
         capturedCompletionHandler = completionHandler
+        geocodeAddressStringCallCount += 1
     }
 
     var locationToReverseGeocode: CLLocation?

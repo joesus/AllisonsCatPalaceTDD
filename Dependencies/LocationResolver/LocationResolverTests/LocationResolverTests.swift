@@ -16,6 +16,7 @@ class LocationResolverTests: XCTestCase {
     var resolver = LocationResolver()
     let fakeLocationManager = FakeLocationManager()
     let fakeGeocoder = FakeGeocoder()
+    var fakeDelegate: FakeLocationResolutionDelegate? = FakeLocationResolutionDelegate()
 
     override func setUp() {
         super.setUp()
@@ -23,6 +24,7 @@ class LocationResolverTests: XCTestCase {
         resolver = LocationResolver()
         resolver.locationManager = fakeLocationManager
         resolver.geocoder = fakeGeocoder
+        resolver.delegate = fakeDelegate
     }
 
     override func tearDown() {
@@ -31,11 +33,29 @@ class LocationResolverTests: XCTestCase {
         super.tearDown()
     }
 
-    func testInitialResolutionState() {
+    func testSupportsDelegate() {
         resolver = LocationResolver()
 
-        XCTAssertEqual(resolver.userLocationResolution, .unknown,
+        XCTAssertNil(resolver.delegate,
+                     "Resolver should not have a location resolution delegate by default")
+        resolver.delegate = fakeDelegate
+
+        assert(resolver.delegate === fakeDelegate,
+               "Resolver should hold a reference to the set delegate")
+
+        fakeDelegate = nil
+        XCTAssertNil(resolver.delegate,
+                     "Resolver should not hold a strong reference to its delegate")
+    }
+
+    func testInitialLocationResolvability() {
+        XCTAssertEqual(resolver.userLocationResolvability, .unknown,
                        "The initial user location resolution for a new location resolver should be unknown")
+    }
+
+    func testInitialResolutionState() {
+        XCTAssertNil(resolver.locationResolution,
+                     "There should not be an initial user location resolution")
     }
 
     func testHasLocationManager() {
@@ -49,43 +69,51 @@ class LocationResolverTests: XCTestCase {
                       "Resolver should be the delegate for its location manager")
     }
 
-    // Mark: Initial State
-    func testUserLocationResolutionForDisabledLocationServices() {
+    // MARK: - Initial State
+
+    func testUserLocationResolvabilityForDisabledLocationServices() {
         FakeLocationManager.stubbedLocationServicesEnabled = false
 
-        XCTAssertEqual(resolver.userLocationResolution, .disallowed,
-                       "Resolver should have a user location resolution with an initial state of disallowed if location services are disabled")
+        XCTAssertEqual(resolver.userLocationResolvability, .disallowed,
+                       "Resolver should indicate that it cannot resolve the user's location if location services are disabled")
     }
 
-    func testUserLocationResolutionForFirstLaunch() {
+    func testUserLocationResolvabilityForFirstLaunch() {
         FakeLocationManager.stubbedAuthorizationStatus = .notDetermined
 
-        XCTAssertEqual(resolver.userLocationResolution, .unknown,
-                       "Resolver should have a user location resolution with an initial state of unknown when location services are enabled but authorization status is unknown")
+        XCTAssertEqual(resolver.userLocationResolvability, .unknown,
+                       "Resolver should indicate that it does not know whether it can resolve the user's location if location services are enabled but authorization status is unknown")
     }
 
-    func testUserLocationResolutionForUnauthorizedPermissions() {
+    func testUserLocationResolvabilityForUnauthorizedPermissions() {
         FakeLocationManager.stubbedAuthorizationStatus = .denied
 
-        XCTAssertEqual(resolver.userLocationResolution, .disallowed,
-                       "Resolver should have a user location resolution with an initial state of disallowed if location services authorization has been denied")
+        XCTAssertEqual(resolver.userLocationResolvability, .disallowed,
+                       "Resolver should indicate that it cannot resolve the user's location if location services authorization has been denied")
     }
 
-    func testUserLocationResolutionForEnabledAndAuthorizedLocationServices() {
+    func testUserLocationResolvabilityForRestrictedPermissions() {
+        FakeLocationManager.stubbedAuthorizationStatus = .restricted
+
+        XCTAssertEqual(resolver.userLocationResolvability, .disallowed,
+                       "Resolver should indicate that it cannot resolve the user's location if location services authorization has been restricted")
+    }
+
+    func testUserLocationResolvabilityForAuthorizedWhenInUsePermissions() {
         FakeLocationManager.stubbedAuthorizationStatus = .authorizedWhenInUse
 
-        XCTAssertEqual(resolver.userLocationResolution, .allowed,
-                       "Resolver should have a user location resolution with an initial state of allowed if location services are enabled and authorized")
+        XCTAssertEqual(resolver.userLocationResolvability, .allowed,
+                       "Resolver should indicate that it can resolve the user's location if location services are enabled and authorized when in use")
     }
 
-    func testUserLocationResolutionForEnabledAndOverAuthorizedLocationServices() {
+    func testUserLocationResolvabilityForAuthorizedAlwaysPermissions() {
         FakeLocationManager.stubbedAuthorizationStatus = .authorizedAlways
 
-        XCTAssertEqual(resolver.userLocationResolution, .allowed,
-                       "Resolver should have a user location resolution with an initial state of allowed if location services are enabled and authorized to the max")
+        XCTAssertEqual(resolver.userLocationResolvability, .allowed,
+                       "Resolver should indicate that it can resolve the user's location if location services are enabled and always authorized")
     }
 
-    // MARK: Requesting Authorization
+    // MARK: - Requesting Authorization
 
     func testRequestingAuthorizationWhenServicesDisabled() {
         FakeLocationManager.stubbedLocationServicesEnabled = false
@@ -101,7 +129,7 @@ class LocationResolverTests: XCTestCase {
         possibleAuthorizations.forEach { status in
             FakeLocationManager.stubbedAuthorizationStatus = status
 
-            resolver.requestLocationAuthorization(for: .whenInUse)
+            resolver.requestUserLocationAuthorization(for: .whenInUse)
 
             XCTAssertFalse(fakeLocationManager.requestWhenInUseAuthorizationCalled,
                            "Location manager should never request authorization with location services disabled")
@@ -119,7 +147,7 @@ class LocationResolverTests: XCTestCase {
         possibleAuthorizations.forEach { status in
             FakeLocationManager.stubbedAuthorizationStatus = status
 
-            resolver.requestLocationAuthorization(for: .whenInUse)
+            resolver.requestUserLocationAuthorization(for: .whenInUse)
 
             XCTAssertFalse(fakeLocationManager.requestWhenInUseAuthorizationCalled,
                            "Location manager should never request authorization when status is determined")
@@ -129,7 +157,7 @@ class LocationResolverTests: XCTestCase {
     func testRequestingWhenInUseAuthorizationWhenNotDetermined() {
         FakeLocationManager.stubbedAuthorizationStatus = .notDetermined
 
-        resolver.requestLocationAuthorization(for: .whenInUse)
+        resolver.requestUserLocationAuthorization(for: .whenInUse)
 
         XCTAssertTrue(fakeLocationManager.requestWhenInUseAuthorizationCalled,
                       "Location manager should request when in use authorization if status is not determined")
@@ -138,7 +166,7 @@ class LocationResolverTests: XCTestCase {
     func testRequestingAlwaysAuthorizationWhenNotDetermined() {
         FakeLocationManager.stubbedAuthorizationStatus = .notDetermined
 
-        resolver.requestLocationAuthorization(for: .always)
+        resolver.requestUserLocationAuthorization(for: .always)
 
         XCTAssertTrue(fakeLocationManager.requestAlwaysAuthorizationCalled,
                       "Location manager should request always authorization if status is not determined")
@@ -147,8 +175,10 @@ class LocationResolverTests: XCTestCase {
     // MARK: - Requesting Location
 
     func testRequestingLocationUtilizesLocationManager() {
-        resolver.resolveUserLocation { _ in }
+        resolver.resolveUserLocation()
 
+        XCTAssertNil(resolver.locationResolution,
+                     "Resolving a location shouldn't set the resolution before completing")
         XCTAssertEqual(fakeLocationManager.requestLocationCallCount, 1,
                        "Requests for location should be routed through the location manager")
     }
@@ -162,107 +192,91 @@ class LocationResolverTests: XCTestCase {
     ]
 
     func testGeocoderIsCalledOnLocationReceipt() {
-        let resolvedExpectation = expectation(description: "User location resolved")
-        resolver.resolveUserLocation { resolution in
-            resolvedExpectation.fulfill()
-        }
+        resolver.resolveUserLocation()
 
         resolver.locationManager(CLLocationManager(), didUpdateLocations: locations)
 
-        guard fakeGeocoder.locationToReverseGeocode == locations.last! else {
-            return XCTFail("Geocoder should be called with the last location received")
-        }
-
-        fakeGeocoder.capturedCompletionHandler?(nil, nil)
-
-        waitForExpectations(timeout: 1, handler: nil)
+        XCTAssertEqual(fakeGeocoder.locationToReverseGeocode, locations.last!,
+                       "Geocoder should be called with the last location received")
     }
 
     func testGeocodingWithError() {
-        let resolvedExpectation = expectation(description: "User location resolved")
-        resolver.resolveUserLocation { resolution in
-            XCTAssertEqual(resolution, .resolutionFailed(error: .unknown),
-                           "Failure to geocode should update user location resolution")
-
-            resolvedExpectation.fulfill()
-        }
+        resolver.resolveUserLocation()
 
         resolver.locationManager(CLLocationManager(), didUpdateLocations: locations)
-
         fakeGeocoder.capturedCompletionHandler?(nil, SampleError())
 
-        waitForExpectations(timeout: 1, handler: nil)
+        assertEqualLocationResolutions(
+            fakeDelegate?.capturedLocationResolution,
+            .resolutionFailed(error: .unknown, date: Date()),
+            "Failure to geocode should complete with a failed user location resolution"
+        )
+        assertEqualLocationResolutions(
+            resolver.locationResolution,
+            .resolutionFailed(error: .unknown, date: Date()),
+            "Failure to geocode should update user location resolution"
+        )
     }
 
     func testGeocodingWithNilPlacemarks() {
-        let resolvedExpectation = expectation(description: "User location resolved")
-        resolver.resolveUserLocation { resolution in
-            XCTAssertEqual(resolution, .resolutionFailed(error: .unknown),
-                           "Failure to geocode should update user location resolution")
-
-            resolvedExpectation.fulfill()
-        }
+        resolver.resolveUserLocation()
 
         resolver.locationManager(CLLocationManager(), didUpdateLocations: locations)
-
         fakeGeocoder.capturedCompletionHandler?(nil, nil)
 
-        waitForExpectations(timeout: 1, handler: nil)
+        assertEqualLocationResolutions(
+            fakeDelegate?.capturedLocationResolution,
+            .resolutionFailed(error: .unknown, date: Date()),
+            "Failure to geocode should complete with a failed user location resolution"
+        )
+        assertEqualLocationResolutions(
+            resolver.locationResolution,
+            .resolutionFailed(error: .unknown, date: Date()),
+            "Failure to geocode should update user location resolution"
+        )
     }
 
     func testGeocodingWithEmptyPlacemarks() {
-        let resolvedExpectation = expectation(description: "User location resolved")
-        resolver.resolveUserLocation { resolution in
-            XCTAssertEqual(resolution, .resolutionFailed(error: .unknown),
-                           "Failure to geocode should update user location resolution")
-
-            resolvedExpectation.fulfill()
-        }
+        resolver.resolveUserLocation()
 
         resolver.locationManager(CLLocationManager(), didUpdateLocations: locations)
-
         fakeGeocoder.capturedCompletionHandler?([], nil)
 
-        waitForExpectations(timeout: 1, handler: nil)
+        assertEqualLocationResolutions(
+            fakeDelegate?.capturedLocationResolution,
+            .resolutionFailed(error: .unknown, date: Date()),
+            "Failure to geocode should complete with a failed user location resolution"
+        )
+        assertEqualLocationResolutions(
+            resolver.locationResolution,
+            .resolutionFailed(error: .unknown, date: Date()),
+            "Failure to geocode should update user location resolution"
+        )
+    }
+
+    func testSubsequentUserLocationRequestsAfterFailure() {
+        resolver.resolveUserLocation()
+
+        resolver.locationManager(CLLocationManager(), didUpdateLocations: locations)
+        fakeGeocoder.capturedCompletionHandler?([], nil)
+
+        assertEqualLocationResolutions(
+            resolver.locationResolution,
+            .resolutionFailed(error: .unknown, date: Date()),
+            "Sanity check failed"
+        )
+
+        resolver.resolveUserLocation()
+
+        assertEqualLocationResolutions(
+            resolver.locationResolution,
+            .resolutionFailed(error: .unknown, date: Date()),
+            "Previous results should be maintained until the new resolution is completed"
+        )
     }
 
     func testSuccessfulGeocoding() {
-        let resolvedExpectation = expectation(description: "User location resolved")
-        resolver.resolveUserLocation { resolution in
-            XCTAssertEqual(resolution, .resolved(placemark: SamplePlacemarks.detroit),
-                           "A successful geocoding should update user location resolution with the received placemark")
-
-            resolvedExpectation.fulfill()
-        }
-
-        resolver.locationManager(CLLocationManager(), didUpdateLocations: locations)
-
-        fakeGeocoder.capturedCompletionHandler?(
-            [SamplePlacemarks.denver, SamplePlacemarks.detroit],
-            nil
-        )
-
-        waitForExpectations(timeout: 1, handler: nil)
-    }
-
-    func testMultipleLocationRequests() {
-        let firstRequestExpectation = expectation(description: "First request complete")
-        let secondRequestExpectation = expectation(description: "Second request complete")
-
-        var receivedError: LocationResolutionError?
-
-        resolver.resolveUserLocation { resolution in
-            if let error = resolution.error {
-                receivedError = error
-            }
-            firstRequestExpectation.fulfill()
-        }
-        resolver.resolveUserLocation { resolution in
-            if let error = resolution.error {
-                receivedError = error
-            }
-            secondRequestExpectation.fulfill()
-        }
+        resolver.resolveUserLocation()
 
         resolver.locationManager(CLLocationManager(), didUpdateLocations: locations)
         fakeGeocoder.capturedCompletionHandler?(
@@ -270,115 +284,234 @@ class LocationResolverTests: XCTestCase {
             nil
         )
 
-        XCTAssertEqual(fakeLocationManager.requestLocationCallCount, 1,
-                       "Location manager should only request location when there is no pending location request")
-
-        waitForExpectations(timeout: 1, handler: nil)
-
-        XCTAssertEqual(receivedError, .requestInProgress,
-                       "Duplicate requests should prompt a request in progress error")
-
-        resolver.resolveUserLocation { _ in }
-
-        XCTAssertEqual(fakeLocationManager.requestLocationCallCount, 2,
-                       "Location manager should request a location when there are no pending location requests")
-    }
-
-    func testCompletionHandlerNotPersistedBetweenRequests() {
-        let resolvedExpectation = expectation(description: "User location resolved")
-        var resolved = false
-
-        resolver.resolveUserLocation { resolution in
-            guard !resolved else {
-                return XCTFail("")
-            }
-
-            resolved = true
-            resolvedExpectation.fulfill()
-        }
-
-        resolver.locationManager(CLLocationManager(), didUpdateLocations: locations)
-        fakeGeocoder.capturedCompletionHandler?(
-            [SamplePlacemarks.denver, SamplePlacemarks.detroit],
-            nil
+        assertEqualLocationResolutions(
+            fakeDelegate?.capturedLocationResolution,
+            .resolved(placemark: SamplePlacemarks.detroit, date: Date()),
+            "A successful geocoding should complete with a resolved resolution with the received placemark"
         )
-
-        waitForExpectations(timeout: 1, handler: nil)
-
-        resolved = false
-        fakeGeocoder.capturedCompletionHandler?(
-            [SamplePlacemarks.denver, SamplePlacemarks.detroit],
-            nil
+        assertEqualLocationResolutions(
+            resolver.locationResolution,
+            .resolved(placemark: SamplePlacemarks.detroit, date: Date()),
+            "A successful geocoding should update the user location resolution with the received placemark"
         )
-        XCTAssertFalse(resolved,
-                       "Geocoding closure should not be persisted between requests.")
     }
 
     func testFindingPlacemarkWithValidStringUsesGeocoder() {
         let locationString = "ohio"
-        resolver.findPlacemark(for: locationString) { _ in }
+        resolver.resolveLocation(for: locationString)
 
         XCTAssertEqual(locationString, fakeGeocoder.stringToGeocode,
                        "Finding a placemark with a string should pass the string to its geocoder")
     }
 
     func testHandlingGeocodeError() {
-        let resolvedExpectation = expectation(description: name)
-
-        resolver.findPlacemark(for: "foo") { potentialPlacemark in
-            XCTAssertNil(potentialPlacemark,
-                         "No placemark should be returned when geocoding results in an error")
-            resolvedExpectation.fulfill()
-        }
-
+        resolver.resolveLocation(for: "foo")
         fakeGeocoder.capturedCompletionHandler?(nil, SampleError())
 
-        waitForExpectations(timeout: 1, handler: nil)
+        assertEqualLocationResolutions(
+            fakeDelegate?.capturedLocationResolution,
+            .resolutionFailed(error: .unknown, date: Date()),
+            "A geocoding error should result in an unknown location resolution failure"
+        )
+        assertEqualLocationResolutions(
+            resolver.locationResolution,
+            .resolutionFailed(error: .unknown, date: Date()),
+            "A geocoding error should set the resolver's resolution state to an unknown location resolution failure"
+        )
     }
 
     func testHandlingNilPlacemarks() {
-        let resolvedExpectation = expectation(description: name)
-
-        resolver.findPlacemark(for: "foo") { potentialPlacemark in
-            XCTAssertNil(potentialPlacemark,
-                         "No placemark should be returned when geocoding results in a nil placemark")
-            resolvedExpectation.fulfill()
-        }
+        resolver.resolveLocation(for: "foo")
 
         fakeGeocoder.capturedCompletionHandler?(nil, nil)
 
-        waitForExpectations(timeout: 1, handler: nil)
+        assertEqualLocationResolutions(
+            fakeDelegate?.capturedLocationResolution,
+            .resolutionFailed(error: .locationNotFound, date: Date()),
+            "A nil placemark should result in a `location not found` resolution failure"
+        )
+        assertEqualLocationResolutions(
+            resolver.locationResolution,
+            .resolutionFailed(error: .locationNotFound, date: Date()),
+            "A nil placemark should result in a `location not found` resolution state"
+        )
     }
 
     func testHandlingEmptyPlacemarks() {
-        let resolvedExpectation = expectation(description: name)
-
-        resolver.findPlacemark(for: "foo") { potentialPlacemark in
-            XCTAssertNil(potentialPlacemark,
-                         "No placemark should be returned when geocoding results in an empty list of placemarks")
-            resolvedExpectation.fulfill()
-        }
+        resolver.resolveLocation(for: "foo")
 
         fakeGeocoder.capturedCompletionHandler?([], nil)
 
-        waitForExpectations(timeout: 1, handler: nil)
+        assertEqualLocationResolutions(
+            fakeDelegate?.capturedLocationResolution,
+            .resolutionFailed(error: .locationNotFound, date: Date()),
+            "An empty list of placemarks should result in a `location not found` resolution failure"
+        )
+        assertEqualLocationResolutions(
+            resolver.locationResolution,
+            .resolutionFailed(error: .locationNotFound, date: Date()),
+            "An empty list of placemarks should result in a `location not found` resolution state"
+        )
     }
 
     func testHandlingSuccessfulGeocoding() {
-        let resolvedExpectation = expectation(description: name)
-
-        resolver.findPlacemark(for: "foo") { potentialPlacemark in
-            XCTAssertEqual(SamplePlacemarks.denver, potentialPlacemark,
-                           "Finding a placemark should use the first placemark returned by the geocoder")
-            resolvedExpectation.fulfill()
-        }
+        resolver.resolveLocation(for: "foo")
 
         fakeGeocoder.capturedCompletionHandler?(
             [SamplePlacemarks.denver, SamplePlacemarks.detroit],
             nil
         )
 
-        waitForExpectations(timeout: 1, handler: nil)
+        assertEqualLocationResolutions(
+            fakeDelegate?.capturedLocationResolution,
+            .resolved(placemark: SamplePlacemarks.denver, date: Date()),
+            "Finding a placemark should use the first placemark returned by the geocoder"
+        )
     }
 
+    func testNotResolvingUserLocationWhileResolvingUserLocation() {
+        // Initial attempt
+        resolver.resolveUserLocation()
+        XCTAssertTrue(resolver.isResolvingLocation,
+                      "Should set a flag to indicate when a resolution is in progress")
+
+        // Blocked attempt
+        resolver.resolveUserLocation()
+        XCTAssertEqual(fakeLocationManager.requestLocationCallCount, 1,
+                       "Should not make additional location requests while a resolution is in progress")
+
+        // Resolve initial attempt
+        resolver.locationManager(CLLocationManager(), didUpdateLocations: locations)
+        fakeGeocoder.capturedCompletionHandler?(nil, nil)
+        XCTAssertFalse(resolver.isResolvingLocation,
+                       "Should clear the flag to indicate that a resolution is no longer in progress")
+
+        // Allowed attempt
+        resolver.resolveUserLocation()
+        XCTAssertTrue(resolver.isResolvingLocation,
+                      "Should set a flag to indicate when a resolution is in progress")
+        XCTAssertEqual(fakeLocationManager.requestLocationCallCount, 2,
+                       "Should make additional location requests while a resolution is not in progress")
+    }
+
+    func testNotFindingLocationWhileResolvingUserLocation() {
+        // Initial attempt
+        resolver.resolveUserLocation()
+        XCTAssertTrue(resolver.isResolvingLocation,
+                      "Should set a flag to indicate when a resolution is in progress")
+
+        // Blocked attempt
+        resolver.resolveLocation(for: "foo")
+        XCTAssertEqual(fakeGeocoder.geocodeAddressStringCallCount, 0,
+                       "Should not attempt to geocode an address while a resolution is in progress")
+
+        // Resolve initial attempt
+        resolver.locationManager(CLLocationManager(), didUpdateLocations: locations)
+        fakeGeocoder.capturedCompletionHandler?(nil, nil)
+        XCTAssertFalse(resolver.isResolvingLocation,
+                       "Should clear the flag to indicate that a resolution is no longer in progress")
+
+        // Allowed attempt
+        resolver.resolveLocation(for: "foo")
+        XCTAssertTrue(resolver.isResolvingLocation,
+                      "Should set a flag to indicate when a resolution is in progress")
+        XCTAssertEqual(fakeGeocoder.geocodeAddressStringCallCount, 1,
+                       "Should attempt to geocode an address if a resolution is in not progress")
+    }
+
+    func testNotFindingLocationWhileFindingLocation() {
+        // Initial attempt
+        resolver.resolveLocation(for: "foo")
+        XCTAssertTrue(resolver.isResolvingLocation,
+                      "Should set a flag to indicate when a resolution is in progress")
+
+        // Blocked attempt
+        resolver.resolveLocation(for: "foo")
+        XCTAssertEqual(fakeGeocoder.geocodeAddressStringCallCount, 1,
+                       "Should not attempt to geocode an address while a resolution is in progress")
+
+        // Resolve initial attempt
+        fakeGeocoder.capturedCompletionHandler?(nil, nil)
+        XCTAssertFalse(resolver.isResolvingLocation,
+                       "Should clear the flag to indicate that a resolution is no longer in progress")
+
+        // Allowed attempt
+        resolver.resolveLocation(for: "foo")
+        XCTAssertTrue(resolver.isResolvingLocation,
+                      "Should set a flag to indicate when a resolution is in progress")
+        XCTAssertEqual(fakeGeocoder.geocodeAddressStringCallCount, 2,
+                       "Should attempt to geocode an address if a resolution is in not progress")
+    }
+
+    func testNotResolvingUserLocationWhileFindingLocation() {
+        // Initial attempt
+        resolver.resolveLocation(for: "foo")
+        XCTAssertTrue(resolver.isResolvingLocation,
+                      "Should set a flag to indicate when a resolution is in progress")
+
+        // Blocked attempt
+        resolver.resolveUserLocation()
+        XCTAssertEqual(fakeLocationManager.requestLocationCallCount, 0,
+                       "Should not make a location request while a resolution is in progress")
+
+        // Resolve initial attempt
+        fakeGeocoder.capturedCompletionHandler?(nil, nil)
+        XCTAssertFalse(resolver.isResolvingLocation,
+                       "Should clear the flag to indicate that a resolution is no longer in progress")
+
+        // Allowed attempt
+        resolver.resolveUserLocation()
+        XCTAssertTrue(resolver.isResolvingLocation,
+                      "Should set a flag to indicate when a resolution is in progress")
+        XCTAssertEqual(fakeLocationManager.requestLocationCallCount, 1,
+                       "Should make a location request while a resolution is not in progress")
+    }
+
+}
+
+extension LocationResolverTests {
+
+    func assertEqualLocationResolutions(
+        _ lhs: LocationResolution?,
+        _ rhs: LocationResolution?,
+        _ message: @autoclosure () -> String,
+        inFile file: StaticString = #file,
+        atLine line: UInt = #line
+        ) {
+
+        switch (lhs, rhs) {
+        case (
+            let .resolved(leftPlacemark, leftDate)?,
+            let .resolved(rightPlacemark, rightDate)?
+            ):
+
+            XCTAssertEqual(leftPlacemark, rightPlacemark, message, file: file, line: line)
+            XCTAssertEqual(
+                leftDate.timeIntervalSinceReferenceDate,
+                rightDate.timeIntervalSinceReferenceDate,
+                accuracy: 0.001,
+                message,
+                file: file,
+                line: line
+            )
+
+        case (
+            let .resolutionFailed(leftError, leftDate)?,
+            let .resolutionFailed(rightError, rightDate)?
+            ):
+
+            XCTAssertEqual(leftError, rightError, message, file: file, line: line)
+            XCTAssertEqual(
+                leftDate.timeIntervalSinceReferenceDate,
+                rightDate.timeIntervalSinceReferenceDate,
+                accuracy: 0.01,
+                message,
+                file: file,
+                line: line
+            )
+
+        default:
+            XCTFail(message(), file: file, line: line)
+        }
+    }
 }

@@ -11,6 +11,24 @@ import LocationResolving
 
 public class LocationResolver: NSObject, LocationResolving {
 
+    public weak var delegate: LocationResolutionDelegate?
+
+    public var userLocationResolvability: UserLocationResolvability {
+        guard type(of: locationManager).locationServicesEnabled() else {
+            return .disallowed
+        }
+
+        switch type(of: locationManager).authorizationStatus() {
+        case .notDetermined: return .unknown
+        case .denied, .restricted: return .disallowed
+        case .authorizedWhenInUse, .authorizedAlways: return .allowed
+        default: return .unknown
+        }
+    }
+
+    var isResolvingLocation = false
+    public var locationResolution: LocationResolution?
+
     lazy var locationManager: LocationManaging = {
         let manager = CLLocationManager()
         manager.delegate = self
@@ -19,22 +37,7 @@ public class LocationResolver: NSObject, LocationResolving {
 
     var geocoder: Geocoding = CLGeocoder()
 
-    private var resolvedLocationHandler: ((UserLocationResolution) -> Void)?
-
-    public var userLocationResolution: UserLocationResolution {
-        guard type(of: locationManager).locationServicesEnabled() else {
-            return .disallowed
-        }
-
-        switch type(of: locationManager).authorizationStatus() {
-        case .notDetermined: return .unknown
-        case .denied: return .disallowed
-        case .authorizedWhenInUse, .authorizedAlways: return .allowed
-        default: return .unknown
-        }
-    }
-
-    public func requestLocationAuthorization(for availability: LocationUpdateAvailability) {
+    public func requestUserLocationAuthorization(for availability: UserLocationUpdateAvailability) {
         guard type(of: locationManager).locationServicesEnabled(),
             type(of: locationManager).authorizationStatus() == .notDetermined
             else {
@@ -47,24 +50,36 @@ public class LocationResolver: NSObject, LocationResolving {
         }
     }
 
-    public func resolveUserLocation(completion: @escaping (UserLocationResolution) -> Void) {
-        guard resolvedLocationHandler == nil else {
-            completion(.resolutionFailed(error: .requestInProgress))
-            return
-        }
+    public func resolveUserLocation() {
+        guard !isResolvingLocation else { return }
 
-        resolvedLocationHandler = completion
+        isResolvingLocation = true
         locationManager.requestLocation()
     }
 
-    public func findPlacemark(for searchTerm: String, completion: @escaping (CLPlacemark?) -> Void) {
+    public func resolveLocation(for searchTerm: String) {
+        guard !isResolvingLocation else { return }
+
+        isResolvingLocation = true
         geocoder.geocodeAddressString(searchTerm) { potentialPlacemarks, potentialError in
-            var placemark: CLPlacemark?
-            defer { completion(placemark) }
+            let resolution: LocationResolution
+            defer {
+                self.delegate?.didResolveLocation(resolution)
+                self.locationResolution = resolution
+                self.isResolvingLocation = false
+            }
 
-            guard potentialError == nil else { return }
+            guard potentialError == nil else {
+                resolution = .resolutionFailed(error: .unknown, date: Date())
+                return
+            }
 
-            placemark = potentialPlacemarks?.first
+            guard let placemark = potentialPlacemarks?.first else {
+                resolution = .resolutionFailed(error: .locationNotFound, date: Date())
+                return
+            }
+
+            resolution = .resolved(placemark: placemark, date: Date())
         }
     }
 
@@ -78,18 +93,21 @@ extension LocationResolver: CLLocationManagerDelegate {
         }
 
         geocoder.reverseGeocodeLocation(location) { potentialPlacemarks, potentialError in
+            let resolution: LocationResolution
+            defer {
+                self.delegate?.didResolveLocation(resolution)
+                self.locationResolution = resolution
+                self.isResolvingLocation = false
+            }
+
             guard potentialError == nil,
                 let placemark = potentialPlacemarks?.last
                 else {
-                    self.resolvedLocationHandler?(.resolutionFailed(error: .unknown))
+                    resolution = .resolutionFailed(error: .unknown, date: Date())
                     return
             }
 
-            self.resolvedLocationHandler?(
-                .resolved(placemark: placemark)
-            )
-
-            self.resolvedLocationHandler = nil
+            resolution = .resolved(placemark: placemark, date: Date())
         }
     }
 }

@@ -22,6 +22,7 @@
 		F4878DAF21B4999600078E20 /* SamplePlacemarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4878DA921B4999600078E20 /* SamplePlacemarks.swift */; };
 		F4878DB021B4999600078E20 /* SampleError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4878DAA21B4999600078E20 /* SampleError.swift */; };
 		F4878DB121B4999600078E20 /* DenverPlacemark in Resources */ = {isa = PBXBuildFile; fileRef = F4878DAB21B4999600078E20 /* DenverPlacemark */; };
+		F4BEB91A21D96526000D0B4C /* FakeLocationResolutionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BEB91921D96526000D0B4C /* FakeLocationResolutionDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		F4878DA921B4999600078E20 /* SamplePlacemarks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SamplePlacemarks.swift; sourceTree = "<group>"; };
 		F4878DAA21B4999600078E20 /* SampleError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleError.swift; sourceTree = "<group>"; };
 		F4878DAB21B4999600078E20 /* DenverPlacemark */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = DenverPlacemark; sourceTree = "<group>"; };
+		F4BEB91921D96526000D0B4C /* FakeLocationResolutionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeLocationResolutionDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,8 +122,9 @@
 		F44E5F4A21A0D49A00DA391D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				F44E5F4B21A0D4BF00DA391D /* FakeLocationManager.swift */,
 				F4878D9F21B48D3600078E20 /* FakeGeocoder.swift */,
+				F44E5F4B21A0D4BF00DA391D /* FakeLocationManager.swift */,
+				F4BEB91921D96526000D0B4C /* FakeLocationResolutionDelegate.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				F44E5EDA21A0BE3200DA391D /* LocationResolverTests.swift in Sources */,
 				F44E5F4C21A0D4BF00DA391D /* FakeLocationManager.swift in Sources */,
 				F4878DA021B48D3600078E20 /* FakeGeocoder.swift in Sources */,
+				F4BEB91A21D96526000D0B4C /* FakeLocationResolutionDelegate.swift in Sources */,
 				F4878DAF21B4999600078E20 /* SamplePlacemarks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

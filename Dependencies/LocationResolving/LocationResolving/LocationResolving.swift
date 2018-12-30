@@ -14,11 +14,11 @@ public protocol LocationResolutionDelegate: class {
 
 public protocol LocationResolving {
     var delegate: LocationResolutionDelegate? { get set }
-
-    var userLocationResolvability: UserLocationResolvability { get }
     var locationResolution: LocationResolution? { get }
 
+    var userLocationResolvability: UserLocationResolvability { get }
     func requestUserLocationAuthorization(for availability: UserLocationUpdateAvailability)
     func resolveUserLocation()
-    func findPlacemark(for: String)
+
+    func resolveLocation(for: String)
 }

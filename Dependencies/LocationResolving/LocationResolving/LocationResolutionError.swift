@@ -8,13 +8,6 @@
 
 import Foundation
 
-public enum LocationResolutionError: Error {
-    case noLocationsFound, unknown
-
-    public var userFacingMessage: String {
-        switch self {
-        case .noLocationsFound, .unknown:
-            return "We were unable to find your location"
-        }
-    }
+public enum LocationResolutionError: Error, CaseIterable {
+    case disallowed, locationNotFound, unknown
 }

@@ -12,34 +12,15 @@ import XCTest
 class LocationResolutionErrorTests: XCTestCase {
 
     func testGeocodingErrorCases() {
-        switch LocationResolutionError.noLocationsFound {
-        case .noLocationsFound,
-             .unknown:
-            return
-        }
-    }
-
-    func testErrorMessages() {
-        XCTAssertEqual(
-            LocationResolutionError.noLocationsFound.userFacingMessage,
-            "We were unable to find your location",
-            "The message for no locations found should be correct"
-        )
-        XCTAssertEqual(
-            LocationResolutionError.unknown.userFacingMessage,
-            "We were unable to find your location",
-            "The message for an unknown error should be correct"
-        )
-    }
-
-    func testEquality() {
-        let errors = [
-            LocationResolutionError.noLocationsFound,
+        let errors: Set<LocationResolutionError> = [
+            .locationNotFound,
+            .disallowed,
             .unknown
         ]
+        let cases = Set(LocationResolutionError.allCases)
 
-        XCTAssertEqual(errors, errors,
-                       "Synthesized equatability should be used")
+        XCTAssertEqual(errors, cases,
+                       "There should be three types of errors")
     }
 
 }

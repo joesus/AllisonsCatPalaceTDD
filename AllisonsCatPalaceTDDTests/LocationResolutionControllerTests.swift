@@ -6,7 +6,7 @@
 //  Copyright © 2018 Joesus. All rights reserved.
 //
 
-// swiftlint:disable line_length
+// swiftlint:disable line_length type_body_length
 
 @testable import AllisonsCatPalaceTDD
 import XCTest
@@ -39,7 +39,7 @@ class LocationResolutionControllerTests: XCTestCase {
     }
 
     func testActions() {
-        let actions: [LocationResolutionController.Action] = [
+        let actions: [LocationResolutionDisplayState.Action] = [
             .goToSettings,
             .retry
         ]
@@ -52,7 +52,7 @@ class LocationResolutionControllerTests: XCTestCase {
     }
 
     func testStates() {
-        let states: [LocationResolutionController.State] = [
+        let states: [LocationResolutionDisplayState] = [
             .resolving,
             .resolved(placemark: SamplePlacemarks.denver),
             .actionable(action: .retry)
@@ -242,7 +242,7 @@ class LocationResolutionControllerTests: XCTestCase {
         delegate?.capturedAction = nil
         controller.performAction()
         XCTAssertNil(delegate?.capturedAction,
-                       "Tapping the actionable button again should not inform the delegate of anything")
+                     "Tapping the actionable button again should not inform the delegate of anything")
     }
 
     func testViewConfigurationForRetryActionableState() {
@@ -304,10 +304,10 @@ class LocationResolutionControllerTests: XCTestCase {
     }
 }
 
-class FakeLocationResolutionDelegate: LocationResolutionDelegate {
-    var capturedAction: LocationResolutionController.Action?
+class FakeLocationResolutionDelegate: LocationResolutionDisplayDelegate {
+    var capturedAction: LocationResolutionDisplayState.Action?
 
-    func userRequestedResolutionAction(_ action: LocationResolutionController.Action) {
+    func userRequestedResolutionAction(_ action: LocationResolutionDisplayState.Action) {
         capturedAction = action
     }
 }

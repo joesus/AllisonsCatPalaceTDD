@@ -9,14 +9,30 @@
 import CoreLocation
 import UIKit
 
-protocol LocationResolutionDelegate: class {
-    func userRequestedResolutionAction(_ action: LocationResolutionController.Action)
+protocol LocationResolutionDisplayDelegate: class {
+    func userRequestedResolutionAction(_ action: LocationResolutionDisplayState.Action)
 }
 
-class LocationResolutionController: UIViewController {
+enum LocationResolutionDisplayState: Equatable {
+    case resolving
+    case resolved(placemark: CLPlacemark)
+    case actionable(action: Action)
 
-    weak var delegate: LocationResolutionDelegate?
-    private var actionToPerform: Action?
+    enum Action {
+        case goToSettings, retry
+    }
+}
+
+protocol LocationResolutionDisplaying where Self: UIViewController {
+    var delegate: LocationResolutionDisplayDelegate? { get set }
+
+    func configure(for state: LocationResolutionDisplayState)
+}
+
+class LocationResolutionController: UIViewController, LocationResolutionDisplaying {
+
+    weak var delegate: LocationResolutionDisplayDelegate?
+    private var actionToPerform: LocationResolutionDisplayState.Action?
 
     @IBOutlet weak var mainStack: UIStackView!
     @IBOutlet weak var resolvingView: ResolvingLocationView!
@@ -45,7 +61,7 @@ class LocationResolutionController: UIViewController {
         actionToPerform = nil
     }
 
-    func configure(for state: State) {
+    func configure(for state: LocationResolutionDisplayState) {
         hideArrangedSubviews()
         actionToPerform = nil
 
@@ -68,7 +84,7 @@ class LocationResolutionController: UIViewController {
         )
     }
 
-    private func showActionable(action: Action) {
+    private func showActionable(action: LocationResolutionDisplayState.Action) {
         actionToPerform = action
         actionableView.isHidden = false
 
@@ -92,16 +108,4 @@ class LocationResolutionController: UIViewController {
         actionableButton.setTitle(title, for: .normal)
     }
 
-}
-
-extension LocationResolutionController {
-    enum Action {
-        case goToSettings, retry
-    }
-
-    enum State {
-        case resolving
-        case resolved(placemark: CLPlacemark)
-        case actionable(action: Action)
-    }
 }

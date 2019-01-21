@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 class AnimalAgeGroupObject: Object {
-    dynamic var value: String?
+    @objc dynamic var value: String?
 }
 
 enum AnimalAgeGroup: String {

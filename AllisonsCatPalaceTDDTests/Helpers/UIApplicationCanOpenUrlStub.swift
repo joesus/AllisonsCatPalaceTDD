@@ -26,7 +26,7 @@ extension UIApplication {
         removeAssociation(for: UIApplication.stubbedCanOpenUrlPermissionsKey)
     }
 
-    dynamic func stub_canOpenUrl(_ url: URL) -> Bool {
+    @objc dynamic func stub_canOpenUrl(_ url: URL) -> Bool {
         for (scheme, canOpen) in stubbedCanOpenUrlPermissions where url.scheme == scheme {
             return canOpen
         }

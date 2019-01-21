@@ -17,7 +17,7 @@ import XCTest
 class FavoritesListDataSourceTests: XCTestCase {
 
     let cat = cats.first!
-    let imageData = UIImagePNGRepresentation(#imageLiteral(resourceName: "testCat"))
+    let imageData = #imageLiteral(resourceName: "testCat").pngData()
     let navController = UIStoryboard(
         name: "Main",
         bundle: nil
@@ -32,7 +32,7 @@ class FavoritesListDataSourceTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        realm = realmForTest(withName: name!)
+        realm = realmForTest(withName: name)
         resetRealm(realm)
         InjectionMap.realm = realm
         Dependencies.imageProvider = FakeImageProvider.self

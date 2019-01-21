@@ -53,7 +53,7 @@ extension CLLocationManager {
         stubbedLocationServicesEnabled = nil
     }
 
-    dynamic class func stub_locationServicesEnabled() -> Bool {
+    @objc dynamic class func stub_locationServicesEnabled() -> Bool {
         return stubbedLocationServicesEnabled ?? stub_locationServicesEnabled()
     }
 

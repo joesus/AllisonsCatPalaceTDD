@@ -14,10 +14,10 @@ class SegueTemplate: NSObject {
 
     private static let storyboardSegueTemplateIdentifierKey = "identifier"
 
-    var identifier: String {
+    var identifier: String? {
         return rawTemplate.value(
             forKey: SegueTemplate.storyboardSegueTemplateIdentifierKey
-            ) as! String
+            ) as? String
     }
 
     private static let storyboardSegueTemplateDestinationStringKey

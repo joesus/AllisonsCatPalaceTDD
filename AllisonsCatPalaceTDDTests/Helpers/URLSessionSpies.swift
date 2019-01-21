@@ -95,7 +95,7 @@ extension URLSession {
         }
     }
 
-    dynamic func _spyDataTaskCreationRequest(
+    @objc dynamic func _spyDataTaskCreationRequest(
         with request: URLRequest,
         completionHandler: @escaping (Data?, URLResponse?, Error?) -> Swift.Void
         ) -> URLSessionDataTask {
@@ -111,7 +111,7 @@ extension URLSession {
 
     }
 
-    dynamic func _spyDataTaskCreation(
+    @objc dynamic func _spyDataTaskCreation(
         with url: URL,
         completionHandler: @escaping NetworkTaskCompletionHandler
         ) -> URLSessionDataTask {
@@ -176,6 +176,6 @@ extension URLSession {
         let originalMethod = class_getInstanceMethod(type, originalSelector)
         let alternateMethod = class_getInstanceMethod(type, alternateSelector)
 
-        method_exchangeImplementations(originalMethod, alternateMethod)
+        method_exchangeImplementations(originalMethod!, alternateMethod!)
     }
 }

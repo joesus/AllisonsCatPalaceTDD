@@ -20,7 +20,7 @@ class AnimalTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        realm = realmForTest(withName: name!)
+        realm = realmForTest(withName: name)
         resetRealm(realm)
     }
 

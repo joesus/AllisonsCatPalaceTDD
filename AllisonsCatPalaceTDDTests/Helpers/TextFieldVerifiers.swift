@@ -29,7 +29,7 @@ extension XCTestCase {
             recordFailure(
                 withDescription: message,
                 inFile: file,
-                atLine: line,
+                atLine: Int(line),
                 expected: true
             )
         }

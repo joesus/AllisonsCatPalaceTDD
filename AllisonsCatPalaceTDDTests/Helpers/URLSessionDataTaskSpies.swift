@@ -41,7 +41,7 @@ extension URLSessionTask {
     }
 
     // This is the magical part, setting the associated objects to make sure everything is in the right place
-    dynamic func _spyResume() {
+    @objc dynamic func _spyResume() {
         URLSession.shared.lastResumedDataTask = self
         resumeWasCalled = true
     }
@@ -60,7 +60,7 @@ extension URLSessionTask {
         )
     }
 
-    dynamic func _spyCancel() {
+    @objc dynamic func _spyCancel() {
         cancelWasCalled = true
     }
 
@@ -83,6 +83,6 @@ extension URLSessionTask {
         let originalMethod = class_getInstanceMethod(type, originalSelector)
         let alternateMethod = class_getInstanceMethod(type, alternateSelector)
 
-        method_exchangeImplementations(originalMethod, alternateMethod)
+        method_exchangeImplementations(originalMethod!, alternateMethod!)
     }
 }

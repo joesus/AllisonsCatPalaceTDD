@@ -17,7 +17,7 @@ class AnimalSexTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        realm = realmForTest(withName: self.name!)
+        realm = realmForTest(withName: self.name)
         resetRealm(realm)
     }
 

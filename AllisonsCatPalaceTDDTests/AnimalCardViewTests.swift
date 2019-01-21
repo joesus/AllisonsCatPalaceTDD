@@ -114,7 +114,7 @@ class AnimalCardViewTests: XCTestCase {
     func testConfiguringUsesFetchedImageIfNoImageCachedImageAvailable() {
         let cat = cats.first!
         let url = cat.imageLocations.medium.first!
-        let imageData = UIImagePNGRepresentation(#imageLiteral(resourceName: "testCat"))
+        let imageData = #imageLiteral(resourceName: "testCat").pngData()
         animalCardView.configure(with: cat)
 
         let predicate = NSPredicate { _, _ in
@@ -122,7 +122,7 @@ class AnimalCardViewTests: XCTestCase {
                 return false
             }
 
-            return UIImagePNGRepresentation(image) == UIImagePNGRepresentation(#imageLiteral(resourceName: "testCat"))
+            return image.pngData() == #imageLiteral(resourceName: "testCat").pngData()
         }
 
         expectation(for: predicate, evaluatedWith: [:], handler: nil)

@@ -55,13 +55,13 @@ extension UIApplication {
     }
 
     /// Spy method that replaces the true implementation of `openUrl(_:)`
-    func spy_openUrl(_ url: URL) {
+    @objc func spy_openUrl(_ url: URL) {
         openUrlCalled = true
         openUrlUrl = url
     }
 
     /// Spy method that replaces the true implementation of `open(_:options:completionHandler:)`
-    func spy_open(
+    @objc func spy_open(
         _ url: URL,
         options: [String: Any],
         completionHandler: ((Bool) -> Void)?

@@ -23,9 +23,9 @@ extension UIAlertAction: ObjectSpyable {
     }
 
     /// Spy method that replaces the true implementation of `init(title:style:handler:)`
-    dynamic class func spy_action(
+    @objc dynamic class func spy_action(
         title: String?,
-        style: UIAlertActionStyle,
+        style: UIAlertAction.Style,
         handler: ((UIAlertAction) -> Void)?
         ) -> UIAlertAction {
 

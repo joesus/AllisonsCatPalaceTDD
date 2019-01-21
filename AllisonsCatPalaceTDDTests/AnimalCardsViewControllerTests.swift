@@ -24,7 +24,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
 
         FakeRegistry.reset() //Clears call counts and stored animals between tests
         Dependencies.imageProvider = FakeImageProvider.self
-        realm = realmForTest(withName: name!)
+        realm = realmForTest(withName: name)
 
         resetRealm(realm)
 
@@ -406,7 +406,7 @@ class AnimalCardsViewControllerTests: XCTestCase {
         }
 
         replaceRootViewController(with: navController) // add it to the window
-        navController.addChildViewController(scene) // make controller the top view controller
+        navController.addChild(scene) // make controller the top view controller
 
         let predicate = NSPredicate { _, _ in
             self.scene.performSegueCalled
@@ -414,7 +414,10 @@ class AnimalCardsViewControllerTests: XCTestCase {
         expectation(for: predicate, evaluatedWith: self, handler: nil)
 
         UIViewController.PerformSegueSpyController.createSpy(on: scene)!.spy {
-            scene.performSegue(withIdentifier: "showFavoritesListController", sender: scene.navigationItem.rightBarButtonItem)
+            scene.performSegue(
+                withIdentifier: "showFavoritesListController",
+                sender: scene.navigationItem.rightBarButtonItem
+            )
 
             waitForExpectations(timeout: 2, handler: nil)
 

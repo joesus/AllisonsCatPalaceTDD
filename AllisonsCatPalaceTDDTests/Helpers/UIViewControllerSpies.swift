@@ -23,7 +23,7 @@ extension UIViewController {
         }
     }
 
-    dynamic func _spyViewDidLoad() {
+    @objc dynamic func _spyViewDidLoad() {
         viewDidLoadWasCalled = true
 
         _spyViewDidLoad()
@@ -46,6 +46,6 @@ extension UIViewController {
         let originalMethod = class_getInstanceMethod(type, originalSelector)
         let alternateMethod = class_getInstanceMethod(type, alternateSelector)
 
-        method_exchangeImplementations(originalMethod, alternateMethod)
+        method_exchangeImplementations(originalMethod!, alternateMethod!)
     }
 }

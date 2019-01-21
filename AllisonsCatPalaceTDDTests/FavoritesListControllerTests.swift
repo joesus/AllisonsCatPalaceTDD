@@ -23,7 +23,7 @@ class FavoritesListControllerTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        realm = realmForTest(withName: name!)
+        realm = realmForTest(withName: name)
         resetRealm(realm)
         InjectionMap.realm = realm
 
@@ -49,7 +49,7 @@ class FavoritesListControllerTests: XCTestCase {
                 return XCTFail("Could not instantiate favorites list controller from main storyboard")
         }
 
-        navController.addChildViewController(favoritesListController)
+        navController.addChild(favoritesListController)
         guard let controller = navController.topViewController as? FavoritesListController
             else {
                 return XCTFail("Navigation controller's top view controller should be a favorites list controller")

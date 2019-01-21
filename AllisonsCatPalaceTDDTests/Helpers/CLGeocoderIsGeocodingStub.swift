@@ -51,7 +51,7 @@ extension CLGeocoder {
         stubbedIsGeocoding = nil
     }
 
-    dynamic func stub_isGeocoding() -> Bool {
+    @objc dynamic func stub_isGeocoding() -> Bool {
         return stubbedIsGeocoding ?? stub_isGeocoding()
     }
 

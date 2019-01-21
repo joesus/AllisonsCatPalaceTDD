@@ -76,7 +76,7 @@ class AnimalDetailHeaderViewTests: XCTestCase {
 
     // Test that it's called on the main queue
     func testSettingAnimalFetchesLargeImageIfAvailable() {
-        let imageData = UIImagePNGRepresentation(#imageLiteral(resourceName: "testCat"))
+        let imageData = #imageLiteral(resourceName: "testCat").pngData()
         let frame = CGRect(x: 0, y: 0, width: 10, height: 10)
         let header = AnimalDetailHeaderView(frame: frame)
 

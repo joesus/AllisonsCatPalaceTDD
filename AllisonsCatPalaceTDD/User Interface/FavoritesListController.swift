@@ -73,7 +73,7 @@ class FavoritesListController: UITableViewController, RealmInjected {
 
     override func tableView(
         _ tableView: UITableView,
-        commit editingStyle: UITableViewCellEditingStyle,
+        commit editingStyle: UITableViewCell.EditingStyle,
         forRowAt indexPath: IndexPath
         ) {
 

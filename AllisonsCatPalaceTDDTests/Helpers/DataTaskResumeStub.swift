@@ -51,6 +51,6 @@ extension URLSessionTask {
         URLSessionTask.resumeSurrogate = nil
     }
 
-    dynamic func stub_resume() {}
+    @objc dynamic func stub_resume() {}
 
 }

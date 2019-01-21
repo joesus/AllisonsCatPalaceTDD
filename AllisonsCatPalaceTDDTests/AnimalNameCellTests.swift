@@ -50,7 +50,7 @@ class CatNameCellTests: XCTestCase {
         }
 
         XCTAssertEqual(
-            label.font.fontDescriptor.fontAttributes[UIFontDescriptorTextStyleAttribute] as? UIFontTextStyle,
+            label.font.fontDescriptor.fontAttributes[UIFontDescriptor.AttributeName.textStyle] as? UIFont.TextStyle,
             .title1,
             "Name label should be styled with title 1"
         )

@@ -44,7 +44,7 @@ extension CLLocationManager {
         stubbedAuthorizationStatus = nil
     }
 
-    dynamic class func stub_authorizationStatus() -> CLAuthorizationStatus {
+    @objc dynamic class func stub_authorizationStatus() -> CLAuthorizationStatus {
         return stubbedAuthorizationStatus ?? stub_authorizationStatus()
     }
 

@@ -24,7 +24,7 @@ class AnimalGenotypeTests: XCTestCase {
         }
         genotype = sample
 
-        realm = realmForTest(withName: name!)
+        realm = realmForTest(withName: name)
         resetRealm(realm)
     }
 

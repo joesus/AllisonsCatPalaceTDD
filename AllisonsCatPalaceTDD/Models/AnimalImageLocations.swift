@@ -10,9 +10,9 @@ import Foundation
 import RealmSwift
 
 class AnimalImageLocationsObject: Object {
-    dynamic var small = Data()
-    dynamic var medium = Data()
-    dynamic var large = Data()
+    @objc dynamic var small = Data()
+    @objc dynamic var medium = Data()
+    @objc dynamic var large = Data()
 }
 
 struct AnimalImageLocations {

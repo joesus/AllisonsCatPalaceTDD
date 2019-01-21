@@ -12,9 +12,9 @@ import RealmSwift
 typealias AnimalBreed = String
 
 class AnimalGenotypeObject: Object {
-    dynamic var species: PetfinderAnimalSpeciesObject?
-    dynamic var purity: GeneticPurityObject?
-    dynamic var breeds = Data()
+    @objc dynamic var species: PetfinderAnimalSpeciesObject?
+    @objc dynamic var purity: GeneticPurityObject?
+    @objc dynamic var breeds = Data()
 }
 
 struct AnimalGenotype {

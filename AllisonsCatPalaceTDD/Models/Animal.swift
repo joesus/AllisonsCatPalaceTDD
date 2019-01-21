@@ -10,17 +10,17 @@ import Foundation
 import RealmSwift
 
 class AnimalObject: Object {
-    dynamic var name: String?
+    @objc dynamic var name: String?
     var identifier = RealmOptional<Int>()
-    dynamic var about: String?
-    dynamic var adoptionStatus: AnimalAdoptionStatusObject?
-    dynamic var age: AnimalAgeGroupObject?
-    dynamic var city: String?
-    dynamic var sex: AnimalSexObject?
-    dynamic var genotype: AnimalGenotypeObject?
-    dynamic var stateCode: String?
-    dynamic var size: AnimalSizeObject?
-    dynamic var imageLocations: AnimalImageLocationsObject?
+    @objc dynamic var about: String?
+    @objc dynamic var adoptionStatus: AnimalAdoptionStatusObject?
+    @objc dynamic var age: AnimalAgeGroupObject?
+    @objc dynamic var city: String?
+    @objc dynamic var sex: AnimalSexObject?
+    @objc dynamic var genotype: AnimalGenotypeObject?
+    @objc dynamic var stateCode: String?
+    @objc dynamic var size: AnimalSizeObject?
+    @objc dynamic var imageLocations: AnimalImageLocationsObject?
 
     override class func primaryKey() -> String? {
         return "identifier"

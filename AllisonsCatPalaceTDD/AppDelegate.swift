@@ -9,9 +9,14 @@
 import UIKit
 import ImageProvider
 import ImageProviding
+import LocationResolving
+import LocationResolver
 
 struct Dependencies {
     static var imageProvider: ImageProviding.Type = ImageProvider.self
+    static var locationResolverFactory: () -> LocationResolving = {
+        return LocationResolver()
+    }
 }
 
 @UIApplicationMain

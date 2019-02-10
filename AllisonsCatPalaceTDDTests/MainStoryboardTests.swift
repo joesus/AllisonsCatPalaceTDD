@@ -11,7 +11,46 @@ import XCTest
 
 class MainStoryboardTests: XCTestCase {
 
-    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let storyboard = UIStoryboard(
+        name: UserInterfaceIdentifiers.StoryboardIdentifiers.main,
+        bundle: nil
+    )
+
+    func testStoryboardIdentifier() {
+        XCTAssertEqual(UserInterfaceIdentifiers.StoryboardIdentifiers.main, "Main",
+                       "The main storyboard should be named appropriately")
+    }
+
+    func testSceneIdentifiers() {
+        XCTAssertEqual(
+            UserInterfaceIdentifiers.SceneIdentifiers.locationResolution,
+            "LocationResolutionScene",
+            "The location resolution scene should have a known identifier"
+        )
+        XCTAssertEqual(
+            UserInterfaceIdentifiers.SceneIdentifiers.favorites,
+            "FavoritesScene",
+            "The favorites scene should have a known identifier"
+        )
+        XCTAssertEqual(
+            UserInterfaceIdentifiers.SceneIdentifiers.animalDetails,
+            "AnimalDetails",
+            "The animal details scene should have a known identifier"
+        )
+        XCTAssertEqual(
+            UserInterfaceIdentifiers.SceneIdentifiers.searchResults,
+            "SearchResultsScene",
+            "The search results scene should have a known identifier"
+        )
+    }
+
+    func testSegueIdentifiers() {
+        XCTAssertEqual(
+            UserInterfaceIdentifiers.SegueIdentifiers.showFavorites,
+            "ShowFavorites",
+            "The show favorites segue should have a known identifier"
+        )
+    }
 
     func testInitialViewControllerIsNavigationController() {
         let initialViewController = storyboard.instantiateInitialViewController() as? UINavigationController
@@ -31,19 +70,28 @@ class MainStoryboardTests: XCTestCase {
     }
 
     func testLocationResolutionScene() {
-        let scene = storyboard.instantiateViewController(withIdentifier: "LocationResolutionScene")
+        let scene = storyboard.instantiateViewController(
+            withIdentifier: UserInterfaceIdentifiers.SceneIdentifiers.locationResolution
+        )
+
         XCTAssert(scene is LocationResolutionController,
                   "Should be able to instantiate location resolution scene from storyboard")
     }
 
     func testFavoritesListController() {
-        let favoritesListController = storyboard.instantiateViewController(withIdentifier: "FavoritesScene")
+        let favoritesListController = storyboard.instantiateViewController(
+            withIdentifier: UserInterfaceIdentifiers.SceneIdentifiers.favorites
+        )
+
         XCTAssert(favoritesListController is FavoritesListController,
                   "Should be able to instantiate FavoritesListController from storyboard")
     }
 
     func testCatDetailViewController() {
-        let catDetailController = storyboard.instantiateViewController(withIdentifier: "CatDetailController")
+        let catDetailController = storyboard.instantiateViewController(
+            withIdentifier: UserInterfaceIdentifiers.SceneIdentifiers.animalDetails
+        )
+
         XCTAssert(catDetailController is CatDetailController,
                   "Should be able to instantiate CatDetailController from storyboard")
     }

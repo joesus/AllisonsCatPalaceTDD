@@ -1,4 +1,3 @@
-// swiftlint:disable line_length
 //
 //  LocationController.swift
 //  AllisonsCatPalaceTDD
@@ -7,106 +6,51 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-import CoreLocation
-import RealmSwift
+import AnimalData
+import LocationResolving
 import UIKit
 
-class LocationController: UIViewController, RealmInjected {
+class LocationController: UIViewController {
 
-    private(set) var userLocationResolution: UserLocationResolution = {
-        guard CLLocationManager.locationServicesEnabled() else {
-            return .disallowed
-        }
+    private static let hourTimeInterval: TimeInterval =
+        60 /* seconds per minute */ *
+        60 /* minutes per hour */
 
-        switch CLLocationManager.authorizationStatus() {
-        case .notDetermined:
-            return .unknown
+    @IBOutlet weak var favoritesButton: UIBarButtonItem!
+    @IBOutlet weak var searchButton: UIBarButtonItem!
+    @IBOutlet weak var speciesSelectionControl: UISegmentedControl!
 
-        case .authorizedWhenInUse, .authorizedAlways:
-            return .allowed
+    var locationResolutionScene: LocationResolutionDisplaying!
 
-        case .denied, .restricted:
-            return .disallowed
-        }
+    lazy var locationResolver: LocationResolving = {
+        var resolver = Dependencies.locationResolverFactory()
+        resolver.delegate = self
+        return resolver
     }()
 
-    @IBOutlet weak var locationResolutionStack: UIStackView!
-    @IBOutlet weak var resolvingLocationView: ResolvingLocationView!
-    @IBOutlet weak var resolvedLocationView: ResolvedLocationView!
+    var urlOpener: UrlOpening = UIApplication.shared
 
-    @IBOutlet weak var actionableMessageView: UIView!
-    @IBOutlet weak var actionableMessageLabel: UILabel!
-    @IBOutlet weak var actionableMessageButton: UIButton!
-
-    @IBOutlet weak var searchButton: UIBarButtonItem!
-    @IBOutlet var favoritesButton: UIBarButtonItem!
-    @IBOutlet weak var speciesSelectionControl: UISegmentedControl! {
-        didSet {
-            speciesSelectionControl.setTitleTextAttributes(
-                [NSFontAttributeName: UIFont.preferredFont(forTextStyle: .title2)],
-                for: .normal
-            )
-        }
-    }
-
-    var selectedSpecies: AnimalSpecies? {
+    var selectedSpecies: Species? {
         switch speciesSelectionControl.selectedSegmentIndex {
-        case 0: return PetfinderAnimalSpecies.cat
-        case 1: return PetfinderAnimalSpecies.dog
+        case 0: return .cat
+        case 1: return .dog
 
         default: return nil
         }
     }
 
-    private var searchParameters: PetFinderSearchParameters? {
-        guard case .resolved(let zipCode, _, _) = userLocationResolution else {
-            return nil
-        }
-
-        return PetFinderSearchParameters(
-            zipCode: zipCode,
-            species: selectedSpecies
-        )
-    }
-
-    lazy var locationManager: CLLocationManager = {
-        let manager = CLLocationManager()
-        manager.delegate = self
-        return manager
-    }()
-
-    var geocoder = CLGeocoder()
-
-    private var hasUserLocationPermissions: Bool {
-        return CLLocationManager.locationServicesEnabled() &&
-            CLLocationManager.authorizationStatus() == .authorizedWhenInUse
-    }
-
-    private var shouldPromptForLocationAuthorization: Bool {
-        guard CLLocationManager.locationServicesEnabled() else { return false }
-
-        return CLLocationManager.authorizationStatus() == .notDetermined
-    }
-
-    var needsUpdateOnAppearance = true
+    private var needsUpdateOnAppearance = true
+    private var lastSuccessfulResolutionDate: Date?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configureLocationResolutionStack()
         observeApplicationAppearanceEvents()
-    }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        if realm?.objects(AnimalObject.self) == nil ||
-           realm?.objects(AnimalObject.self).isEmpty == true {
-
-            navigationItem.setLeftBarButton(nil, animated: true)
-        } else {
-            navigationItem.setLeftBarButton(favoritesButton, animated: true)
-        }
+        speciesSelectionControl.setTitleTextAttributes(
+            [.font: UIFont.preferredFont(forTextStyle: .title2)],
+            for: .normal
+        )
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -121,252 +65,96 @@ class LocationController: UIViewController, RealmInjected {
         handleDisappearance()
     }
 
-    func updateUserLocationResolution() {
-        switch userLocationResolution {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        precondition(segue.destination is LocationResolutionController,
+                     "Segue destination should have correct controller")
+
+        if let scene = segue.destination as? LocationResolutionController {
+            locationResolutionScene = scene
+            locationResolutionScene.delegate = self
+        }
+    }
+
+    @objc private func handleAppearance() {
+        guard needsUpdateOnAppearance else { return }
+
+        needsUpdateOnAppearance = false
+
+        switch locationResolver.userLocationResolvability {
         case .unknown:
-            guard CLLocationManager.authorizationStatus() != .notDetermined else {
-                locationManager.requestWhenInUseAuthorization()
-                return
-            }
-
-            let newResolution: UserLocationResolution = hasUserLocationPermissions ?
-                .resolving : .disallowed
-
-            transition(to: newResolution)
+            locationResolver.requestUserLocationAuthorization(for: .whenInUse)
+            locationResolutionScene.configure(for: .resolving)
 
         case .disallowed:
-            if shouldPromptForLocationAuthorization {
-                transition(to: .unknown)
-            }
-            else if hasUserLocationPermissions {
-                transition(to: .resolving)
-            }
+            locationResolutionScene.configure(for: .actionable(action: .goToSettings))
 
         case .allowed:
-            transition(to: hasUserLocationPermissions ? .resolving : .disallowed)
+            if let date = lastSuccessfulResolutionDate,
+                Date() < date.addingTimeInterval(LocationController.hourTimeInterval) {
 
-        case .resolving:
-            locationManager.requestLocation()
-
-        case .resolutionFailure:
-            if hasUserLocationPermissions {
-                transition(to: .resolving)
+                return
             }
             else {
-                transition(to: .disallowed)
+                locationResolver.resolveUserLocation()
+                locationResolutionScene.configure(for: .resolving)
             }
-
-        default:
-            break
         }
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        if geocoder.isGeocoding {
-            geocoder.cancelGeocode()
-        }
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == SearchWorkflow.SegueIdentifiers.performSearch,
-            let destination = segue.destination as? AnimalCardsViewController {
-
-            guard case .resolved(let zipCode, _, _) = userLocationResolution else {
-                fatalError("Should not be able to reach this without a valid location")
-            }
-
-            destination.searchCriteria = PetFinderSearchParameters(
-                zipCode: zipCode,
-                species: selectedSpecies
-            )
-        }
-    }
-
-    func transition(to locationResolution: UserLocationResolution) {
-        userLocationResolution = locationResolution
-        configureLocationResolutionStack()
-        searchButton.isEnabled = shouldEnableSearchButton
-        advanceResolution()
-    }
-
-    func advanceResolution() {
-        switch userLocationResolution {
-        case .unknown:
-            locationManager.requestWhenInUseAuthorization()
-
-        case .resolving:
-            locationManager.requestLocation()
-
-        default:
-            break
-        }
-    }
-
-    func configureLocationResolutionStack() {
-        locationResolutionStack.arrangedSubviews.forEach { subview in
-            subview.isHidden = true
-        }
-
-        var viewToShow: UIView?
-        switch userLocationResolution {
-        case .disallowed:
-            viewToShow = actionableMessageView
-            configureActionableMessageView()
-
-        case .resolving:
-            viewToShow = resolvingLocationView
-
-        case .resolved:
-            viewToShow = resolvedLocationView
-            configureResolvedLocationView()
-
-        case .resolutionFailure:
-            viewToShow = actionableMessageView
-            configureActionableMessageView()
-
-        default:
-            break
-        }
-
-        viewToShow?.isHidden = false
-    }
-
-    private func configureActionableMessageView() {
-        let message: String
-        let title: String
-
-        switch userLocationResolution {
-        case .disallowed:
-            message = "Looks like you're in a top secret location. In order to find the pets closest to you, AdoptR needs to know where you are."
-            title = "Open Settings"
-
-        case .resolutionFailure:
-            message = "We seem to be having trouble locating you."
-            title = "Find My Location"
-
-        default:
-            return
-        }
-
-        actionableMessageLabel.text = message
-        actionableMessageButton.setTitle(title, for: .normal)
-    }
-
-    private func configureResolvedLocationView() {
-        guard case let .resolved(zipCode, city, state) = userLocationResolution else { return }
-
-        resolvedLocationView.configure(
-            locationName: ResolvedLocationView.SimplifiedLocationName(
-                zipCode: zipCode,
-                city: city,
-                state: state
-            )
-        )
-    }
-
-    fileprivate var shouldEnableSearchButton: Bool {
-        if case .resolved = userLocationResolution {
-            return true
-        }
-        else {
-            return false
-        }
-    }
-
-    @IBAction func continueLocationResolution() {
-        switch userLocationResolution {
-        case .resolutionFailure, .resolved:
-            if hasUserLocationPermissions {
-                transition(to: .resolving)
-            }
-            else {
-                transition(to: .disallowed)
-            }
-
-        case .disallowed:
-            guard let url = URL(string: UIApplicationOpenSettingsURLString) else { return }
-
-            UIApplication.shared.open(url, options: [:])
-
-        default:
-            fatalError("Impossible case")
-        }
-
+    @objc private func handleDisappearance() {
+        needsUpdateOnAppearance = true
     }
 
     private func observeApplicationAppearanceEvents() {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(LocationController.handleDisappearance),
-            name: .UIApplicationDidEnterBackground,
+            name: UIApplication.didEnterBackgroundNotification,
             object: nil
         )
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(LocationController.handleAppearance),
-            name: .UIApplicationWillEnterForeground,
+            name: UIApplication.willEnterForegroundNotification,
             object: nil
         )
     }
 
-    func handleDisappearance() {
-        needsUpdateOnAppearance = true
-    }
-
-    func handleAppearance() {
-        guard needsUpdateOnAppearance else { return }
-
-        needsUpdateOnAppearance = false
-        updateUserLocationResolution()
-    }
 }
 
-extension LocationController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
+extension LocationController: LocationResolutionDisplayDelegate {
 
-        geocoder.reverseGeocodeLocation(
-            location,
-            completionHandler: self.handleGeocodingCompletion
-        )
+    func userRequestedResolutionAction(_ action: LocationResolutionDisplayState.Action) {
+        switch action {
+        case .retry:
+            locationResolver.resolveUserLocation()
+
+        case .goToSettings:
+            guard let url = URL(string: UIApplication.openSettingsURLString) else {
+                return
+            }
+
+            urlOpener.open(url, options: [:], completionHandler: nil)
+        }
     }
 
-    private func handleGeocodingCompletion(
-        _ potentialPlacemarks: [CLPlacemark]?,
-        _ potentialError: Error?
-        ) {
+}
 
-        guard potentialError == nil else {
-            return transition(to: .resolutionFailure(error: .unknownError))
+extension LocationController: LocationResolutionDelegate {
+
+    func didResolveLocation(_ location: LocationResolution) {
+        switch location {
+        case let .resolved(placemark, date):
+            lastSuccessfulResolutionDate = date
+            locationResolutionScene.configure(
+                for: .resolved(placemark: placemark)
+            )
+
+        case .resolutionFailed:
+            locationResolutionScene.configure(
+                for: .actionable(action: .retry)
+            )
         }
-
-        guard let placemark = potentialPlacemarks?.first else {
-            return transition(to: .resolutionFailure(error: .noLocationsFound))
-        }
-
-        guard let postalCode = placemark.postalCode else {
-            return transition(to: .resolutionFailure(error: .missingPostalCode))
-        }
-
-        guard let zipCode = ZipCode(rawValue: postalCode) else {
-            return transition(to: .resolutionFailure(error: .invalidPostalCode))
-        }
-
-        let resolution = UserLocationResolution.resolved(
-            zipCode: zipCode,
-            city: placemark.locality,
-            state: placemark.administrativeArea
-        )
-        transition(to: resolution)
     }
 
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        transition(to: .resolutionFailure(error: .unknownError))
-    }
-
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        updateUserLocationResolution()
-    }
 }

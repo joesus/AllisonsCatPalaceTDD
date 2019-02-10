@@ -9,7 +9,7 @@
 @testable import AllisonsCatPalaceTDD
 import UIKit
 
-class FakeApplication: UrlOpening {
+class FakeUrlOpener: UrlOpening {
 
     var capturedUrl: URL?
     func open(

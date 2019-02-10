@@ -23,7 +23,7 @@ enum LocationResolutionDisplayState: Equatable {
     }
 }
 
-protocol LocationResolutionDisplaying where Self: UIViewController {
+protocol LocationResolutionDisplaying: class {
     var delegate: LocationResolutionDisplayDelegate? { get set }
 
     func configure(for state: LocationResolutionDisplayState)

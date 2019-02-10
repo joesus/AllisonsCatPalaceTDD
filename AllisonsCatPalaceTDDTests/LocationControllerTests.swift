@@ -6,7 +6,7 @@
 //  Copyright © 2017 Joesus. All rights reserved.
 //
 
-// swiftlint:disable file_length
+// swiftlint:disable file_length, line_length
 
 @testable import AllisonsCatPalaceTDD
 import AnimalData
@@ -27,6 +27,7 @@ class LocationControllerTests: XCTestCase {
 
         loadController()
         controller.locationResolver = fakeLocationResolver
+        fakeLocationResolver.delegate = controller
     }
 
     private func loadComponents() {
@@ -52,7 +53,7 @@ class LocationControllerTests: XCTestCase {
     func testApplicationDependency() {
         loadController()
 
-        XCTAssertTrue(controller.application === UIApplication.shared,
+        XCTAssertTrue(controller.urlOpener === UIApplication.shared,
                       "Controller should use the correct concrete instance for its application")
     }
 
@@ -98,7 +99,7 @@ class LocationControllerTests: XCTestCase {
         loadComponents()
 
         guard let child = controller.children.first as? LocationResolutionController,
-            child === (controller.locationResolutionScene as? LocationResolutionController)
+            child === controller.locationResolutionScene
             else {
                 return XCTFail("Controller should load a location resolution controller as a child controller")
         }
@@ -261,6 +262,7 @@ class LocationControllerTests: XCTestCase {
 
     func testAppearingWithUnresolvability() {
         fakeLocationResolver.userLocationResolvability = .disallowed
+        controller.locationResolutionScene = fakeResolutionController
         controller.viewDidAppear(false)
 
         XCTAssertNil(fakeLocationResolver.requestedAvailability,
@@ -271,6 +273,7 @@ class LocationControllerTests: XCTestCase {
 
     func testAppearingWithResolvability() {
         fakeLocationResolver.userLocationResolvability = .allowed
+        controller.locationResolutionScene = fakeResolutionController
         controller.viewDidAppear(false)
 
         XCTAssertNil(fakeLocationResolver.requestedAvailability,
@@ -281,13 +284,12 @@ class LocationControllerTests: XCTestCase {
                        "Should request user location on appearance when allowed")
     }
 
-//    resolved(placemark: CLPlacemark) - should not be possible
-//    resolutionFailed(error: LocationResolutionError) - configure resolution scene for retry
-
     // MARK: - Reappearing
 
     func testReappearingWithUnknownResolvability() {
         fakeLocationResolver.userLocationResolvability = .unknown
+        loadComponents()
+        controller.locationResolutionScene = fakeResolutionController
         controller.viewDidAppear(false)
         controller.viewDidDisappear(false)
 
@@ -295,14 +297,16 @@ class LocationControllerTests: XCTestCase {
 
         NotificationCenter.default.post(name: UIApplication.willEnterForegroundNotification, object: nil)
 
-        XCTAssertNil(fakeLocationResolver.requestedAvailability,
-                     "Should not request availability more than once")
+        XCTAssertEqual(fakeLocationResolver.requestedAvailability, .whenInUse,
+                       "Should request availability when reappearing with unknown resolvability")
         XCTAssertEqual(fakeResolutionController.state, .resolving,
                        "Should configure resolution controller with a resolving state")
     }
 
     func testReappearingWithUnresolvability() {
         fakeLocationResolver.userLocationResolvability = .disallowed
+        loadComponents()
+        controller.locationResolutionScene = fakeResolutionController
         controller.viewDidAppear(false)
         controller.viewDidDisappear(false)
 
@@ -316,6 +320,8 @@ class LocationControllerTests: XCTestCase {
 
     func testReappearingWithResolvability() {
         fakeLocationResolver.userLocationResolvability = .disallowed
+        loadComponents()
+        controller.locationResolutionScene = fakeResolutionController
         controller.viewDidAppear(false)
         controller.viewDidDisappear(false)
 
@@ -333,35 +339,42 @@ class LocationControllerTests: XCTestCase {
 
     func testReappearingWithFailedResolution() {
         fakeLocationResolver.userLocationResolvability = .allowed
+        loadComponents()
+        controller.locationResolutionScene = fakeResolutionController
         controller.viewDidAppear(false)
         controller.viewDidDisappear(false)
 
-        fakeLocationResolver.locationResolution = .resolutionFailed(
-            error: .unknown,
-            date: Date()
+        controller.didResolveLocation(
+            .resolutionFailed(
+                error: .unknown,
+                date: Date()
+            )
         )
 
         NotificationCenter.default.post(name: UIApplication.willEnterForegroundNotification, object: nil)
 
         XCTAssertNil(fakeLocationResolver.requestedAvailability,
                      "Should not request availability more than once")
-        XCTAssertEqual(fakeLocationResolver.resolveUserLocationCallCount, 1,
-                       "Should not automatically request user location on reappearance")
-        XCTAssertEqual(fakeResolutionController.state, .actionable(action: .retry),
-                       "Should configure resolution controller with an actionable retry state")
+        XCTAssertEqual(fakeLocationResolver.resolveUserLocationCallCount, 2,
+                       "Should automatically request user location on reappearance if previous request failed")
+
+        XCTAssertEqual(fakeResolutionController.state, .resolving,
+                       "Should configure resolution controller with a resolving state on reappearance if previous request failed")
     }
 
-    // TODO: - this is where we'd come back and check time and caching and stuff
     func testReappearingWithResolvedLocation() {
         fakeLocationResolver.userLocationResolvability = .allowed
+        loadComponents()
+        controller.locationResolutionScene = fakeResolutionController
         controller.viewDidAppear(false)
         controller.viewDidDisappear(false)
 
-        fakeLocationResolver.locationResolution = .resolved(
-            placemark: SamplePlacemarks.denver,
-            date: Date()
+        controller.didResolveLocation(
+            .resolved(
+                placemark: SamplePlacemarks.denver,
+                date: Date()
+            )
         )
-
         NotificationCenter.default.post(name: UIApplication.willEnterForegroundNotification, object: nil)
 
         XCTAssertNil(fakeLocationResolver.requestedAvailability,
@@ -372,9 +385,36 @@ class LocationControllerTests: XCTestCase {
                        "Should configure resolution controller with a resolved state")
     }
 
+    func testReappearingWithExpiredResolvedLocation() {
+        fakeLocationResolver.userLocationResolvability = .allowed
+        loadComponents()
+        controller.locationResolutionScene = fakeResolutionController
+        controller.viewDidAppear(false)
+        controller.viewDidDisappear(false)
+
+        fakeLocationResolver.locationResolution = .resolved(
+            placemark: SamplePlacemarks.denver,
+            date: Date().addingTimeInterval(
+                -1 /* subtracting time */ *
+                60 /* seconds per minute */ *
+                60 /* minutes per hour */
+            )
+        )
+
+        NotificationCenter.default.post(name: UIApplication.willEnterForegroundNotification, object: nil)
+
+        XCTAssertNil(fakeLocationResolver.requestedAvailability,
+                     "Should not request availability more than once")
+        XCTAssertEqual(fakeLocationResolver.resolveUserLocationCallCount, 2,
+                       "Should automatically request user location on reappearance if the previously resolved location is stale")
+        XCTAssertEqual(fakeResolutionController.state, .resolving,
+                       "Should configure resolution controller with a resolving state if the previously resolved location is stale")
+    }
+
     // MARK: - Automatic Transitions
 
     func testResolvingToResolutionFailure() {
+        controller.locationResolutionScene = fakeResolutionController
         controller.didResolveLocation(.resolutionFailed(error: .unknown, date: Date()))
 
         XCTAssertEqual(fakeResolutionController.state, .actionable(action: .retry),
@@ -382,6 +422,7 @@ class LocationControllerTests: XCTestCase {
     }
 
     func testResolvingToResolvedLocation() {
+        controller.locationResolutionScene = fakeResolutionController
         controller.didResolveLocation(.resolved(placemark: SamplePlacemarks.denver, date: Date()))
 
         XCTAssertEqual(fakeResolutionController.state, .resolved(placemark: SamplePlacemarks.denver),
@@ -391,11 +432,11 @@ class LocationControllerTests: XCTestCase {
     // MARK: - Manual Transitions
 
     func testUserRequestsGoToSettings() {
-        let fakeApplication = FakeApplication()
-        controller.application = fakeApplication
+        let fakeUrlOpener = FakeUrlOpener()
+        controller.urlOpener = fakeUrlOpener
         controller.userRequestedResolutionAction(.goToSettings)
 
-        XCTAssertEqual(fakeApplication.capturedUrl, URL(string: UIApplication.openSettingsURLString),
+        XCTAssertEqual(fakeUrlOpener.capturedUrl, URL(string: UIApplication.openSettingsURLString),
                        "Going to settings should open the correct url")
     }
 

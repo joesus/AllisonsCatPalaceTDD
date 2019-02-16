@@ -23,7 +23,7 @@ class FavoritesListController: UITableViewController, RealmInjected {
 
         guard let realm = realm else { return }
 
-        animals = realm.objects(AnimalObject.self).flatMap { animalObject in
+        animals = realm.objects(AnimalObject.self).compactMap { animalObject in
             Animal(managedObject: animalObject)
         }
 

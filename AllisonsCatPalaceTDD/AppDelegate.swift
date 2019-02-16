@@ -7,10 +7,10 @@
 //
 
 import UIKit
-import ImageProvider
 import ImageProviding
-import LocationResolving
+import ImageProvider
 import LocationResolver
+import LocationResolving
 
 struct Dependencies {
     static var imageProvider: ImageProviding.Type = ImageProvider.self

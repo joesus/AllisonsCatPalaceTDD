@@ -30,11 +30,14 @@ final class GenotypeBuilder {
         }
 
         guard let breedsContainer = json[ExternalAnimalKeys.GenotypeKeys.breeds] as? JsonObject,
-            let breedsList = breedsContainer[ExternalAnimalKeys.GenotypeKeys.breed] as? JsonArray,
-            !breedsList.flatMap({ $0[ExternalAnimalKeys.elementContentKey] as? String }).isEmpty else {
-            return nil
+            let rawBreedsList = breedsContainer[ExternalAnimalKeys.GenotypeKeys.breed] as? JsonArray
+            else {
+                return nil
         }
-        let breeds = breedsList.flatMap { $0[ExternalAnimalKeys.elementContentKey] as? String }
+
+        let breeds = rawBreedsList.compactMap { $0[ExternalAnimalKeys.elementContentKey] as? String }
+
+        guard !breeds.isEmpty else { return nil }
 
         return AnimalGenotype(species: species, purity: purity, breeds: breeds)
     }

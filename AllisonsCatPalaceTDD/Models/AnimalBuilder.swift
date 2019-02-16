@@ -95,7 +95,7 @@ final class PetFinderAnimalBuilder: AnimalBuilder {
             return []
         }
 
-        return list.flatMap { buildAnimalFromExternalAnimal($0) }
+        return list.compactMap { buildAnimalFromExternalAnimal($0) }
     }
 
     static func buildAnimal(from response: PetFinderResponse) -> Animal? {

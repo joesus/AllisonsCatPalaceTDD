@@ -25,7 +25,6 @@ enum LocationResolutionDisplayState: Equatable {
 
 protocol LocationResolutionDisplaying: class {
     var delegate: LocationResolutionDisplayDelegate? { get set }
-
     func configure(for state: LocationResolutionDisplayState)
 }
 

@@ -125,7 +125,7 @@ struct PetFinderSearchParameters: AnimalSearchParameters {
             sexQueryItem
         ]
 
-        return Set(queryItems.flatMap { $0 })
+        return Set(queryItems.compactMap { $0 })
     }
 }
 

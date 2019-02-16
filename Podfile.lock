@@ -1,8 +1,8 @@
 PODS:
   - FoundationSwagger (0.2.14)
-  - Koloda (4.1):
+  - Koloda (4.6):
     - pop (~> 1.0)
-  - pop (1.0.9)
+  - pop (1.0.12)
   - Realm (2.10.0):
     - Realm/Headers (= 2.10.0)
   - Realm/Headers (2.10.0)
@@ -37,8 +37,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   FoundationSwagger: e5aa3e41320e0e2931dbd4a12ab4cf2e03c558e4
-  Koloda: 6c4fa3ce9a68776a8ef973311e53fdda432799a8
-  pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  Koloda: bcf5acded25fc49020d1447ed8ddd87e14d01e7e
+  pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
   Realm: 98b3a25643cf6b3e07d2b99fb43fe0eb9c801dec
   RealmSwift: 34073ad3a31232bbaf7c0db898c037940284cba2
   SwiftLint: 2aa21b96c8d13396a051bc1cb659d2ce1e0075b0
@@ -46,6 +46,6 @@ SPEC CHECKSUMS:
   TestableUIKit: 677e7d18b0912757a92548eba2c2d1832b94c7ac
   TestSwagger: 10428263bd31debe64adc7c1444c7517e5a88548
 
-PODFILE CHECKSUM: a2511017c9d55ebd9da923cdc7019915e211dd30
+PODFILE CHECKSUM: a7f9ed80d7ae47318fb8c3b8ff7aa396f37117c6
 
 COCOAPODS: 1.5.3

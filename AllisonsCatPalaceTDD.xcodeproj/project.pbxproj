@@ -1464,7 +1464,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7875B590B29305AC1493953A /* Pods-AllisonsCatPalaceTDDTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AllisonsCatPalaceTDDTests/Info.plist;
@@ -1479,7 +1478,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 75C842F7519FA5465CF58554 /* Pods-AllisonsCatPalaceTDDTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AllisonsCatPalaceTDDTests/Info.plist;

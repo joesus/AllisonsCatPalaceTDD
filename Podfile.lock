@@ -23,6 +23,18 @@ DEPENDENCIES:
   - TestableCoreLocation
   - TestableUIKit
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - FoundationSwagger
+    - Koloda
+    - pop
+    - Realm
+    - RealmSwift
+    - SwiftLint
+    - TestableCoreLocation
+    - TestableUIKit
+    - TestSwagger
+
 SPEC CHECKSUMS:
   FoundationSwagger: e5aa3e41320e0e2931dbd4a12ab4cf2e03c558e4
   Koloda: 6c4fa3ce9a68776a8ef973311e53fdda432799a8
@@ -36,4 +48,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: a2511017c9d55ebd9da923cdc7019915e211dd30
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3

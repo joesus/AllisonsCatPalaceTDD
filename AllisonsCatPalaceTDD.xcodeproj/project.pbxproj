@@ -833,7 +833,6 @@
 				276C61901E2C062200225CF4 /* Resources */,
 				27BC7EEE204484E20001C9EA /* Lint with Swiftlint */,
 				864ABF7A7ADBD45ACA7E15F3 /* [CP] Embed Pods Frameworks */,
-				4F2DA9DB8157F35D616F85AC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -859,7 +858,6 @@
 				276C61A31E2C062200225CF4 /* Frameworks */,
 				276C61A41E2C062200225CF4 /* Resources */,
 				269D626E8A31B0642E6A670B /* [CP] Embed Pods Frameworks */,
-				6EA954CA3A1DCE9ACE6E7EE5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1104,21 +1102,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/SwiftLint/swiftlint\"\n";
 		};
-		4F2DA9DB8157F35D616F85AC /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AllisonsCatPalaceTDD/Pods-AllisonsCatPalaceTDD-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		6DD4DB03D52BCF41C2DC42A3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1135,21 +1118,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6EA954CA3A1DCE9ACE6E7EE5 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AllisonsCatPalaceTDDTests/Pods-AllisonsCatPalaceTDDTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		864ABF7A7ADBD45ACA7E15F3 /* [CP] Embed Pods Frameworks */ = {

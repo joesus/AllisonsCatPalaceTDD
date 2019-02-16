@@ -881,12 +881,10 @@
 				TargetAttributes = {
 					276C61911E2C062200225CF4 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = NEL58AT86X;
 						ProvisioningStyle = Automatic;
 					};
 					276C61A51E2C062200225CF4 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = NEL58AT86X;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 276C61911E2C062200225CF4;
 					};
@@ -1441,7 +1439,7 @@
 			baseConfigurationReference = 339F8D923A691D8422D19E85 /* Pods-AllisonsCatPalaceTDD.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = NEL58AT86X;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AllisonsCatPalaceTDD/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joesus.AllisonsCatPalaceTDD;
@@ -1454,7 +1452,7 @@
 			baseConfigurationReference = 8337DA1BFB7A3226D3410B0F /* Pods-AllisonsCatPalaceTDD.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = NEL58AT86X;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AllisonsCatPalaceTDD/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joesus.AllisonsCatPalaceTDD;
@@ -1468,7 +1466,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = NEL58AT86X;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AllisonsCatPalaceTDDTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joesus.AllisonsCatPalaceTDDTests;
@@ -1483,7 +1481,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = NEL58AT86X;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AllisonsCatPalaceTDDTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joesus.AllisonsCatPalaceTDDTests;
